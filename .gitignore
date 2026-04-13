@@ -1,3 +1,28 @@
+# Local dev config
 .claude/
 *.pyc
 __pycache__/
+
+# Earlier design iterations
+mockup-a-redesign.html
+mockup-b-three-column.html
+
+# Session notes and project planning
+session-*.md
+session-handoff.md
+PROJECT-PLAN.md
+
+# Data build scripts and source files (keep only the output JSON)
+data/*.py
+data/*.csv
+data/*.xlsx
+data/*.md
+
+# Reference materials
+reference/
+
+# Reference images not used by the live site
+images/Tableau Dashboard Screenshots/
+images/NCDPI Web Style Guide/
+images/NCDPI Data Visualization Style Guide Colors.csv
+images/Strategic Plan Style Guide.pdf
