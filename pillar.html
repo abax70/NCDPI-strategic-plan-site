@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pillar Dashboard | NCDPI Strategic Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Bootstrap Icons — approved icon library per NCDPI Web Style Guide -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+  :root {
+    /* === Brand colors (shared with landing page) === */
+    --navy: #003A70;
+    --navy-dark: #00284F;
+    --navy-light: #D9E4F1;
+    --secondary: #197BCE;
+    --orange: #FF9015;
+    --orange-bg: #FFEEDC;
+    --accent-text: #A03A18;
+    --text: #212529;
+    --bg: #F5F7FA;
+    --white: #FFFFFF;
+    --border: #E0E3E8;
+
+    /* === Pillar colors === */
+    --pillar1: #003A70;
+    --pillar2: #922880;
+    --pillar3: #29B5D9;
+    --pillar4: #FF9015;
+    --pillar5: #74C04B;
+    --pillar6: #8C9EA0;
+    --pillar7: #0077BF;
+    --pillar8: #801323;
+    --pillar1-bg: #D9E4F1;
+    --pillar2-bg: #EFDFEC;
+    --pillar3-bg: #DFF4F9;
+    --pillar4-bg: #FFEEDC;
+    --pillar5-bg: #EAF6E4;
+    --pillar6-bg: #EFF3F3;
+    --pillar7-bg: #D4EFFC;
+    --pillar8-bg: #ECDCDE;
+
+    /* === Contrast-safe text colors for pillar headings (small text) === */
+    --pillar1-text: #003A70;
+    --pillar2-text: #6E1360;
+    --pillar3-text: #097A93;
+    --pillar4-text: #CB5277;
+    --pillar5-text: #39813F;
+    --pillar6-text: #6B6F71;
+    --pillar7-text: #0063A2;
+    --pillar8-text: #801323;
+
+    /* === Active pillar (set by JS) === */
+    --pcolor: var(--pillar1);
+    --pbg: var(--pillar1-bg);
+    --ptext: var(--pillar1-text);
+
+    /* Status colors */
+    --status-active: #197BCE;   /* neutral blue — avoids RYG stoplight connotations */
+    --status-gray: #6B7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+
+  /* =========================================================
+     PILLAR HERO — Condensed, pillar-branded
+     Same two-panel structure as landing page hero, but shorter
+     and featuring the pillar identity instead of the plan title.
+     ========================================================= */
+  .pillar-hero {
+    display: flex;
+    align-items: stretch;
+    min-height: 110px;
+    position: relative;
+    /* Gradient: dark pillar color on left, fades to white on right.
+       Stays dark through ~65% to keep white text readable, then fades. */
+    background: linear-gradient(to right, var(--pcolor) 0%, var(--pcolor) 45%, #FFFFFF 100%);
+  }
+  .pillar-hero-left {
+    flex: 1;
+    color: white;
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .pillar-hero-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .pillar-hero-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .pillar-hero-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #FFFFFF;
+    margin-bottom: 2px;
+  }
+  .pillar-hero-title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .pillar-hero-right {
+    width: 280px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .pillar-hero-logo {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .pillar-hero-logo img {
+    max-height: 80px;
+    max-width: 200px;
+    object-fit: contain;
+  }
+  /* =========================================================
+     TWO-COLUMN BODY — sidebar (280px) + content (1fr)
+     Drops the landing page's right sidebar for more
+     horizontal space on text-heavy pillar content.
+     ========================================================= */
+  .two-col {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 220px);
+    border-top: 3px solid var(--navy-light);
+  }
+
+  /* === LEFT SIDEBAR: Pillar Navigation (shared with landing page) === */
+  .sidebar-left {
+    background: white;
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    overflow-y: auto;
+  }
+  .sidebar-heading {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--navy);
+    padding: 0 20px 14px;
+  }
+  .pillar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+  }
+  .pillar-link:hover {
+    background: #F5F7FA;
+    border-left-color: var(--navy-light);
+  }
+  .pillar-link.active {
+    background: var(--pbg);
+    border-left-color: var(--pcolor);
+    color: var(--navy);
+  }
+  .pillar-link img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+  .pillar-link .pillar-name { flex: 1; }
+
+  .sidebar-left hr {
+    border: none;
+    border-top: 1px solid #E8ECF0;
+    margin: 16px 20px;
+  }
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .sidebar-link:hover { text-decoration: underline; }
+  .sidebar-link i {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* =========================================================
+     CENTER: Pillar Content Area
+     ========================================================= */
+  .pillar-content {
+    padding: 24px 32px;
+    overflow-y: auto;
+  }
+
+  /* --- Pillar switcher: dropdown + prev/next + "Pillar N of 8" --- */
+  .pillar-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background: #F0F2F5;
+    padding: 10px 16px;
+    border-radius: 8px;
+  }
+  .pillar-switcher select {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    padding: 8px 14px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    min-width: 280px;
+    background: white;
+  }
+  .pillar-nav-arrows {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .pillar-nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid var(--navy);
+    background: white;
+    color: var(--navy);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .pillar-nav-btn:hover { background: var(--navy); color: white; }
+  .pillar-counter {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-left: 10px;
+  }
+
+  /* --- Tab bar --- */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .tab-btn {
+    padding: 12px 24px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--status-gray);
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -2px;  /* overlap the tab-bar border */
+  }
+  .tab-btn:hover {
+    color: var(--navy);
+    background: #F5F7FA;
+  }
+  .tab-btn.active {
+    color: var(--ptext);
+    border-bottom-color: var(--pcolor);
+  }
+
+  /* --- Tab panels --- */
+  .tab-panel {
+    display: none;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+
+  /* --- Nested 2-col layout inside tabs: focus area list + detail --- */
+  .tab-inner {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+    min-height: 400px;
+  }
+
+  /* === Focus Area List (left sub-column) === */
+  .fa-list {
+    border-right: 1px solid var(--border);
+    padding-right: 16px;
+  }
+  .fa-list-heading {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .fa-item {
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-bottom: 4px;
+    border-left: 3px solid transparent;
+  }
+  .fa-item:hover {
+    background: #F5F7FA;
+  }
+  .fa-item.active {
+    background: var(--pbg);
+    border-left-color: var(--pcolor);
+  }
+  .fa-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .fa-item.active .fa-item-name {
+    color: var(--navy);
+  }
+  .fa-item-meta {
+    font-size: 12px;
+    color: var(--status-gray);
+    margin-top: 2px;
+  }
+  /* Focus areas with 0 stories — grayed out in Stories tab */
+  .fa-item.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  /* === Detail area (right sub-column) === */
+  .detail-area {
+    min-height: 300px;
+  }
+  .detail-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    flex: 1;
+  }
+  .detail-header .count-badge {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ptext);
+    background: var(--pbg);
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  /* =========================================================
+     ACTION CARDS
+     Reuses the .motion-card pattern from the landing page
+     with slight modifications for the pillar page context.
+     ========================================================= */
+  .action-card {
+    background: white;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--pcolor);
+    transition: box-shadow 0.15s;
+  }
+  .action-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .action-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .action-id-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ptext);
+    background: var(--pbg);
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .action-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.35;
+  }
+  .action-card-desc {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .action-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .action-status.in-progress {
+    color: var(--status-active);
+  }
+  .action-status.not-started {
+    color: var(--status-gray);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .action-status i {
+    font-size: 14px;
+  }
+
+  /* =========================================================
+     STORY CARDS
+     Link-out cards pointing to dpi.nc.gov blog posts.
+     ========================================================= */
+  .story-card {
+    background: white;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--pcolor);
+    transition: box-shadow 0.15s;
+  }
+  .story-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .story-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+  .story-card-title a {
+    color: var(--ptext);
+    text-decoration: none;
+  }
+  .story-card-title a:hover {
+    text-decoration: underline;
+  }
+  .story-card-title i {
+    font-size: 12px;
+    margin-left: 6px;
+    opacity: 0.6;
+  }
+  .story-card-meta {
+    font-size: 13px;
+    color: var(--status-gray);
+    margin-bottom: 6px;
+  }
+  .story-card-rationale {
+    font-size: 13px;
+    color: var(--status-gray);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* Empty state for focus areas with no stories */
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--status-gray);
+    font-size: 15px;
+  }
+  .empty-state i {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+
+  /* Stories help note */
+  .stories-help {
+    font-size: 12px;
+    color: var(--status-gray);
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* =========================================================
+     RESULTS PLACEHOLDER
+     ========================================================= */
+  .results-placeholder {
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .results-placeholder i {
+    font-size: 40px;
+    color: var(--pcolor);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .results-placeholder p {
+    font-size: 16px;
+    color: var(--text);
+    max-width: 400px;
+    margin: 0 auto 16px;
+    line-height: 1.6;
+  }
+  .results-placeholder a {
+    color: var(--navy);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .results-placeholder a:hover { text-decoration: underline; }
+
+  /* Visible focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+  }
+  /* Remove focus outline for mouse clicks */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PILLAR HERO — Condensed, pillar-branded ===== -->
+<div class="pillar-hero" id="pillarHero">
+  <div class="pillar-hero-left">
+    <img class="pillar-hero-icon" id="heroIcon" src="" alt="">
+    <div class="pillar-hero-text">
+      <span class="pillar-hero-label" id="heroLabel">PILLAR 1</span>
+      <h1 class="pillar-hero-title" id="heroTitle">Loading...</h1>
+    </div>
+  </div>
+  <div class="pillar-hero-right">
+    <div class="pillar-hero-logo">
+      <a href="index.html">
+        <img src="images/Achieving Academic Excellence Logos/AEE Logos with Tagline/Logo-AchEdExc-tagline-MAIN.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TWO-COLUMN BODY ===== -->
+<div class="two-col">
+
+  <!-- LEFT SIDEBAR: Pillar Navigation (same component as landing page) -->
+  <nav class="sidebar-left" role="navigation" aria-label="Strategic Pillars">
+    <div class="sidebar-heading">Strategic Pillars</div>
+
+    <a class="pillar-link" href="index.html" style="--pcolor: var(--navy); --pbg: var(--navy-light);">
+      <i class="bi bi-house-door" style="font-size: 32px; width: 40px; text-align: center; color: var(--navy);" aria-hidden="true"></i>
+      <span class="pillar-name" style="font-weight: 700;">Best in the Nation Measures</span>
+    </a>
+
+    <hr style="margin: 8px 20px 12px;">
+
+    <a class="pillar-link" href="pillar.html?p=1" data-pillar="1" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-1-Icon-Students.png" alt="" role="presentation">
+      <span class="pillar-name">Prepare Each Student for Their Next Phase in Life</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=2" data-pillar="2" style="--pcolor: var(--pillar2); --pbg: var(--pillar2-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-2-Icon-Educators.png" alt="" role="presentation">
+      <span class="pillar-name">Revere Public School Educators</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=3" data-pillar="3" style="--pcolor: var(--pillar3); --pbg: var(--pillar3-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-3-Icon-Community.png" alt="" role="presentation">
+      <span class="pillar-name">Enhance Parent, Caregiver, and Community Support</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=4" data-pillar="4" style="--pcolor: var(--pillar4); --pbg: var(--pillar4-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-4-Icon-HealthySafe.png" alt="" role="presentation">
+      <span class="pillar-name">Ensure Healthy, Safe and Secure Learning Environments</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=5" data-pillar="5" style="--pcolor: var(--pillar5); --pbg: var(--pillar5-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-5-Icon-Operational.png" alt="" role="presentation">
+      <span class="pillar-name">Optimize Operational Excellence</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=6" data-pillar="6" style="--pcolor: var(--pillar6); --pbg: var(--pillar6-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-6-Icon-Transformative.png" alt="" role="presentation">
+      <span class="pillar-name">Lead Transformative Change</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=7" data-pillar="7" style="--pcolor: var(--pillar7); --pbg: var(--pillar7-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-7-Icon-Celebrate.png" alt="" role="presentation">
+      <span class="pillar-name">Celebrate the Excellence in Public Education</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=8" data-pillar="8" style="--pcolor: var(--pillar8); --pbg: var(--pillar8-bg);">
+      <img src="images/Pillar Icons/Icons Only/Pillar-8-Icon-Champions.png" alt="" role="presentation">
+      <span class="pillar-name">Galvanize Champions to Fully Invest in and Support Public Education</span>
+    </a>
+
+    <hr>
+    <a class="sidebar-link" href="#"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
+    <a class="sidebar-link" href="#"><i class="bi bi-envelope" aria-hidden="true"></i> Contact: Geoff Coltrane</a>
+  </nav>
+
+  <!-- CENTER: Pillar Content -->
+  <div class="pillar-content" id="pillar-main-content">
+
+    <!-- Pillar switcher: dropdown + prev/next arrows + counter -->
+    <div class="pillar-switcher">
+      <select id="pillarSelect" aria-label="Jump to pillar">
+        <!-- Options populated from pillar-data.json -->
+      </select>
+      <div class="pillar-nav-arrows">
+        <button class="pillar-nav-btn" id="prevPillar" aria-label="Previous pillar">&#8249;</button>
+        <button class="pillar-nav-btn" id="nextPillar" aria-label="Next pillar">&#8250;</button>
+        <span class="pillar-counter" id="pillarCounter">Pillar 1 of 8</span>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar" role="tablist" aria-label="Pillar content tabs">
+      <button class="tab-btn active" role="tab" aria-selected="true"
+              aria-controls="panel-actions" id="tab-actions" tabindex="0">
+        <i class="bi bi-list-check" aria-hidden="true"></i> Actions
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              aria-controls="panel-stories" id="tab-stories" tabindex="-1">
+        <i class="bi bi-newspaper" aria-hidden="true"></i> Stories
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              aria-controls="panel-results" id="tab-results" tabindex="-1">
+        <i class="bi bi-bar-chart-line" aria-hidden="true"></i> Results
+      </button>
+    </div>
+
+    <!-- === ACTIONS TAB === -->
+    <div class="tab-panel active" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions">
+      <div class="tab-inner">
+        <div class="fa-list" id="actionsFA" role="listbox" aria-label="Focus areas">
+          <div class="fa-list-heading">Focus Areas</div>
+          <!-- Focus area items populated by JS -->
+        </div>
+        <div class="detail-area" id="actionsDetail" aria-live="polite">
+          <!-- Action cards populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- === STORIES TAB === -->
+    <div class="tab-panel" id="panel-stories" role="tabpanel" aria-labelledby="tab-stories">
+      <div class="tab-inner">
+        <div class="fa-list" id="storiesFA" role="listbox" aria-label="Focus areas">
+          <div class="fa-list-heading">Focus Areas</div>
+          <!-- Focus area items populated by JS -->
+        </div>
+        <div class="detail-area" id="storiesDetail" aria-live="polite">
+          <!-- Story cards populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- === RESULTS TAB (placeholder) === -->
+    <div class="tab-panel" id="panel-results" role="tabpanel" aria-labelledby="tab-results">
+      <div class="results-placeholder" id="resultsContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Pillar Dashboard — JavaScript
+   Reads data/pillar-data.json and renders focus areas, actions,
+   and stories for the selected pillar. Single fetch enables
+   instant pillar switching without reloads.
+   ============================================================ */
+
+// --- Pillar icon lookup (matches the sidebar image file names) ---
+const PILLAR_ICONS = {
+  1: 'images/Pillar Icons/Icons Only/Pillar-1-Icon-Students.png',
+  2: 'images/Pillar Icons/Icons Only/Pillar-2-Icon-Educators.png',
+  3: 'images/Pillar Icons/Icons Only/Pillar-3-Icon-Community.png',
+  4: 'images/Pillar Icons/Icons Only/Pillar-4-Icon-HealthySafe.png',
+  5: 'images/Pillar Icons/Icons Only/Pillar-5-Icon-Operational.png',
+  6: 'images/Pillar Icons/Icons Only/Pillar-6-Icon-Transformative.png',
+  7: 'images/Pillar Icons/Icons Only/Pillar-7-Icon-Celebrate.png',
+  8: 'images/Pillar Icons/Icons Only/Pillar-8-Icon-Champions.png'
+};
+
+// Contrast-safe text colors for pillar-branded elements (WCAG 4.5:1 on white)
+const PILLAR_TEXT = {
+  1: '#003A70', 2: '#6E1360', 3: '#097A93', 4: '#CB5277',
+  5: '#39813F', 6: '#6B6F71', 7: '#0063A2', 8: '#801323'
+};
+
+// --- DOM references ---
+var pillarSelect   = document.getElementById('pillarSelect');
+var pillarCounter  = document.getElementById('pillarCounter');
+var prevBtn        = document.getElementById('prevPillar');
+var nextBtn        = document.getElementById('nextPillar');
+var heroIcon       = document.getElementById('heroIcon');
+var heroLabel      = document.getElementById('heroLabel');
+var heroTitle      = document.getElementById('heroTitle');
+var pillarHero     = document.getElementById('pillarHero');
+var pillarLinks    = document.querySelectorAll('.pillar-link[data-pillar]');
+var tabBtns        = document.querySelectorAll('.tab-btn');
+var tabPanels      = document.querySelectorAll('.tab-panel');
+
+// Track active state
+var currentPillarIndex = 0;  // 0-based index into pillarData.pillars
+var activeFocusArea = { actions: 0, stories: 0 };  // track per-tab
+var activeTab = 'actions';
+
+// --- Build the pillar dropdown from JSON ---
+function buildPillarDropdown(pillars) {
+  pillarSelect.innerHTML = '';
+  pillars.forEach(function(p, i) {
+    var o = document.createElement('option');
+    o.value = i;
+    o.textContent = 'Pillar ' + p.pillarNum + ': ' + p.pillarName;
+    pillarSelect.appendChild(o);
+  });
+}
+
+// ============================================================
+// switchPillar — Master function: updates everything for a pillar
+// ============================================================
+function switchPillar(index) {
+  var pillars = window.pillarData.pillars;
+  var total = pillars.length;
+
+  // Wrap around
+  if (index < 0) index = total - 1;
+  if (index >= total) index = 0;
+
+  currentPillarIndex = index;
+  var p = pillars[index];
+  var n = p.pillarNum;
+
+  // 1. Update dropdown + counter
+  pillarSelect.value = index;
+  pillarCounter.textContent = 'Pillar ' + n + ' of ' + total;
+
+  // 2. Update page title
+  document.title = 'Pillar ' + n + ': ' + p.pillarName + ' | NCDPI Strategic Plan';
+
+  // 3. Update hero
+  heroIcon.src = PILLAR_ICONS[n] || '';
+  heroIcon.alt = 'Pillar ' + n + ' icon';
+  heroLabel.textContent = 'PILLAR ' + n;
+  heroTitle.textContent = p.pillarName;
+
+  // 4. Update CSS custom properties for pillar colors
+  var root = document.documentElement;
+  root.style.setProperty('--pcolor', 'var(--pillar' + n + ')');
+  root.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
+  root.style.setProperty('--ptext', 'var(--pillar' + n + '-text)');
+
+  // 5. Update sidebar active state
+  pillarLinks.forEach(function(link) {
+    var linkPillar = link.getAttribute('data-pillar');
+    if (linkPillar == n) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.classList.remove('active');
+      link.removeAttribute('aria-current');
+    }
+  });
+
+  // 6. Update URL without adding history entry
+  var url = new URL(window.location);
+  url.searchParams.set('p', n);
+  history.replaceState(null, '', url);
+
+  // 7. Reset focus area selection for both tabs
+  activeFocusArea.actions = 0;
+  activeFocusArea.stories = 0;
+
+  // 8. Build focus area lists and render content for the active tab
+  buildActionsFocusAreas(p);
+  buildStoriesFocusAreas(p);
+  buildResultsTab(p);
+
+  // 9. Update active tab styling (re-apply pillar color to active tab)
+  updateTabColors();
+}
+
+// ============================================================
+// Tab switching
+// ============================================================
+function switchTab(tabName) {
+  activeTab = tabName;
+
+  tabBtns.forEach(function(btn) {
+    var isActive = btn.id === 'tab-' + tabName;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    // Roving tabindex: only the active tab is focusable
+    btn.setAttribute('tabindex', isActive ? '0' : '-1');
+  });
+
+  tabPanels.forEach(function(panel) {
+    var isActive = panel.id === 'panel-' + tabName;
+    panel.classList.toggle('active', isActive);
+  });
+
+  // When switching to Stories, carry over the focus area selection from Actions
+  // (but only if Stories has that same focus area available and it has stories)
+  if (tabName === 'stories') {
+    var p = window.pillarData.pillars[currentPillarIndex];
+    var actionsFAIndex = activeFocusArea.actions;
+    // Check if the stories focus area list has that index and it has stories
+    if (actionsFAIndex < p.focusAreas.length && p.focusAreas[actionsFAIndex].stories.length > 0) {
+      activeFocusArea.stories = actionsFAIndex;
+    } else {
+      // Find the first focus area with stories
+      var firstWithStories = p.focusAreas.findIndex(function(fa) { return fa.stories.length > 0; });
+      activeFocusArea.stories = firstWithStories >= 0 ? firstWithStories : 0;
+    }
+    highlightFocusArea('stories', activeFocusArea.stories);
+    renderStories(p.focusAreas[activeFocusArea.stories]);
+  }
+
+  updateTabColors();
+}
+
+function updateTabColors() {
+  // Ensure the active tab uses the pillar color
+  tabBtns.forEach(function(btn) {
+    if (btn.classList.contains('active')) {
+      btn.style.color = '';  // let CSS handle it via var(--pcolor)
+      btn.style.borderBottomColor = '';
+    }
+  });
+}
+
+// ============================================================
+// Actions Tab
+// ============================================================
+function buildActionsFocusAreas(pillar) {
+  var container = document.getElementById('actionsFA');
+  // Keep the heading, remove old items
+  var heading = container.querySelector('.fa-list-heading');
+  container.innerHTML = '';
+  container.appendChild(heading);
+
+  pillar.focusAreas.forEach(function(fa, i) {
+    var item = document.createElement('div');
+    item.className = 'fa-item' + (i === activeFocusArea.actions ? ' active' : '');
+    item.setAttribute('role', 'option');
+    item.setAttribute('aria-selected', i === activeFocusArea.actions ? 'true' : 'false');
+    item.setAttribute('tabindex', '0');
+
+    // Count action statuses
+    var inProgress = fa.actions.filter(function(a) { return a.hasStarted; }).length;
+    var total = fa.actions.length;
+    var metaText;
+    if (inProgress === 0) {
+      metaText = total + ' action' + (total !== 1 ? 's' : '') + ' \u00b7 Not yet started';
+    } else if (inProgress === total) {
+      metaText = total + ' action' + (total !== 1 ? 's' : '') + ' \u00b7 All in progress';
+    } else {
+      metaText = inProgress + ' of ' + total + ' in progress';
+    }
+
+    item.innerHTML =
+      '<span class="action-id-badge" style="font-size:10px; margin-bottom:3px; display:inline-block;">' + fa.focusAreaId + '</span>' +
+      '<div class="fa-item-name">' + fa.focusAreaName + '</div>' +
+      '<div class="fa-item-meta">' + metaText + '</div>';
+
+    item.addEventListener('click', function() {
+      activeFocusArea.actions = i;
+      highlightFocusArea('actions', i);
+      renderActions(fa);
+    });
+    item.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activeFocusArea.actions = i;
+        highlightFocusArea('actions', i);
+        renderActions(fa);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        var nextIndex = Math.min(i + 1, pillar.focusAreas.length - 1);
+        var nextItem = container.querySelectorAll('.fa-item')[nextIndex];
+        if (nextItem) { nextItem.focus(); nextItem.click(); }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        var prevIndex = Math.max(i - 1, 0);
+        var prevItem = container.querySelectorAll('.fa-item')[prevIndex];
+        if (prevItem) { prevItem.focus(); prevItem.click(); }
+      }
+    });
+
+    container.appendChild(item);
+  });
+
+  // Render actions for the active focus area
+  if (pillar.focusAreas.length > 0) {
+    renderActions(pillar.focusAreas[activeFocusArea.actions]);
+  }
+}
+
+function renderActions(focusArea) {
+  var container = document.getElementById('actionsDetail');
+  container.innerHTML = '';
+
+  // Header
+  var header = document.createElement('div');
+  header.className = 'detail-header';
+  header.innerHTML =
+    '<h3>' + focusArea.focusAreaName + '</h3>' +
+    '<span class="count-badge">' + focusArea.actions.length + ' action' + (focusArea.actions.length !== 1 ? 's' : '') + '</span>';
+  container.appendChild(header);
+
+  // Action cards
+  if (focusArea.actions.length === 0) {
+    var empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.innerHTML = '<i class="bi bi-clipboard-check" aria-hidden="true"></i>No actions defined for this focus area yet.';
+    container.appendChild(empty);
+    return;
+  }
+
+  focusArea.actions.forEach(function(action) {
+    var card = document.createElement('div');
+    card.className = 'action-card';
+
+    // Status line
+    var statusClass, statusIcon, statusText;
+    if (action.hasStarted) {
+      statusClass = 'in-progress';
+      statusIcon = 'bi-arrow-repeat';
+      statusText = action.status || 'In Progress';
+    } else {
+      statusClass = 'not-started';
+      statusIcon = 'bi-clock';
+      statusText = action.launchText || 'Not yet started';
+    }
+
+    card.innerHTML =
+      '<div class="action-card-top">' +
+        '<span class="action-id-badge">' + action.actionId + '</span>' +
+        '<span class="action-card-title">' + action.actionName + '</span>' +
+      '</div>' +
+      (action.actionDesc ? '<div class="action-card-desc">' + action.actionDesc + '</div>' : '') +
+      '<div class="action-status ' + statusClass + '">' +
+        '<i class="bi ' + statusIcon + '" aria-hidden="true"></i> ' + statusText +
+      '</div>';
+
+    container.appendChild(card);
+  });
+}
+
+// ============================================================
+// Stories Tab
+// ============================================================
+function buildStoriesFocusAreas(pillar) {
+  var container = document.getElementById('storiesFA');
+  var heading = container.querySelector('.fa-list-heading');
+  container.innerHTML = '';
+  container.appendChild(heading);
+
+  pillar.focusAreas.forEach(function(fa, i) {
+    var storyCount = fa.stories.length;
+    var isDisabled = storyCount === 0;
+
+    var item = document.createElement('div');
+    item.className = 'fa-item' + (i === activeFocusArea.stories ? ' active' : '') + (isDisabled ? ' disabled' : '');
+    item.setAttribute('role', 'option');
+    item.setAttribute('aria-selected', i === activeFocusArea.stories ? 'true' : 'false');
+    if (!isDisabled) item.setAttribute('tabindex', '0');
+
+    var metaText = storyCount === 0 ? 'No stories yet' : storyCount + ' stor' + (storyCount === 1 ? 'y' : 'ies');
+
+    item.innerHTML =
+      '<span class="action-id-badge" style="font-size:10px; margin-bottom:3px; display:inline-block;">' + fa.focusAreaId + '</span>' +
+      '<div class="fa-item-name">' + fa.focusAreaName + '</div>' +
+      '<div class="fa-item-meta">' + metaText + '</div>';
+
+    if (!isDisabled) {
+      item.addEventListener('click', function() {
+        activeFocusArea.stories = i;
+        highlightFocusArea('stories', i);
+        renderStories(fa);
+      });
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activeFocusArea.stories = i;
+          highlightFocusArea('stories', i);
+          renderStories(fa);
+        }
+      });
+    }
+
+    container.appendChild(item);
+  });
+
+  // Render stories for the active focus area
+  if (pillar.focusAreas.length > 0) {
+    renderStories(pillar.focusAreas[activeFocusArea.stories]);
+  }
+}
+
+function renderStories(focusArea) {
+  var container = document.getElementById('storiesDetail');
+  container.innerHTML = '';
+
+  // Header
+  var header = document.createElement('div');
+  header.className = 'detail-header';
+  header.innerHTML =
+    '<h3>' + focusArea.focusAreaName + '</h3>' +
+    '<span class="count-badge">' + focusArea.stories.length + ' stor' + (focusArea.stories.length === 1 ? 'y' : 'ies') + '</span>';
+  container.appendChild(header);
+
+  // Empty state
+  if (focusArea.stories.length === 0) {
+    var empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.innerHTML = '<i class="bi bi-newspaper" aria-hidden="true"></i>No stories from the field have been linked to this focus area yet.';
+    container.appendChild(empty);
+    return;
+  }
+
+  // Story cards
+  focusArea.stories.forEach(function(story) {
+    var card = document.createElement('div');
+    card.className = 'story-card';
+
+    var metaParts = [];
+    if (story.publishDate) metaParts.push(story.publishDate);
+    if (story.county) metaParts.push(story.county);
+
+    card.innerHTML =
+      '<div class="story-card-title">' +
+        '<a href="' + story.url + '" target="_blank" rel="noopener">' + story.title + '</a>' +
+        '<i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>' +
+      '</div>' +
+      (metaParts.length > 0 ? '<div class="story-card-meta">' + metaParts.join(' &nbsp;|&nbsp; ') + '</div>' : '') +
+      (story.rationale ? '<div class="story-card-rationale">Connected because: ' + story.rationale + '</div>' : '');
+
+    container.appendChild(card);
+  });
+
+  // Help note
+  var note = document.createElement('div');
+  note.className = 'stories-help';
+  note.textContent = 'Stories may appear under multiple focus areas when they relate to more than one area of work.';
+  container.appendChild(note);
+}
+
+// ============================================================
+// Results Tab (placeholder)
+// ============================================================
+function buildResultsTab(pillar) {
+  var container = document.getElementById('resultsContent');
+  container.innerHTML =
+    '<i class="bi bi-bar-chart-line" aria-hidden="true"></i>' +
+    '<p>Pillar-level results for <strong>' + pillar.pillarName + '</strong> will be available as data is collected and reported.</p>' +
+    '<a href="index.html">&larr; View the Best in the Nation measures</a>';
+}
+
+// ============================================================
+// Utility: Highlight active focus area in a tab's list
+// ============================================================
+function highlightFocusArea(tabName, index) {
+  var containerId = tabName === 'actions' ? 'actionsFA' : 'storiesFA';
+  var items = document.getElementById(containerId).querySelectorAll('.fa-item');
+  items.forEach(function(item, i) {
+    item.classList.toggle('active', i === index);
+    item.setAttribute('aria-selected', i === index ? 'true' : 'false');
+  });
+}
+
+// ============================================================
+// Event listeners
+// ============================================================
+
+// Pillar switcher dropdown
+pillarSelect.addEventListener('change', function() {
+  switchPillar(+pillarSelect.value);
+});
+
+// Prev/Next buttons
+prevBtn.addEventListener('click', function() {
+  switchPillar(currentPillarIndex - 1);
+});
+nextBtn.addEventListener('click', function() {
+  switchPillar(currentPillarIndex + 1);
+});
+
+// Keyboard: left/right arrows on pillar switcher
+document.querySelector('.pillar-switcher').addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    switchPillar(currentPillarIndex - 1);
+  } else if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    switchPillar(currentPillarIndex + 1);
+  }
+});
+
+// Tab switching
+tabBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var tabName = btn.id.replace('tab-', '');
+    switchTab(tabName);
+  });
+  btn.addEventListener('keydown', function(e) {
+    // Arrow keys cycle through tabs per ARIA tabs pattern
+    var tabNames = ['actions', 'stories', 'results'];
+    var currentIndex = tabNames.indexOf(btn.id.replace('tab-', ''));
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      var nextTab = tabNames[(currentIndex + 1) % tabNames.length];
+      document.getElementById('tab-' + nextTab).focus();
+      switchTab(nextTab);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      var prevTab = tabNames[(currentIndex - 1 + tabNames.length) % tabNames.length];
+      document.getElementById('tab-' + prevTab).focus();
+      switchTab(prevTab);
+    }
+  });
+});
+
+// ============================================================
+// Initialize: load JSON, parse URL, render
+// ============================================================
+document.fonts.ready.then(function() {
+  fetch('data/pillar-data.json')
+    .then(function(resp) { return resp.json(); })
+    .then(function(data) {
+      window.pillarData = data;
+
+      // Build the dropdown
+      buildPillarDropdown(data.pillars);
+
+      // Parse URL parameter ?p=N (default to 1)
+      var params = new URLSearchParams(window.location.search);
+      var requestedPillar = parseInt(params.get('p')) || 1;
+
+      // Find the index for the requested pillar number
+      var startIndex = data.pillars.findIndex(function(p) {
+        return p.pillarNum === requestedPillar;
+      });
+      if (startIndex < 0) startIndex = 0;
+
+      // Render
+      switchPillar(startIndex);
+    })
+    .catch(function(err) {
+      console.error('Failed to load pillar-data.json:', err);
+      document.querySelector('.pillar-content').innerHTML =
+        '<div class="empty-state"><i class="bi bi-exclamation-triangle"></i>Failed to load pillar data. Please refresh.</div>';
+    });
+});
+</script>
+
+</body>
+</html>

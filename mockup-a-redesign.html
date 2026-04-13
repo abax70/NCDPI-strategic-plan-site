@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup A: Redesigned Layout — Best in the Nation</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #003A70;
+    --navy-light: #D9E4F1;
+    --orange: #FF9015;
+    --orange-bg: #FFEEDC;
+    --text: #333;
+    --text-light: #666;
+    --bg: #FAFBFD;
+    --white: #FFFFFF;
+    --pillar1: #003A70;
+    --pillar2: #922880;
+    --pillar3: #29B5D9;
+    --pillar4: #FF9015;
+    --pillar5: #74C04B;
+    --pillar6: #B7B9BB;
+    --pillar7: #0077BF;
+    --pillar8: #801323;
+    --pillar1-bg: #D9E4F1;
+    --pillar2-bg: #EFDFEC;
+    --pillar3-bg: #DFF4F9;
+    --pillar4-bg: #FFEEDC;
+    --pillar5-bg: #EAF6E4;
+    --pillar6-bg: #F4F4F5;
+    --pillar7-bg: #D4EFFC;
+    --pillar8-bg: #ECDCDE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+
+  /* ===== DPI.NC.GOV MASTHEAD ===== */
+  /* Top utility bar — matches "An official website of the State of North Carolina" */
+  .state-banner {
+    background: #00314D;
+    color: white;
+    padding: 6px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+  .state-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .state-banner-left a {
+    color: #5EB1E4;
+    text-decoration: none;
+    font-size: 12px;
+  }
+  .state-banner-left a:hover { text-decoration: underline; }
+  .state-banner-right {
+    display: flex;
+    gap: 24px;
+  }
+  .state-banner-right a {
+    color: white;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .state-banner-right a:hover { text-decoration: underline; }
+
+  /* Main nav bar — NCDPI logo + nav links */
+  .dpi-nav {
+    background: white;
+    padding: 12px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #E0E3E8;
+  }
+  .dpi-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .dpi-nav-logo img {
+    height: 48px;
+  }
+  .dpi-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .dpi-nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .dpi-nav-links a:hover { color: var(--navy); }
+  .dpi-nav-search {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== HERO — Warm, celebratory, split layout ===== */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Left: dark blue with geometric overlay */
+  .hero-left {
+    background: linear-gradient(135deg, #003A70 0%, #00284F 60%, #001A33 100%);
+    color: white;
+    padding: 48px 48px 48px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  /* Geometric pattern overlay — CSS squares */
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      /* scattered squares at various sizes/opacities */
+      linear-gradient(135deg, rgba(255,255,255,0.06) 25%, transparent 25%) -20px 0/60px 60px,
+      linear-gradient(225deg, rgba(255,255,255,0.04) 25%, transparent 25%) 40px 30px/80px 80px,
+      linear-gradient(135deg, rgba(255,255,255,0.07) 25%, transparent 25%) 100px -10px/40px 40px,
+      linear-gradient(225deg, rgba(255,255,255,0.05) 25%, transparent 25%) -30px 80px/50px 50px,
+      linear-gradient(135deg, rgba(255,255,255,0.03) 25%, transparent 25%) 200px 50px/70px 70px;
+    z-index: -1;
+  }
+  .hero-left h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero-left p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 24px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: #197BCE;  /* Official NCDPI Secondary color */
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+  }
+  .hero-cta:hover { background: #146AA8; }
+
+  /* Right: AEE logo + student photo collage */
+  .hero-right {
+    background: #F0F4F8;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+    position: relative;
+  }
+  /* AEE logo centered over the photo grid */
+  .hero-logo-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(3px);
+  }
+  .hero-logo-overlay img {
+    max-height: 160px;
+    max-width: 300px;
+    object-fit: contain;
+  }
+  /* Photo placeholders — will be replaced with real student photos */
+  .hero-photo {
+    background: linear-gradient(135deg, #C5D8E8 0%, #A8C4D8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #6A8BA3;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .hero-photo:nth-child(2) { background: linear-gradient(135deg, #D1C9B8 0%, #BFB5A2 100%); color: #8B7E6A; }
+  .hero-photo:nth-child(3) { background: linear-gradient(135deg, #B8CDD8 0%, #9FBCCC 100%); color: #6A8B9E; }
+  .hero-photo:nth-child(4) { background: linear-gradient(135deg, #C8D5C0 0%, #B0C4A6 100%); color: #6E8A62; }
+
+  /* Pillar color strip at bottom of hero */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--pillar1), var(--pillar2), var(--pillar3), var(--pillar4), var(--pillar5), var(--pillar6), var(--pillar7), var(--pillar8));
+    z-index: 3;
+  }
+
+  /* ===== PILLAR NAV — Icons + Full Names ===== */
+  .pillar-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: white;
+    border-bottom: 1px solid #E8ECF0;
+  }
+  .pillar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    transition: background 0.2s;
+    border-bottom: 3px solid transparent;
+    border-right: 1px solid #F0F1F3;
+  }
+  .pillar-link:nth-child(4),
+  .pillar-link:nth-child(8) {
+    border-right: none;
+  }
+  .pillar-link:hover {
+    background: #F5F7FA;
+  }
+  .pillar-link.active {
+    background: var(--pillar1-bg);
+    border-bottom-color: var(--pillar1);
+  }
+  .pillar-link img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+  .pillar-link .pillar-name {
+    flex: 1;
+  }
+
+  /* ===== SECTION TITLES ===== */
+  .section-header {
+    text-align: center;
+    padding: 40px 40px 20px;
+  }
+  .section-header h2 {
+    font-size: 26px;
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .section-header p {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  /* ===== MEASURE CAROUSEL ===== */
+  .carousel-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px 20px;
+  }
+  .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    background: #F0F2F5;
+    padding: 12px 24px;
+    border-radius: 8px;
+  }
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--navy);
+    background: white;
+    color: var(--navy);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .carousel-btn:hover {
+    background: var(--navy);
+    color: white;
+  }
+  .carousel-label {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+  .carousel-select {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    padding: 6px 12px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    background: white;
+  }
+
+  .measure-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .measure-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--navy);
+  }
+
+  .measure-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .measure-icon {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+  .measure-icon img { width: 100%; height: 100%; object-fit: contain; }
+  .measure-info h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .measure-goal {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+  .measure-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFF8E7;
+    border: 1px solid #F5D060;
+    color: #8B6914;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* Chart area */
+  .chart-area {
+    margin: 24px 0;
+    padding: 20px;
+    background: #F9FAFB;
+    border-radius: 12px;
+  }
+  .chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 180px;
+    padding: 0 10px;
+  }
+  .chart-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .chart-bar {
+    width: 100%;
+    max-width: 48px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    transition: height 0.3s;
+  }
+  .chart-bar.actual { background: var(--navy); }
+  .chart-bar.target { background: var(--navy-light); border: 1px dashed var(--navy); }
+  .chart-bar-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 4px;
+  }
+  .chart-bar-value {
+    font-size: 13px;
+    color: var(--text);
+    text-align: center;
+  }
+  .chart-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-light);
+  }
+  .chart-legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chart-legend .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+  }
+  .chart-legend .swatch.actual { background: var(--navy); }
+  .chart-legend .swatch.target { background: var(--navy-light); border: 1px dashed var(--navy); }
+
+  /* Current value highlight */
+  .current-value {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: 24px 0;
+    padding: 20px 24px;
+    background: var(--navy-light);
+    border-radius: 12px;
+  }
+  .current-value .big-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .current-value .context {
+    font-size: 15px;
+    color: var(--navy);
+  }
+
+  /* Narrative section */
+  .narrative {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #E8ECF0;
+  }
+  .narrative h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .narrative p {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+  .narrative .note {
+    font-size: 13px;
+    color: #888;
+    padding: 12px 16px;
+    background: #F5F6F8;
+    border-radius: 8px;
+    margin-top: 16px;
+  }
+  .narrative .note strong { color: var(--text); }
+
+  /* Spotlight / action callout */
+  .spotlight {
+    margin-top: 28px;
+    padding: 20px 24px;
+    background: var(--orange-bg);
+    border-radius: 12px;
+    border-left: 4px solid var(--orange);
+  }
+  .spotlight h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #A03A18;  /* Darkened for WCAG 4.5:1 contrast on orange bg */
+    margin-bottom: 6px;
+  }
+  .spotlight p {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .spotlight a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #A03A18;  /* Darkened for WCAG 4.5:1 contrast on orange bg */
+    text-decoration: none;
+  }
+  .spotlight a:hover { text-decoration: underline; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--navy);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    margin-top: 60px;
+  }
+  footer a { color: #8BB8E0; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer p { font-size: 14px; opacity: 0.8; margin-top: 8px; }
+
+  /* ===== MOCKUP LABEL ===== */
+  .mockup-label {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background: #E53E3E;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-label">MOCKUP A — Redesign v2</div>
+
+<!-- ===== DPI.NC.GOV MASTHEAD ===== -->
+<!-- State utility banner -->
+<div class="state-banner">
+  <div class="state-banner-left">
+    <span>An official website of the State of North Carolina</span>
+    <a href="#">How you know</a>
+  </div>
+  <div class="state-banner-right">
+    <a href="#">NC Superintendent</a>
+    <a href="#">State Board</a>
+    <a href="#">NC.GOV</a>
+    <a href="#">Select Language</a>
+  </div>
+</div>
+
+<!-- NCDPI main nav bar -->
+<nav class="dpi-nav">
+  <a class="dpi-nav-logo" href="#">
+    <!-- Placeholder for NCDPI logo — would be the official blue/white logo -->
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="4" fill="#003A70"/>
+      <text x="8" y="20" fill="white" font-size="8" font-weight="700" font-family="Source Sans Pro, sans-serif">NC</text>
+      <text x="5" y="34" fill="white" font-size="7" font-weight="600" font-family="Source Sans Pro, sans-serif">DPI</text>
+    </svg>
+    <div style="line-height: 1.2;">
+      <div style="font-size: 11px; color: #666; font-weight: 600;">North Carolina Department of</div>
+      <div style="font-size: 16px; color: var(--navy); font-weight: 700;">PUBLIC INSTRUCTION</div>
+    </div>
+  </a>
+  <div class="dpi-nav-links">
+    <a href="#">Educators</a>
+    <a href="#">Students &amp; Families</a>
+    <a href="#">Districts &amp; Schools</a>
+    <a href="#">Data &amp; Reports</a>
+    <a href="#">News</a>
+    <a href="#">About DPI</a>
+    <button class="dpi-nav-search" aria-label="Search">
+      <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO — Warm, celebratory, split layout ===== -->
+<div class="hero">
+  <div class="hero-left">
+    <h1>College-Ready at Record Levels</h1>
+    <p>54% of 2025 graduates passed a college-level course while still in high school &mdash; the highest percentage in North Carolina history.</p>
+    <a class="hero-cta" href="#">Celebrating Excellence in NC Public Schools</a>
+  </div>
+  <div class="hero-right">
+    <!-- AEE logo centered over photo placeholders -->
+    <div class="hero-logo-overlay">
+      <img src="images/Achieving Academic Excellence Logos/AEE Logos with Tagline/Logo-AchEdExc-tagline-MAIN.png" alt="Achieving Educational Excellence — Best in the Nation, Our 2030 Plan for NC Public Schools">
+    </div>
+    <!-- Photo placeholders — replace with real student photos -->
+    <div class="hero-photo">Student photo</div>
+    <div class="hero-photo">Student photo</div>
+    <div class="hero-photo">Student photo</div>
+    <div class="hero-photo">Student photo</div>
+  </div>
+</div>
+
+<!-- ===== PILLAR NAV — Icons + Full Names, 4x2 grid ===== -->
+<nav class="pillar-nav" role="navigation" aria-label="Strategic Pillars">
+  <a class="pillar-link active" href="#" aria-current="true">
+    <img src="images/Pillar Icons/Icons Only/Pillar-1-Icon-Students.png" alt="Pillar 1 icon">
+    <span class="pillar-name">Prepare Each Student for Their Next Phase in Life</span>
+  </a>
+  <a class="pillar-link" href="#">
+    <img src="images/Pillar Icons/Icons Only/Pillar-2-Icon-Educators.png" alt="Pillar 2 icon">
+    <span class="pillar-name">Revere Public School Educators</span>
+  </a>
+  <a class="pillar-link" href="#">
+    <img src="images/Pillar Icons/Icons Only/Pillar-3-Icon-Community.png" alt="Pillar 3 icon">
+    <span class="pillar-name">Enhance Parent, Caregiver, and Community Support</span>
+  </a>
+  <a class="pillar-link" href="#">
+    <img src="images/Pillar Icons/Icons Only/Pillar-4-Icon-HealthySafe.png" alt="Pillar 4 icon">
+    <span class="pillar-name">Ensure Healthy, Safe and Secure Learning Environments</span>
+  </a>
+  <a class="pillar-link" href="#">
+    <img src="images/Pillar Icons/Icons Only/Pillar-5-Icon-Operational.png" alt="Pillar 5 icon">
+    <span class="pillar-name">Optimize Operational Excellence</span>
+  </a>
+  <a class="pillar-link" href="#">
+    <img src="images/Pillar Icons/Icons Only/Pillar-6-Icon-Transformative.png" alt="Pillar 6 icon">
+    <span class="pillar-name">Lead Transformative Change</span>
+  </a>
+  <a class="pillar-link" href="#">
+    <img src="images/Pillar Icons/Icons Only/Pillar-7-Icon-Celebrate.png" alt="Pillar 7 icon">
+    <span class="pillar-name">Celebrate the Excellence in Public Education</span>
+  </a>
+  <a class="pillar-link" href="#">
+    <img src="images/Pillar Icons/Icons Only/Pillar-8-Icon-Champions.png" alt="Pillar 8 icon">
+    <span class="pillar-name">Galvanize Champions to Fully Invest in and Support Public Education</span>
+  </a>
+</nav>
+
+<!-- SECTION: How We're Doing -->
+<div class="section-header">
+  <h2>How We're Doing</h2>
+  <p>14 measures tracking North Carolina's progress toward our 2030 goals.</p>
+</div>
+
+<!-- MEASURE DETAIL (carousel only — no grid) -->
+<div class="carousel-container">
+  <div class="carousel-nav">
+    <button class="carousel-btn" aria-label="Previous measure">&#8249;</button>
+    <span class="carousel-label">Measure 1 of 14</span>
+    <button class="carousel-btn" aria-label="Next measure">&#8250;</button>
+    <select class="carousel-select" aria-label="Jump to measure">
+      <option>Jump to measure...</option>
+      <optgroup label="Pillar 1: Prepare Each Student">
+        <option selected>Cohort Graduation Rate</option>
+        <option>ACT Score</option>
+        <option>AP Participation</option>
+        <option>AP Performance</option>
+        <option>Dual Enrollment Participation</option>
+        <option>Dual Enrollment Credit</option>
+        <option>CTE Participation</option>
+        <option>CTE Credentials</option>
+        <option>NAEP Reading Gr. 4</option>
+        <option>NAEP Reading Gr. 8</option>
+        <option>NAEP Math Gr. 4</option>
+        <option>NAEP Math Gr. 8</option>
+      </optgroup>
+      <optgroup label="Pillar 7: Celebrate Excellence">
+        <option>Schools of Character</option>
+      </optgroup>
+      <optgroup label="Pillar 8: Galvanize Champions">
+        <option>Public School Enrollment</option>
+      </optgroup>
+    </select>
+  </div>
+
+  <div class="measure-card">
+    <div class="measure-top">
+      <div class="measure-icon">
+        <img src="images/Measure Graphics/StratPlan-BIN-GradRate.svg" alt="Graduation Rate icon">
+      </div>
+      <div class="measure-info">
+        <h3>Cohort Graduation Rate</h3>
+        <p class="measure-goal">Increase the adjusted four-year cohort high school graduation rate to 92% by 2030.</p>
+        <span class="measure-badge">&#11088; Record High &mdash; 87.7%</span>
+      </div>
+    </div>
+
+    <!-- Current Value -->
+    <div class="current-value">
+      <div class="big-number">87.7%</div>
+      <div class="context">
+        <strong>Most recent data (2024&ndash;25)</strong><br>
+        Percentage of 9th-graders graduating from high school four years later
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-area">
+      <div class="chart-bars">
+        <div class="chart-bar-group">
+          <div class="chart-bar-value">87.0%</div>
+          <div class="chart-bar actual" style="height: 158px;"></div>
+          <div class="chart-bar-label">2024</div>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-value">87.7%</div>
+          <div class="chart-bar actual" style="height: 160px;"></div>
+          <div class="chart-bar-label">2025</div>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-value">88.0%</div>
+          <div class="chart-bar target" style="height: 161px;"></div>
+          <div class="chart-bar-label">2026</div>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-value">89.0%</div>
+          <div class="chart-bar target" style="height: 163px;"></div>
+          <div class="chart-bar-label">2027</div>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-value">90.0%</div>
+          <div class="chart-bar target" style="height: 165px;"></div>
+          <div class="chart-bar-label">2028</div>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-value">91.0%</div>
+          <div class="chart-bar target" style="height: 168px;"></div>
+          <div class="chart-bar-label">2029</div>
+        </div>
+        <div class="chart-bar-group">
+          <div class="chart-bar-value">92.0%</div>
+          <div class="chart-bar target" style="height: 170px;"></div>
+          <div class="chart-bar-label">2030</div>
+        </div>
+      </div>
+      <div class="chart-legend">
+        <span><span class="swatch actual"></span> Actual</span>
+        <span><span class="swatch target"></span> Target</span>
+      </div>
+    </div>
+
+    <!-- Narrative -->
+    <div class="narrative">
+      <h4>Why Does This Measure Matter?</h4>
+      <p>Graduation rate is the most widely recognized measure of a public school system's success. Every student who earns a diploma gains access to more career opportunities, higher lifetime earnings, and better health outcomes. North Carolina's rate has been climbing steadily &mdash; and reaching 92% by 2030 would put us among the top states in the nation.</p>
+
+      <h4>How Is NC Performing?</h4>
+      <p>North Carolina's four-year cohort graduation rate reached a record high of 87.7% in 2024&ndash;25, up from 87.0% the prior year. The state has set annual targets that ramp toward the 92% goal by 2030.</p>
+
+      <div class="note">
+        <strong>Measure definition:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.<br><br>
+        <strong>Next update:</strong> Data for the next cohort will be available September 2026.<br><br>
+        <strong>Source:</strong> <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_219.46.asp" target="_blank">NCES Digest of Education Statistics</a>
+      </div>
+    </div>
+
+    <!-- Action Spotlight -->
+    <div class="spotlight">
+      <h4>See It in Action</h4>
+      <p>North Carolina's <strong>Finish Line Grants</strong> help districts support students who are on track to graduate but need targeted interventions to cross the finish line &mdash; from tutoring to transportation to mentoring.</p>
+      <a href="#">Explore Pillar 1: Prepare Each Student for Their Next Phase in Life &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Achieving Educational Excellence</strong> &mdash; North Carolina Department of Public Instruction</p>
+  <p><a href="#">Download the Strategic Plan (PDF)</a> &nbsp;|&nbsp; <a href="#">Contact: Geoff Coltrane</a></p>
+  <p style="margin-top: 16px; font-size: 12px; opacity: 0.6;">&copy; 2026 NC Department of Public Instruction</p>
+</footer>
+
+</body>
+</html>
