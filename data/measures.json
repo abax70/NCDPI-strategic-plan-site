@@ -13,7 +13,7 @@
     "definition": "The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school four years later.",
     "metricText": "Percentage of 9th-graders graduating from high school four years later",
     "valueFormat": "#.#%",
-    "yAxisMax": 100,
+    "yAxisMax": 100.0,
     "sourceLabel": "National Center for Education Statistics (NCES) Digest of Education Statistics (Table 219.46)",
     "sourceUrl": "https://nces.ed.gov/programs/digest/d23/tables/dt23_219.46.asp?current=yes",
     "moreDataUrl": "https://go.ncdpi.gov/CGRState",
@@ -669,7 +669,7 @@
     "dataSeries": [
       {
         "year": "2024",
-        "baseline": 358069,
+        "baseline": 358069.0,
         "target": null,
         "actual": null
       },
@@ -682,31 +682,31 @@
       {
         "year": "2026",
         "baseline": null,
-        "target": 400000,
+        "target": 400000.0,
         "actual": null
       },
       {
         "year": "2027",
         "baseline": null,
-        "target": 425000,
+        "target": 425000.0,
         "actual": null
       },
       {
         "year": "2028",
         "baseline": null,
-        "target": 450000,
+        "target": 450000.0,
         "actual": null
       },
       {
         "year": "2029",
         "baseline": null,
-        "target": 475000,
+        "target": 475000.0,
         "actual": null
       },
       {
         "year": "2030",
         "baseline": null,
-        "target": 500000,
+        "target": 500000.0,
         "actual": null
       }
     ]
@@ -758,26 +758,26 @@
     "dataSeries": [
       {
         "year": "2024",
-        "baseline": 213,
+        "baseline": 213.0,
         "target": null,
         "actual": null
       },
       {
         "year": "2026",
         "baseline": null,
-        "target": 217,
+        "target": 217.0,
         "actual": null
       },
       {
         "year": "2028",
         "baseline": null,
-        "target": 221,
+        "target": 221.0,
         "actual": null
       },
       {
         "year": "2030",
         "baseline": null,
-        "target": 225,
+        "target": 225.0,
         "actual": null
       }
     ]
@@ -829,26 +829,26 @@
     "dataSeries": [
       {
         "year": "2024",
-        "baseline": 255,
+        "baseline": 255.0,
         "target": null,
         "actual": null
       },
       {
         "year": "2026",
         "baseline": null,
-        "target": 259,
+        "target": 259.0,
         "actual": null
       },
       {
         "year": "2028",
         "baseline": null,
-        "target": 264,
+        "target": 264.0,
         "actual": null
       },
       {
         "year": "2030",
         "baseline": null,
-        "target": 268,
+        "target": 268.0,
         "actual": null
       }
     ]
@@ -900,26 +900,26 @@
     "dataSeries": [
       {
         "year": "2024",
-        "baseline": 239,
+        "baseline": 239.0,
         "target": null,
         "actual": null
       },
       {
         "year": "2026",
         "baseline": null,
-        "target": 241,
+        "target": 241.0,
         "actual": null
       },
       {
         "year": "2028",
         "baseline": null,
-        "target": 244,
+        "target": 244.0,
         "actual": null
       },
       {
         "year": "2030",
         "baseline": null,
-        "target": 246,
+        "target": 246.0,
         "actual": null
       }
     ]
@@ -971,26 +971,26 @@
     "dataSeries": [
       {
         "year": "2024",
-        "baseline": 276,
+        "baseline": 276.0,
         "target": null,
         "actual": null
       },
       {
         "year": "2026",
         "baseline": null,
-        "target": 278,
+        "target": 278.0,
         "actual": null
       },
       {
         "year": "2028",
         "baseline": null,
-        "target": 281,
+        "target": 281.0,
         "actual": null
       },
       {
         "year": "2030",
         "baseline": null,
-        "target": 283,
+        "target": 283.0,
         "actual": null
       }
     ]
@@ -1039,7 +1039,14 @@
     ],
     "nextUpdate": "[Add note on when data next available]",
     "notes": null,
-    "dataSeries": []
+    "dataSeries": [
+      {
+        "year": "2025",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      }
+    ]
   },
   {
     "id": "public-school-enrollment",
@@ -1055,8 +1062,8 @@
     "definition": "[Need to add note of measure definition and context].",
     "metricText": "Percentage of school-aged children enrolled in public schools",
     "valueFormat": "#.#%",
-    "yAxisMax": 100,
-    "sourceLabel": "BEST NC Facts and Figures 2025; NCDPI Statistical Profile Tables 1 and 3; NCDOA Statistical Summary for Private Schools; NCDOA NC Home School Statistical History",
+    "yAxisMax": 100.0,
+    "sourceLabel": "BEST NC Facts and Figures 2025, https://bestnc.org/wp-content/uploads/2025/06/2025-Facts-Figures-June-2025_v2.pdf; NCDPI, Statistical Profile Tables 1 and 3; NCDOA, Statistical Summary for Private Schools; NCDOA, NC Home School Statistical History",
     "sourceUrl": "https://bestnc.org/wp-content/uploads/2025/06/2025-Facts-Figures-June-2025_v2.pdf",
     "moreDataUrl": null,
     "moreDataText": null,
