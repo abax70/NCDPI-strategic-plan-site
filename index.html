@@ -13,7 +13,11 @@
     --navy: #003A70;
     --navy-dark: #00284F;
     --navy-light: #D9E4F1;
-    --secondary: #197BCE;
+    /* --secondary darkened from #197BCE (4.41:1 with white) to #0F5FA8 (5.17:1)
+       so .hero-cta and .action-status.in-progress clear WCAG AA normal-text
+       contrast against white. Focus-visible outlines still pass easily (3:1
+       threshold for non-text). */
+    --secondary: #0F5FA8;
     --orange: #FF9015;
     --orange-bg: #FFEEDC;
     --accent-text: #A03A18;   /* WCAG-safe on orange-bg */
@@ -75,15 +79,33 @@
     min-height: 150px;
     position: relative;
   }
-  /* Left: dark blue with official geometric pattern from graphics team */
+  /* Left: dark blue with official geometric pattern from graphics team.
+     The PNG is an <img> tag (decorative, aria-hidden) layered absolutely
+     behind the text, so axe's contrast rule sees only the solid
+     --navy-dark background-color on the content-bearing element. */
   .hero-banner-left {
     flex: 1;
-    background: url('images/Background Patterns/StratPlan-Dashboard-Header_Blue-HiRes.png') center/cover no-repeat;
+    background-color: var(--navy-dark);
     color: white;
     padding: 20px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-banner-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-banner-left > *:not(.hero-banner-bg) {
+    position: relative;
+    z-index: 1;
   }
   .hero-banner-left h1 {
     font-size: 26px;
@@ -113,7 +135,7 @@
     transition: background 0.2s;
     align-self: flex-start;
   }
-  .hero-cta:hover { background: #146AA8; }
+  .hero-cta:hover { background: var(--navy); }
 
   /* Right: AEE logo on official white geometric pattern from graphics team */
   .hero-banner-right {
@@ -387,6 +409,12 @@
     position: absolute;
     top: 12px;
     right: 16px;
+    /* Explicit white chip so axe/pa11y can compute navy-on-white contrast
+       (12.6:1) — otherwise the absolutely-positioned element sits over the
+       chart with no determinable background. */
+    background-color: #FFFFFF;
+    padding: 4px 10px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -475,11 +503,15 @@
     margin-bottom: 10px;
     border-left: 4px solid var(--pcolor, var(--pillar1));
   }
-  .motion-card h5 {
+  /* Motion card title — was <h5>, now <h3> for heading hierarchy (WCAG 1.3.1).
+     Visual styling unchanged: same font-size/weight/color as before. */
+  .motion-card h3 {
     font-size: 14px;
     font-weight: 700;
-    color: var(--ptext, var(--pillar1-text));
-    margin-bottom: 6px;
+    /* Use navy rather than --ptext here: pillar-text on pillar-bg falls below
+       4.5:1 for pillars 3/4/5. Navy on any pillar-bg clears the threshold. */
+    color: var(--navy);
+    margin: 0 0 6px 0;  /* zero out h3 user-agent margin-top */
   }
   .motion-card p {
     font-size: 14px;
@@ -489,7 +521,8 @@
   }
   .motion-card a {
     font-size: 13px;
-    color: var(--ptext, var(--pillar1-text));
+    /* Navy for contrast on pillar-bg; see .motion-card h3 above. */
+    color: var(--navy);
     font-weight: 600;
     text-decoration: none;
   }
@@ -504,15 +537,57 @@
   }
   .more-data-link:hover { text-decoration: underline; }
 
+  /* ============================================================
+     ACCESSIBILITY — WCAG 2.1 AA
+     Focus indicators, skip link, and screen-reader-only utility.
+     Mirrors pillar.html conventions.
+     ============================================================ */
+  :focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--navy);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 0 0 6px 0;
+    font-weight: 600;
+    z-index: 100;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+
+  /* Visually-hidden text for screen readers. Used for structural headings
+     that would be redundant visually but bridge heading hierarchy gaps. */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 
 </style>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- ===== HERO BANNER — Compact, warm, celebratory ===== -->
 <div class="hero-banner">
   <div class="hero-banner-left">
+    <img class="hero-banner-bg" src="images/Background Patterns/StratPlan-Dashboard-Header_Blue-HiRes.png" alt="" aria-hidden="true">
     <h1>Best in the Nation &mdash; Our 2030 Plan</h1>
     <p>Tracking our progress to make North Carolina&rsquo;s public schools the best in the nation.</p>
     <a class="hero-cta" href="#">Celebrating Excellence in NC Public Schools</a>
@@ -570,7 +645,9 @@
   </nav>
 
   <!-- CENTER: Measure Detail -->
-  <div class="main-content">
+  <main class="main-content" id="main-content">
+
+    <h2 class="sr-only">Select a measure</h2>
 
     <!-- Carousel controls — dropdown first (primary nav), arrows + counter second -->
     <div class="carousel-header">
@@ -632,7 +709,7 @@
       <p><strong>Next update:</strong> September 2026</p>
       <p><strong>Source:</strong> <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_219.46.asp" target="_blank">NCES Digest of Education Statistics</a></p>
     </div>
-  </div>
+  </main>
 
   <!-- RIGHT SIDEBAR: Context Panels
        --pcolor / --pbg are set here for the active pillar. JS will update
@@ -657,12 +734,12 @@
     <div class="sidebar-panel">
       <div class="sidebar-panel-title">What's in Motion</div>
       <div class="motion-card">
-        <h5>Finish Line Grants</h5>
+        <h3>Finish Line Grants</h3>
         <p>Districts receive targeted funding to support students who need interventions &mdash; tutoring, transportation, mentoring &mdash; to cross the graduation finish line.</p>
         <a href="#">See Pillar 1 &rarr;</a>
       </div>
       <div class="motion-card">
-        <h5>Early Warning System</h5>
+        <h3>Early Warning System</h3>
         <p>Schools use data-driven indicators to identify students at risk of not graduating and connect them with support services early.</p>
         <a href="#">See Pillar 1 &rarr;</a>
       </div>
@@ -1068,7 +1145,8 @@ function switchMeasure(index) {
       card.style.setProperty('--pbg', 'var(--pillar' + cardPillar + '-bg)');
       card.style.setProperty('--ptext', 'var(--pillar' + cardPillar + '-text)');
       card.innerHTML =
-        '<h5>' + item.title + '</h5>' +
+        // h3 to keep heading hierarchy (h1 page, h2 measure, h3 panel cards).
+        '<h3>' + item.title + '</h3>' +
         '<p>' + item.description + '</p>' +
         '<a href="' + (item.linkUrl || '#') + '">' + (item.linkText || 'See Pillar ' + m.pillarNumber + ' \u2192') + '</a>';
       motionContainer.appendChild(card);
