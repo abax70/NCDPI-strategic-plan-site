@@ -609,6 +609,273 @@
     white-space: nowrap;
     border: 0;
   }
+
+  /* ============================================================
+     RESPONSIVE / MOBILE — breakpoints at 1024, 768, 480
+     ============================================================ */
+
+  /* Hamburger toggle — hidden on desktop, shown at <=768px.
+     Scoped to .pillar-hero-left to position absolutely within
+     the pillar hero. */
+  .pillar-hero-left .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 4;
+    line-height: 1;
+    padding: 0;
+  }
+  .pillar-hero-left .nav-toggle:hover { background: rgba(255, 255, 255, 0.18); }
+  .pillar-hero-left .nav-toggle:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 2px;
+  }
+  .pillar-hero-left .nav-toggle i { font-size: 22px; }
+
+  /* Drawer backdrop — overlays main content when nav drawer is open. */
+  .drawer-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 98;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .drawer-backdrop.open {
+    display: block;
+    opacity: 1;
+  }
+
+  body.drawer-open { overflow: hidden; }
+
+  /* ===== Tablet (<=1024px) ===== */
+  @media (max-width: 1024px) {
+    .pillar-hero-right { width: 200px; }
+    .pillar-hero-logo img {
+      max-height: 60px;
+      max-width: 160px;
+    }
+    .pillar-switcher select { min-width: 200px; }
+    .tab-inner { grid-template-columns: 200px 1fr; }
+  }
+
+  /* ===== Mobile (<=768px) — single column, off-canvas drawer ===== */
+  @media (max-width: 768px) {
+    .pillar-hero-left .nav-toggle { display: inline-flex; }
+
+    /* Pillar hero stacks vertically. Right panel becomes a logo strip
+       on white for contrast. The gradient on .pillar-hero-right would
+       look awkward when stretched full-width, so we simplify. */
+    .pillar-hero {
+      flex-direction: column;
+      min-height: 0;
+    }
+    .pillar-hero-left {
+      padding: 14px 60px 14px 20px;
+      gap: 14px;
+    }
+    .pillar-hero-icon {
+      width: 48px;
+      height: 48px;
+    }
+    .pillar-hero-title { font-size: 18px; }
+    .pillar-hero-label { font-size: 11px; }
+    .pillar-hero-right {
+      width: 100%;
+      height: 60px;
+      background: white;
+    }
+    .pillar-hero-logo img {
+      max-height: 46px;
+      max-width: 170px;
+    }
+
+    /* Left sidebar becomes off-canvas drawer (identical pattern to landing). */
+    .sidebar-left {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      max-height: 100vh;
+      z-index: 99;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+      overflow-y: auto;
+      border-right: none;
+    }
+    .sidebar-left.open { transform: translateX(0); }
+    /* Comfortable touch targets in the drawer (WCAG 2.5.5 AAA = 44x44). */
+    .sidebar-left .pillar-link { min-height: 44px; padding: 12px 20px; }
+    .sidebar-left .sidebar-link { min-height: 44px; padding: 12px 20px; }
+
+    /* Single-column grid. */
+    .two-col {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      border-top: none;
+    }
+    .pillar-content { padding: 16px; }
+
+    /* Pillar switcher stacks: dropdown full-width, arrows centered below. */
+    .pillar-switcher {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 12px;
+    }
+    .pillar-switcher select {
+      font-size: 16px;  /* prevents iOS input auto-zoom */
+      width: 100%;
+      min-width: 0;
+    }
+    .pillar-nav-arrows { justify-content: center; }
+    .pillar-nav-btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* Tabs — horizontal scroll if they overflow. Min-height 44px meets
+       WCAG 2.5.5 (AAA) touch target guidance on mobile. */
+    .tab-bar {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab-btn {
+      padding: 12px 14px;
+      font-size: 14px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      min-height: 44px;
+    }
+
+    /* Tab inner stacks to a single column. */
+    .tab-inner {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      min-height: 0;
+    }
+    /* Critical: grid items default to `min-width: auto`, which lets the
+       nowrap pills below force the track wider than the viewport. Zero
+       this out so items size to the track, not their content. */
+    .tab-inner > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    /* Focus area list becomes horizontal scrollable pills.
+       Swapped from vertical list + left border to pill row that
+       can be swiped through on touch devices. */
+    .fa-list {
+      border-right: none;
+      padding-right: 0;
+      padding-bottom: 4px;
+      min-width: 0;
+    }
+    .fa-list-heading {
+      margin: 0 0 10px 0;
+    }
+    .fa-list > [role="listbox"] {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+    .fa-item {
+      flex-shrink: 0;
+      border-radius: 20px;
+      border-left: none !important;
+      padding: 8px 14px;
+      background: #F0F2F5;
+      margin-bottom: 0;
+    }
+    .fa-item.active {
+      background: var(--pbg);
+      border-left: none;
+      box-shadow: inset 0 0 0 2px var(--pcolor);
+    }
+    .fa-item-name {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    /* Hide meta (count) on mobile pills — reduces visual noise. */
+    .fa-item-meta { display: none; }
+
+    /* Action + story cards: tighter padding. */
+    .action-card, .story-card {
+      padding: 14px 16px;
+    }
+    .action-card-title, .story-card-title {
+      font-size: 15px;
+    }
+    .action-card-desc, .story-card-meta, .story-card-rationale {
+      font-size: 13px;
+    }
+    .action-id-badge {
+      font-size: 10px;
+    }
+    .detail-header h3 { font-size: 16px; }
+  }
+
+  /* ===== Small mobile (<=480px) — compact chrome ===== */
+  @media (max-width: 480px) {
+    .pillar-hero-left {
+      /* 68px right padding reserves space for the 44px hamburger button
+         (at right: 14px) plus ~10px of visual breathing room so the long
+         pillar title wraps before reaching the toggle. */
+      padding: 12px 68px 12px 14px;
+      gap: 10px;
+    }
+    .pillar-hero-icon {
+      width: 40px;
+      height: 40px;
+    }
+    .pillar-hero-title { font-size: 16px; }
+    /* Hide the small right logo strip — saves vertical space on phones. */
+    .pillar-hero-right { display: none; }
+    .pillar-content { padding: 12px; }
+    .pillar-switcher { padding: 10px; }
+    .tab-btn {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+    .action-card, .story-card {
+      padding: 12px 14px;
+    }
+    .action-card-title, .story-card-title {
+      font-size: 14px;
+    }
+    .results-placeholder {
+      padding: 40px 16px;
+    }
+  }
+
+  /* Print — hide drawer chrome, stack single-column. */
+  @media print {
+    .nav-toggle, .drawer-backdrop { display: none !important; }
+    .sidebar-left {
+      position: static;
+      transform: none;
+      width: 100%;
+      box-shadow: none;
+    }
+    .two-col { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -623,6 +890,13 @@
       <span class="pillar-hero-label" id="heroLabel">PILLAR 1</span>
       <h1 class="pillar-hero-title" id="heroTitle">Loading...</h1>
     </div>
+    <!-- Hamburger toggle — visible only at <=768px via media query. -->
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-label="Open navigation menu"
+            aria-controls="sidebarLeft"
+            aria-expanded="false">
+      <i class="bi bi-list" aria-hidden="true"></i>
+    </button>
   </div>
   <div class="pillar-hero-right">
     <div class="pillar-hero-logo">
@@ -632,12 +906,14 @@
     </div>
   </div>
 </div>
+<!-- Backdrop for the mobile nav drawer — click to close. -->
+<div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
 
 <!-- ===== TWO-COLUMN BODY ===== -->
 <div class="two-col">
 
   <!-- LEFT SIDEBAR: Pillar Navigation (same component as landing page) -->
-  <nav class="sidebar-left" role="navigation" aria-label="Strategic Pillars">
+  <nav class="sidebar-left" id="sidebarLeft" role="navigation" aria-label="Strategic Pillars">
     <div class="sidebar-heading">Strategic Pillars</div>
 
     <a class="pillar-link" href="index.html" style="--pcolor: var(--navy); --pbg: var(--navy-light);">
@@ -1267,6 +1543,58 @@ document.fonts.ready.then(function() {
         '<div class="empty-state"><i class="bi bi-exclamation-triangle"></i>Failed to load pillar data. Please refresh.</div>';
     });
 });
+
+// ============================================================
+// Mobile nav drawer (shared pattern with index.html)
+// Shows/hides the left sidebar on screens <=768px.
+// ============================================================
+(function () {
+  var navToggle = document.getElementById('navToggle');
+  var sidebar   = document.getElementById('sidebarLeft');
+  var backdrop  = document.getElementById('drawerBackdrop');
+  if (!navToggle || !sidebar || !backdrop) return;
+
+  function openDrawer() {
+    sidebar.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.classList.add('drawer-open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Close navigation menu');
+    var icon = navToggle.querySelector('i');
+    if (icon) { icon.className = 'bi bi-x-lg'; }
+  }
+
+  function closeDrawer() {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.classList.remove('drawer-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open navigation menu');
+    var icon = navToggle.querySelector('i');
+    if (icon) { icon.className = 'bi bi-list'; }
+    navToggle.focus();
+  }
+
+  navToggle.addEventListener('click', function () {
+    if (sidebar.classList.contains('open')) closeDrawer();
+    else openDrawer();
+  });
+  backdrop.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeDrawer();
+  });
+  // Reset drawer state when viewport grows past 768px
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      var icon = navToggle.querySelector('i');
+      if (icon) { icon.className = 'bi bi-list'; }
+    }
+  });
+})();
 </script>
 
 </body>

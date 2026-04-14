@@ -578,6 +578,287 @@
     border: 0;
   }
 
+  /* ============================================================
+     RESPONSIVE / MOBILE — breakpoints at 1024, 768, 480
+     Desktop layout above is untouched; everything below is a
+     progressive override for narrower viewports.
+     ============================================================ */
+
+  /* Hamburger toggle — hidden on desktop, shown at <=768px.
+     Positioned absolutely within the hero so it floats over the
+     banner background without disrupting the flex row above.
+     Selector is scoped to .hero-banner-left to outweigh the
+     existing `.hero-banner-left > *:not(.hero-banner-bg)` rule
+     above that pins children to position:relative. */
+  .hero-banner-left .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 4;
+    line-height: 1;
+    padding: 0;
+  }
+  .hero-banner-left .nav-toggle:hover { background: rgba(255, 255, 255, 0.18); }
+  .hero-banner-left .nav-toggle:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 2px;
+  }
+  .hero-banner-left .nav-toggle i { font-size: 22px; }
+
+  /* Drawer backdrop — semi-transparent overlay behind the open drawer.
+     Only visible at <=768px when drawer is open. */
+  .drawer-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 98;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .drawer-backdrop.open {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Prevent body scroll while drawer is open (mobile only) */
+  body.drawer-open { overflow: hidden; }
+
+  /* ===== Tablet (<=1024px) — right sidebar drops below main ===== */
+  @media (max-width: 1024px) {
+    .three-col {
+      grid-template-columns: 280px 1fr;
+      min-height: 0;
+    }
+    .hero-banner-right { width: 240px; }
+    .hero-logo-overlay img {
+      max-height: 90px;
+      max-width: 200px;
+    }
+    /* Right sidebar now spans both columns below main content.
+       Loses the left border (was a vertical divider) and gains a
+       top border (now a horizontal section divider). */
+    .sidebar-right {
+      grid-column: 1 / -1;
+      border-left: none;
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+    }
+  }
+
+  /* ===== Mobile (<=768px) — single column, off-canvas drawer ===== */
+  @media (max-width: 768px) {
+    .hero-banner-left .nav-toggle { display: inline-flex; }
+
+    /* Hero stacks vertically. Right panel becomes a short logo strip. */
+    .hero-banner {
+      flex-direction: column;
+      min-height: 0;
+    }
+    .hero-banner-left {
+      padding: 16px 60px 16px 20px;  /* right padding leaves room for toggle */
+    }
+    .hero-banner-left h1 {
+      font-size: clamp(20px, 5vw, 24px);
+      margin-bottom: 6px;
+    }
+    .hero-banner-left p {
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .hero-cta {
+      font-size: 13px;
+      padding: 8px 18px;
+    }
+    .hero-banner-right {
+      width: 100%;
+      height: 80px;
+    }
+    .hero-logo-overlay img {
+      max-height: 60px;
+      max-width: 180px;
+    }
+
+    /* Left sidebar becomes off-canvas drawer (slides in from left). */
+    .sidebar-left {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      max-height: 100vh;
+      z-index: 99;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+      overflow-y: auto;
+      border-right: none;
+    }
+    .sidebar-left.open { transform: translateX(0); }
+    /* Comfortable touch targets in the drawer (WCAG 2.5.5 AAA = 44x44). */
+    .sidebar-left .pillar-link { min-height: 44px; padding: 12px 20px; }
+    .sidebar-left .sidebar-link { min-height: 44px; padding: 12px 20px; }
+
+    /* Single-column grid. Sidebar-left is fixed/out-of-flow; main and
+       sidebar-right stack naturally in source order. */
+    .three-col {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      border-top: none;
+    }
+    .main-content { padding: 16px; }
+
+    /* Carousel header stacks: dropdown full-width, arrows centered below. */
+    .carousel-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 12px;
+    }
+    .carousel-select {
+      width: 100%;
+      font-size: 16px;  /* prevents iOS input auto-zoom */
+      min-width: 0;
+    }
+    .carousel-arrows { justify-content: center; }
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* Measure header stacks icon above text. */
+    .measure-header {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .measure-header img {
+      width: 56px;
+      height: 56px;
+    }
+    .measure-header h2 { font-size: 20px; }
+
+    /* Big-number callout stacks vertically and centers. */
+    .current-value {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      padding: 16px 18px;
+    }
+    .current-value .big-number { font-size: 34px; }
+    .current-value .context { font-size: 14px; }
+
+    /* Chart uses aspect-ratio for responsive height. */
+    .chart-area {
+      padding: 16px;
+      min-height: 0;
+    }
+    .chart-canvas-wrap {
+      height: auto;
+      aspect-ratio: 4 / 3;
+    }
+    /* Callout moves out of the top-right corner — otherwise it overlaps
+       the squeezed chart area on narrow screens. */
+    .chart-target-callout {
+      position: static;
+      display: inline-flex;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .chart-no-data { height: auto; min-height: 180px; }
+
+    /* Right sidebar becomes a stacked section below main, with
+       collapsible accordion panels. */
+    .sidebar-right {
+      padding: 16px;
+      grid-column: 1;
+      border-top: 1px solid var(--border);
+      border-left: none;
+    }
+    .sidebar-panel-title {
+      cursor: pointer;
+      position: relative;
+      padding-right: 28px;
+      user-select: none;
+    }
+    /* Chevron indicator — rotates based on collapsed state */
+    .sidebar-panel-title::after {
+      content: "\f282";              /* bi-chevron-down */
+      font-family: 'bootstrap-icons';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%) rotate(0deg);
+      transition: transform 0.2s ease;
+      font-size: 14px;
+    }
+    .sidebar-panel.collapsed .sidebar-panel-title::after {
+      transform: translateY(-50%) rotate(-90deg);
+    }
+    .sidebar-panel.collapsed > *:not(.sidebar-panel-title) {
+      display: none;
+    }
+    .record-badge img { max-width: 120px; }
+  }
+
+  /* ===== Small mobile (<=480px) — compact spacing, squarer chart ===== */
+  @media (max-width: 480px) {
+    .hero-banner-left {
+      padding: 12px 56px 12px 16px;
+    }
+    .hero-banner-left h1 { font-size: 18px; }
+    .hero-banner-left p {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .hero-banner-right { height: 60px; }
+    .hero-logo-overlay img {
+      max-height: 50px;
+      max-width: 160px;
+    }
+    .main-content { padding: 12px; }
+    .chart-area { padding: 12px; }
+    .chart-canvas-wrap { aspect-ratio: 1 / 1; }
+    .chart-legend {
+      font-size: 12px;
+      gap: 12px;
+    }
+    .measure-header h2 { font-size: 18px; }
+    .measure-header .goal { font-size: 14px; }
+    .current-value .big-number { font-size: 30px; }
+    .notes-section {
+      padding: 12px;
+      font-size: 13px;
+    }
+    .sidebar-right { padding: 12px; }
+  }
+
+  /* Print — hide drawer chrome, stack single-column. */
+  @media print {
+    .nav-toggle, .drawer-backdrop { display: none !important; }
+    .sidebar-left {
+      position: static;
+      transform: none;
+      width: 100%;
+      box-shadow: none;
+    }
+    .three-col { grid-template-columns: 1fr; }
+    .sidebar-right {
+      grid-column: 1;
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -588,6 +869,14 @@
 <div class="hero-banner">
   <div class="hero-banner-left">
     <img class="hero-banner-bg" src="images/Background Patterns/StratPlan-Dashboard-Header_Blue-HiRes.png" alt="" aria-hidden="true">
+    <!-- Hamburger toggle — only visible at <=768px via CSS media query.
+         aria-controls points to the drawer nav; aria-expanded flips via JS. -->
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-label="Open navigation menu"
+            aria-controls="sidebarLeft"
+            aria-expanded="false">
+      <i class="bi bi-list" aria-hidden="true"></i>
+    </button>
     <h1>Best in the Nation &mdash; Our 2030 Plan</h1>
     <p>Tracking our progress to make North Carolina&rsquo;s public schools the best in the nation.</p>
     <a class="hero-cta" href="#">Celebrating Excellence in NC Public Schools</a>
@@ -598,12 +887,14 @@
     </div>
   </div>
 </div>
+<!-- Backdrop for the mobile nav drawer — click to close. -->
+<div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
 
 <!-- ===== THREE-COLUMN LAYOUT ===== -->
 <div class="three-col">
 
   <!-- LEFT SIDEBAR: Pillar Navigation -->
-  <nav class="sidebar-left" role="navigation" aria-label="Strategic Pillars">
+  <nav class="sidebar-left" id="sidebarLeft" role="navigation" aria-label="Strategic Pillars">
     <div class="sidebar-heading">Strategic Pillars</div>
 
     <a class="pillar-link active" href="pillar.html?p=1" aria-current="page" data-pillar="1" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
@@ -930,7 +1221,10 @@ function renderChart(measure) {
       const ctx = chart.ctx;
       const meta = chart.getDatasetMeta(0);
       ctx.save();
-      ctx.font = "600 13px 'Source Sans Pro', sans-serif";
+      // Smaller label font on mobile to keep bars from being overrun
+      // by their own values when the chart is scaled down.
+      const labelFontSize = window.innerWidth <= 768 ? 11 : 13;
+      ctx.font = "600 " + labelFontSize + "px 'Source Sans Pro', sans-serif";
       ctx.textAlign = 'center';
       meta.data.forEach((bar, i) => {
         const val = chart.data.datasets[0].data[i];
@@ -983,7 +1277,16 @@ function renderChart(measure) {
           grid: { display: false },
           ticks: {
             color: COLORS.axisValue,
-            font: { size: 13, weight: '600' }
+            // Smaller ticks and angled labels on mobile; otherwise the
+            // year labels crowd together or overflow the canvas.
+            font: {
+              size: window.innerWidth <= 768 ? 11 : 13,
+              weight: '600'
+            },
+            maxTicksLimit: window.innerWidth <= 768 ? 6 : undefined,
+            maxRotation: window.innerWidth <= 480 ? 45 : 0,
+            minRotation: 0,
+            autoSkip: true
           }
         }
       },
@@ -1219,6 +1522,153 @@ document.fonts.ready.then(function() {
       console.error('Failed to load measures.json:', err);
     });
 });
+
+// ============================================================
+// Mobile nav drawer
+// Shows/hides the left sidebar on screens <=768px. Clicking the
+// backdrop or pressing Escape closes the drawer. Body scroll is
+// locked while open so the fixed drawer is scrollable on its own.
+// ============================================================
+(function () {
+  var navToggle = document.getElementById('navToggle');
+  var sidebar   = document.getElementById('sidebarLeft');
+  var backdrop  = document.getElementById('drawerBackdrop');
+  if (!navToggle || !sidebar || !backdrop) return;
+
+  function openDrawer() {
+    sidebar.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.classList.add('drawer-open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Close navigation menu');
+    // Swap icon to an X while open
+    var icon = navToggle.querySelector('i');
+    if (icon) { icon.className = 'bi bi-x-lg'; }
+  }
+
+  function closeDrawer() {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.classList.remove('drawer-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open navigation menu');
+    var icon = navToggle.querySelector('i');
+    if (icon) { icon.className = 'bi bi-list'; }
+    // Return focus to the toggle button (accessibility)
+    navToggle.focus();
+  }
+
+  navToggle.addEventListener('click', function () {
+    if (sidebar.classList.contains('open')) closeDrawer();
+    else openDrawer();
+  });
+  backdrop.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeDrawer();
+  });
+  // If the viewport grows past 768px while the drawer is open, reset state
+  // so the sidebar appears normally on desktop without the "open" override.
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.classList.remove('drawer-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      var icon = navToggle.querySelector('i');
+      if (icon) { icon.className = 'bi bi-list'; }
+    }
+  });
+})();
+
+// ============================================================
+// Right-sidebar accordion (mobile only)
+// At <=768px each .sidebar-panel-title becomes a clickable toggle
+// that collapses/expands the panel body. On desktop these titles
+// are plain headings — this behavior only triggers below 768px.
+// ============================================================
+(function () {
+  var sidebarRight = document.querySelector('.sidebar-right');
+  if (!sidebarRight) return;
+
+  function isMobile() { return window.innerWidth <= 768; }
+
+  // Delegate click handler on the right sidebar
+  sidebarRight.addEventListener('click', function (e) {
+    if (!isMobile()) return;
+    var title = e.target.closest('.sidebar-panel-title');
+    if (!title) return;
+    var panel = title.closest('.sidebar-panel');
+    if (!panel) return;
+    panel.classList.toggle('collapsed');
+    // Update aria-expanded on the title for screen readers
+    var expanded = !panel.classList.contains('collapsed');
+    title.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  });
+
+  // Initialize ARIA roles on the panel titles for mobile context.
+  // Buttons would be more semantically correct, but these are existing
+  // .sidebar-panel-title divs — we augment with role=button + tabindex.
+  document.querySelectorAll('.sidebar-panel-title').forEach(function (t) {
+    t.setAttribute('role', 'button');
+    t.setAttribute('tabindex', '0');
+    t.setAttribute('aria-expanded', 'true');
+    // Keyboard support: Enter/Space trigger the same click handler
+    t.addEventListener('keydown', function (e) {
+      if (!isMobile()) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        t.click();
+      }
+    });
+  });
+
+  // On resize past desktop, remove any collapsed state so panels
+  // don't mysteriously hide sections when the layout reverts.
+  window.addEventListener('resize', function () {
+    if (!isMobile()) {
+      document.querySelectorAll('.sidebar-panel.collapsed').forEach(function (p) {
+        p.classList.remove('collapsed');
+        var t = p.querySelector('.sidebar-panel-title');
+        if (t) t.setAttribute('aria-expanded', 'true');
+      });
+    }
+  });
+})();
+
+// ============================================================
+// Chart responsiveness — re-render on viewport change
+// Chart.js handles its own canvas resize, but tick font size and
+// rotation are pinned at creation. We debounce a resize handler
+// to re-render the current measure when the viewport crosses a
+// breakpoint so labels stay legible.
+// ============================================================
+(function () {
+  var resizeTimer = null;
+  var lastBreakpoint = getBreakpoint();
+
+  function getBreakpoint() {
+    var w = window.innerWidth;
+    if (w <= 480) return 'xs';
+    if (w <= 768) return 'sm';
+    if (w <= 1024) return 'md';
+    return 'lg';
+  }
+
+  window.addEventListener('resize', function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      var bp = getBreakpoint();
+      if (bp !== lastBreakpoint) {
+        lastBreakpoint = bp;
+        // Re-render only if measures are loaded. switchMeasure() rebuilds
+        // the chart with the current viewport's tick/font settings.
+        if (window.allMeasures && window.currentMeasureIndex != null) {
+          switchMeasure(window.currentMeasureIndex);
+        }
+      }
+    }, 200);
+  });
+})();
 </script>
 
 </body>
