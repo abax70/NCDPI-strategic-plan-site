@@ -1,0 +1,15 @@
+MeasureMenuKey,MeasureMenu,MeasureSubMenu,Measure ID,MeasureMenuTooltip
+1,GRADUATION,,P1.M1,How many of our students graduate from high school?
+2,ACT,,P1.M2,How do our 11th-graders score on the national ACT assessment?
+3,AP,Participation,P1.M3,How many of our high school students earn college credit by passing Advanced Placement exams?
+4,AP,Performance,P1.M4,
+5,DUAL ENROLL,Participation,P1.M6,How many of our high school students earn credit in dual enrollment programs with local colleges?
+6,DUAL ENROLL,Credit,P1.M7,
+7,CTE,Participation,P1.M8,How many of our high school students  earn credits in Career and Technical Education programs?
+8,CTE,Credentials,P1.M9,
+9,READING,Grade 4,P1.M11,How do our 4th- and 8th-graders score in reading on the National Assessment of Educational Progress?
+10,READING,Grade 8,P1.M12,
+11,MATH,Grade 4,P1.M13,How do our 4th- and 8th-graders score in math on the National Assessment of Educational Progress?
+12,MATH,Grade 8,P1.M14,
+13,CHARACTER,,P1.M15,TBD
+14,ENROLLMENT,,P8.M2,How many school-aged children are enrolled in NC public schools?

@@ -479,6 +479,37 @@
     max-width: 160px;
     height: auto;
   }
+  /* Clickable variant — activated when measures.json supplies
+     badgePressReleaseUrl. The whole shield + caption is a single anchor so
+     screen readers announce one link and keyboard users get one tab stop. */
+  .record-badge a.badge-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 150ms ease, filter 150ms ease;
+  }
+  .record-badge a.badge-link:hover,
+  .record-badge a.badge-link:focus-visible {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
+  }
+  .record-badge a.badge-link:focus-visible {
+    outline: 2px solid var(--pcolor);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  .record-badge-caption {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ptext, var(--navy));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .record-badge a.badge-link:hover .record-badge-caption,
+  .record-badge a.badge-link:focus-visible .record-badge-caption {
+    text-decoration: none;
+  }
 
   /* Why it counts */
   .why-panel {
@@ -879,7 +910,7 @@
     </button>
     <h1>Best in the Nation &mdash; Our 2030 Plan</h1>
     <p>Tracking our progress to make North Carolina&rsquo;s public schools the best in the nation.</p>
-    <a class="hero-cta" href="#">Celebrating Excellence in NC Public Schools</a>
+    <a class="hero-cta" href="https://www.dpi.nc.gov/about-dpi/state-superintendent-public-instruction/achieving-educational-excellence/celebrating-excellence-north-carolina-public-schools" target="_blank" rel="noopener">Celebrating Excellence in NC Public Schools</a>
   </div>
   <div class="hero-banner-right">
     <div class="hero-logo-overlay">
@@ -897,7 +928,7 @@
   <nav class="sidebar-left" id="sidebarLeft" role="navigation" aria-label="Strategic Pillars">
     <div class="sidebar-heading">Strategic Pillars</div>
 
-    <a class="pillar-link active" href="pillar.html?p=1" aria-current="page" data-pillar="1" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
+    <a class="pillar-link" href="pillar.html?p=1" data-pillar="1" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
       <img src="images/Pillar Icons/Icons Only/Pillar-1-Icon-Students.png" alt="" role="presentation">
       <span class="pillar-name">Prepare Each Student for Their Next Phase in Life</span>
     </a>
@@ -931,8 +962,8 @@
     </a>
 
     <hr>
-    <a class="sidebar-link" href="#"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
-    <a class="sidebar-link" href="#"><i class="bi bi-envelope" aria-hidden="true"></i> Contact: Geoff Coltrane</a>
+    <a class="sidebar-link" href="https://www.dpi.nc.gov/documents/statesuperintendent/achieving-educational-excellence-strategic-plan/download?attachment" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
+    <a class="sidebar-link" href="mailto:Geoff.coltrane@dpi.nc.gov"><i class="bi bi-envelope" aria-hidden="true"></i> Contact NCDPI</a>
   </nav>
 
   <!-- CENTER: Measure Detail -->
@@ -1391,7 +1422,21 @@ function switchMeasure(index) {
   if (m.statusType === 'record-high') {
     statusPill.style.display = '';
     statusPill.className = 'status-pill';
-    statusPill.innerHTML = STAR_SVG + ' Record High';
+    // Surface the year of the record so users know the time frame.
+    // The "record year" is the most recent entry in dataSeries with a non-null
+    // baseline (observed data). Future years have baseline:null and only targets,
+    // so they're skipped. Falls back to the plain label if dataSeries is missing.
+    var recordYear = '';
+    if (Array.isArray(m.dataSeries)) {
+      for (var i = m.dataSeries.length - 1; i >= 0; i--) {
+        if (m.dataSeries[i] && m.dataSeries[i].baseline != null) {
+          recordYear = m.dataSeries[i].year;
+          break;
+        }
+      }
+    }
+    var pillText = recordYear ? 'Record High \u00b7 ' + recordYear : 'Record High';
+    statusPill.innerHTML = STAR_SVG + ' ' + pillText;
   } else {
     // Baseline measures: hide the pill entirely
     statusPill.style.display = 'none';
@@ -1420,10 +1465,25 @@ function switchMeasure(index) {
   notesSection.innerHTML = notesHTML;
 
   // 6. Right sidebar — badge
+  //    When a measure supplies badgePressReleaseUrl, the shield becomes a
+  //    click-through to the press release about the achievement. Shield and
+  //    caption are wrapped in a single anchor so there's one tab stop and
+  //    one screen-reader announcement.
   var badgeDiv = sidebarRight.querySelector('.record-badge');
   if (m.badgeImageUrl) {
     badgeDiv.style.display = '';
-    badgeDiv.innerHTML = '<img src="' + m.badgeImageUrl + '" alt="' + (m.badgeAltText || '') + '">';
+    var altText = m.badgeAltText || '';
+    var imgHTML = '<img src="' + m.badgeImageUrl + '" alt="' + altText + '">';
+    if (m.badgePressReleaseUrl) {
+      badgeDiv.innerHTML =
+        '<a class="badge-link" href="' + m.badgePressReleaseUrl + '" ' +
+        'target="_blank" rel="noopener">' +
+        imgHTML +
+        '<span class="record-badge-caption">Read the press release \u2192</span>' +
+        '</a>';
+    } else {
+      badgeDiv.innerHTML = imgHTML;
+    }
   } else {
     badgeDiv.style.display = 'none';
   }
@@ -1472,15 +1532,17 @@ function switchMeasure(index) {
   sidebarRight.style.setProperty('--pcolor', 'var(--pillar' + n + ')');
   sidebarRight.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
 
-  // 11. Left sidebar — highlight the active pillar
-  pillarLinks.forEach(function(link, i) {
-    if (i === n - 1) {
-      link.classList.add('active');
-      link.setAttribute('aria-current', 'page');
-    } else {
-      link.classList.remove('active');
-      link.removeAttribute('aria-current');
-    }
+  // 11. Left sidebar — no active-state highlighting on index.html.
+  //     Clicking a sidebar pillar link navigates away to pillar.html, so
+  //     highlighting one here read as "this pillar is selected / filters the
+  //     page" to users — but it doesn't filter anything. Previously this
+  //     block mirrored the carousel measure's pillar onto the sidebar, which
+  //     conflated page-level navigation with measure-level selection. We now
+  //     leave the sidebar neutral on the landing page; the .pillar-link.active
+  //     rule is still used correctly by pillar.html's switchPillar().
+  pillarLinks.forEach(function(link) {
+    link.classList.remove('active');
+    link.removeAttribute('aria-current');
   });
 }
 

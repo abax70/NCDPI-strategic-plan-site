@@ -470,6 +470,35 @@
     max-width: 160px;
     height: auto;
   }
+  /* Clickable variant — activated when measures.json supplies
+     badgePressReleaseUrl. The whole shield + caption is a single anchor so
+     screen readers announce one link and keyboard users get one tab stop. */
+  .sp-dashboard .record-badge a.badge-link{
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 150ms ease, filter 150ms ease;
+  }
+  .sp-dashboard .record-badge a.badge-link:hover, .sp-dashboard .record-badge a.badge-link:focus-visible{
+    transform: translateY(-2px);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
+  }
+  .sp-dashboard .record-badge a.badge-link:focus-visible{
+    outline: 2px solid var(--pcolor);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  .sp-dashboard .record-badge-caption{
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ptext, var(--navy));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .sp-dashboard .record-badge a.badge-link:hover .record-badge-caption, .sp-dashboard .record-badge a.badge-link:focus-visible .record-badge-caption{
+    text-decoration: none;
+  }
 
   /* Why it counts */
   .sp-dashboard .why-panel{

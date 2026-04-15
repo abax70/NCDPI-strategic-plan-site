@@ -241,6 +241,13 @@ function switchPillar(index) {
   root.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
   root.style.setProperty('--ptext', 'var(--pillar' + n + '-text)');
 
+  // 4b. Option A (vertical gradient, promoted 2026-04-15) uses navy text on
+  //     every pillar, sitting on the near-white top band of the gradient.
+  //     No per-family switching is needed — the :root default for --hero-text
+  //     handles it. We clear any legacy data-pillar-family attribute in case
+  //     stale stylesheets or serialised state still reference it.
+  document.body.removeAttribute('data-pillar-family');
+
   // 5. Update sidebar active state
   pillarLinks.forEach(function(link) {
     var linkPillar = link.getAttribute('data-pillar');

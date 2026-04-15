@@ -493,7 +493,21 @@ function switchMeasure(index) {
   if (m.statusType === 'record-high') {
     statusPill.style.display = '';
     statusPill.className = 'status-pill';
-    statusPill.innerHTML = STAR_SVG + ' Record High';
+    // Surface the year of the record so users know the time frame.
+    // The "record year" is the most recent entry in dataSeries with a non-null
+    // baseline (observed data). Future years have baseline:null and only targets,
+    // so they're skipped. Falls back to the plain label if dataSeries is missing.
+    var recordYear = '';
+    if (Array.isArray(m.dataSeries)) {
+      for (var i = m.dataSeries.length - 1; i >= 0; i--) {
+        if (m.dataSeries[i] && m.dataSeries[i].baseline != null) {
+          recordYear = m.dataSeries[i].year;
+          break;
+        }
+      }
+    }
+    var pillText = recordYear ? 'Record High \u00b7 ' + recordYear : 'Record High';
+    statusPill.innerHTML = STAR_SVG + ' ' + pillText;
   } else {
     // Baseline measures: hide the pill entirely
     statusPill.style.display = 'none';
@@ -522,10 +536,25 @@ function switchMeasure(index) {
   notesSection.innerHTML = notesHTML;
 
   // 6. Right sidebar — badge
+  //    When a measure supplies badgePressReleaseUrl, the shield becomes a
+  //    click-through to the press release about the achievement. Shield and
+  //    caption are wrapped in a single anchor so there's one tab stop and
+  //    one screen-reader announcement.
   var badgeDiv = sidebarRight.querySelector('.record-badge');
   if (m.badgeImageUrl) {
     badgeDiv.style.display = '';
-    badgeDiv.innerHTML = '<img src="' + m.badgeImageUrl + '" alt="' + (m.badgeAltText || '') + '">';
+    var altText = m.badgeAltText || '';
+    var imgHTML = '<img src="' + m.badgeImageUrl + '" alt="' + altText + '">';
+    if (m.badgePressReleaseUrl) {
+      badgeDiv.innerHTML =
+        '<a class="badge-link" href="' + m.badgePressReleaseUrl + '" ' +
+        'target="_blank" rel="noopener">' +
+        imgHTML +
+        '<span class="record-badge-caption">Read the press release \u2192</span>' +
+        '</a>';
+    } else {
+      badgeDiv.innerHTML = imgHTML;
+    }
   } else {
     badgeDiv.style.display = 'none';
   }
@@ -574,15 +603,17 @@ function switchMeasure(index) {
   sidebarRight.style.setProperty('--pcolor', 'var(--pillar' + n + ')');
   sidebarRight.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
 
-  // 11. Left sidebar — highlight the active pillar
-  pillarLinks.forEach(function(link, i) {
-    if (i === n - 1) {
-      link.classList.add('active');
-      link.setAttribute('aria-current', 'page');
-    } else {
-      link.classList.remove('active');
-      link.removeAttribute('aria-current');
-    }
+  // 11. Left sidebar — no active-state highlighting on index.html.
+  //     Clicking a sidebar pillar link navigates away to pillar.html, so
+  //     highlighting one here read as "this pillar is selected / filters the
+  //     page" to users — but it doesn't filter anything. Previously this
+  //     block mirrored the carousel measure's pillar onto the sidebar, which
+  //     conflated page-level navigation with measure-level selection. We now
+  //     leave the sidebar neutral on the landing page; the .pillar-link.active
+  //     rule is still used correctly by pillar.html's switchPillar().
+  pillarLinks.forEach(function(link) {
+    link.classList.remove('active');
+    link.removeAttribute('aria-current');
   });
 }
 

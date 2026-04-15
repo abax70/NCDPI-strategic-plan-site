@@ -47,6 +47,12 @@
     --pcolor: var(--pillar1);
     --pbg: var(--pillar1-bg);
     --ptext: var(--pillar1-text);
+    /* Hero text colour — navy for all pillars (Option A, promoted 2026-04-15).
+       Text sits on the near-white top band of the vertical gradient on every
+       pillar, so the old dark/light family split is retired. The variable is
+       kept (rather than hardcoding navy in the rules below) for future
+       flexibility and because several CSS rules already consume it. */
+    --hero-text: #003A70;
 
     /* Status colors */
     /* #0F5FA8 = 5.17:1 with white (WCAG AA). Previously #197BCE (4.41:1). */
@@ -76,11 +82,18 @@
   }
   .sp-dashboard .pillar-hero-left{
     flex: 1;
-    /* Solid pillar colour — white text computes against this (not the old
-       parent gradient, which axe/pa11y couldn't evaluate). Gradient effect
-       moved to .pillar-hero-right below. */
-    background-color: var(--pcolor);
-    color: white;
+    /* Option A — vertical light→dark gradient (PDF-style, promoted 2026-04-15).
+       Text anchors on the near-white top band; pillar colour saturates at the
+       bottom as an accent. Navy text for every pillar, so the previous
+       dark/light family split (S.025) is retired. White plateau runs to 55%
+       so the title baseline sits clearly in unsaturated territory. */
+    background: linear-gradient(
+      to bottom,
+      #FFFFFF 0%,
+      #FFFFFF 55%,
+      var(--pcolor) 100%
+    );
+    color: var(--hero-text);
     padding: 16px 40px;
     display: flex;
     align-items: center;
@@ -97,25 +110,36 @@
     flex-direction: column;
   }
   .sp-dashboard .pillar-hero-label{
-    font-size: 12px;
+    /* 19px (≥14pt) bold qualifies as WCAG "large text" (3:1 threshold),
+       closing the P4 label contrast gap while keeping the rule uniform. */
+    font-size: 19px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    color: var(--hero-text);
     margin-bottom: 2px;
   }
   .sp-dashboard .pillar-hero-title{
     font-size: 22px;
     font-weight: 700;
     line-height: 1.25;
+    color: var(--hero-text);
   }
   .sp-dashboard .pillar-hero-right{
     width: 280px;
     flex-shrink: 0;
     position: relative;
-    /* Fade from pillar colour to white — picks up where .pillar-hero-left ends. */
-    background: linear-gradient(to right, var(--pcolor) 0%, #FFFFFF 100%);
+    /* White geometric pattern behind the AEE logo — same asset index.html uses
+       on its landing-page hero. Gives the logo a clean buffer on every pillar
+       and matches the cross-page design language. Graphics team feedback
+       (2026-04): the prior `--pcolor → white` gradient bled through the logo
+       letterforms on warm/mid-tone pillars. */
+    background: url('../images/background-patterns/StratPlan-Dashboard-Header_White-HiRes.png') center/cover no-repeat;
   }
+  /* S.025 light-family override retired 2026-04-15 when Option A landed:
+     navy text on the near-white top band of the vertical gradient works
+     for every pillar, so no family split is needed. The white geometric
+     pattern on .pillar-hero-right is handled by the default rule above. */
   .sp-dashboard .pillar-hero-logo{
     position: absolute;
     inset: 0;
@@ -271,8 +295,15 @@
   .sp-dashboard .tab-btn{
     padding: 12px 24px;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
+    /* 19px / weight 700 qualifies as WCAG "large text" (≥14pt bold =
+       ≥18.66px bold), shifting the contrast threshold from 4.5:1 to 3:1.
+       This rescues .tab-btn.active on light pillars: --pillar4-text
+       (#CB5277) gives 3.90:1 and --pillar5-text (#39813F) gives 4.46:1
+       against the panel bg (#F5F7FA) — both fail 4.5:1 but both pass 3:1.
+       Axe's color-contrast rule requires weight ≥700 to classify as bold
+       (the prior weight 600 was treated as normal). */
+    font-size: 19px;
+    font-weight: 700;
     /* Inactive text uses #595D62 (4.55:1 on the pillar-switcher bg #F0F2F5).
        The shared --status-gray token stays #6B7280 for chrome contexts that
        pair it with a lighter background. */
@@ -747,7 +778,12 @@
     }
     .sp-dashboard .tab-btn{
       padding: 12px 14px;
-      font-size: 14px;
+      /* Keep 19px/bold at this breakpoint so the .tab-btn.active large-text
+         WCAG-AA threshold (3:1) still applies; .tab-bar has overflow-x:auto
+         (line ~782) so wider labels scroll horizontally on narrow viewports
+         rather than wrapping or failing contrast. */
+      font-size: 19px;
+      font-weight: 700;
       flex-shrink: 0;
       white-space: nowrap;
       min-height: 44px;
@@ -843,7 +879,11 @@
     .sp-dashboard .pillar-switcher{ padding: 10px; }
     .sp-dashboard .tab-btn{
       padding: 8px 12px;
-      font-size: 13px;
+      /* Hold 19px/bold on small mobile too — same reason as the 768px
+         breakpoint. Smaller sizes would drop below the 18.66px large-text
+         threshold and reintroduce the P4/P5 contrast fail. */
+      font-size: 19px;
+      font-weight: 700;
     }
     .sp-dashboard .action-card, .sp-dashboard .story-card{
       padding: 12px 14px;

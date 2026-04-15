@@ -1,0 +1,81 @@
+PillarID,MeasureID,MeasureLbl,Year,ActualValue,TargetValue,Y-axis max,MaxYearWithData,ValueFormat,BusinessOwner,Source
+P1,P1.M1,CGRS,2024.0,87.0,,100.0,"=IF(D2 = MAXIFS($D:$D, $B:$B, B2, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M1,CGRS,2025.0,87.7,,100.0,"=IF(D3 = MAXIFS($D:$D, $B:$B, B3, $E:$E, ""<>""), 1, 0)",#.#%,,Curtis,,,,,,,,,,,,,,,,,,,
+P1,P1.M1,CGRS,2026.0,,88.0,100.0,"=IF(D4 = MAXIFS($D:$D, $B:$B, B4, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M1,CGRS,2027.0,,89.0,100.0,"=IF(D5 = MAXIFS($D:$D, $B:$B, B5, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M1,CGRS,2028.0,,90.0,100.0,"=IF(D6 = MAXIFS($D:$D, $B:$B, B6, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M1,CGRS,2029.0,,91.0,100.0,"=IF(D7 = MAXIFS($D:$D, $B:$B, B7, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M1,CGRS,2030.0,,92.0,100.0,"=IF(D8 = MAXIFS($D:$D, $B:$B, B8, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M2,ACT Score,2024.0,18.5,,"=MAX(MAXIFS(E:E, B:B, B9), MAXIFS(F:F, B:B, B9)) * 1.2","=IF(D9 = MAXIFS($D:$D, $B:$B, B9, $E:$E, ""<>""), 1, 0)",#.#,,,
+P1,P1.M2,ACT Score,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B10), MAXIFS(F:F, B:B, B10)) * 1.2","=IF(D10 = MAXIFS($D:$D, $B:$B, B10, $E:$E, ""<>""), 1, 0)",#.#,,Curtis,Also a difference.
+P1,P1.M2,ACT Score,2026.0,,18.8,"=MAX(MAXIFS(E:E, B:B, B11), MAXIFS(F:F, B:B, B11)) * 1.2","=IF(D11 = MAXIFS($D:$D, $B:$B, B11, $E:$E, ""<>""), 1, 0)",#.#
+P1,P1.M2,ACT Score,2027.0,,19.2,"=MAX(MAXIFS(E:E, B:B, B12), MAXIFS(F:F, B:B, B12)) * 1.2","=IF(D12 = MAXIFS($D:$D, $B:$B, B12, $E:$E, ""<>""), 1, 0)",#.#
+P1,P1.M2,ACT Score,2028.0,,19.5,"=MAX(MAXIFS(E:E, B:B, B13), MAXIFS(F:F, B:B, B13)) * 1.2","=IF(D13 = MAXIFS($D:$D, $B:$B, B13, $E:$E, ""<>""), 1, 0)",#.#
+P1,P1.M2,ACT Score,2029.0,,19.8,"=MAX(MAXIFS(E:E, B:B, B14), MAXIFS(F:F, B:B, B14)) * 1.2","=IF(D14 = MAXIFS($D:$D, $B:$B, B14, $E:$E, ""<>""), 1, 0)",#.#
+P1,P1.M2,ACT Score,2030.0,,20.0,"=MAX(MAXIFS(E:E, B:B, B15), MAXIFS(F:F, B:B, B15)) * 1.2","=IF(D15 = MAXIFS($D:$D, $B:$B, B15, $E:$E, ""<>""), 1, 0)",#.#
+P1,P1.M3,AP Part,2024.0,21.5,,"=MAX(MAXIFS(E:E, B:B, B16), MAXIFS(F:F, B:B, B16)) * 1.2","=IF(D16 = MAXIFS($D:$D, $B:$B, B16, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M3,AP Part,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B17), MAXIFS(F:F, B:B, B17)) * 1.2","=IF(D17 = MAXIFS($D:$D, $B:$B, B17, $E:$E, ""<>""), 1, 0)",#.#%,,Curtis,,,,,,,,,,,,,,,,,,,
+P1,P1.M3,AP Part,2026.0,,23.0,"=MAX(MAXIFS(E:E, B:B, B18), MAXIFS(F:F, B:B, B18)) * 1.2","=IF(D18 = MAXIFS($D:$D, $B:$B, B18, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M3,AP Part,2027.0,,25.0,"=MAX(MAXIFS(E:E, B:B, B19), MAXIFS(F:F, B:B, B19)) * 1.2","=IF(D19 = MAXIFS($D:$D, $B:$B, B19, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M3,AP Part,2028.0,,27.0,"=MAX(MAXIFS(E:E, B:B, B20), MAXIFS(F:F, B:B, B20)) * 1.2","=IF(D20 = MAXIFS($D:$D, $B:$B, B20, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M3,AP Part,2029.0,,29.0,"=MAX(MAXIFS(E:E, B:B, B21), MAXIFS(F:F, B:B, B21)) * 1.2","=IF(D21 = MAXIFS($D:$D, $B:$B, B21, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M3,AP Part,2030.0,,30.0,"=MAX(MAXIFS(E:E, B:B, B22), MAXIFS(F:F, B:B, B22)) * 1.2","=IF(D22 = MAXIFS($D:$D, $B:$B, B22, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M4,AP Pass,2024.0,65.4,,"=MAX(MAXIFS(E:E, B:B, B23), MAXIFS(F:F, B:B, B23)) * 1.2","=IF(D23 = MAXIFS($D:$D, $B:$B, B23, $E:$E, ""<>""), 1, 0)",#.#%,,
+P1,P1.M4,AP Pass,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B24), MAXIFS(F:F, B:B, B24)) * 1.2","=IF(D24 = MAXIFS($D:$D, $B:$B, B24, $E:$E, ""<>""), 1, 0)",#.#%,,Curtis
+P1,P1.M4,AP Pass,2026.0,,67.0,"=MAX(MAXIFS(E:E, B:B, B25), MAXIFS(F:F, B:B, B25)) * 1.2","=IF(D25 = MAXIFS($D:$D, $B:$B, B25, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M4,AP Pass,2027.0,,69.0,"=MAX(MAXIFS(E:E, B:B, B26), MAXIFS(F:F, B:B, B26)) * 1.2","=IF(D26 = MAXIFS($D:$D, $B:$B, B26, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M4,AP Pass,2028.0,,71.0,"=MAX(MAXIFS(E:E, B:B, B27), MAXIFS(F:F, B:B, B27)) * 1.2","=IF(D27 = MAXIFS($D:$D, $B:$B, B27, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M4,AP Pass,2029.0,,73.0,"=MAX(MAXIFS(E:E, B:B, B28), MAXIFS(F:F, B:B, B28)) * 1.2","=IF(D28 = MAXIFS($D:$D, $B:$B, B28, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M4,AP Pass,2030.0,,75.0,"=MAX(MAXIFS(E:E, B:B, B29), MAXIFS(F:F, B:B, B29)) * 1.2","=IF(D29 = MAXIFS($D:$D, $B:$B, B29, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M6,Dual Part,2024.0,36.0,,"=MAX(MAXIFS(E:E, B:B, B30), MAXIFS(F:F, B:B, B30)) * 1.2","=IF(D30 = MAXIFS($D:$D, $B:$B, B30, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M6,Dual Part,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B31), MAXIFS(F:F, B:B, B31)) * 1.2","=IF(D31 = MAXIFS($D:$D, $B:$B, B31, $E:$E, ""<>""), 1, 0)",#.#%,,Sneha,Rob entries,,,,,,,,,,,,,,,,,,
+P1,P1.M6,Dual Part,2026.0,,37.0,"=MAX(MAXIFS(E:E, B:B, B32), MAXIFS(F:F, B:B, B32)) * 1.2","=IF(D32 = MAXIFS($D:$D, $B:$B, B32, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M6,Dual Part,2027.0,,38.0,"=MAX(MAXIFS(E:E, B:B, B33), MAXIFS(F:F, B:B, B33)) * 1.2","=IF(D33 = MAXIFS($D:$D, $B:$B, B33, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M6,Dual Part,2028.0,,39.0,"=MAX(MAXIFS(E:E, B:B, B34), MAXIFS(F:F, B:B, B34)) * 1.2","=IF(D34 = MAXIFS($D:$D, $B:$B, B34, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M6,Dual Part,2029.0,,40.0,"=MAX(MAXIFS(E:E, B:B, B35), MAXIFS(F:F, B:B, B35)) * 1.2","=IF(D35 = MAXIFS($D:$D, $B:$B, B35, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M6,Dual Part,2030.0,,41.0,"=MAX(MAXIFS(E:E, B:B, B36), MAXIFS(F:F, B:B, B36)) * 1.2","=IF(D36 = MAXIFS($D:$D, $B:$B, B36, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M7,Dual Credit,2024.0,36.0,,"=MAX(MAXIFS(E:E, B:B, B37), MAXIFS(F:F, B:B, B37)) * 1.2","=IF(D37 = MAXIFS($D:$D, $B:$B, B37, $E:$E, ""<>""), 1, 0)",#.#%,,,
+P1,P1.M7,Dual Credit,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B38), MAXIFS(F:F, B:B, B38)) * 1.2","=IF(D38 = MAXIFS($D:$D, $B:$B, B38, $E:$E, ""<>""), 1, 0)",#.#%,,Sneha,Rob and Amy
+P1,P1.M7,Dual Credit,2026.0,,37.0,"=MAX(MAXIFS(E:E, B:B, B39), MAXIFS(F:F, B:B, B39)) * 1.2","=IF(D39 = MAXIFS($D:$D, $B:$B, B39, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M7,Dual Credit,2027.0,,38.0,"=MAX(MAXIFS(E:E, B:B, B40), MAXIFS(F:F, B:B, B40)) * 1.2","=IF(D40 = MAXIFS($D:$D, $B:$B, B40, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M7,Dual Credit,2028.0,,39.0,"=MAX(MAXIFS(E:E, B:B, B41), MAXIFS(F:F, B:B, B41)) * 1.2","=IF(D41 = MAXIFS($D:$D, $B:$B, B41, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M7,Dual Credit,2029.0,,40.0,"=MAX(MAXIFS(E:E, B:B, B42), MAXIFS(F:F, B:B, B42)) * 1.2","=IF(D42 = MAXIFS($D:$D, $B:$B, B42, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M7,Dual Credit,2030.0,,41.0,"=MAX(MAXIFS(E:E, B:B, B43), MAXIFS(F:F, B:B, B43)) * 1.2","=IF(D43 = MAXIFS($D:$D, $B:$B, B43, $E:$E, ""<>""), 1, 0)",#.#%
+P1,P1.M8,CTE Part,2024.0,36.1,,"=MAX(MAXIFS(E:E, B:B, B44), MAXIFS(F:F, B:B, B44)) * 1.2","=IF(D44 = MAXIFS($D:$D, $B:$B, B44, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M8,CTE Part,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B45), MAXIFS(F:F, B:B, B45)) * 1.2","=IF(D45 = MAXIFS($D:$D, $B:$B, B45, $E:$E, ""<>""), 1, 0)",#.#%,,Misty Wolf,Ask Geoff Coltrane,Also on school report card,,,,,,,,,,,,,,,,,
+P1,P1.M8,CTE Part,2026.0,,37.0,"=MAX(MAXIFS(E:E, B:B, B46), MAXIFS(F:F, B:B, B46)) * 1.2","=IF(D46 = MAXIFS($D:$D, $B:$B, B46, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M8,CTE Part,2027.0,,38.0,"=MAX(MAXIFS(E:E, B:B, B47), MAXIFS(F:F, B:B, B47)) * 1.2","=IF(D47 = MAXIFS($D:$D, $B:$B, B47, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M8,CTE Part,2028.0,,40.0,"=MAX(MAXIFS(E:E, B:B, B48), MAXIFS(F:F, B:B, B48)) * 1.2","=IF(D48 = MAXIFS($D:$D, $B:$B, B48, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M8,CTE Part,2029.0,,41.0,"=MAX(MAXIFS(E:E, B:B, B49), MAXIFS(F:F, B:B, B49)) * 1.2","=IF(D49 = MAXIFS($D:$D, $B:$B, B49, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M8,CTE Part,2030.0,,42.0,"=MAX(MAXIFS(E:E, B:B, B50), MAXIFS(F:F, B:B, B50)) * 1.2","=IF(D50 = MAXIFS($D:$D, $B:$B, B50, $E:$E, ""<>""), 1, 0)",#.#%,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M9,CTE Cred,2024.0,358069.0,,"=MAX(MAXIFS(E:E, B:B, B51), MAXIFS(F:F, B:B, B51)) * 1.2","=IF(D51 = MAXIFS($D:$D, $B:$B, B51, $E:$E, ""<>""), 1, 0)","#,###",,,
+P1,P1.M9,CTE Cred,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B52), MAXIFS(F:F, B:B, B52)) * 1.2","=IF(D52 = MAXIFS($D:$D, $B:$B, B52, $E:$E, ""<>""), 1, 0)","#,###",,Misty Wolf,Ask Geoff Coltrane
+P1,P1.M9,CTE Cred,2026.0,,400000.0,"=MAX(MAXIFS(E:E, B:B, B53), MAXIFS(F:F, B:B, B53)) * 1.2","=IF(D53 = MAXIFS($D:$D, $B:$B, B53, $E:$E, ""<>""), 1, 0)","#,###"
+P1,P1.M9,CTE Cred,2027.0,,425000.0,"=MAX(MAXIFS(E:E, B:B, B54), MAXIFS(F:F, B:B, B54)) * 1.2","=IF(D54 = MAXIFS($D:$D, $B:$B, B54, $E:$E, ""<>""), 1, 0)","#,###"
+P1,P1.M9,CTE Cred,2028.0,,450000.0,"=MAX(MAXIFS(E:E, B:B, B55), MAXIFS(F:F, B:B, B55)) * 1.2","=IF(D55 = MAXIFS($D:$D, $B:$B, B55, $E:$E, ""<>""), 1, 0)","#,###"
+P1,P1.M9,CTE Cred,2029.0,,475000.0,"=MAX(MAXIFS(E:E, B:B, B56), MAXIFS(F:F, B:B, B56)) * 1.2","=IF(D56 = MAXIFS($D:$D, $B:$B, B56, $E:$E, ""<>""), 1, 0)","#,###"
+P1,P1.M9,CTE Cred,2030.0,,500000.0,"=MAX(MAXIFS(E:E, B:B, B57), MAXIFS(F:F, B:B, B57)) * 1.2","=IF(D57 = MAXIFS($D:$D, $B:$B, B57, $E:$E, ""<>""), 1, 0)","#,###"
+P1,P1.M11,NAEP Read G4,2024.0,213.0,,"=MAX(MAXIFS(E:E, B:B, B58), MAXIFS(F:F, B:B, B58)) * 1.2","=IF(D58 = MAXIFS($D:$D, $B:$B, B58, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M11,NAEP Read G4,2026.0,,217.0,"=MAX(MAXIFS(E:E, B:B, B59), MAXIFS(F:F, B:B, B59)) * 1.2","=IF(D59 = MAXIFS($D:$D, $B:$B, B59, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M11,NAEP Read G4,2028.0,,221.0,"=MAX(MAXIFS(E:E, B:B, B60), MAXIFS(F:F, B:B, B60)) * 1.2","=IF(D60 = MAXIFS($D:$D, $B:$B, B60, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M11,NAEP Read G4,2030.0,,225.0,"=MAX(MAXIFS(E:E, B:B, B61), MAXIFS(F:F, B:B, B61)) * 1.2","=IF(D61 = MAXIFS($D:$D, $B:$B, B61, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M12,NAEP Read G8,2024.0,255.0,,"=MAX(MAXIFS(E:E, B:B, B62), MAXIFS(F:F, B:B, B62)) * 1.2","=IF(D62 = MAXIFS($D:$D, $B:$B, B62, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M12,NAEP Read G8,2026.0,,259.0,"=MAX(MAXIFS(E:E, B:B, B63), MAXIFS(F:F, B:B, B63)) * 1.2","=IF(D63 = MAXIFS($D:$D, $B:$B, B63, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M12,NAEP Read G8,2028.0,,264.0,"=MAX(MAXIFS(E:E, B:B, B64), MAXIFS(F:F, B:B, B64)) * 1.2","=IF(D64 = MAXIFS($D:$D, $B:$B, B64, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M12,NAEP Read G8,2030.0,,268.0,"=MAX(MAXIFS(E:E, B:B, B65), MAXIFS(F:F, B:B, B65)) * 1.2","=IF(D65 = MAXIFS($D:$D, $B:$B, B65, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M13,NAEP Math G4,2024.0,239.0,,"=MAX(MAXIFS(E:E, B:B, B66), MAXIFS(F:F, B:B, B66)) * 1.2","=IF(D66 = MAXIFS($D:$D, $B:$B, B66, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M13,NAEP Math G4,2026.0,,241.0,"=MAX(MAXIFS(E:E, B:B, B67), MAXIFS(F:F, B:B, B67)) * 1.2","=IF(D67 = MAXIFS($D:$D, $B:$B, B67, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M13,NAEP Math G4,2028.0,,244.0,"=MAX(MAXIFS(E:E, B:B, B68), MAXIFS(F:F, B:B, B68)) * 1.2","=IF(D68 = MAXIFS($D:$D, $B:$B, B68, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M13,NAEP Math G4,2030.0,,246.0,"=MAX(MAXIFS(E:E, B:B, B69), MAXIFS(F:F, B:B, B69)) * 1.2","=IF(D69 = MAXIFS($D:$D, $B:$B, B69, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P1,P1.M14,NAEP Math G8,2024.0,276.0,,"=MAX(MAXIFS(E:E, B:B, B70), MAXIFS(F:F, B:B, B70)) * 1.2","=IF(D70 = MAXIFS($D:$D, $B:$B, B70, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M14,NAEP Math G8,2026.0,,278.0,"=MAX(MAXIFS(E:E, B:B, B71), MAXIFS(F:F, B:B, B71)) * 1.2","=IF(D71 = MAXIFS($D:$D, $B:$B, B71, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M14,NAEP Math G8,2028.0,,281.0,"=MAX(MAXIFS(E:E, B:B, B72), MAXIFS(F:F, B:B, B72)) * 1.2","=IF(D72 = MAXIFS($D:$D, $B:$B, B72, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M14,NAEP Math G8,2030.0,,283.0,"=MAX(MAXIFS(E:E, B:B, B73), MAXIFS(F:F, B:B, B73)) * 1.2","=IF(D73 = MAXIFS($D:$D, $B:$B, B73, $E:$E, ""<>""), 1, 0)",#
+P1,P1.M15,Character,2025.0,,,"=MAX(MAXIFS(E:E, B:B, B74), MAXIFS(F:F, B:B, B74)) * 1.2","=IF(D74 = MAXIFS($D:$D, $B:$B, B74, $E:$E, ""<>""), 1, 0)",#,,,,,,,,,,,,,,,,,,,,,
+P8,P8.M2,Enrollment,2024.0,83.9,,100.0,"=IF(D75 = MAXIFS($D:$D, $B:$B, B75, $E:$E, ""<>""), 1, 0)",#.#%,,,
+P8,P8.M2,Enrollment,2025.0,83.4,,100.0,"=IF(D76 = MAXIFS($D:$D, $B:$B, B76, $E:$E, ""<>""), 1, 0)",#.#%,,,Ask Geoff again.
+P8,P8.M2,Enrollment,2026.0,,85.0,100.0,"=IF(D77 = MAXIFS($D:$D, $B:$B, B77, $E:$E, ""<>""), 1, 0)",#.#%,,,NC Dept of Non-Public Instruction
+P8,P8.M2,Enrollment,2027.0,,86.0,100.0,"=IF(D78 = MAXIFS($D:$D, $B:$B, B78, $E:$E, ""<>""), 1, 0)",#.#%,,,Or is it FBS? ADM?
+P8,P8.M2,Enrollment,2028.0,,87.0,100.0,"=IF(D79 = MAXIFS($D:$D, $B:$B, B79, $E:$E, ""<>""), 1, 0)",#.#%
+P8,P8.M2,Enrollment,2029.0,,88.0,100.0,"=IF(D80 = MAXIFS($D:$D, $B:$B, B80, $E:$E, ""<>""), 1, 0)",#.#%
+P8,P8.M2,Enrollment,2030.0,,89.0,100.0,"=IF(D81 = MAXIFS($D:$D, $B:$B, B81, $E:$E, ""<>""), 1, 0)",#.#%

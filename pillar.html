@@ -56,11 +56,12 @@
     --pcolor: var(--pillar1);
     --pbg: var(--pillar1-bg);
     --ptext: var(--pillar1-text);
-    /* Hero text colour — white on dark pillars (P1/P2/P7/P8), navy on light
-       pillars (P3/P4/P5/P6). switchPillar() sets this per pillar, and also
-       sets body[data-pillar-family] so the light pillars pick up the
-       continuous-gradient hero background via the override rules below. */
-    --hero-text: #FFFFFF;
+    /* Hero text colour — navy for all pillars (Option A, promoted 2026-04-15).
+       Text sits on the near-white top band of the vertical gradient on every
+       pillar, so the old dark/light family split is retired. The variable is
+       kept (rather than hardcoding navy in the rules below) for future
+       flexibility and because several CSS rules already consume it. */
+    --hero-text: #003A70;
 
     /* Status colors */
     /* #0F5FA8 = 5.17:1 with white (WCAG AA). Previously #197BCE (4.41:1). */
@@ -90,11 +91,17 @@
   }
   .pillar-hero-left {
     flex: 1;
-    /* Solid pillar colour by default — DARK pillars (P1/P2/P7/P8) keep this
-       treatment so white text on solid --pcolor passes WCAG AA. LIGHT pillars
-       (P3/P4/P5/P6) override this via body[data-pillar-family="light"] below
-       to get a continuous gradient + dark (navy) text. */
-    background-color: var(--pcolor);
+    /* Option A — vertical light→dark gradient (PDF-style, promoted 2026-04-15).
+       Text anchors on the near-white top band; pillar colour saturates at the
+       bottom as an accent. Navy text for every pillar, so the previous
+       dark/light family split (S.025) is retired. White plateau runs to 55%
+       so the title baseline sits clearly in unsaturated territory. */
+    background: linear-gradient(
+      to bottom,
+      #FFFFFF 0%,
+      #FFFFFF 55%,
+      var(--pcolor) 100%
+    );
     color: var(--hero-text);
     padding: 16px 40px;
     display: flex;
@@ -131,30 +138,17 @@
     width: 280px;
     flex-shrink: 0;
     position: relative;
-    /* Fade from pillar colour to white — picks up where .pillar-hero-left ends. */
-    background: linear-gradient(to right, var(--pcolor) 0%, #FFFFFF 100%);
+    /* White geometric pattern behind the AEE logo — same asset index.html uses
+       on its landing-page hero. Gives the logo a clean buffer on every pillar
+       and matches the cross-page design language. Graphics team feedback
+       (2026-04): the prior `--pcolor → white` gradient bled through the logo
+       letterforms on warm/mid-tone pillars. */
+    background: url('images/Background Patterns/StratPlan-Dashboard-Header_White-HiRes.png') center/cover no-repeat;
   }
-  /* =========================================================
-     LIGHT-PILLAR HERO — S.025 contrast fix (Variant A).
-     For P3/P4/P5/P6 (light --pcolor values that fail WCAG white-text
-     contrast), replace the solid/right-fade treatment with a continuous
-     `--pcolor` → white gradient across the full hero width. Text flips to
-     navy (#003A70) via --hero-text, set by switchPillar(). Navy stays
-     readable at every gradient position because navy→white contrast is
-     high and navy→pcolor contrast also passes AA for these pillars.
-     switchPillar() toggles `body[data-pillar-family="light"]` to
-     activate these rules; dark pillars (P1/P2/P7/P8) keep the default
-     solid-left + 280px-right-fade rules above.
-     ========================================================= */
-  body[data-pillar-family="light"] .pillar-hero {
-    background: linear-gradient(to right, var(--pcolor) 0%, #FFFFFF 100%);
-  }
-  body[data-pillar-family="light"] .pillar-hero-left {
-    background-color: transparent;
-  }
-  body[data-pillar-family="light"] .pillar-hero-right {
-    background: transparent;
-  }
+  /* S.025 light-family override retired 2026-04-15 when Option A landed:
+     navy text on the near-white top band of the vertical gradient works
+     for every pillar, so no family split is needed. The white geometric
+     pattern on .pillar-hero-right is handled by the default rule above. */
   .pillar-hero-logo {
     position: absolute;
     inset: 0;
@@ -1003,8 +997,8 @@
     </a>
 
     <hr>
-    <a class="sidebar-link" href="#"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
-    <a class="sidebar-link" href="#"><i class="bi bi-envelope" aria-hidden="true"></i> Contact: Geoff Coltrane</a>
+    <a class="sidebar-link" href="https://www.dpi.nc.gov/documents/statesuperintendent/achieving-educational-excellence-strategic-plan/download?attachment" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
+    <a class="sidebar-link" href="mailto:Geoff.coltrane@dpi.nc.gov"><i class="bi bi-envelope" aria-hidden="true"></i> Contact NCDPI</a>
   </nav>
 
   <!-- CENTER: Pillar Content -->
@@ -1174,14 +1168,12 @@ function switchPillar(index) {
   root.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
   root.style.setProperty('--ptext', 'var(--pillar' + n + '-text)');
 
-  // 4b. Hero treatment depends on pillar family (S.025 contrast fix).
-  //     Light pillars (3-6) have --pcolor values too light for white text;
-  //     they get navy hero text + a continuous gradient bg. Dark pillars
-  //     keep white text + solid hero-left (current design, already passing).
-  var LIGHT_PILLARS = [3, 4, 5, 6];
-  var isLight = LIGHT_PILLARS.indexOf(n) !== -1;
-  root.style.setProperty('--hero-text', isLight ? '#003A70' : '#FFFFFF');
-  document.body.dataset.pillarFamily = isLight ? 'light' : 'dark';
+  // 4b. Option A (vertical gradient, promoted 2026-04-15) uses navy text on
+  //     every pillar, sitting on the near-white top band of the gradient.
+  //     No per-family switching is needed — the :root default for --hero-text
+  //     handles it. We clear any legacy data-pillar-family attribute in case
+  //     stale stylesheets or serialised state still reference it.
+  document.body.removeAttribute('data-pillar-family');
 
   // 5. Update sidebar active state
   pillarLinks.forEach(function(link) {

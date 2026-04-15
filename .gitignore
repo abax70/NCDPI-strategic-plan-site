@@ -12,9 +12,12 @@ session-*.md
 session-handoff.md
 PROJECT-PLAN.md
 
-# Data build scripts and source files (keep only the output JSON)
-data/*.py
-data/*.csv
+# Data sources
+# CSV source files and Python build scripts are now TRACKED (2026-04-15):
+# the data/ folder is the only backup Andy has for these, and Drupal delivery
+# depends on columns like BadgePressReleaseUrl that live in the CSV source,
+# not in the regenerated measures.json. Keep XLSX workbooks local (binary,
+# some contain not-yet-cleared content) and local-only working notes (*.md).
 data/*.xlsx
 data/*.md
 
