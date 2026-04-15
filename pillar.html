@@ -56,6 +56,11 @@
     --pcolor: var(--pillar1);
     --pbg: var(--pillar1-bg);
     --ptext: var(--pillar1-text);
+    /* Hero text colour — white on dark pillars (P1/P2/P7/P8), navy on light
+       pillars (P3/P4/P5/P6). switchPillar() sets this per pillar, and also
+       sets body[data-pillar-family] so the light pillars pick up the
+       continuous-gradient hero background via the override rules below. */
+    --hero-text: #FFFFFF;
 
     /* Status colors */
     /* #0F5FA8 = 5.17:1 with white (WCAG AA). Previously #197BCE (4.41:1). */
@@ -85,11 +90,12 @@
   }
   .pillar-hero-left {
     flex: 1;
-    /* Solid pillar colour — white text computes against this (not the old
-       parent gradient, which axe/pa11y couldn't evaluate). Gradient effect
-       moved to .pillar-hero-right below. */
+    /* Solid pillar colour by default — DARK pillars (P1/P2/P7/P8) keep this
+       treatment so white text on solid --pcolor passes WCAG AA. LIGHT pillars
+       (P3/P4/P5/P6) override this via body[data-pillar-family="light"] below
+       to get a continuous gradient + dark (navy) text. */
     background-color: var(--pcolor);
-    color: white;
+    color: var(--hero-text);
     padding: 16px 40px;
     display: flex;
     align-items: center;
@@ -106,17 +112,20 @@
     flex-direction: column;
   }
   .pillar-hero-label {
-    font-size: 12px;
+    /* 19px (≥14pt) bold qualifies as WCAG "large text" (3:1 threshold),
+       closing the P4 label contrast gap while keeping the rule uniform. */
+    font-size: 19px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    color: var(--hero-text);
     margin-bottom: 2px;
   }
   .pillar-hero-title {
     font-size: 22px;
     font-weight: 700;
     line-height: 1.25;
+    color: var(--hero-text);
   }
   .pillar-hero-right {
     width: 280px;
@@ -124,6 +133,27 @@
     position: relative;
     /* Fade from pillar colour to white — picks up where .pillar-hero-left ends. */
     background: linear-gradient(to right, var(--pcolor) 0%, #FFFFFF 100%);
+  }
+  /* =========================================================
+     LIGHT-PILLAR HERO — S.025 contrast fix (Variant A).
+     For P3/P4/P5/P6 (light --pcolor values that fail WCAG white-text
+     contrast), replace the solid/right-fade treatment with a continuous
+     `--pcolor` → white gradient across the full hero width. Text flips to
+     navy (#003A70) via --hero-text, set by switchPillar(). Navy stays
+     readable at every gradient position because navy→white contrast is
+     high and navy→pcolor contrast also passes AA for these pillars.
+     switchPillar() toggles `body[data-pillar-family="light"]` to
+     activate these rules; dark pillars (P1/P2/P7/P8) keep the default
+     solid-left + 280px-right-fade rules above.
+     ========================================================= */
+  body[data-pillar-family="light"] .pillar-hero {
+    background: linear-gradient(to right, var(--pcolor) 0%, #FFFFFF 100%);
+  }
+  body[data-pillar-family="light"] .pillar-hero-left {
+    background-color: transparent;
+  }
+  body[data-pillar-family="light"] .pillar-hero-right {
+    background: transparent;
   }
   .pillar-hero-logo {
     position: absolute;
@@ -280,8 +310,15 @@
   .tab-btn {
     padding: 12px 24px;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
+    /* 19px / weight 700 qualifies as WCAG "large text" (≥14pt bold =
+       ≥18.66px bold), shifting the contrast threshold from 4.5:1 to 3:1.
+       This rescues .tab-btn.active on light pillars: --pillar4-text
+       (#CB5277) gives 3.90:1 and --pillar5-text (#39813F) gives 4.46:1
+       against the panel bg (#F5F7FA) — both fail 4.5:1 but both pass 3:1.
+       Axe's color-contrast rule requires weight ≥700 to classify as bold
+       (the prior weight 600 was treated as normal). */
+    font-size: 19px;
+    font-weight: 700;
     /* Inactive text uses #595D62 (4.55:1 on the pillar-switcher bg #F0F2F5).
        The shared --status-gray token stays #6B7280 for chrome contexts that
        pair it with a lighter background. */
@@ -756,7 +793,12 @@
     }
     .tab-btn {
       padding: 12px 14px;
-      font-size: 14px;
+      /* Keep 19px/bold at this breakpoint so the .tab-btn.active large-text
+         WCAG-AA threshold (3:1) still applies; .tab-bar has overflow-x:auto
+         (line ~782) so wider labels scroll horizontally on narrow viewports
+         rather than wrapping or failing contrast. */
+      font-size: 19px;
+      font-weight: 700;
       flex-shrink: 0;
       white-space: nowrap;
       min-height: 44px;
@@ -852,7 +894,11 @@
     .pillar-switcher { padding: 10px; }
     .tab-btn {
       padding: 8px 12px;
-      font-size: 13px;
+      /* Hold 19px/bold on small mobile too — same reason as the 768px
+         breakpoint. Smaller sizes would drop below the 18.66px large-text
+         threshold and reintroduce the P4/P5 contrast fail. */
+      font-size: 19px;
+      font-weight: 700;
     }
     .action-card, .story-card {
       padding: 12px 14px;
@@ -1127,6 +1173,15 @@ function switchPillar(index) {
   root.style.setProperty('--pcolor', 'var(--pillar' + n + ')');
   root.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
   root.style.setProperty('--ptext', 'var(--pillar' + n + '-text)');
+
+  // 4b. Hero treatment depends on pillar family (S.025 contrast fix).
+  //     Light pillars (3-6) have --pcolor values too light for white text;
+  //     they get navy hero text + a continuous gradient bg. Dark pillars
+  //     keep white text + solid hero-left (current design, already passing).
+  var LIGHT_PILLARS = [3, 4, 5, 6];
+  var isLight = LIGHT_PILLARS.indexOf(n) !== -1;
+  root.style.setProperty('--hero-text', isLight ? '#003A70' : '#FFFFFF');
+  document.body.dataset.pillarFamily = isLight ? 'light' : 'dark';
 
   // 5. Update sidebar active state
   pillarLinks.forEach(function(link) {
