@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Drupal-sim] Landing | NCDPI Strategic Plan</title>
+<style>
+  :root { --navy: red !important; --secondary: magenta !important; }
+  html, body { margin: 0; padding: 0; font-family: Georgia, serif; color: #333; background: #eee; line-height: 1.4; }
+  a { color: #900; text-decoration: underline; }
+  h1, h2, h3 { font-family: Georgia, serif; color: #900; }
+  .site-chrome { background: #222; color: #fff; padding: 16px 24px; font-family: Georgia, serif; }
+  .site-chrome a { color: #ffd; }
+  .site-footer { background: #111; color: #888; padding: 16px 24px; font-size: 13px; margin-top: 40px; }
+  * { outline: 1px dashed transparent; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../assets/css/sp-landing.css">
+<script>
+  window.SP_CONFIG = { basePath: "../assets/", pillarPageUrl: "pillar.html", landingPageUrl: "landing.html" };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+</head><body>
+<header class="site-chrome"><strong>[Drupal-sim site header]</strong> &nbsp;|&nbsp; <a href="#">Home</a> &nbsp;|&nbsp; <a href="#">About</a></header>
+<div class="sp-dashboard">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ===== HERO BANNER — Compact, warm, celebratory ===== -->
+<div class="hero-banner">
+  <div class="hero-banner-left">
+    <img class="hero-banner-bg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/background-patterns/StratPlan-Dashboard-Header_Blue-HiRes.png" alt="" aria-hidden="true">
+    <!-- Hamburger toggle — only visible at <=768px via CSS media query.
+         aria-controls points to the drawer nav; aria-expanded flips via JS. -->
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-label="Open navigation menu"
+            aria-controls="sidebarLeft"
+            aria-expanded="false">
+      <i class="bi bi-list" aria-hidden="true"></i>
+    </button>
+    <h1>Best in the Nation &mdash; Our 2030 Plan</h1>
+    <p>Tracking our progress to make North Carolina&rsquo;s public schools the best in the nation.</p>
+    <a class="hero-cta" href="#">Celebrating Excellence in NC Public Schools</a>
+  </div>
+  <div class="hero-banner-right">
+    <div class="hero-logo-overlay">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/logos/Logo-AchEdExc-tagline-MAIN.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
+    </div>
+  </div>
+</div>
+<!-- Backdrop for the mobile nav drawer — click to close. -->
+<div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+
+<!-- ===== THREE-COLUMN LAYOUT ===== -->
+<div class="three-col">
+
+  <!-- LEFT SIDEBAR: Pillar Navigation -->
+  <nav class="sidebar-left" id="sidebarLeft" role="navigation" aria-label="Strategic Pillars">
+    <div class="sidebar-heading">Strategic Pillars</div>
+
+    <a class="pillar-link active" href="pillar.html?p=1" aria-current="page" data-pillar="1" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-1-Icon-Students.png" alt="" role="presentation">
+      <span class="pillar-name">Prepare Each Student for Their Next Phase in Life</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=2" data-pillar="2" style="--pcolor: var(--pillar2); --pbg: var(--pillar2-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-2-Icon-Educators.png" alt="" role="presentation">
+      <span class="pillar-name">Revere Public School Educators</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=3" data-pillar="3" style="--pcolor: var(--pillar3); --pbg: var(--pillar3-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-3-Icon-Community.png" alt="" role="presentation">
+      <span class="pillar-name">Enhance Parent, Caregiver, and Community Support</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=4" data-pillar="4" style="--pcolor: var(--pillar4); --pbg: var(--pillar4-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-4-Icon-HealthySafe.png" alt="" role="presentation">
+      <span class="pillar-name">Ensure Healthy, Safe and Secure Learning Environments</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=5" data-pillar="5" style="--pcolor: var(--pillar5); --pbg: var(--pillar5-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-5-Icon-Operational.png" alt="" role="presentation">
+      <span class="pillar-name">Optimize Operational Excellence</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=6" data-pillar="6" style="--pcolor: var(--pillar6); --pbg: var(--pillar6-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-6-Icon-Transformative.png" alt="" role="presentation">
+      <span class="pillar-name">Lead Transformative Change</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=7" data-pillar="7" style="--pcolor: var(--pillar7); --pbg: var(--pillar7-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-7-Icon-Celebrate.png" alt="" role="presentation">
+      <span class="pillar-name">Celebrate the Excellence in Public Education</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=8" data-pillar="8" style="--pcolor: var(--pillar8); --pbg: var(--pillar8-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-8-Icon-Champions.png" alt="" role="presentation">
+      <span class="pillar-name">Galvanize Champions to Fully Invest in and Support Public Education</span>
+    </a>
+
+    <hr>
+    <a class="sidebar-link" href="#"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
+    <a class="sidebar-link" href="#"><i class="bi bi-envelope" aria-hidden="true"></i> Contact: Geoff Coltrane</a>
+  </nav>
+
+  <!-- CENTER: Measure Detail -->
+  <main class="main-content" id="main-content">
+
+    <h2 class="sr-only">Select a measure</h2>
+
+    <!-- Carousel controls — dropdown first (primary nav), arrows + counter second -->
+    <div class="carousel-header">
+      <select class="carousel-select" aria-label="Jump to measure">
+        <!-- Options populated from measures.json by buildDropdown() -->
+      </select>
+      <div class="carousel-arrows">
+        <button class="carousel-btn" aria-label="Previous measure">&#8249;</button>
+        <button class="carousel-btn" aria-label="Next measure">&#8250;</button>
+        <span class="carousel-counter">Measure 1 of 14</span>
+      </div>
+    </div>
+
+    <!-- Measure identity -->
+    <div class="measure-header">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/measure-graphics/StratPlan-BIN-GradRate.svg" alt="Graduation Rate icon">
+      <div>
+        <h2>Cohort Graduation Rate</h2>
+        <p class="goal">Increase the adjusted four-year cohort high school graduation rate to 92% by 2030.</p>
+        <!-- Status pill: shows "Record High" or "Baseline Year" depending on measure.
+             "Baseline" variant = measures without a record, showing the starting-point year. -->
+        <span class="status-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C5960C" aria-hidden="true"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Record High
+        </span>
+      </div>
+    </div>
+
+    <!-- Big number callout (from Mockup A — the most important thing on the page) -->
+    <div class="current-value">
+      <div class="big-number">87.7%</div>
+      <div class="context">
+        Percentage of 9th-graders graduating from high school four years later (2024&ndash;25)
+      </div>
+    </div>
+
+    <!-- Bar chart (Chart.js) -->
+    <div class="chart-area">
+      <div class="chart-target-callout" id="targetCallout" style="display:none;">
+        <span class="target-line-swatch"></span>
+        <span id="targetCalloutText"></span>
+      </div>
+      <div class="chart-canvas-wrap" id="chartWrap">
+        <canvas id="measureChart" role="img"
+                aria-label="Bar chart showing measure progress toward 2030 target"></canvas>
+      </div>
+      <div class="chart-legend" id="chartLegend">
+        <span><span class="swatch baseline"></span> Actual</span>
+        <span><span class="swatch target"></span> Target</span>
+      </div>
+      <noscript>
+        <p style="text-align:center; padding:40px; color:#212529;">This chart requires JavaScript to display.</p>
+      </noscript>
+    </div>
+
+    <!-- Notes / definition -->
+    <div class="notes-section">
+      <p><strong>Definition:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
+      <p><strong>Next update:</strong> September 2026</p>
+      <p><strong>Source:</strong> <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_219.46.asp" target="_blank">NCES Digest of Education Statistics</a></p>
+    </div>
+  </main>
+
+  <!-- RIGHT SIDEBAR: Context Panels
+       --pcolor / --pbg are set here for the active pillar. JS will update
+       these when the carousel switches pillars. Static mockup = Pillar 1. -->
+  <div class="sidebar-right" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
+
+    <!-- Record High Badge — uses official shield SVG from graphics team.
+         Omit this entire div for measures that don't have a record. -->
+    <div class="record-badge">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/badges/Badges-GradRate.svg" alt="Highest 4-Year Graduation Rate in NC History, 2024-2025">
+    </div>
+
+    <!-- Why It Counts — context first, then action (narrative arc) -->
+    <div class="sidebar-panel">
+      <div class="sidebar-panel-title">Why It Counts</div>
+      <div class="why-panel">
+        <p>Graduation rate is the most widely recognized measure of a public school system's success. Every student who earns a diploma gains access to more career opportunities, higher lifetime earnings, and better health outcomes.</p>
+      </div>
+    </div>
+
+    <!-- What's in Motion — pillar-colored cards -->
+    <div class="sidebar-panel">
+      <div class="sidebar-panel-title">What's in Motion</div>
+      <div class="motion-card">
+        <h3>Finish Line Grants</h3>
+        <p>Districts receive targeted funding to support students who need interventions &mdash; tutoring, transportation, mentoring &mdash; to cross the graduation finish line.</p>
+        <a href="#">See Pillar 1 &rarr;</a>
+      </div>
+      <div class="motion-card">
+        <h3>Early Warning System</h3>
+        <p>Schools use data-driven indicators to identify students at risk of not graduating and connect them with support services early.</p>
+        <a href="#">See Pillar 1 &rarr;</a>
+      </div>
+    </div>
+
+    <!-- More Data -->
+    <div class="sidebar-panel">
+      <div class="sidebar-panel-title">More Data</div>
+      <a class="more-data-link" href="https://go.ncdpi.gov/CGRState" target="_blank">Explore graduation rate data &rarr;</a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Chart.js CDN (UMD builds — must load in this order) -->
+</div>
+
+<footer class="site-footer"><strong>[Drupal-sim site footer]</strong> &copy; 2026 NCDPI</footer>
+<script src="../assets/js/sp-landing.js"></script>
+</body></html>

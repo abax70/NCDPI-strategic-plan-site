@@ -1,0 +1,34 @@
+# =============================================================
+# Drupal library definitions for the NCDPI Strategic Plan
+# dashboard. Add this file to your custom theme (or a custom
+# module) as strategic_plan.libraries.yml, and reference the
+# libraries from your page templates:
+#
+#   {{ attach_library('strategic_plan/landing') }}
+#   {{ attach_library('strategic_plan/pillar') }}
+#
+# Adjust the asset paths below if you upload to a location
+# other than /sites/default/files/strategic-plan/.
+# =============================================================
+
+landing:
+  version: 1.0
+  css:
+    theme:
+      https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap: { type: external, minified: true }
+      https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css: { type: external, minified: true }
+      /sites/default/files/strategic-plan/css/sp-landing.css: {}
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js: { type: external, minified: true }
+    https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js: { type: external, minified: true }
+    /sites/default/files/strategic-plan/js/sp-landing.js: { defer: true }
+
+pillar:
+  version: 1.0
+  css:
+    theme:
+      https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap: { type: external, minified: true }
+      https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css: { type: external, minified: true }
+      /sites/default/files/strategic-plan/css/sp-pillar.css: {}
+  js:
+    /sites/default/files/strategic-plan/js/sp-pillar.js: { defer: true }

@@ -1,0 +1,185 @@
+<!--
+  =================================================================
+  NCDPI Strategic Plan Dashboard — OPTION A (paste into Full HTML).
+
+  Paste this entire block into a Drupal page with the Full HTML text
+  format. Before pasting, update SP_CONFIG below so basePath points
+  to the folder where you uploaded the /assets/ tree.
+
+  All CSS and JS are scoped under .sp-dashboard so they will not
+  collide with the theme. No page-level <html>, <head>, or <body>
+  tags are emitted — Drupal provides those.
+  =================================================================
+-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script>
+  /* Configure paths before the dashboard scripts load. */
+  window.SP_CONFIG = {
+    basePath:       '/sites/default/files/strategic-plan/',
+    pillarPageUrl:  '/strategic-plan/pillar',
+    landingPageUrl: '/strategic-plan'
+  };
+</script>
+<link rel="stylesheet" href="/sites/default/files/strategic-plan/css/sp-pillar.css">
+<div class="sp-dashboard">
+<a href="#pillar-main-content" class="skip-link">Skip to main content</a>
+
+<!-- ===== PILLAR HERO — Condensed, pillar-branded ===== -->
+<div class="pillar-hero" id="pillarHero">
+  <div class="pillar-hero-left">
+    <img class="pillar-hero-icon" id="heroIcon" src="" alt="Strategic Pillar">
+    <div class="pillar-hero-text">
+      <span class="pillar-hero-label" id="heroLabel">PILLAR 1</span>
+      <h1 class="pillar-hero-title" id="heroTitle">Loading...</h1>
+    </div>
+    <!-- Hamburger toggle — visible only at <=768px via media query. -->
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-label="Open navigation menu"
+            aria-controls="sidebarLeft"
+            aria-expanded="false">
+      <i class="bi bi-list" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="pillar-hero-right">
+    <div class="pillar-hero-logo">
+      <a href="index.html">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/logos/Logo-AchEdExc-tagline-MAIN.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
+      </a>
+    </div>
+  </div>
+</div>
+<!-- Backdrop for the mobile nav drawer — click to close. -->
+<div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+
+<!-- ===== TWO-COLUMN BODY ===== -->
+<div class="two-col">
+
+  <!-- LEFT SIDEBAR: Pillar Navigation (same component as landing page) -->
+  <nav class="sidebar-left" id="sidebarLeft" role="navigation" aria-label="Strategic Pillars">
+    <div class="sidebar-heading">Strategic Pillars</div>
+
+    <a class="pillar-link" href="index.html" style="--pcolor: var(--navy); --pbg: var(--navy-light);">
+      <i class="bi bi-house-door" style="font-size: 32px; width: 40px; text-align: center; color: var(--navy);" aria-hidden="true"></i>
+      <span class="pillar-name" style="font-weight: 700;">Best in the Nation Measures</span>
+    </a>
+
+    <hr style="margin: 8px 20px 12px;">
+
+    <a class="pillar-link" href="pillar.html?p=1" data-pillar="1" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-1-Icon-Students.png" alt="" role="presentation">
+      <span class="pillar-name">Prepare Each Student for Their Next Phase in Life</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=2" data-pillar="2" style="--pcolor: var(--pillar2); --pbg: var(--pillar2-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-2-Icon-Educators.png" alt="" role="presentation">
+      <span class="pillar-name">Revere Public School Educators</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=3" data-pillar="3" style="--pcolor: var(--pillar3); --pbg: var(--pillar3-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-3-Icon-Community.png" alt="" role="presentation">
+      <span class="pillar-name">Enhance Parent, Caregiver, and Community Support</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=4" data-pillar="4" style="--pcolor: var(--pillar4); --pbg: var(--pillar4-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-4-Icon-HealthySafe.png" alt="" role="presentation">
+      <span class="pillar-name">Ensure Healthy, Safe and Secure Learning Environments</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=5" data-pillar="5" style="--pcolor: var(--pillar5); --pbg: var(--pillar5-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-5-Icon-Operational.png" alt="" role="presentation">
+      <span class="pillar-name">Optimize Operational Excellence</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=6" data-pillar="6" style="--pcolor: var(--pillar6); --pbg: var(--pillar6-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-6-Icon-Transformative.png" alt="" role="presentation">
+      <span class="pillar-name">Lead Transformative Change</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=7" data-pillar="7" style="--pcolor: var(--pillar7); --pbg: var(--pillar7-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-7-Icon-Celebrate.png" alt="" role="presentation">
+      <span class="pillar-name">Celebrate the Excellence in Public Education</span>
+    </a>
+    <a class="pillar-link" href="pillar.html?p=8" data-pillar="8" style="--pcolor: var(--pillar8); --pbg: var(--pillar8-bg);">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-sp-src="images/pillar-icons/Pillar-8-Icon-Champions.png" alt="" role="presentation">
+      <span class="pillar-name">Galvanize Champions to Fully Invest in and Support Public Education</span>
+    </a>
+
+    <hr>
+    <a class="sidebar-link" href="#"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
+    <a class="sidebar-link" href="#"><i class="bi bi-envelope" aria-hidden="true"></i> Contact: Geoff Coltrane</a>
+  </nav>
+
+  <!-- CENTER: Pillar Content -->
+  <main class="pillar-content" id="pillar-main-content">
+
+    <h2 class="sr-only">Select a pillar</h2>
+
+    <!-- Pillar switcher: dropdown + prev/next arrows + counter -->
+    <div class="pillar-switcher">
+      <select id="pillarSelect" aria-label="Jump to pillar">
+        <!-- Options populated from pillar-data.json -->
+      </select>
+      <div class="pillar-nav-arrows">
+        <button class="pillar-nav-btn" id="prevPillar" aria-label="Previous pillar">&#8249;</button>
+        <button class="pillar-nav-btn" id="nextPillar" aria-label="Next pillar">&#8250;</button>
+        <span class="pillar-counter" id="pillarCounter">Pillar 1 of 8</span>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar" role="tablist" aria-label="Pillar content tabs">
+      <button class="tab-btn active" role="tab" aria-selected="true"
+              aria-controls="panel-actions" id="tab-actions" tabindex="0">
+        <i class="bi bi-list-check" aria-hidden="true"></i> Actions
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              aria-controls="panel-stories" id="tab-stories" tabindex="-1">
+        <i class="bi bi-newspaper" aria-hidden="true"></i> Stories
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+              aria-controls="panel-results" id="tab-results" tabindex="-1">
+        <i class="bi bi-bar-chart-line" aria-hidden="true"></i> Results
+      </button>
+    </div>
+
+    <!-- === ACTIONS TAB === -->
+    <div class="tab-panel active" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions">
+      <h2 class="sr-only">Focus areas in this pillar</h2>
+      <div class="tab-inner">
+        <div class="fa-list">
+          <!-- Heading is a sibling of the listbox so it's not treated as a listbox child.
+               aria-labelledby on the listbox provides its accessible name. -->
+          <h3 id="actionsFaHeading" class="fa-list-heading">Focus Areas</h3>
+          <div id="actionsFA" role="listbox" aria-labelledby="actionsFaHeading">
+            <!-- Focus area items populated by JS -->
+          </div>
+        </div>
+        <div class="detail-area" id="actionsDetail" aria-live="polite">
+          <!-- Action cards populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- === STORIES TAB === -->
+    <div class="tab-panel" id="panel-stories" role="tabpanel" aria-labelledby="tab-stories">
+      <h2 class="sr-only">Focus areas in this pillar</h2>
+      <div class="tab-inner">
+        <div class="fa-list">
+          <h3 id="storiesFaHeading" class="fa-list-heading">Focus Areas</h3>
+          <div id="storiesFA" role="listbox" aria-labelledby="storiesFaHeading">
+            <!-- Focus area items populated by JS -->
+          </div>
+        </div>
+        <div class="detail-area" id="storiesDetail" aria-live="polite">
+          <!-- Story cards populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- === RESULTS TAB (placeholder) === -->
+    <div class="tab-panel" id="panel-results" role="tabpanel" aria-labelledby="tab-results">
+      <h2 class="sr-only">Results for this pillar</h2>
+      <div class="results-placeholder" id="resultsContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+<script src="/sites/default/files/strategic-plan/js/sp-pillar.js" defer></script>
