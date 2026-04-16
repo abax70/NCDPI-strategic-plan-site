@@ -938,7 +938,7 @@
       <i class="bi bi-list" aria-hidden="true"></i>
     </button>
   </div>
-  <div class="pillar-hero-right">
+  <div class="pillar-hero-right" id="pillarHeroRight">
     <div class="pillar-hero-logo">
       <a href="index.html">
         <img src="images/Achieving Academic Excellence Logos/AEE Logos with Tagline/Logo-AchEdExc-tagline-MAIN.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
@@ -1105,6 +1105,22 @@ const PILLAR_TEXT = {
   5: '#39813F', 6: '#6B6F71', 7: '#0063A2', 8: '#801323'
 };
 
+// Per-pillar header geometric pattern. Recolored from the master White-HiRes
+// asset (graphics-team original) by _scripts/generate_pillar_header_patterns.py
+// so each pillar's hero panel carries its own color identity behind the AEE
+// logo. Filenames are URL-encoded once at definition time so we don't have to
+// escape spaces every time we set background-image.
+const PILLAR_HERO_BG = {
+  1: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P1_Students.png',
+  2: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P2_Educators.png',
+  3: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P3_Community.png',
+  4: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P4_HealthySafe.png',
+  5: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P5_Operational.png',
+  6: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P6_Transformative.png',
+  7: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P7_Celebrate.png',
+  8: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P8_Champions.png'
+};
+
 // --- DOM references ---
 var pillarSelect   = document.getElementById('pillarSelect');
 var pillarCounter  = document.getElementById('pillarCounter');
@@ -1114,6 +1130,7 @@ var heroIcon       = document.getElementById('heroIcon');
 var heroLabel      = document.getElementById('heroLabel');
 var heroTitle      = document.getElementById('heroTitle');
 var pillarHero     = document.getElementById('pillarHero');
+var pillarHeroRight = document.getElementById('pillarHeroRight');
 var pillarLinks    = document.querySelectorAll('.pillar-link[data-pillar]');
 var tabBtns        = document.querySelectorAll('.tab-btn');
 var tabPanels      = document.querySelectorAll('.tab-panel');
@@ -1161,6 +1178,10 @@ function switchPillar(index) {
   heroIcon.alt = 'Pillar ' + n + ': ' + p.pillarName + ' icon';
   heroLabel.textContent = 'PILLAR ' + n;
   heroTitle.textContent = p.pillarName;
+  // Swap the right-hero geometric pattern to the per-pillar recolor.
+  if (pillarHeroRight && PILLAR_HERO_BG[n]) {
+    pillarHeroRight.style.backgroundImage = "url('" + PILLAR_HERO_BG[n] + "')";
+  }
 
   // 4. Update CSS custom properties for pillar colors
   var root = document.documentElement;
