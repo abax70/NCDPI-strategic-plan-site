@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-15",
+  "lastUpdated": "2026-04-16",
   "pillars": [
     {
       "pillarId": "P1",
@@ -133,8 +133,8 @@
               "actionDesc": "Support PSUs in expanding access to rigorous pathways, such as AP, International Baccalaureate (IB), Cambridge International, Career and College Promise (CCP), credentialed Career and Technical Education (CTE) and Junior Reserve Officers’ Training Corps (JROTC), to ensure every student takes and passes a college level and career-connected course.",
               "launchDate": "2026-04-01",
               "launchText": "Launched April, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P1.F3.A2",
@@ -846,8 +846,8 @@
               "actionDesc": "Conduct a comprehensive needs assessment of parent and community resources at NCDPI (personnel, funds, training, instruments, current activities, etc.).",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P3.F1.A3",
@@ -855,8 +855,8 @@
               "actionDesc": "Form an advisory group to play a role in needs identification, decision-making and plans to enhance parent, family and community engagement.",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P3.F1.A4",
@@ -1097,8 +1097,8 @@
               "actionDesc": "Promote student and staff well-being by supporting PSUs in implementing Whole School, Whole Community, Whole Child models to foster positive school climates and elevate student voice and belonging.",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P4.F2.A4",
@@ -1332,8 +1332,8 @@
               "actionDesc": "Create key performance indicators for all NCDPI offices aligned to the strategic plan to monitor and drive agency effectiveness.",
               "launchDate": "2026-02-01",
               "launchText": "Launched February, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             }
           ],
           "stories": []
@@ -1350,7 +1350,7 @@
               "launchDate": "2025-08-01",
               "launchText": "Launched August, 2025",
               "hasStarted": true,
-              "status": "In Progress"
+              "status": "Completed"
             },
             {
               "actionId": "P5.F3.A2",
@@ -1358,8 +1358,8 @@
               "actionDesc": "Develop and implement a uniform framework for the handling of data, including collection, validation, management, security and reporting processes, across all NCDPI departments.",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P5.F3.A3",
@@ -1458,8 +1458,8 @@
               "actionDesc": "Establish a structured process to identify, pilot, evaluate and/or scale innovative school models and instructional practices across North Carolina.",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P6.F1.A3",
@@ -1702,8 +1702,8 @@
               "actionDesc": "Create accessible and engaging materials about how public education works and is managed in North Carolina.",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P7.F1.A4",
@@ -1746,8 +1746,8 @@
               "actionDesc": "Engage, connect and support NCDPI staff and education partners’ communication efforts for this initiative.",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P7.F2.A3",
@@ -1781,8 +1781,8 @@
               "actionDesc": "Coordinate and share messaging that celebrates public education successes.",
               "launchDate": "2026-03-01",
               "launchText": "Launched March, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P7.F3.A3",
@@ -1936,8 +1936,8 @@
               "actionDesc": "Develop and launch a statewide reading campaign where students will collectively read 10 million books annually, in collaboration with state and local partners.",
               "launchDate": "2026-01-01",
               "launchText": "Launched January, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P8.F2.A2",

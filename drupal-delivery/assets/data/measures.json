@@ -103,7 +103,7 @@
     "definition": "The ACT is a national college-entrance test. This measure is North Carolina's average composite score (out of 36) across all 11th-graders, who take it each spring.",
     "metricText": "Average ACT composite score",
     "valueFormat": "#.#",
-    "yAxisMax": 24,
+    "yAxisMax": 24.0,
     "sourceLabel": "ACT",
     "sourceUrl": "https://www.act.org/content/dam/act/unsecured/documents/2024-Average-ACT-Scores-by-State-Percent-Meeting-Benchmarks.pdf",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/school-accountability-and-reporting/act-reports",
@@ -113,8 +113,8 @@
     "badgePressReleaseUrl": null,
     "statusType": "baseline",
     "statusLabel": "Baseline Year — 18.5",
-    "currentValue": "18.5",
-    "currentDescription": "Average ACT composite score (2023–24)",
+    "currentValue": "18.3",
+    "currentDescription": "Average ACT composite score (2024–25)",
     "whyItCounts": "Every North Carolina junior takes the ACT, giving families and educators a common measure of college readiness. Students who score higher open doors to more college choices and stronger career opportunities.",
     "whatsInMotion": [
       {
@@ -143,7 +143,7 @@
       },
       {
         "year": "2025",
-        "baseline": null,
+        "baseline": 18.3,
         "target": null,
         "actual": null
       },
@@ -193,7 +193,7 @@
     "definition": "Advanced Placement (AP) exams are college-level tests in subjects like English or calculus. This measure is the share of 10th-, 11th-, and 12th-graders who take at least one AP exam each year.",
     "metricText": "Percentage of 10th, 11th, and 12th-graders who take an Advanced Placement exam",
     "valueFormat": "#.#%",
-    "yAxisMax": 100,
+    "yAxisMax": 36.0,
     "sourceLabel": "College Board",
     "sourceUrl": "https://apcentral.collegeboard.org/about-ap/ap-data-research/national-state-data",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/school-accountability-and-reporting/north-carolina-sat-and-ap-results",
@@ -203,8 +203,8 @@
     "badgePressReleaseUrl": "https://www.dpi.nc.gov/news/press-releases/2025/11/05/advanced-placement-growth-nc-continues-outpace-nation-makes-state-history",
     "statusType": "record-high",
     "statusLabel": "Record High — 21.5%",
-    "currentValue": "21.5%",
-    "currentDescription": "Percentage of 10th, 11th, and 12th-graders who take an Advanced Placement exam (2023–24)",
+    "currentValue": "23.0%",
+    "currentDescription": "Percentage of 10th, 11th, and 12th-graders who take an Advanced Placement exam (2024–25)",
     "whyItCounts": "Taking Advanced Placement courses challenges students with college-level work before they leave high school. Students who take on that challenge build skills and confidence that carry into college and careers.",
     "whatsInMotion": [
       {
@@ -233,7 +233,7 @@
       },
       {
         "year": "2025",
-        "baseline": null,
+        "baseline": 23.0,
         "target": null,
         "actual": null
       },
@@ -283,7 +283,7 @@
     "definition": "Advanced Placement (AP) exams are scored 1 to 5. This measure is the share of 10th-, 11th-, and 12th-graders who score a 3 or higher, the level that usually earns college credit.",
     "metricText": "Percentage of 10th, 11th, and 12th-graders who pass an Advanced Placement exam",
     "valueFormat": "#.#%",
-    "yAxisMax": 100,
+    "yAxisMax": 90.0,
     "sourceLabel": "College Board",
     "sourceUrl": "https://apcentral.collegeboard.org/about-ap/ap-data-research/national-state-data",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/school-accountability-and-reporting/north-carolina-sat-and-ap-results",
@@ -293,8 +293,8 @@
     "badgePressReleaseUrl": "https://www.dpi.nc.gov/news/press-releases/2025/11/05/advanced-placement-growth-nc-continues-outpace-nation-makes-state-history",
     "statusType": "record-high",
     "statusLabel": "Record High — 65.4%",
-    "currentValue": "65.4%",
-    "currentDescription": "Percentage of 10th, 11th, and 12th-graders who pass an Advanced Placement exam (2023–24)",
+    "currentValue": "72.1%",
+    "currentDescription": "Percentage of 10th, 11th, and 12th-graders who pass an Advanced Placement exam (2024–25)",
     "whyItCounts": "Passing an AP exam proves a student can master college-level material. Students who earn a passing score can receive college credit, saving their families time and tuition while getting a head start on a degree.",
     "whatsInMotion": [
       {
@@ -323,7 +323,7 @@
       },
       {
         "year": "2025",
-        "baseline": null,
+        "baseline": 72.1,
         "target": null,
         "actual": null
       },
@@ -373,7 +373,7 @@
     "definition": "Dual enrollment lets high school students take courses at a local community college, earning both high school and college credit. This measure is the share of graduates who enrolled in at least one such course.",
     "metricText": "Percentage of high school graduates that enroll in at least one dual enrollment course",
     "valueFormat": "#.#%",
-    "yAxisMax": 100,
+    "yAxisMax": 49.2,
     "sourceLabel": "NC Department of Public Instruction",
     "sourceUrl": "https://www.dpi.nc.gov/2025-ccpcihs-report-general-assembly/open",
     "moreDataUrl": "https://www.dpi.nc.gov/students-families/enhanced-opportunities/advanced-learning-and-gifted-education/career-and-college-promise",
@@ -383,8 +383,8 @@
     "badgePressReleaseUrl": null,
     "statusType": "baseline",
     "statusLabel": "Baseline Year — 36.0%",
-    "currentValue": "36.0%",
-    "currentDescription": "Percentage of high school graduates that enroll in at least one dual enrollment course (2023–24)",
+    "currentValue": "38.0%",
+    "currentDescription": "Percentage of high school graduates that enroll in at least one dual enrollment course (2024–25)",
     "whyItCounts": "Dual enrollment lets students take real college courses while still in high school. Students who participate enroll in college at higher rates and arrive at college with momentum already behind them.",
     "whatsInMotion": [
       {
@@ -413,7 +413,7 @@
       },
       {
         "year": "2025",
-        "baseline": null,
+        "baseline": 38.0,
         "target": null,
         "actual": null
       },
@@ -463,7 +463,7 @@
     "definition": "Dual enrollment is a program where high school students take college courses. This measure is the share of graduates who earned high school credit this way.",
     "metricText": "Percentage of high school graduates who earn high school credit in at least one dual enrollment course",
     "valueFormat": "#.#%",
-    "yAxisMax": 100,
+    "yAxisMax": 49.2,
     "sourceLabel": "NC Department of Public Instruction",
     "sourceUrl": "https://www.dpi.nc.gov/2025-ccpcihs-report-general-assembly/open",
     "moreDataUrl": "https://www.dpi.nc.gov/students-families/enhanced-opportunities/advanced-learning-and-gifted-education/career-and-college-promise",
@@ -503,7 +503,7 @@
       },
       {
         "year": "2025",
-        "baseline": null,
+        "baseline": 36.0,
         "target": null,
         "actual": null
       },
@@ -553,7 +553,7 @@
     "definition": "Career and Technical Education (CTE) courses teach job-ready skills in fields like health care, technology, and the building trades. This measure is the share of K-12 students taking at least one CTE course.",
     "metricText": "Percentage of all students participating in a Career and Technical Education course",
     "valueFormat": "#.#%",
-    "yAxisMax": 100,
+    "yAxisMax": 50.4,
     "sourceLabel": "Perkins Collaborative Resource Network",
     "sourceUrl": "https://cte.ed.gov/pcrn/explorer",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/classroom-resources/career-and-technical-education",
@@ -643,7 +643,7 @@
     "definition": "A CTE credential is an industry certificate students can earn in high school, such as Microsoft Office Specialist or Certified Nurse Aide. This measure is the total number of credentials earned by North Carolina students each year.",
     "metricText": "Number of Career and Technical Education credentials earned by students",
     "valueFormat": "#,###",
-    "yAxisMax": 600000,
+    "yAxisMax": 600000.0,
     "sourceLabel": "NC Department of Public Instruction",
     "sourceUrl": "https://www.dpi.nc.gov/2023-2024-credential-report/open",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/classroom-resources/career-and-technical-education",
@@ -653,8 +653,8 @@
     "badgePressReleaseUrl": "https://www.dpi.nc.gov/news/press-releases/2026/02/04/north-carolina-cte-students-earn-record-breaking-382964-industry-credentials-2024-2025",
     "statusType": "record-high",
     "statusLabel": "Record High — 358,069",
-    "currentValue": "358,069",
-    "currentDescription": "Number of Career and Technical Education credentials earned by students (2023–24)",
+    "currentValue": "382,964",
+    "currentDescription": "Number of Career and Technical Education credentials earned by students (2024–25)",
     "whyItCounts": "Millions of good-paying jobs do not require a four-year degree. Students who earn industry credentials can show employers they have real-world skills — and that proof helps them land stronger jobs.",
     "whatsInMotion": [
       {
@@ -683,7 +683,7 @@
       },
       {
         "year": "2025",
-        "baseline": null,
+        "baseline": 382964.0,
         "target": null,
         "actual": null
       },
@@ -733,7 +733,7 @@
     "definition": "NAEP (the Nation's Report Card) is given every two years to a student sample in all 50 states. Reading scores run 0 to 500; a 208 counts as Basic and 238 as Proficient. This measure is North Carolina's average 4th-grade score.",
     "metricText": "Average scale score on 4th grade reading national assessment (NAEP)",
     "valueFormat": "#",
-    "yAxisMax": 270,
+    "yAxisMax": 270.0,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=1&sub=RED&sj=&sfj=NP&st=NC&year=2024R3",
     "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024220NC4.pdf",
@@ -805,7 +805,7 @@
     "definition": "NAEP (the Nation's Report Card) is given every two years to a student sample in all 50 states. Reading scores run 0 to 500; a 243 counts as Basic and 281 as Proficient. This measure is North Carolina's average 8th-grade score.",
     "metricText": "Average scale score on 8th grade reading national assessment (NAEP)",
     "valueFormat": "#",
-    "yAxisMax": 322,
+    "yAxisMax": 321.6,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=2&sub=RED&sj=&sfj=NP&st=NC&year=2024R3",
     "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024220NC8.pdf",
@@ -877,7 +877,7 @@
     "definition": "NAEP (the Nation's Report Card) is given every two years to a student sample in all 50 states. Math scores run 0 to 500; a 214 counts as Basic and 249 as Proficient. This measure is North Carolina's average 4th-grade score.",
     "metricText": "Average scale score on 4th grade mathematics national assessment (NAEP)",
     "valueFormat": "#",
-    "yAxisMax": 295,
+    "yAxisMax": 295.2,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=1&sub=MAT&sj=&sfj=NP&st=NC&year=2024R3",
     "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024219NC4.pdf",
@@ -949,7 +949,7 @@
     "definition": "NAEP (the Nation's Report Card) is given every two years to a student sample in all 50 states. Math scores run 0 to 500; a 262 counts as Basic and 299 as Proficient. This measure is North Carolina's average 8th-grade score.",
     "metricText": "Average scale score on 8th grade mathematics national assessment (NAEP)",
     "valueFormat": "#",
-    "yAxisMax": 340,
+    "yAxisMax": 339.6,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=2&sub=MAT&sj=&sfj=NP&st=NC&year=2024R3",
     "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024219NC8.pdf",
@@ -1021,7 +1021,7 @@
     "definition": "National Schools of Character is a recognition from Character.org for schools that model strong values like honesty and responsibility. This measure counts North Carolina schools that have earned it.",
     "metricText": "Number of schools recognized as National Schools of Character",
     "valueFormat": "#",
-    "yAxisMax": null,
+    "yAxisMax": 0.0,
     "sourceLabel": "Character.org",
     "sourceUrl": "https://character.org/",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/classroom-resources/office-teaching-and-learning/programs-and-initiatives/character-education/character-matters",
