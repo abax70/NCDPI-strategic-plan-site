@@ -285,6 +285,19 @@
     font-size: 18px;
     flex-shrink: 0;
   }
+  /* Small muted "Last updated" stamp at the bottom of the sidebar.
+     Sourced from data/pillar-data.json → lastUpdated (bumped by build-pillar-data.py). */
+  .sidebar-updated {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #6b7280;
+  }
+  .sidebar-updated i { font-size: 13px; flex-shrink: 0; }
 
   /* =========================================================
      CENTER: Pillar Content Area
@@ -1045,6 +1058,11 @@
     <hr>
     <a class="sidebar-link" href="https://www.dpi.nc.gov/documents/statesuperintendent/achieving-educational-excellence-strategic-plan/download?attachment" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
     <a class="sidebar-link" href="mailto:Geoff.coltrane@dpi.nc.gov"><i class="bi bi-envelope" aria-hidden="true"></i> Contact NCDPI</a>
+
+    <div class="sidebar-updated" id="sidebarLastUpdated" hidden>
+      <i class="bi bi-clock-history" aria-hidden="true"></i>
+      <span>Last updated <span id="lastUpdatedDate"></span></span>
+    </div>
   </nav>
 
   <!-- CENTER: Pillar Content -->
@@ -1639,6 +1657,20 @@ document.fonts.ready.then(function() {
     .then(function(resp) { return resp.json(); })
     .then(function(data) {
       window.pillarData = data;
+
+      // Populate "Last updated" stamp in the sidebar footer.
+      // Parse "YYYY-MM-DD" as local date to avoid UTC-offset day-slip.
+      if (data.lastUpdated) {
+        var parts = data.lastUpdated.split('-');
+        var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        var formatted = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        var dateEl = document.getElementById('lastUpdatedDate');
+        var wrapEl = document.getElementById('sidebarLastUpdated');
+        if (dateEl && wrapEl) {
+          dateEl.textContent = formatted;
+          wrapEl.hidden = false;
+        }
+      }
 
       // Build the dropdown
       buildPillarDropdown(data.pillars);
