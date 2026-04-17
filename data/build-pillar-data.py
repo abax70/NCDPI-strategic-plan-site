@@ -81,7 +81,7 @@ def parse_date(date_str):
 
 def format_launch_text(launch_date):
     """
-    Given a date, produce 'Starts in January, 2026' style text.
+    Given a date, produce 'Launches in January, 2026' style text.
     If the date is in the past, return 'Launched [Month, Year]'.
     """
     if not launch_date:
@@ -89,7 +89,7 @@ def format_launch_text(launch_date):
     month_year = launch_date.strftime("%B, %Y")
     if launch_date <= TODAY:
         return f"Launched {month_year}"
-    return f"Starts in {month_year}"
+    return f"Launches in {month_year}"
 
 
 def read_pillars():
