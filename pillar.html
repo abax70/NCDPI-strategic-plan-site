@@ -149,6 +149,52 @@
      navy text on the near-white top band of the vertical gradient works
      for every pillar, so no family split is needed. The white geometric
      pattern on .pillar-hero-right is handled by the default rule above. */
+
+  /* === PROTOTYPE (Pillar 2 only) — horizontal "dip-dye" gradient ==========
+     Andy flagged that the current vertical gradient's mid-transition sits
+     right behind the hero text and reads as distracting. This is a scoped
+     A/B: pillar 2 (#922880 — exact magenta match) swaps in a left-to-right
+     gradient with a 40% white plateau, then a gentle ramp through tints of
+     the pillar colour to saturated magenta at the right edge.
+
+     Contrast (navy #003A70 text): 11.4:1 at the title's left edge, 4.5:1
+     at the stress-test right edge (Pillar 8's longest title at ~80% of the
+     panel) — clears WCAG AA even for normal text. Stops picked against
+     that stress test; shorter titles sit entirely on white.
+
+     Remove this block and the `document.body.setAttribute('data-pillar', n)`
+     line in JS to roll back. All other pillars are untouched. */
+  body[data-pillar="2"] .pillar-hero-left {
+    background: linear-gradient(
+      90deg,
+      #FFFFFF 0%,
+      #FFFFFF 40%,
+      #EDD8E7 55%,
+      #DAB2D0 70%,
+      #C78CB8 82%,
+      #A85396 92%,
+      #922880 100%
+    );
+  }
+
+  /* Pillar 8 stress-test prototype — same shape, burgundy tints.
+     Pillar 8 has the longest title ("Galvanize Champions to Fully Invest
+     in and Support Public Education"), so this is the gradient's worst
+     case for contrast. Tints derived by mixing --pillar8 (#801323) with
+     white at 83 / 66 / 50 / 20 / 0 % to mirror the magenta variant. */
+  body[data-pillar="8"] .pillar-hero-left {
+    background: linear-gradient(
+      90deg,
+      #FFFFFF 0%,
+      #FFFFFF 40%,
+      #E9D7DA 55%,
+      #D4AFB4 70%,
+      #BF8991 82%,
+      #994252 92%,
+      #801323 100%
+    );
+  }
+
   .pillar-hero-logo {
     position: absolute;
     inset: 0;
@@ -1189,6 +1235,11 @@ function switchPillar(index) {
   root.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
   root.style.setProperty('--ptext', 'var(--pillar' + n + '-text)');
 
+  // 4a. Tag the body with the active pillar number so scoped CSS can
+  //     target a specific pillar. Currently used by the pillar-2
+  //     horizontal-gradient prototype in the stylesheet above.
+  document.body.setAttribute('data-pillar', n);
+
   // 4b. Option A (vertical gradient, promoted 2026-04-15) uses navy text on
   //     every pillar, sitting on the near-white top band of the gradient.
   //     No per-family switching is needed — the :root default for --hero-text
@@ -1662,6 +1713,53 @@ document.fonts.ready.then(function() {
       if (icon) { icon.className = 'bi bi-list'; }
     }
   });
+})();
+
+// ============================================================
+// Iframe auto-height — postMessage handshake
+// When this page is embedded in an <iframe> on another site
+// (e.g. dpi.nc.gov), we post our content height up to the
+// parent window so the iframe can resize to avoid double
+// scrollbars or cut-off content. The parent page is expected
+// to listen for { type: 'sp-dashboard-height', height: N }
+// messages and set iframe.style.height = N + 'px'.
+//
+// When NOT in an iframe (window.parent === window) this is a
+// no-op, so the standalone page is unaffected.
+// ============================================================
+(function () {
+  if (window.parent === window) return;  // standalone — bail.
+
+  var lastPosted = 0;
+
+  function postHeight() {
+    var h = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    ) + 2;
+    if (h === lastPosted) return;
+    lastPosted = h;
+    try {
+      window.parent.postMessage(
+        { type: 'sp-dashboard-height', height: h },
+        '*'
+      );
+    } catch (e) { /* parent gone */ }
+  }
+
+  if (document.readyState === 'complete') {
+    postHeight();
+  } else {
+    window.addEventListener('load', postHeight);
+  }
+
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(postHeight).observe(document.body);
+  } else {
+    setInterval(postHeight, 500);
+  }
+
+  window.addEventListener('resize', postHeight);
 })();
 </script>
 

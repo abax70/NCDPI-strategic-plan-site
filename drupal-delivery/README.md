@@ -5,8 +5,17 @@ This package contains everything needed to render the landing page
 (all measures) and the pillar page inside a Drupal 9/10 site
 without collisions with the active theme.
 
-Two integration options are included. Pick whichever fits your
-access level and CSP policy.
+**Three integration options** are included. Pick the one that
+matches your CMS access level:
+
+| Option | Best when... | CMS access needed |
+|--------|-------------|-------------------|
+| **A — Embed** | You can paste `<script>` and `<link>` into a page body via "Full HTML" text format. | Admin rights on a Full-HTML page. |
+| **B — Library** | You can add files to the active theme or a custom module. | Theme / module directory write access. |
+| **C — Iframe** | The CMS is locked down — no custom CSS, JS, or YAML. This is the NCDPI path (per April 2026 webmaster meeting). | Just the ability to paste an `<iframe>` tag. |
+
+If you're not sure which option applies, start with Option C —
+it works everywhere.
 
 ---
 
@@ -14,6 +23,7 @@ access level and CSP policy.
 
     drupal-delivery/
       README.md                              (this file)
+      MEETING-SCRIPT.md                      (walk-through script for the handoff meeting)
       QUESTIONS-FOR-WEBMASTER.md             (decisions we need from you)
 
       option-a-embed/                        Copy-paste approach
@@ -25,7 +35,12 @@ access level and CSP policy.
         fragment-landing.html                Body markup only
         fragment-pillar.html                 Body markup only
 
-      assets/                                Shared by both options
+      iframe-embed/                          Iframe approach (Option C)
+        README.md                            Setup guide for iframe
+        sample-embed.html                    Copy-paste iframe + listener
+        parent-auto-height.js                Standalone listener script
+
+      assets/                                Shared by options A and B
         css/sp-landing.css
         css/sp-pillar.css
         js/sp-landing.js
@@ -38,6 +53,14 @@ access level and CSP policy.
           logos/
           measure-graphics/
           pillar-icons/
+
+      _test/                                 Local demo sandbox (don't deliver to webmaster)
+        START-DEMO.bat                       Double-click to launch simulated host pages
+        landing.html, pillar.html            Fake-Drupal host pages for visual verification
+
+Option C does NOT use the `assets/` tree — it just points an
+iframe at the existing standalone dashboard URL. Skip to
+`iframe-embed/README.md` for setup.
 
 ---
 

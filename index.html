@@ -1731,6 +1731,68 @@ document.fonts.ready.then(function() {
     }, 200);
   });
 })();
+
+// ============================================================
+// Iframe auto-height — postMessage handshake
+// When this page is embedded in an <iframe> on another site
+// (e.g. dpi.nc.gov), we post our content height up to the
+// parent window so the iframe can resize to avoid double
+// scrollbars or cut-off content. The parent page is expected
+// to listen for { type: 'sp-dashboard-height', height: N }
+// messages and set iframe.style.height = N + 'px'.
+//
+// When NOT in an iframe (window.parent === window) this is a
+// no-op, so the standalone page is unaffected.
+// ============================================================
+(function () {
+  if (window.parent === window) return;  // standalone — bail.
+
+  var lastPosted = 0;
+
+  function postHeight() {
+    // Use scrollHeight rather than offsetHeight so we include
+    // content that overflows the viewport (e.g. long pillar
+    // action lists). Add a 2px buffer to avoid a 1px scrollbar
+    // from sub-pixel rounding in the parent iframe.
+    var h = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    ) + 2;
+    if (h === lastPosted) return;
+    lastPosted = h;
+    try {
+      window.parent.postMessage(
+        { type: 'sp-dashboard-height', height: h },
+        '*'
+      );
+    } catch (e) {
+      // postMessage to a cross-origin parent can only fail if the
+      // parent window is gone; nothing to do.
+    }
+  }
+
+  // Initial post after fonts + layout settle.
+  if (document.readyState === 'complete') {
+    postHeight();
+  } else {
+    window.addEventListener('load', postHeight);
+  }
+
+  // Watch for content changes (carousel switches, pillar
+  // changes, chart re-renders, etc.). ResizeObserver is cheap
+  // and fires exactly when layout height changes.
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(postHeight).observe(document.body);
+  } else {
+    // Older-browser fallback: poll every 500ms. Cheap because
+    // postHeight short-circuits when the height hasn't changed.
+    setInterval(postHeight, 500);
+  }
+
+  // Also repost on window resize in case the parent's width
+  // change affected our layout height.
+  window.addEventListener('resize', postHeight);
+})();
 </script>
 
 </body>
