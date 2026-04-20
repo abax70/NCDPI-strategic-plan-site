@@ -23,11 +23,18 @@ Usage:
 Why this exists:
   Before today, measures.json was hand-edited and drifted from its CSV sources.
   This script refreshes the fields that have CSV sources on every run and
-  PRESERVES the hand-authored fields that don't (iconUrl, whatsInMotion,
-  whyItCounts, badgeImageUrl, badgeAltText, statusType, statusLabel,
-  moreDataText, notes). New measures added to DIM_Measures.csv are written
-  with null hand-authored fields so /check-data flags them for editorial.
-  Measures removed from DIM_Measures.csv are dropped with a warning.
+  PRESERVES the hand-authored fields that don't (iconUrl, whyItCounts,
+  badgeImageUrl, badgeAltText, statusType, statusLabel, moreDataText, notes).
+  New measures added to DIM_Measures.csv are written with null hand-authored
+  fields so /check-data flags them for editorial. Measures removed from
+  DIM_Measures.csv are dropped with a warning.
+
+  History: `whatsInMotion` used to be a hand-authored per-measure list of
+  linked Strategic Plan actions, rendered in the right sidebar of the landing
+  page. That mapping was retired on 2026-04-20 — leadership objected to the
+  measure->action linkage. The sidebar now shows a global "recently launched
+  actions" ticker sourced directly from pillar-data.json, so the field has
+  been dropped from both the schema and this build script.
 
 Author: Andy Baxter / Claude  |  2026-04-14
 """
@@ -60,7 +67,6 @@ RESULTS_CSV = os.path.join(SCRIPT_DIR, "LandingPage_MeasureResults.csv")
 # Listed here for documentation; the build_measure() fn references existing JSON directly.
 PRESERVE_FIELDS = (
     "iconUrl",
-    "whatsInMotion",
     "whyItCounts",
     "badgeImageUrl",
     "badgeAltText",
@@ -449,7 +455,6 @@ def build_measure(menu_entry, pillars, dim_lookup, details, results, existing_ma
         "currentValue": current_value,
         "currentDescription": current_desc,
         "whyItCounts": existing.get("whyItCounts"),  # PRESERVE
-        "whatsInMotion": existing.get("whatsInMotion", []),  # PRESERVE
         "nextUpdate": refresh(details_entry.get("nextUpdate"), existing.get("nextUpdate", "")),
         "notes": existing.get("notes"),  # PRESERVE
         "dataSeries": data_series,

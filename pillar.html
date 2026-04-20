@@ -559,6 +559,21 @@
     font-size: 14px;
   }
 
+  /* Deep-link highlight — applied briefly when the user arrives from a
+     "What's in Motion" ticker card on index.html (?action=<actionId>).
+     Two-second pulse with a pillar-colored outline, then fades. */
+  .action-card.deeplink-target {
+    animation: deeplink-pulse 2s ease-out 1;
+  }
+  @keyframes deeplink-pulse {
+    0%   { box-shadow: 0 0 0 0 var(--pcolor), 0 2px 8px rgba(0,0,0,0.06); }
+    25%  { box-shadow: 0 0 0 4px var(--pcolor), 0 2px 12px rgba(0,0,0,0.12); }
+    100% { box-shadow: 0 0 0 0 transparent, 0 2px 8px rgba(0,0,0,0.06); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .action-card.deeplink-target { animation: none; outline: 2px solid var(--pcolor); }
+  }
+
   /* =========================================================
      STORY CARDS
      Link-out cards pointing to dpi.nc.gov blog posts.
@@ -1434,6 +1449,9 @@ function renderActions(focusArea) {
   focusArea.actions.forEach(function(action) {
     var card = document.createElement('div');
     card.className = 'action-card';
+    // data-action-id lets the ?action= deep-link handler locate a specific
+    // card to scroll to and highlight after the page loads.
+    card.setAttribute('data-action-id', action.actionId);
 
     // Status line
     var statusClass, statusIcon, statusText;
@@ -1687,6 +1705,45 @@ document.fonts.ready.then(function() {
 
       // Render
       switchPillar(startIndex);
+
+      // Optional deep-link: ?action=<actionId>
+      // Arrives from the "What's in Motion" ticker on index.html. After the
+      // default pillar render, override the actions-tab focus-area selection
+      // to the FA that contains the requested action, re-render, then scroll
+      // to and briefly highlight the matching .action-card. Falls back
+      // silently if the param is absent or the action can't be found in the
+      // current pillar.
+      var requestedAction = params.get('action');
+      if (requestedAction) {
+        var pillar = data.pillars[startIndex];
+        var faIdx = -1;
+        if (pillar && pillar.focusAreas) {
+          for (var i = 0; i < pillar.focusAreas.length; i++) {
+            var acts = pillar.focusAreas[i].actions || [];
+            if (acts.some(function(a) { return a.actionId === requestedAction; })) {
+              faIdx = i;
+              break;
+            }
+          }
+        }
+        if (faIdx >= 0) {
+          activeFocusArea.actions = faIdx;
+          // Re-render the FA list and the detail area so the selection sticks
+          buildActionsFocusAreas(pillar);
+          renderActions(pillar.focusAreas[faIdx]);
+          // After the DOM updates, scroll + highlight the target card
+          requestAnimationFrame(function() {
+            var card = document.querySelector(
+              '.action-card[data-action-id="' + requestedAction + '"]'
+            );
+            if (card) {
+              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              card.classList.add('deeplink-target');
+              setTimeout(function() { card.classList.remove('deeplink-target'); }, 2200);
+            }
+          });
+        }
+      }
     })
     .catch(function(err) {
       console.error('Failed to load pillar-data.json:', err);
