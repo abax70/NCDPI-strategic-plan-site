@@ -182,27 +182,31 @@
      compete with the measure card or push the big number below the fold.
      ========================================================= */
   .intro-blurb-band {
-    background: var(--white);
-    padding: 20px 40px;
+    background: #FAF8F5;                    /* faint warm gray — frames the band as a transition */
+    padding: 28px 40px 36px;                /* asymmetric: nudges body copy toward the measure card below */
     border-bottom: 1px solid var(--border);
     position: relative;
   }
   .intro-blurb-band.dismissed { display: none; }
   .intro-cols {
-    display: grid;
-    grid-template-columns: 76ch 76ch;
-    gap: 40px;
-    justify-content: center;
+    max-width: 72ch;                        /* single column reads better with the longer 3-paragraph copy */
     margin: 0 auto;
   }
   .intro-blurb-band p {
     font-size: 16px;
     line-height: 1.55;
     color: var(--text);
-    margin: 0;
-    text-wrap: pretty;  /* pulls single-word orphans up to the previous line */
+    margin: 0 0 12px;
+    text-wrap: pretty;                      /* pulls single-word orphans up to the previous line */
+  }
+  .intro-blurb-band p:last-child { margin-bottom: 0; }
+  .intro-blurb-band .intro-lede {
+    font-size: 20px;                        /* reads as "welcome statement" rather than "slightly larger body" */
+    line-height: 1.4;
+    margin-bottom: 16px;
   }
   .intro-blurb-band strong { font-weight: 700; }
+  .intro-blurb-band em { font-style: italic; color: inherit; }
   .intro-close {
     position: absolute;
     top: 10px;
@@ -1011,8 +1015,9 @@
 <section class="intro-blurb-band" id="introBlurb" aria-label="About this dashboard">
   <button class="intro-close" id="introClose" type="button" aria-label="Dismiss introduction">&times;</button>
   <div class="intro-cols">
-    <p><strong>Welcome to the Achieving Educational Excellence dashboard</strong>, your window into how North Carolina&rsquo;s public schools are progressing toward being the best in the United States by 2030. This is where we share our work openly with the people of North Carolina and every partner who has joined us on this journey.</p>
-    <p>Below, you will find our Best in Nation Measures, the statewide indicators we are tracking to determine whether we are delivering on the promise of public education for every child. Use the drop-down menu to explore each measure individually, review current data and see progress over time. This dashboard is a living tool, updated regularly as new data becomes available, because transparency is essential to shared ownership of this plan.</p>
+    <p class="intro-lede"><strong>Welcome to the <em>Achieving Educational Excellence</em> dashboard.</strong></p>
+    <p>The <em>Achieving Educational Excellence: 2025&ndash;2030 Strategic Plan</em> represents the shared vision of the North Carolina State Board of Education and the North Carolina Superintendent of Public Instruction &mdash; <strong>to have our public schools be the best in the nation!</strong> To be clear: to be the best is the only option. This dashboard is how we hold ourselves accountable to that commitment, sharing our progress openly with the people of North Carolina and every partner working with us. The Best in Nation Measures below are the statewide indicators we have chosen to track whether our public schools are, in fact, becoming the best in the United States by 2030. Use the drop-down menu to select each measure, view the current data and see how we are progressing over time. While we acknowledge our students are more than metrics, these measures tell us whether the eight transformative pillars of <em>Achieving Educational Excellence</em> are delivering for every child, in every community, across North Carolina.</p>
+    <p>The eight pillars of <em>Achieving Educational Excellence</em> are listed on the left-hand side of this dashboard. Click on any of the pillars to see more information on the 110 actions we are undertaking to make sure our public schools are the best in the nation by 2030.</p>
   </div>
 </section>
 
