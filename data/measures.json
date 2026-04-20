@@ -14,8 +14,8 @@
     "metricText": "Percentage of 9th-graders graduating from high school four years later",
     "valueFormat": "#.#%",
     "yAxisMax": 100.0,
-    "sourceLabel": "National Center for Education Statistics (NCES) Digest of Education Statistics (Table 219.46)",
-    "sourceUrl": "https://nces.ed.gov/programs/digest/d23/tables/dt23_219.46.asp?current=yes",
+    "sourceLabel": "NC Department of Public Instruction Cohort Graduation Rate Dashboard",
+    "sourceUrl": "https://go.ncdpi.gov/CGRState",
     "moreDataUrl": "https://go.ncdpi.gov/CGRState",
     "moreDataText": "Explore graduation rate data",
     "badgeImageUrl": "images/Badges/Badges-GradRate.svg",
@@ -100,12 +100,12 @@
     "menuTooltip": "How do our 11th-graders score on the national ACT assessment?",
     "iconUrl": "images/Measure Graphics/StratPlan-BIN-NAEP_ACTscore.svg",
     "goal": "Increase the average ACT composite score to 20 by 2030.",
-    "definition": "The ACT is a national college-entrance test. This measure is North Carolina's average composite score (out of 36) across all 11th-graders, who take it each spring.",
+    "definition": "The ACT is a national college-entrance test. This measure is North Carolina's average composite score (out of 36) for each graduating class. In North Carolina, all 11th graders take the ACT each spring as part of the state's school accountability system.",
     "metricText": "Average ACT composite score",
     "valueFormat": "#.#",
     "yAxisMax": 24.0,
     "sourceLabel": "ACT",
-    "sourceUrl": "https://www.act.org/content/dam/act/unsecured/documents/2024-Average-ACT-Scores-by-State-Percent-Meeting-Benchmarks.pdf",
+    "sourceUrl": "https://www.act.org/content/act/en/research/services-and-resources/data-and-visualization/grad-class-database-2025.html",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/school-accountability-and-reporting/act-reports",
     "moreDataText": null,
     "badgeImageUrl": null,
@@ -132,7 +132,7 @@
         "linkText": "See Pillar 2"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "Fall 2026",
     "notes": null,
     "dataSeries": [
       {
@@ -222,7 +222,7 @@
         "linkText": "See Pillar 2"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "November 2026",
     "notes": null,
     "dataSeries": [
       {
@@ -370,12 +370,12 @@
     "menuTooltip": "How many of our high school students earn credit in dual enrollment programs with local colleges?",
     "iconUrl": "images/Measure Graphics/StratPlan-BIN-DualEnroll.svg",
     "goal": "Increase the percentage of high school graduates that enroll in at least one dual enrollment course to 41% by 2030.",
-    "definition": "Dual enrollment lets high school students take courses at a local community college, earning both high school and college credit. This measure is the share of graduates who enrolled in at least one such course.",
+    "definition": "Dual enrollment lets high school students take courses at a local community college or university, earning both high school and college credit. This measure is the share of graduates who enrolled in at least one such course.",
     "metricText": "Percentage of high school graduates that enroll in at least one dual enrollment course",
     "valueFormat": "#.#%",
     "yAxisMax": 49.2,
     "sourceLabel": "NC Department of Public Instruction",
-    "sourceUrl": "https://www.dpi.nc.gov/2025-ccpcihs-report-general-assembly/open",
+    "sourceUrl": "https://webservices.ncleg.gov/ViewDocSiteFile/105541",
     "moreDataUrl": "https://www.dpi.nc.gov/students-families/enhanced-opportunities/advanced-learning-and-gifted-education/career-and-college-promise",
     "moreDataText": null,
     "badgeImageUrl": null,
@@ -402,7 +402,7 @@
         "linkText": "See Pillar 8"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "March 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -465,7 +465,7 @@
     "valueFormat": "#.#%",
     "yAxisMax": 49.2,
     "sourceLabel": "NC Department of Public Instruction",
-    "sourceUrl": "https://www.dpi.nc.gov/2025-ccpcihs-report-general-assembly/open",
+    "sourceUrl": "https://webservices.ncleg.gov/ViewDocSiteFile/105541",
     "moreDataUrl": "https://www.dpi.nc.gov/students-families/enhanced-opportunities/advanced-learning-and-gifted-education/career-and-college-promise",
     "moreDataText": null,
     "badgeImageUrl": null,
@@ -492,7 +492,7 @@
         "linkText": "See Pillar 4"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "March 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -550,7 +550,7 @@
     "menuTooltip": "How many of our high school students earn credits in Career and Technical Education programs?",
     "iconUrl": "images/Measure Graphics/StratPlan-BIN-CTEparticipate.svg",
     "goal": "Increase the percentage of all students participating in a CTE course to 41% by 2030.",
-    "definition": "Career and Technical Education (CTE) courses teach job-ready skills in fields like health care, technology, and the building trades. This measure is the share of K-12 students taking at least one CTE course.",
+    "definition": "Career and Technical Education (CTE) courses teach job-ready skills in fields like health care, technology, and the building trades. This measure is the share of K-12 students taking at least one CTE course. Calculated as CTE enrollment from federal Perkins reporting divided by total K-12 enrollment from NCES Common Core of Data.",
     "metricText": "Percentage of all students participating in a Career and Technical Education course",
     "valueFormat": "#.#%",
     "yAxisMax": 50.4,
@@ -582,7 +582,7 @@
         "linkText": "See Pillar 3"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "Fall 2026",
     "notes": null,
     "dataSeries": [
       {
@@ -645,7 +645,7 @@
     "valueFormat": "#,###",
     "yAxisMax": 600000.0,
     "sourceLabel": "NC Department of Public Instruction",
-    "sourceUrl": "https://www.dpi.nc.gov/2023-2024-credential-report/open",
+    "sourceUrl": "https://www.dpi.nc.gov/districts-schools/classroom-resources/career-and-technical-education/credentials-and-reporting",
     "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/classroom-resources/career-and-technical-education",
     "moreDataText": null,
     "badgeImageUrl": "images/Badges/Badges-CTE.svg",
@@ -672,7 +672,7 @@
         "linkText": "See Pillar 6"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "January 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -736,7 +736,7 @@
     "yAxisMax": 270.0,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=1&sub=RED&sj=&sfj=NP&st=NC&year=2024R3",
-    "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024220NC4.pdf",
+    "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/state-tests/national-assessment-educational-progress-naep",
     "moreDataText": null,
     "badgeImageUrl": null,
     "badgeAltText": null,
@@ -762,7 +762,7 @@
         "linkText": "See Pillar 8"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "January 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -808,7 +808,7 @@
     "yAxisMax": 321.6,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=2&sub=RED&sj=&sfj=NP&st=NC&year=2024R3",
-    "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024220NC8.pdf",
+    "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/state-tests/national-assessment-educational-progress-naep",
     "moreDataText": null,
     "badgeImageUrl": null,
     "badgeAltText": null,
@@ -834,7 +834,7 @@
         "linkText": "See Pillar 4"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "January 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -880,7 +880,7 @@
     "yAxisMax": 295.2,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=1&sub=MAT&sj=&sfj=NP&st=NC&year=2024R3",
-    "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024219NC4.pdf",
+    "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/state-tests/national-assessment-educational-progress-naep",
     "moreDataText": null,
     "badgeImageUrl": null,
     "badgeAltText": null,
@@ -906,7 +906,7 @@
         "linkText": "See Pillar 3"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "January 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -952,7 +952,7 @@
     "yAxisMax": 339.6,
     "sourceLabel": "National Assessment of Educational Progress (NAEP)",
     "sourceUrl": "https://www.nationsreportcard.gov/profiles/stateprofile?chort=2&sub=MAT&sj=&sfj=NP&st=NC&year=2024R3",
-    "moreDataUrl": "https://nces.ed.gov/nationsreportcard/subject/publications/stt2024/pdf/2024219NC8.pdf",
+    "moreDataUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/state-tests/national-assessment-educational-progress-naep",
     "moreDataText": null,
     "badgeImageUrl": null,
     "badgeAltText": null,
@@ -978,7 +978,7 @@
         "linkText": "See Pillar 6"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "January 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -1018,7 +1018,7 @@
     "menuTooltip": "TBD",
     "iconUrl": "images/Measure Graphics/StratPlan-BIN-CharacterEd.svg",
     "goal": "Increase the number of North Carolina public schools recognized as National Schools of Character by Character.org (now CharacterPlus).",
-    "definition": "National Schools of Character is a recognition from Character.org for schools that model strong values like honesty and responsibility. This measure counts North Carolina schools that have earned it.",
+    "definition": "Under development — the definition and data source for this measure are still being finalized.",
     "metricText": "Number of schools recognized as National Schools of Character",
     "valueFormat": "#",
     "yAxisMax": 0.0,
@@ -1072,12 +1072,12 @@
     "menuTooltip": "How many school-aged children are enrolled in NC public schools?",
     "iconUrl": "images/Measure Graphics/StratPlan-BIN-PubSchoolEnroll.svg",
     "goal": "Increase the percentage of school-aged children enrolled in public schools to 89% by 2030.",
-    "definition": "This measure is the share of North Carolina's school-aged children enrolled in public schools (traditional, charter, lab, or regional) rather than private or home schools.",
+    "definition": "This measure is the share of North Carolina's school-aged children enrolled in public schools (traditional, charter, lab, or regional public schools).",
     "metricText": "Percentage of school-aged children enrolled in public schools",
     "valueFormat": "#.#%",
     "yAxisMax": 100.0,
-    "sourceLabel": "NC Department of Public Instruction calculation using data from NC Department of Administration",
-    "sourceUrl": "https://www.doa.nc.gov/divisions/non-public-education",
+    "sourceLabel": "Calculated by the NC Department of Public Instruction. Public school enrollment from Table 1 and Table 3 of the NCDPI Statistical Profile. Private school enrollment from the NC Statistical Summary for Private Schools (NC Department of Administration). Home school enrollment from the NC Statistical Summary for Home Schools (NC Department of Administration).",
+    "sourceUrl": "https://apps.schools.nc.gov/public/f?p=145:11::::::",
     "moreDataUrl": "https://apps.schools.nc.gov/apx212/f?p=145:211::::::",
     "moreDataText": null,
     "badgeImageUrl": null,
@@ -1104,7 +1104,7 @@
         "linkText": "See Pillar 8"
       }
     ],
-    "nextUpdate": "[Add note on when data next available]",
+    "nextUpdate": "July 2026",
     "notes": null,
     "dataSeries": [
       {
