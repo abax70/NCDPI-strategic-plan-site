@@ -185,15 +185,42 @@
     background: var(--white);
     padding: 20px 40px;
     border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .intro-blurb-band.dismissed { display: none; }
+  .intro-cols {
+    display: grid;
+    grid-template-columns: 76ch 76ch;
+    gap: 40px;
+    justify-content: center;
+    margin: 0 auto;
   }
   .intro-blurb-band p {
-    max-width: 72ch;
-    margin: 0 auto;
     font-size: 16px;
     line-height: 1.55;
     color: var(--text);
+    margin: 0;
+    text-wrap: pretty;  /* pulls single-word orphans up to the previous line */
   }
   .intro-blurb-band strong { font-weight: 700; }
+  .intro-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--text);
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .intro-close:hover { background: #F0F2F5; }
+  .intro-close:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+  }
 
   /* =========================================================
      THREE-COLUMN LAYOUT
@@ -356,6 +383,18 @@
     font-size: 15px;
     color: var(--text);
     line-height: 1.5;
+  }
+  /* Definition sits directly under the goal; one typographic step down
+     via size alone so it reads as context without fading the contrast. */
+  .measure-header .definition {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  .measure-header .goal strong,
+  .measure-header .definition strong {
+    font-weight: 700;
   }
   .measure-header .status-pill {
     margin-top: 8px;
@@ -697,6 +736,16 @@
   /* Prevent body scroll while drawer is open (mobile only) */
   body.drawer-open { overflow: hidden; }
 
+  /* ===== Tablet (<=1200px) — intro band collapses to single column ===== */
+  /* Two 76ch columns need ~1250px of band width; below that we stack. */
+  @media (max-width: 1200px) {
+    .intro-cols {
+      grid-template-columns: 1fr;
+      max-width: 76ch;
+      gap: 14px;
+    }
+  }
+
   /* ===== Tablet (<=1024px) — right sidebar drops below main ===== */
   @media (max-width: 1024px) {
     .three-col {
@@ -901,6 +950,7 @@
     }
     .measure-header h2 { font-size: 18px; }
     .measure-header .goal { font-size: 14px; }
+    .measure-header .definition { font-size: 13px; }
     .current-value .big-number { font-size: 30px; }
     .notes-section {
       padding: 12px;
@@ -958,8 +1008,12 @@
 <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
 
 <!-- ===== INTRO BLURB BAND ===== -->
-<section class="intro-blurb-band" aria-label="About this dashboard">
-  <p><strong>Welcome to the Achieving Educational Excellence dashboard</strong>, your window into how North Carolina&rsquo;s public schools are progressing toward being the best in the United States by 2030. This is where we share our work openly with the people of North Carolina and every partner who has joined us on this journey. Below, you will find our Best in Nation Measures, the statewide indicators we are tracking to determine whether we are delivering on the promise of public education for every child. Use the drop-down menu to explore each measure individually, review current data and see progress over time. This dashboard is a living tool, updated regularly as new data becomes available, because transparency is essential to shared ownership of this plan.</p>
+<section class="intro-blurb-band" id="introBlurb" aria-label="About this dashboard">
+  <button class="intro-close" id="introClose" type="button" aria-label="Dismiss introduction">&times;</button>
+  <div class="intro-cols">
+    <p><strong>Welcome to the Achieving Educational Excellence dashboard</strong>, your window into how North Carolina&rsquo;s public schools are progressing toward being the best in the United States by 2030. This is where we share our work openly with the people of North Carolina and every partner who has joined us on this journey.</p>
+    <p>Below, you will find our Best in Nation Measures, the statewide indicators we are tracking to determine whether we are delivering on the promise of public education for every child. Use the drop-down menu to explore each measure individually, review current data and see progress over time. This dashboard is a living tool, updated regularly as new data becomes available, because transparency is essential to shared ownership of this plan.</p>
+  </div>
 </section>
 
 <!-- ===== THREE-COLUMN LAYOUT ===== -->
@@ -1034,7 +1088,8 @@
       <img src="images/Measure Graphics/StratPlan-BIN-GradRate.svg" alt="Graduation Rate icon">
       <div>
         <h2>Cohort Graduation Rate</h2>
-        <p class="goal">Increase the adjusted four-year cohort high school graduation rate to 92% by 2030.</p>
+        <p class="goal"><strong>Goal:</strong> Increase the adjusted four-year cohort high school graduation rate to 92% by 2030.</p>
+        <p class="definition"><strong>Definition:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
         <!-- Status pill: shows "Record High" or "Baseline Year" depending on measure.
              "Baseline" variant = measures without a record, showing the starting-point year. -->
         <span class="status-pill">
@@ -1416,8 +1471,9 @@ const nextBtn       = document.querySelector('.carousel-btn[aria-label="Next mea
 const measureHeader = document.querySelector('.measure-header');
 const headerIcon    = measureHeader.querySelector('img');
 const headerTitle   = measureHeader.querySelector('h2');
-const headerGoal    = measureHeader.querySelector('.goal');
-const statusPill    = measureHeader.querySelector('.status-pill');
+const headerGoal       = measureHeader.querySelector('.goal');
+const headerDefinition = measureHeader.querySelector('.definition');
+const statusPill       = measureHeader.querySelector('.status-pill');
 const bigNumber     = document.querySelector('.current-value .big-number');
 const contextText   = document.querySelector('.current-value .context');
 const notesSection  = document.querySelector('.notes-section');
@@ -1459,11 +1515,17 @@ function switchMeasure(index) {
   selectEl.value = index;
   counterEl.textContent = 'Measure ' + (index + 1) + ' of ' + total;
 
-  // 2. Measure header — icon, title, goal, status pill
+  // 2. Measure header — icon, title, goal, definition, status pill
   headerIcon.src = m.iconUrl || '';
   headerIcon.alt = m.name + ' icon';
   headerTitle.textContent = m.name;
-  headerGoal.textContent = m.goal;
+  headerGoal.innerHTML = '<strong>Goal:</strong> ' + (m.goal || '');
+  if (m.definition) {
+    headerDefinition.style.display = '';
+    headerDefinition.innerHTML = '<strong>Definition:</strong> ' + m.definition;
+  } else {
+    headerDefinition.style.display = 'none';
+  }
 
   if (m.statusType === 'record-high') {
     statusPill.style.display = '';
@@ -1495,11 +1557,10 @@ function switchMeasure(index) {
   // 4. Chart (renderChart already handles destroy + no-data state)
   renderChart(m);
 
-  // 5. Notes section — definition, next update, source
+  // 5. Notes section — next update + source
+  //    (Definition moved up into the measure header so readers see it
+  //    before the big number, under the goal text.)
   var notesHTML = '';
-  if (m.definition) {
-    notesHTML += '<p><strong>Definition:</strong> ' + m.definition + '</p>';
-  }
   if (m.nextUpdate) {
     notesHTML += '<p><strong>Next update:</strong> ' + m.nextUpdate + '</p>';
   }
@@ -1915,6 +1976,23 @@ document.fonts.ready.then(function() {
   // Also repost on window resize in case the parent's width
   // change affected our layout height.
   window.addEventListener('resize', postHeight);
+})();
+</script>
+
+<script>
+// Intro blurb dismiss (quick-look Option B + D)
+(function(){
+  var band = document.getElementById('introBlurb');
+  var btn  = document.getElementById('introClose');
+  if (!band || !btn) return;
+  if (localStorage.getItem('introBlurbDismissed') === '1') {
+    band.classList.add('dismissed');
+    return;
+  }
+  btn.addEventListener('click', function(){
+    band.classList.add('dismissed');
+    try { localStorage.setItem('introBlurbDismissed', '1'); } catch(e){}
+  });
 })();
 </script>
 
