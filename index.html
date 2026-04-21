@@ -1094,7 +1094,7 @@
       <div>
         <h2>Cohort Graduation Rate</h2>
         <p class="goal"><strong>Goal:</strong> Increase the adjusted four-year cohort high school graduation rate to 92% by 2030.</p>
-        <p class="definition"><strong>Definition:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
+        <p class="definition"><strong>Description:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
         <!-- Status pill: shows "Record High" or "Baseline Year" depending on measure.
              "Baseline" variant = measures without a record, showing the starting-point year. -->
         <span class="status-pill">
@@ -1133,7 +1133,7 @@
 
     <!-- Notes / definition -->
     <div class="notes-section">
-      <p><strong>Definition:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
+      <p><strong>Description:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
       <p><strong>Next update:</strong> September 2026</p>
       <p><strong>Source:</strong> <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_219.46.asp" target="_blank">NCES Digest of Education Statistics</a></p>
     </div>
@@ -1527,7 +1527,7 @@ function switchMeasure(index) {
   headerGoal.innerHTML = '<strong>Goal:</strong> ' + (m.goal || '');
   if (m.definition) {
     headerDefinition.style.display = '';
-    headerDefinition.innerHTML = '<strong>Definition:</strong> ' + m.definition;
+    headerDefinition.innerHTML = '<strong>Description:</strong> ' + m.definition;
   } else {
     headerDefinition.style.display = 'none';
   }
