@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axis Treatment Options — Cohort Graduation Rate</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #003A70;
+    --navy-dark: #00284F;
+    --orange: #FF9015;
+    --orange-bg: #FFEEDC;
+    --text: #212529;
+    --muted: #5a6268;
+    --bg: #F5F7FA;
+    --white: #FFFFFF;
+    --border: #E0E3E8;
+    --rule: #DEDEDE;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.55;
+    padding: 24px 32px 64px;
+  }
+  .preview-header {
+    max-width: 1400px;
+    margin: 0 auto 28px;
+  }
+  .preview-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .preview-header .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .preview-header .context {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--orange);
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    max-width: 900px;
+  }
+  .preview-header .context strong { color: var(--navy); }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (min-width: 1100px) {
+    .options-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .option-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .option-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .option-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .option-description {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    min-height: 40px;
+  }
+
+  /* Mini measure-card (shared), mimics the dashboard look */
+  .mini-card {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 14px;
+    background: var(--white);
+    position: relative; /* anchor for Option 2 inset */
+  }
+  .mini-card .measure-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .mini-card .current-line {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .mini-card .current-line .big {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-right: 6px;
+    vertical-align: -2px;
+  }
+
+  /* Main zero-anchored bar chart */
+  .chart-zero {
+    position: relative;
+    height: 180px;
+  }
+  /* Trajectory strip (Option 1 bottom) */
+  .chart-trajectory {
+    position: relative;
+    height: 110px;
+    margin-top: 10px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--rule);
+  }
+  .chart-trajectory-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* Inset (Option 2) — positioned at top-right of the mini-card */
+  .chart-inset {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 220px;
+    height: 92px;
+    background: rgba(255,255,255,0.97);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 18px 8px 4px 8px;
+    z-index: 2;
+  }
+  .chart-inset-label {
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Re-centered bar (Option 3) */
+  .chart-recentered {
+    position: relative;
+    height: 130px;
+    margin-top: 10px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--rule);
+  }
+  .chart-recentered-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .tradeoffs {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .tradeoffs .row { display: flex; gap: 8px; margin-bottom: 4px; }
+  .tradeoffs .tag {
+    flex-shrink: 0;
+    width: 36px;
+    font-weight: 700;
+    font-size: 11px;
+  }
+  .tradeoffs .pro { color: #27663b; }
+  .tradeoffs .con { color: #8a2f1b; }
+
+  footer.preview-footer {
+    max-width: 1400px;
+    margin: 32px auto 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer.preview-footer p { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<div class="preview-header">
+  <h1>Axis Treatment Options — Cohort Graduation Rate</h1>
+  <div class="subtitle">Three ways to show both the level AND the movement on Best-in-Nation measures.</div>
+  <div class="context">
+    <strong>The problem:</strong> Strategic-plan targets are intentionally incremental. On a 0–100% graduation scale,
+    a jump from 87.7% (today) to 92% (2030 goal) is a ~4-point change that visually looks flat on a zero-anchored bar.
+    But we <em>cannot</em> truncate the y-axis on a bar chart without misleading viewers.
+    <strong>All three options below keep a zero-anchored bar as the anchor</strong> and add a second view to communicate the movement honestly.
+  </div>
+</div>
+
+<div class="options-grid">
+
+  <!-- ===== OPTION 1 ===== -->
+  <div class="option-card">
+    <div class="option-label">Option 1</div>
+    <div class="option-title">Stacked trajectory</div>
+    <div class="option-description">
+      Zero-anchored bar on top (magnitude) + a small dot-and-line trajectory below with a clearly-labeled above-zero range (movement).
+    </div>
+    <div class="mini-card">
+      <div class="measure-name">Cohort Graduation Rate</div>
+      <div class="current-line"><span class="big">87.7%</span>Record High — 2024–25</div>
+      <div class="chart-zero"><canvas id="opt1-bar"></canvas></div>
+      <div class="chart-trajectory">
+        <div class="chart-trajectory-label">Baseline → Target (zoomed view)</div>
+        <canvas id="opt1-trajectory"></canvas>
+      </div>
+    </div>
+    <div class="tradeoffs">
+      <div class="row"><span class="tag pro">PRO</span><span>Both stories are equal-weight and always visible — no toggle required.</span></div>
+      <div class="row"><span class="tag pro">PRO</span><span>Zoomed view is clearly labeled, so the axis range is honest.</span></div>
+      <div class="row"><span class="tag con">CON</span><span>Doubles the vertical space needed per measure card.</span></div>
+    </div>
+  </div>
+
+  <!-- ===== OPTION 2 ===== -->
+  <div class="option-card">
+    <div class="option-label">Option 2</div>
+    <div class="option-title">Inset trajectory</div>
+    <div class="option-description">
+      Zero-anchored bar with a small trajectory chart tucked into the upper-right corner of the chart area.
+    </div>
+    <div class="mini-card">
+      <div class="measure-name">Cohort Graduation Rate</div>
+      <div class="current-line"><span class="big">87.7%</span>Record High — 2024–25</div>
+      <div class="chart-zero"><canvas id="opt2-bar"></canvas></div>
+      <div class="chart-inset">
+        <div class="chart-inset-label">2025 – 2030</div>
+        <canvas id="opt2-inset"></canvas>
+      </div>
+    </div>
+    <div class="tradeoffs">
+      <div class="row"><span class="tag pro">PRO</span><span>Compact — fits within the current card footprint.</span></div>
+      <div class="row"><span class="tag con">CON</span><span>Inset is small and harder to read at a glance.</span></div>
+      <div class="row"><span class="tag con">CON</span><span>Competes visually with the existing "2030 Target: X" callout in upper-right.</span></div>
+    </div>
+  </div>
+
+  <!-- ===== OPTION 3 ===== -->
+  <div class="option-card">
+    <div class="option-label">Option 3</div>
+    <div class="option-title">Stacked re-centered bar</div>
+    <div class="option-description">
+      Zero-anchored bar on top + a horizontal "progress" bar below, with the x-axis running from the 2024 baseline to just past the 2030 goal.
+    </div>
+    <div class="mini-card">
+      <div class="measure-name">Cohort Graduation Rate</div>
+      <div class="current-line"><span class="big">87.7%</span>Record High — 2024–25</div>
+      <div class="chart-zero"><canvas id="opt3-bar"></canvas></div>
+      <div class="chart-recentered">
+        <div class="chart-recentered-label">Progress toward 2030 goal (re-centered)</div>
+        <canvas id="opt3-recentered"></canvas>
+      </div>
+    </div>
+    <div class="tradeoffs">
+      <div class="row"><span class="tag pro">PRO</span><span>Re-centered bar makes "there's a long way to go" viscerally obvious.</span></div>
+      <div class="row"><span class="tag con">CON</span><span>Leadership has pushed back on this style before (per prior Tableau iteration).</span></div>
+      <div class="row"><span class="tag con">CON</span><span>Loses the year-by-year pacing that the dot/line trajectory shows.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="preview-footer">
+  <p><strong>Shared design decisions across all three:</strong></p>
+  <p>• The top (zero-anchored) bar chart is unchanged from the current dashboard — same navy fill, same hatched target bars, same 2030 target reference line.</p>
+  <p>• Years shown: 2025 (current) through 2030 (goal). The 2024 baseline is omitted per your direction; we can add it back if needed.</p>
+  <p>• For the zoomed trajectory (Options 1 &amp; 2): y-axis range is floor(min − 10% of baseline-to-target gap) to ceil(target + 5% of gap) — a consistent rule, not cherry-picked per measure.</p>
+  <p>• For the re-centered progress bar (Option 3): x-axis runs from the earliest baseline to target + 1 unit, so the 2030 goal sits near the right edge.</p>
+</footer>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+<script>
+// =====================================================
+// Cohort Graduation Rate — real data from measures.json
+// =====================================================
+const CGR = {
+  name: 'Cohort Graduation Rate',
+  format: v => v.toFixed(1) + '%',
+  years: ['2025', '2026', '2027', '2028', '2029', '2030'],
+  // 2025 is current (baseline type). 2026-2030 are targets.
+  values: [87.7, 88.0, 89.0, 90.0, 91.0, 92.0],
+  isBaseline: [true, false, false, false, false, false],  // controls fill style
+  current: 87.7,
+  target2030: 92.0,
+  yMax: 100
+};
+
+// NCDPI style-guide colors (match index.html)
+const COLORS = {
+  baseline: '#003A70',
+  target:   '#B7B9BB',
+  refLine:  '#003A70',
+  axisValue: '#212529',
+  gridline: '#DEDEDE',
+  dataLabel: '#000000',
+  orangeAccent: '#FF9015'
+};
+
+// ----- Hatched pattern for target bars (matches dashboard) -----
+function makeHatch() {
+  const size = 8;
+  const c = document.createElement('canvas');
+  c.width = size; c.height = size;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, size, size);
+  ctx.strokeStyle = 'rgba(0, 58, 112, 0.5)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(0, size); ctx.lineTo(size, 0); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-2, 2); ctx.lineTo(2, -2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(size - 2, size + 2); ctx.lineTo(size + 2, size - 2); ctx.stroke();
+  return ctx.createPattern(c, 'repeat');
+}
+
+// ----- Value-label plugin (matches dashboard) -----
+const valueLabelsPlugin = {
+  id: 'valueLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx, data } = chart;
+    const meta = chart.getDatasetMeta(0);
+    ctx.save();
+    ctx.font = "600 12px 'Source Sans Pro', sans-serif";
+    ctx.textAlign = 'center';
+    meta.data.forEach((bar, i) => {
+      const v = data.datasets[0].data[i];
+      if (v == null) return;
+      const label = CGR.format(v);
+      const x = bar.x;
+      const y = bar.y - 6;
+      const w = ctx.measureText(label).width;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(x - w/2 - 3, y - 11, w + 6, 14);
+      ctx.fillStyle = COLORS.dataLabel;
+      ctx.fillText(label, x, y);
+    });
+    ctx.restore();
+  }
+};
+
+// ----- Shared: main zero-anchored bar chart -----
+function makeZeroBarChart(canvasId) {
+  const hatch = makeHatch();
+  const bgColors = CGR.isBaseline.map(b => b ? COLORS.baseline : hatch);
+  const borderColors = CGR.isBaseline.map(b => b ? COLORS.baseline : COLORS.baseline);
+  const borderWidths = CGR.isBaseline.map(b => b ? 0 : 1.5);
+
+  return new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels: CGR.years,
+      datasets: [{
+        data: CGR.values,
+        backgroundColor: bgColors,
+        borderColor: borderColors,
+        borderWidth: borderWidths,
+        borderRadius: { topLeft: 4, topRight: 4 },
+        borderSkipped: 'bottom',
+        maxBarThickness: 44
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 24, right: 4 } },
+      scales: {
+        y: { display: false, beginAtZero: true, max: CGR.yMax },
+        x: {
+          grid: { display: false },
+          ticks: { color: COLORS.axisValue, font: { size: 12, weight: '600' } }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+        annotation: {
+          drawTime: 'beforeDatasetsDraw',
+          annotations: {
+            targetLine: {
+              type: 'line',
+              yMin: CGR.target2030, yMax: CGR.target2030,
+              borderColor: COLORS.refLine,
+              borderWidth: 2,
+              borderDash: [6, 4]
+            }
+          }
+        }
+      }
+    },
+    plugins: [valueLabelsPlugin]
+  });
+}
+
+// ----- Trajectory endpoint label plugin -----
+// labelMode: 'last' (Option 1 — just the 2030 target) or 'endpoints' (Option 2 — 2025 + 2030)
+function trajectoryLabelsPlugin(labelMode, fontSize) {
+  return {
+    id: 'trajLabels_' + labelMode,
+    afterDatasetsDraw(chart) {
+      if (labelMode === 'none') return;
+      const ctx = chart.ctx;
+      // Collect unique non-null points by year index (dedupe across datasets)
+      const byIdx = {};
+      chart.data.datasets.forEach((ds, dsIdx) => {
+        const meta = chart.getDatasetMeta(dsIdx);
+        ds.data.forEach((v, i) => {
+          if (v != null) {
+            byIdx[i] = { v: v, x: meta.data[i].x, y: meta.data[i].y };
+          }
+        });
+      });
+      const pts = Object.keys(byIdx).map(k => parseInt(k,10)).sort((a,b)=>a-b).map(k => byIdx[k]);
+      if (pts.length === 0) return;
+      const toLabel = [];
+      if (labelMode === 'last') {
+        toLabel.push(pts[pts.length - 1]);
+      } else if (labelMode === 'endpoints') {
+        toLabel.push(pts[0]);
+        if (pts.length > 1) toLabel.push(pts[pts.length - 1]);
+      }
+      ctx.save();
+      ctx.font = "700 " + (fontSize || 10) + "px 'Source Sans Pro', sans-serif";
+      ctx.textAlign = 'center';
+      toLabel.forEach(p => {
+        const label = p.v.toFixed(1) + '%';
+        const w = ctx.measureText(label).width;
+        const lx = p.x;
+        const ly = p.y - 8;
+        ctx.fillStyle = 'rgba(255,255,255,0.95)';
+        ctx.fillRect(lx - w/2 - 3, ly - (fontSize || 10) - 1, w + 6, (fontSize || 10) + 4);
+        ctx.fillStyle = COLORS.baseline;
+        ctx.fillText(label, lx, ly);
+      });
+      ctx.restore();
+    }
+  };
+}
+
+// ----- Trajectory strip (dot + line, above-zero axis) -----
+// Used for Option 1 (stacked) and Option 2 (inset, compact variant)
+function makeTrajectoryChart(canvasId, opts = {}) {
+  const compact = opts.compact || false;
+  const labelMode = opts.labelMode || 'none';
+  const labelFontSize = compact ? 9 : 10;
+  // Principled y-axis rule: floor(min - 10% of gap), ceil(target + 5% of gap)
+  const minV = Math.min(...CGR.values);
+  const maxV = CGR.target2030;
+  const gap = maxV - minV;
+  const yMin = Math.floor(minV - 0.10 * gap);
+  const yMax = Math.ceil(maxV + 0.05 * gap);
+
+  // Split: current (solid) vs target (dashed)
+  const currentData = CGR.values.map((v, i) => CGR.isBaseline[i] ? v : null);
+  const targetData = CGR.values.map((v, i) => CGR.isBaseline[i] ? null : v);
+  // Ensure continuity: the last current point also anchors the target line
+  const currIdx = CGR.isBaseline.lastIndexOf(true);
+  if (currIdx >= 0) targetData[currIdx] = CGR.values[currIdx];
+
+  return new Chart(document.getElementById(canvasId), {
+    type: 'line',
+    data: {
+      labels: CGR.years,
+      datasets: [
+        {
+          label: 'Current',
+          data: currentData,
+          borderColor: COLORS.baseline,
+          backgroundColor: COLORS.baseline,
+          pointRadius: compact ? 3 : 4,
+          pointBackgroundColor: COLORS.baseline,
+          borderWidth: 2,
+          spanGaps: false
+        },
+        {
+          label: 'Target',
+          data: targetData,
+          borderColor: COLORS.baseline,
+          backgroundColor: 'transparent',
+          pointRadius: compact ? 2.5 : 3.5,
+          pointBackgroundColor: '#FFFFFF',
+          pointBorderColor: COLORS.baseline,
+          pointBorderWidth: 1.5,
+          borderWidth: 1.5,
+          borderDash: [5, 4],
+          spanGaps: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: compact ? 14 : 18, right: compact ? 22 : 28, left: compact ? 22 : 6, bottom: 0 } },
+      scales: {
+        y: {
+          display: !compact,
+          min: yMin, max: yMax,
+          ticks: {
+            color: COLORS.axisValue,
+            font: { size: compact ? 9 : 10 },
+            callback: v => v + '%',
+            maxTicksLimit: compact ? 3 : 4
+          },
+          grid: { color: COLORS.gridline, drawBorder: false }
+        },
+        x: {
+          display: !compact,
+          grid: { display: false },
+          ticks: { color: COLORS.axisValue, font: { size: compact ? 9 : 10, weight: '600' } }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      }
+    },
+    plugins: labelMode === 'none' ? [] : [trajectoryLabelsPlugin(labelMode, labelFontSize)]
+  });
+}
+
+// ----- Re-centered horizontal bar (Option 3) -----
+// x-axis from 2024 baseline to just past the 2030 goal; bar shows progress so far
+function makeRecenteredBarChart(canvasId) {
+  const baseline2024 = 87.0;
+  const xMin = baseline2024;
+  // Stop just past the goal so the chart is clearly "progress to goal"
+  // (goal sits near the right edge, not floating in the middle of a wider axis)
+  const xMax = CGR.target2030 + 1; // 93
+
+  const annotations = {
+    goalLine: {
+      type: 'line',
+      xMin: CGR.target2030, xMax: CGR.target2030,
+      yMin: -0.45, yMax: 0.45,
+      borderColor: COLORS.baseline,
+      borderWidth: 2.5,
+      borderDash: [6, 4]
+    },
+    goalLabel: {
+      type: 'label',
+      xValue: CGR.target2030,
+      yValue: 0,
+      content: ['2030 Goal — 92%'],
+      color: COLORS.baseline,
+      font: { size: 11, weight: '700' },
+      backgroundColor: 'rgba(255,255,255,0.95)',
+      yAdjust: -22,
+      padding: { x: 4, y: 1 }
+    },
+    current: {
+      type: 'label',
+      xValue: CGR.current,
+      yValue: 0,
+      content: ['Today: 87.7%'],
+      color: COLORS.baseline,
+      font: { size: 11, weight: '700' },
+      backgroundColor: 'rgba(255,255,255,0.95)',
+      xAdjust: 36,
+      yAdjust: 0,
+      padding: { x: 4, y: 1 }
+    }
+  };
+  // Subtle tick marks for interim targets 88, 89, 90, 91 (no labels — avoids clutter)
+  [88.0, 89.0, 90.0, 91.0].forEach((v, i) => {
+    annotations['interim_' + i] = {
+      type: 'line',
+      xMin: v, xMax: v,
+      yMin: -0.3, yMax: 0.3,
+      borderColor: '#9ea2a6',
+      borderWidth: 1
+    };
+  });
+
+  return new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels: [''],
+      datasets: [{
+        data: [{ x: [xMin, CGR.current], y: '' }],
+        backgroundColor: COLORS.baseline,
+        borderColor: COLORS.baseline,
+        borderWidth: 0,
+        barThickness: 18
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 22, right: 8, left: 8, bottom: 22 } },
+      scales: {
+        x: {
+          min: xMin, max: xMax,
+          grid: { color: COLORS.gridline, drawBorder: false },
+          ticks: {
+            color: COLORS.axisValue,
+            font: { size: 10 },
+            callback: v => v.toFixed(0) + '%',
+            stepSize: 1
+          }
+        },
+        y: { display: false }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+        annotation: {
+          drawTime: 'afterDatasetsDraw',
+          annotations: annotations
+        }
+      }
+    }
+  });
+}
+
+// ----- Kick off all charts once DOM is ready -----
+window.addEventListener('DOMContentLoaded', () => {
+  makeZeroBarChart('opt1-bar');
+  makeTrajectoryChart('opt1-trajectory', { compact: false, labelMode: 'last' });
+
+  makeZeroBarChart('opt2-bar');
+  makeTrajectoryChart('opt2-inset', { compact: true, labelMode: 'endpoints' });
+
+  makeZeroBarChart('opt3-bar');
+  makeRecenteredBarChart('opt3-recentered');
+});
+</script>
+</body>
+</html>

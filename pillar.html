@@ -1032,6 +1032,11 @@
 
     <a class="pillar-link" href="index.html" style="--pcolor: var(--navy); --pbg: var(--navy-light);">
       <i class="bi bi-house-door" style="font-size: 32px; width: 40px; text-align: center; color: var(--navy);" aria-hidden="true"></i>
+      <span class="pillar-name" style="font-weight: 700;">Home</span>
+    </a>
+
+    <a class="pillar-link" href="best-in-nation.html" style="--pcolor: var(--navy); --pbg: var(--navy-light);">
+      <i class="bi bi-bar-chart-line" style="font-size: 32px; width: 40px; text-align: center; color: var(--navy);" aria-hidden="true"></i>
       <span class="pillar-name" style="font-weight: 700;">Best in the Nation Measures</span>
     </a>
 
@@ -1072,7 +1077,7 @@
 
     <hr>
     <a class="sidebar-link" href="https://www.dpi.nc.gov/documents/statesuperintendent/achieving-educational-excellence-strategic-plan/download?attachment" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
-    <a class="sidebar-link" href="mailto:Geoff.coltrane@dpi.nc.gov"><i class="bi bi-envelope" aria-hidden="true"></i> Contact NCDPI</a>
+    <a class="sidebar-link" href="mailto:strategicplan@dpi.nc.gov"><i class="bi bi-envelope" aria-hidden="true"></i> Contact NCDPI</a>
 
     <div class="sidebar-updated" id="sidebarLastUpdated" hidden>
       <i class="bi bi-clock-history" aria-hidden="true"></i>
@@ -1600,7 +1605,7 @@ function buildResultsTab(pillar) {
   container.innerHTML =
     '<i class="bi bi-bar-chart-line" aria-hidden="true"></i>' +
     '<p>Pillar-level results for <strong>' + pillar.pillarName + '</strong> will be available as data is collected and reported.</p>' +
-    '<a href="index.html">&larr; View the Best in the Nation measures</a>';
+    '<a href="best-in-nation.html">&larr; View the Best in the Nation measures</a>';
 }
 
 // ============================================================
@@ -1748,7 +1753,7 @@ document.fonts.ready.then(function() {
     .catch(function(err) {
       console.error('Failed to load pillar-data.json:', err);
       document.querySelector('.pillar-content').innerHTML =
-        '<div class="empty-state"><i class="bi bi-exclamation-triangle"></i>Failed to load pillar data. Please refresh.</div>';
+        '<div class="empty-state"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i>Failed to load pillar data. Please refresh.</div>';
     });
 });
 

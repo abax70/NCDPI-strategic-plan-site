@@ -120,22 +120,27 @@
     line-height: 1.5;
     margin-bottom: 24px;
   }
+  /* Ghost/outline style — subordinate to the landing-page primary CTA.
+     Transparent bg with white outline reads as secondary action against
+     the navy hero background. Keeps WCAG AA with white-on-navy contrast. */
   .hero-cta {
     display: inline-block;
-    background: var(--secondary);
+    background: transparent;
     color: white;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14px;
     font-weight: 700;
-    padding: 10px 24px;
-    border-radius: 24px;
+    padding: 9px 20px;
+    border-radius: 4px;
     text-decoration: none;
-    border: none;
+    border: 2px solid white;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
     align-self: flex-start;
   }
-  .hero-cta:hover { background: var(--navy); }
+  .hero-cta:hover { background: white; color: var(--navy); }
+  /* White focus outline for ≥3:1 contrast on navy hero bg (orange was ~2.9:1). */
+  .hero-cta:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; box-shadow: 0 0 0 5px var(--navy); }
 
   /* Right: AEE logo on official white geometric pattern from graphics team */
   .hero-banner-right {
@@ -980,6 +985,175 @@
     }
   }
 
+  /* =========================================================
+     LANDING PAGE — welcome intro + photo gallery + CTA
+     Two-column layout: pillar sidebar (left, flush) + landing main.
+     Photos form an L-shape border: vertical stack on the right,
+     wrapping to a horizontal row beneath the blurb.
+     ========================================================= */
+  .landing-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    min-height: calc(100vh - 160px);
+    align-items: stretch; /* sidebar grows to match main content height */
+  }
+  .landing-main {
+    min-width: 0;
+    /* 0 bottom padding so the last photo row's bottom edge aligns with the
+       sidebar's bottom edge (both are stretched to the same grid row height). */
+    padding: 24px 32px 0;
+  }
+
+  /* Hero row: narrow blurb on the left + vertical photo stack on the right.
+     Photo column width = 308px so its right edge lines up under the AEE logo
+     (logo panel is 360px wide; main has 32px right padding; 20px gap before photos).
+     This pins the blurb's right edge to the logo's left edge. */
+  .landing-hero-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 308px;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 16px;
+  }
+  .landing-intro {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--secondary);
+    border-radius: 6px;
+    padding: 28px 32px;
+  }
+  /* Cap TEXT width inside the card (~78ch — tight enough to stay readable,
+     wide enough to fill the card and reduce dead space next to the photos). */
+  .landing-intro p,
+  .landing-intro .landing-lede,
+  .landing-intro .landing-cta {
+    max-width: 78ch;
+  }
+  /* Inline CTA link in the blurb — weighted primary-blue for a scanner
+     entry point to best-in-nation.html without needing to scroll to the button. */
+  .landing-intro a.inline-cta {
+    color: var(--secondary);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .landing-intro a.inline-cta:hover { color: var(--navy); }
+  .landing-intro p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .landing-intro p:last-of-type { margin-bottom: 22px; }
+  .landing-lede {
+    font-size: 20px !important;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px !important;
+  }
+  .landing-lede strong em { font-style: italic; font-weight: 700; }
+  .landing-intro em { font-style: italic; }
+  .landing-intro strong { font-weight: 700; }
+  .landing-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--secondary);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 2px solid var(--secondary);
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .landing-cta:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .landing-cta:focus-visible {
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+  }
+  .landing-cta i { font-size: 18px; }
+
+  /* Right photo column: stretches to match the blurb's height.
+     Flex:1 on each tile splits that height evenly across N photos. */
+  .photos-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .photos-right-col .photo-tile {
+    flex: 1 0 0;
+    min-height: 0;
+  }
+
+  /* Bottom photo row: spans full main width below the hero row */
+  .photos-bottom-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .photos-bottom-row .photo-tile {
+    aspect-ratio: 4 / 3;
+  }
+
+  .photo-tile {
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .photo-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Photo tiles are decorative — no :hover effect because they aren't
+     interactive (not focusable). A hover signal without keyboard equivalent
+     fails WCAG 2.1.1 expectations. */
+
+  /* Tablet — fewer photos per row, right stack collapses beside blurb if tight */
+  @media (max-width: 1100px) {
+    .landing-hero-row {
+      grid-template-columns: minmax(0, 1fr) 200px;
+      gap: 14px;
+    }
+    .landing-intro { padding: 22px 24px; }
+  }
+
+  /* Mobile — single column everywhere. Right-stack becomes a 2-col grid below the blurb. */
+  @media (max-width: 768px) {
+    .landing-layout {
+      grid-template-columns: 1fr;
+    }
+    .landing-main { padding: 16px 16px 32px; }
+    .landing-hero-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .photos-right-col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .photos-right-col .photo-tile { aspect-ratio: 4 / 3; flex: none; }
+    .photos-bottom-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .landing-intro {
+      padding: 20px;
+      max-width: none;
+    }
+    .landing-lede { font-size: 18px !important; }
+    .landing-intro p { font-size: 15px; }
+    .landing-cta { font-size: 15px; padding: 11px 20px; width: 100%; justify-content: center; }
+  }
+
 </style>
 </head>
 <body>
@@ -1011,20 +1185,12 @@
 <!-- Backdrop for the mobile nav drawer — click to close. -->
 <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
 
-<!-- ===== INTRO BLURB BAND ===== -->
-<section class="intro-blurb-band" id="introBlurb" aria-label="About this dashboard">
-  <button class="intro-close" id="introClose" type="button" aria-label="Dismiss introduction">&times;</button>
-  <div class="intro-cols">
-    <p class="intro-lede"><strong>Welcome to the <em>Achieving Educational Excellence</em> dashboard.</strong></p>
-    <p>The <em>Achieving Educational Excellence: 2025&ndash;2030 Strategic Plan</em> represents the shared vision of the North Carolina State Board of Education and the North Carolina Superintendent of Public Instruction &mdash; <strong>to have our public schools be the best in the nation!</strong> To be clear: to be the best is the only option. This dashboard is how we hold ourselves accountable to that commitment, sharing our progress openly with the people of North Carolina and every partner working with us. The Best in Nation Measures below are the statewide indicators we have chosen to track whether our public schools are, in fact, becoming the best in the United States by 2030. Use the drop-down menu to select each measure, view the current data and see how we are progressing over time. While we acknowledge our students are more than metrics, these measures tell us whether the eight transformative pillars of <em>Achieving Educational Excellence</em> are delivering for every child, in every community, across North Carolina.</p>
-    <p>The eight pillars of <em>Achieving Educational Excellence</em> are listed on the left-hand side of this dashboard. Click on any of the pillars to see more information on the 110 actions we are undertaking to make sure our public schools are the best in the nation by 2030.</p>
-  </div>
-</section>
+<!-- Landing-page content lives in the .landing-layout block below. -->
 
-<!-- ===== THREE-COLUMN LAYOUT ===== -->
-<div class="three-col">
+<!-- ===== LANDING LAYOUT: pillar nav + welcome/photos/CTA ===== -->
+<div class="landing-layout">
 
-  <!-- LEFT SIDEBAR: Pillar Navigation -->
+  <!-- LEFT SIDEBAR: Pillar Navigation (same component as the measures page) -->
   <nav class="sidebar-left" id="sidebarLeft" role="navigation" aria-label="Strategic Pillars">
     <div class="sidebar-heading">Strategic Pillars</div>
 
@@ -1062,8 +1228,9 @@
     </a>
 
     <hr>
+    <a class="sidebar-link" href="best-in-nation.html"><i class="bi bi-bar-chart-line" aria-hidden="true"></i> Best in the Nation Measures</a>
     <a class="sidebar-link" href="https://www.dpi.nc.gov/documents/statesuperintendent/achieving-educational-excellence-strategic-plan/download?attachment" target="_blank" rel="noopener"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download Strategic Plan (PDF)</a>
-    <a class="sidebar-link" href="mailto:Geoff.coltrane@dpi.nc.gov"><i class="bi bi-envelope" aria-hidden="true"></i> Contact NCDPI</a>
+    <a class="sidebar-link" href="mailto:strategicplan@dpi.nc.gov"><i class="bi bi-envelope" aria-hidden="true"></i> Contact NCDPI</a>
 
     <div class="sidebar-updated" id="sidebarLastUpdated" hidden>
       <i class="bi bi-clock-history" aria-hidden="true"></i>
@@ -1071,714 +1238,49 @@
     </div>
   </nav>
 
-  <!-- CENTER: Measure Detail -->
-  <main class="main-content" id="main-content">
+  <!-- MAIN: Welcome intro + CTA + photo gallery -->
+  <main class="landing-main" id="main-content">
 
-    <h2 class="sr-only">Select a measure</h2>
+    <!-- Hero row: narrow blurb + vertical photo stack on the right -->
+    <div class="landing-hero-row">
+      <section class="landing-intro">
+        <h2 class="landing-lede"><strong>Welcome to the <em>Achieving Educational Excellence</em> dashboard.</strong></h2>
 
-    <!-- Carousel controls — dropdown first (primary nav), arrows + counter second -->
-    <div class="carousel-header">
-      <select class="carousel-select" aria-label="Jump to measure">
-        <!-- Options populated from measures.json by buildDropdown() -->
-      </select>
-      <div class="carousel-arrows">
-        <button class="carousel-btn" aria-label="Previous measure">&#8249;</button>
-        <button class="carousel-btn" aria-label="Next measure">&#8250;</button>
-        <span class="carousel-counter">Measure 1 of 14</span>
+        <p>The <em>Achieving Educational Excellence: 2025&ndash;2030 Strategic Plan</em> represents the shared vision of the North Carolina State Board of Education and the North Carolina Superintendent of Public Instruction &mdash; <strong>to have our public schools be the best in the nation!</strong> To be clear: to be the best is the only option. This dashboard is how we hold ourselves accountable to that commitment, sharing our progress openly with the people of North Carolina and every partner working with us.</p>
+
+        <p>Our <a class="inline-cta" href="best-in-nation.html">Best in the Nation Measures</a> are the statewide indicators we have chosen to track whether our public schools are, in fact, becoming the best in the United States by 2030. While we acknowledge our students are more than metrics, these measures tell us whether the eight transformative pillars of <em>Achieving Educational Excellence</em> are delivering for every child, in every community, across North Carolina.</p>
+
+        <p>The eight pillars of <em>Achieving Educational Excellence</em> are listed on the left-hand side of this dashboard. Click on any of the pillars to see more information on the 110 actions we are undertaking to make sure our public schools are the best in the nation by 2030.</p>
+
+        <a class="landing-cta" href="best-in-nation.html">
+          Explore the Best in the Nation Measures <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+      </section>
+
+      <!-- Right-hand vertical photo stack — 3 taller tiles, aligned top with the blurb.
+           Track-girl-in-victory-pose sits at the bottom so the CTA button points toward her. -->
+      <div class="photos-right-col" role="group" aria-label="North Carolina students">
+        <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_379642447.jpeg" alt="Young student painting on an easel in art class"></div>
+        <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_1106761622.jpeg" alt="Elementary student holding a classroom recycling bin"></div>
+        <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_1407146432.jpeg" alt="Young student cheering with arms raised at a track stadium"></div>
       </div>
     </div>
 
-    <!-- Measure identity -->
-    <div class="measure-header">
-      <img src="images/Measure Graphics/StratPlan-BIN-GradRate.svg" alt="Graduation Rate icon">
-      <div>
-        <h2>Cohort Graduation Rate</h2>
-        <p class="goal"><strong>Goal:</strong> Increase the adjusted four-year cohort high school graduation rate to 92% by 2030.</p>
-        <p class="definition"><strong>Description:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
-        <!-- Status pill: shows "Record High" or "Baseline Year" depending on measure.
-             "Baseline" variant = measures without a record, showing the starting-point year. -->
-        <span class="status-pill">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#3d803f" aria-hidden="true"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-          Record High
-        </span>
-      </div>
-    </div>
+    <!-- Bottom photo row — wraps the L-shape border back under the blurb -->
+    <section class="photos-bottom-row" aria-label="More North Carolina students">
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_208163126.jpeg" alt="Student in graduation cap and gown giving two thumbs up"></div>
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_244455048.jpeg" alt="A diverse group of kids on a youth soccer team cheering together"></div>
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_505413850.jpeg" alt="Student examining a robotics project in STEM class"></div>
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_431484992.jpg" alt="A diverse group of graduates celebrating with their diplomas"></div>
+    </section>
 
-    <!-- Big number callout (from Mockup A — the most important thing on the page) -->
-    <div class="current-value">
-      <div class="big-number">87.7%</div>
-      <div class="context">
-        Percentage of 9th-graders graduating from high school four years later (2024&ndash;25)
-      </div>
-    </div>
-
-    <!-- Bar chart (Chart.js) -->
-    <div class="chart-area">
-      <div class="chart-target-callout" id="targetCallout" style="display:none;">
-        <span class="target-line-swatch"></span>
-        <span id="targetCalloutText"></span>
-      </div>
-      <div class="chart-canvas-wrap" id="chartWrap">
-        <canvas id="measureChart" role="img"
-                aria-label="Bar chart showing measure progress toward 2030 target"></canvas>
-      </div>
-      <div class="chart-legend" id="chartLegend">
-        <span><span class="swatch baseline"></span> Actual</span>
-        <span><span class="swatch target"></span> Target</span>
-      </div>
-      <noscript>
-        <p style="text-align:center; padding:40px; color:#212529;">This chart requires JavaScript to display.</p>
-      </noscript>
-    </div>
-
-    <!-- Notes / definition -->
-    <div class="notes-section">
-      <p><strong>Description:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
-      <p><strong>Next update:</strong> September 2026</p>
-      <p><strong>Source:</strong> <a href="https://nces.ed.gov/programs/digest/d23/tables/dt23_219.46.asp" target="_blank">NCES Digest of Education Statistics</a></p>
-    </div>
   </main>
 
-  <!-- RIGHT SIDEBAR: Context Panels
-       --pcolor / --pbg are set here for the active pillar. JS will update
-       these when the carousel switches pillars. Static mockup = Pillar 1. -->
-  <div class="sidebar-right" style="--pcolor: var(--pillar1); --pbg: var(--pillar1-bg);">
-
-    <!-- Record High Badge — uses official shield SVG from graphics team.
-         Omit this entire div for measures that don't have a record. -->
-    <div class="record-badge">
-      <img src="images/Badges/Badges-GradRate.svg" alt="Highest 4-Year Graduation Rate in NC History, 2024-2025">
-    </div>
-
-    <!-- Why It Counts — context first, then action (narrative arc) -->
-    <div class="sidebar-panel">
-      <div class="sidebar-panel-title">Why It Counts</div>
-      <div class="why-panel">
-        <p>Graduation rate is the most widely recognized measure of a public school system's success. Every student who earns a diploma gains access to more career opportunities, higher lifetime earnings, and better health outcomes.</p>
-      </div>
-    </div>
-
-    <!-- What's in Motion — pillar-colored cards -->
-    <div class="sidebar-panel">
-      <div class="sidebar-panel-title">What's in Motion</div>
-      <div class="motion-card">
-        <h3>Finish Line Grants</h3>
-        <p>Districts receive targeted funding to support students who need interventions &mdash; tutoring, transportation, mentoring &mdash; to cross the graduation finish line.</p>
-        <a href="#">See Pillar 1 &rarr;</a>
-      </div>
-      <div class="motion-card">
-        <h3>Early Warning System</h3>
-        <p>Schools use data-driven indicators to identify students at risk of not graduating and connect them with support services early.</p>
-        <a href="#">See Pillar 1 &rarr;</a>
-      </div>
-    </div>
-
-    <!-- More Data -->
-    <div class="sidebar-panel">
-      <div class="sidebar-panel-title">More Data</div>
-      <a class="more-data-link" href="https://go.ncdpi.gov/CGRState" target="_blank">Explore graduation rate data &rarr;</a>
-    </div>
-
-  </div>
 </div>
 
-
-<!-- Chart.js CDN (UMD builds — must load in this order) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
-
 <script>
-/* ============================================================
-   Chart.js integration for the Strategic Plan dashboard.
-   Reads data/measures.json and renders a bar chart for the
-   currently selected measure. Replaces the static HTML bars.
-   ============================================================ */
-
-// --- Style-guide colors (NCDPI Data Visualization Style Guide) ---
-const COLORS = {
-  baseline:  '#003A70',   // Highlighted Bar/Line (navy)
-  target:    '#B7B9BB',   // Neutral Bar/Line (gray)
-  meets:     '#077890',   // Bar/Line is Best (teal)
-  below:     '#B33A12',   // Bar/Line is Worst (rust)
-  refLine:   '#003A70',   // Reference Lines
-  dataLabel: '#000000',   // Data Labels
-  axisValue: '#212529',   // Axis Values — matches dpi.nc.gov body text
-  gridline:  '#DEDEDE'    // Gridlines
-};
-
-// --- Diagonal hatch pattern for target bars ---
-// Creates a canvas pattern with thin diagonal lines to signal "projected" data.
-let _hatchPattern = null; // cleared on reload; pattern is cached after first call
-function getHatchPattern() {
-  if (_hatchPattern) return _hatchPattern;
-  const size = 8;  // pattern tile size in px
-  const c = document.createElement('canvas');
-  c.width = size;
-  c.height = size;
-  const ctx = c.getContext('2d');
-  // White background
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fillRect(0, 0, size, size);
-  // Navy diagonal stripe at 50% opacity
-  ctx.strokeStyle = 'rgba(0, 58, 112, 0.5)';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(0, size);
-  ctx.lineTo(size, 0);
-  ctx.stroke();
-  // Wrap-around stripe for seamless tiling
-  ctx.beginPath();
-  ctx.moveTo(-2, 2);
-  ctx.lineTo(2, -2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(size - 2, size + 2);
-  ctx.lineTo(size + 2, size - 2);
-  ctx.stroke();
-  _hatchPattern = ctx.createPattern(c, 'repeat');
-  return _hatchPattern;
-}
-
-// --- Value formatting ---
-function formatValue(value, fmt) {
-  if (value == null) return '';
-  switch (fmt) {
-    case '#.#%':
-      return value.toFixed(1) + '%';
-    case '#.#':
-      return value.toFixed(1);
-    case '#,###':
-      return Math.round(value).toLocaleString('en-US');
-    case '#':
-      return Math.round(value).toString();
-    default:
-      return value.toString();
-  }
-}
-
-// --- Determine the display value and color for each data point ---
-function getBarValue(d) {
-  // Priority: actual (future reported) > baseline (historical)
-  if (d.actual != null) return d.actual;
-  if (d.baseline != null) return d.baseline;
-  if (d.target != null) return d.target;
-  return null;
-}
-
-function getBarColor(d) {
-  if (d.actual != null) {
-    // Future year with reported data — compare to target
-    return (d.target != null && d.actual >= d.target) ? COLORS.meets : COLORS.below;
-  }
-  if (d.baseline != null) return COLORS.baseline;
-  if (d.target != null) return getHatchPattern();
-  return 'transparent';
-}
-
-function getBarBorder(d) {
-  // Only target-only bars get a visible border
-  if (d.baseline == null && d.actual == null && d.target != null) {
-    return { width: 1.5, color: COLORS.baseline };
-  }
-  return { width: 0, color: 'transparent' };
-}
-
-// --- Render the chart ---
-let currentChart = null;
-
-function renderChart(measure) {
-  const wrap = document.getElementById('chartWrap');
-  const canvas = document.getElementById('measureChart');
-  const legendEl = document.getElementById('chartLegend');
-
-  // Handle measures with no data
-  if (!measure.dataSeries || measure.dataSeries.length === 0) {
-    canvas.style.display = 'none';
-    legendEl.style.display = 'none';
-    targetCallout.style.display = 'none';
-    // Add "no data" message if not already present
-    if (!wrap.querySelector('.chart-no-data')) {
-      const msg = document.createElement('div');
-      msg.className = 'chart-no-data';
-      msg.textContent = 'No data available yet.';
-      wrap.appendChild(msg);
-    }
-    return;
-  }
-
-  // Remove any "no data" message and restore canvas
-  const noData = wrap.querySelector('.chart-no-data');
-  if (noData) noData.remove();
-  canvas.style.display = '';
-  legendEl.style.display = '';
-
-  // Destroy previous chart instance
-  if (currentChart) {
-    currentChart.destroy();
-    currentChart = null;
-  }
-
-  // Build arrays from dataSeries
-  const labels = measure.dataSeries.map(d => d.year);
-  const values = measure.dataSeries.map(d => getBarValue(d));
-  const bgColors = measure.dataSeries.map(d => getBarColor(d));
-  const borderColors = measure.dataSeries.map(d => getBarBorder(d).color);
-  const borderWidths = measure.dataSeries.map(d => getBarBorder(d).width);
-
-  // Find the 2030 target for the annotation line
-  const finalTarget = measure.dataSeries.reduce((last, d) => {
-    return d.target != null ? d : last;
-  }, null);
-
-  // Build annotation config
-  const annotations = {};
-  if (finalTarget) {
-    annotations.targetLine = {
-      type: 'line',
-      yMin: finalTarget.target,
-      yMax: finalTarget.target,
-      borderColor: COLORS.refLine,
-      borderWidth: 2,
-      borderDash: [6, 4]
-    };
-  }
-
-  // Update the HTML target callout
-  if (finalTarget) {
-    targetCallout.style.display = '';
-    targetCalloutText.textContent = finalTarget.year + ' Target: ' + formatValue(finalTarget.target, measure.valueFormat);
-  } else {
-    targetCallout.style.display = 'none';
-  }
-
-  // Inline plugin: draw value labels above each bar
-  const valueLabelsPlugin = {
-    id: 'valueLabels',
-    afterDatasetsDraw(chart) {
-      const ctx = chart.ctx;
-      const meta = chart.getDatasetMeta(0);
-      ctx.save();
-      // Smaller label font on mobile to keep bars from being overrun
-      // by their own values when the chart is scaled down.
-      const labelFontSize = window.innerWidth <= 768 ? 11 : 13;
-      ctx.font = "600 " + labelFontSize + "px 'Source Sans Pro', sans-serif";
-      ctx.textAlign = 'center';
-      meta.data.forEach((bar, i) => {
-        const val = chart.data.datasets[0].data[i];
-        if (val == null) return;
-        const formatted = formatValue(val, measure.valueFormat);
-        const x = bar.x;
-        const y = bar.y - 8;
-        // White background pad — erases any reference line behind the label
-        const textWidth = ctx.measureText(formatted).width;
-        const padX = 4, padY = 2;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(x - textWidth / 2 - padX, y - 11 - padY, textWidth + padX * 2, 14 + padY * 2);
-        // Draw the label text
-        ctx.fillStyle = COLORS.dataLabel;
-        ctx.fillText(formatted, x, y);
-      });
-      ctx.restore();
-    }
-  };
-
-  // Create the chart
-  const ctx = canvas.getContext('2d');
-  currentChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: values,
-        backgroundColor: bgColors,
-        borderColor: borderColors,
-        borderWidth: borderWidths,
-        borderRadius: { topLeft: 4, topRight: 4 },
-        borderSkipped: 'bottom',
-        maxBarThickness: 56
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      layout: {
-        padding: { top: 28 }   // room for value labels above bars
-      },
-      scales: {
-        y: {
-          display: false,
-          beginAtZero: true,
-          max: measure.yAxisMax || undefined
-        },
-        x: {
-          grid: { display: false },
-          ticks: {
-            color: COLORS.axisValue,
-            // Smaller ticks and angled labels on mobile; otherwise the
-            // year labels crowd together or overflow the canvas.
-            font: {
-              size: window.innerWidth <= 768 ? 11 : 13,
-              weight: '600'
-            },
-            maxTicksLimit: window.innerWidth <= 768 ? 6 : undefined,
-            maxRotation: window.innerWidth <= 480 ? 45 : 0,
-            minRotation: 0,
-            autoSkip: true
-          }
-        }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: { enabled: false },
-        annotation: {
-          drawTime: 'beforeDatasetsDraw',
-          annotations: annotations
-        }
-      }
-    },
-    plugins: [valueLabelsPlugin]
-  });
-
-  // Update the canvas aria-label
-  canvas.setAttribute('aria-label',
-    'Bar chart showing ' + measure.name + ' progress toward ' +
-    (finalTarget ? finalTarget.year + ' target of ' + formatValue(finalTarget.target, measure.valueFormat) : 'target'));
-
-  // Update the legend to reflect which bar types are present
-  updateLegend(measure, legendEl);
-}
-
-// --- Update the HTML legend based on which bar types appear ---
-function updateLegend(measure, legendEl) {
-  const hasBaseline = measure.dataSeries.some(d => d.baseline != null);
-  const hasTarget = measure.dataSeries.some(d => d.baseline == null && d.actual == null && d.target != null);
-  const hasMeets = measure.dataSeries.some(d => d.actual != null && d.target != null && d.actual >= d.target);
-  const hasBelow = measure.dataSeries.some(d => d.actual != null && (d.target == null || d.actual < d.target));
-
-  let html = '';
-  if (hasBaseline) html += '<span><span class="swatch baseline"></span> Actual</span>';
-  if (hasTarget)   html += '<span><span class="swatch target"></span> Target</span>';
-  if (hasMeets)    html += '<span><span class="swatch meets"></span> Meets Target</span>';
-  if (hasBelow)    html += '<span><span class="swatch below"></span> Below Target</span>';
-  legendEl.innerHTML = html;
-}
-
 // ============================================================
-// Carousel interactivity — wires dropdown, arrows, and keyboard
-// to switchMeasure(), which updates every section from JSON.
-// ============================================================
-
-// --- DOM references (stable — these elements never get replaced) ---
-const selectEl      = document.querySelector('.carousel-select');
-const counterEl     = document.querySelector('.carousel-counter');
-const prevBtn       = document.querySelector('.carousel-btn[aria-label="Previous measure"]');
-const nextBtn       = document.querySelector('.carousel-btn[aria-label="Next measure"]');
-const measureHeader = document.querySelector('.measure-header');
-const headerIcon    = measureHeader.querySelector('img');
-const headerTitle   = measureHeader.querySelector('h2');
-const headerGoal       = measureHeader.querySelector('.goal');
-const headerDefinition = measureHeader.querySelector('.definition');
-const statusPill       = measureHeader.querySelector('.status-pill');
-const bigNumber     = document.querySelector('.current-value .big-number');
-const contextText   = document.querySelector('.current-value .context');
-const notesSection  = document.querySelector('.notes-section');
-const targetCallout     = document.getElementById('targetCallout');
-const targetCalloutText = document.getElementById('targetCalloutText');
-const sidebarRight  = document.querySelector('.sidebar-right');
-const pillarLinks   = document.querySelectorAll('.pillar-link');
-
-// Star SVG used in the status pill for record-high measures
-const STAR_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#3d803f" aria-hidden="true"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>';
-
-// --- Build the dropdown from JSON — flat list under a single header ---
-function buildDropdown(measures) {
-  selectEl.innerHTML = '';
-  var og = document.createElement('optgroup');
-  og.label = 'Best in the Nation Measures';
-  measures.forEach(function(m, i) {
-    var o = document.createElement('option');
-    o.value = i;
-    o.textContent = m.name;
-    og.appendChild(o);
-  });
-  selectEl.appendChild(og);
-}
-
-// --- Core: switch to measure at the given index ---
-function switchMeasure(index) {
-  var measures = window.allMeasures;
-  var total = measures.length;
-
-  // Wrap around
-  if (index < 0) index = total - 1;
-  if (index >= total) index = 0;
-
-  window.currentMeasureIndex = index;
-  var m = measures[index];
-
-  // 1. Sync dropdown + counter
-  selectEl.value = index;
-  counterEl.textContent = 'Measure ' + (index + 1) + ' of ' + total;
-
-  // 2. Measure header — icon, title, goal, definition, status pill
-  headerIcon.src = m.iconUrl || '';
-  headerIcon.alt = m.name + ' icon';
-  headerTitle.textContent = m.name;
-  headerGoal.innerHTML = '<strong>Goal:</strong> ' + (m.goal || '');
-  if (m.definition) {
-    headerDefinition.style.display = '';
-    headerDefinition.innerHTML = '<strong>Description:</strong> ' + m.definition;
-  } else {
-    headerDefinition.style.display = 'none';
-  }
-
-  if (m.statusType === 'record-high') {
-    statusPill.style.display = '';
-    statusPill.className = 'status-pill';
-    // Surface the year of the record so users know the time frame.
-    // The "record year" is the most recent entry in dataSeries with a non-null
-    // baseline (observed data). Future years have baseline:null and only targets,
-    // so they're skipped. Falls back to the plain label if dataSeries is missing.
-    var recordYear = '';
-    if (Array.isArray(m.dataSeries)) {
-      for (var i = m.dataSeries.length - 1; i >= 0; i--) {
-        if (m.dataSeries[i] && m.dataSeries[i].baseline != null) {
-          recordYear = m.dataSeries[i].year;
-          break;
-        }
-      }
-    }
-    var pillText = recordYear ? 'Record High \u00b7 ' + recordYear : 'Record High';
-    statusPill.innerHTML = STAR_SVG + ' ' + pillText;
-  } else {
-    // Baseline measures: hide the pill entirely
-    statusPill.style.display = 'none';
-  }
-
-  // 3. Big-number callout
-  bigNumber.textContent = m.currentValue || '\u2014';
-  contextText.textContent = m.currentDescription || '';
-
-  // 4. Chart (renderChart already handles destroy + no-data state)
-  renderChart(m);
-
-  // 5. Notes section — next update + source
-  //    (Definition moved up into the measure header so readers see it
-  //    before the big number, under the goal text.)
-  var notesHTML = '';
-  if (m.nextUpdate) {
-    notesHTML += '<p><strong>Next update:</strong> ' + m.nextUpdate + '</p>';
-  }
-  if (m.sourceLabel && m.sourceUrl) {
-    notesHTML += '<p><strong>Source:</strong> <a href="' + m.sourceUrl + '" target="_blank">' + m.sourceLabel + '</a></p>';
-  } else if (m.sourceLabel) {
-    notesHTML += '<p><strong>Source:</strong> ' + m.sourceLabel + '</p>';
-  }
-  notesSection.innerHTML = notesHTML;
-
-  // 6. Right sidebar — badge
-  //    When a measure supplies badgePressReleaseUrl, the shield becomes a
-  //    click-through to the press release about the achievement. Shield and
-  //    caption are wrapped in a single anchor so there's one tab stop and
-  //    one screen-reader announcement.
-  var badgeDiv = sidebarRight.querySelector('.record-badge');
-  if (m.badgeImageUrl) {
-    badgeDiv.style.display = '';
-    var altText = m.badgeAltText || '';
-    var imgHTML = '<img src="' + m.badgeImageUrl + '" alt="' + altText + '">';
-    if (m.badgePressReleaseUrl) {
-      badgeDiv.innerHTML =
-        '<a class="badge-link" href="' + m.badgePressReleaseUrl + '" ' +
-        'target="_blank" rel="noopener">' +
-        imgHTML +
-        '<span class="record-badge-caption">Read the press release \u2192</span>' +
-        '</a>';
-    } else {
-      badgeDiv.innerHTML = imgHTML;
-    }
-  } else {
-    badgeDiv.style.display = 'none';
-  }
-
-  // 7. Right sidebar — Why It Counts
-  var whyPanel = sidebarRight.querySelector('.why-panel p');
-  whyPanel.textContent = m.whyItCounts || '';
-
-  // 8. Right sidebar — What's in Motion cards
-  //    The ticker is rendered once by renderMotionTicker() after pillar-data.json
-  //    loads, and is intentionally independent of the selected measure — it shows
-  //    the 3 most recently launched Strategic Plan actions across all pillars.
-  //    Nothing to do here during measure switching.
-
-  // 9. Right sidebar — More Data link
-  var moreDataPanel = sidebarRight.querySelectorAll('.sidebar-panel')[2]; // 3rd panel
-  if (m.moreDataUrl) {
-    moreDataPanel.style.display = '';
-    var moreLink = moreDataPanel.querySelector('.more-data-link');
-    moreLink.href = m.moreDataUrl;
-    moreLink.textContent = (m.moreDataText || 'Explore data') + ' \u2192';
-  } else {
-    moreDataPanel.style.display = 'none';
-  }
-
-  // 10. Pillar color switching — update --pcolor/--pbg on sidebar
-  var n = m.pillarNumber;
-  sidebarRight.style.setProperty('--pcolor', 'var(--pillar' + n + ')');
-  sidebarRight.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
-
-  // 11. Left sidebar — no active-state highlighting on index.html.
-  //     Clicking a sidebar pillar link navigates away to pillar.html, so
-  //     highlighting one here read as "this pillar is selected / filters the
-  //     page" to users — but it doesn't filter anything. Previously this
-  //     block mirrored the carousel measure's pillar onto the sidebar, which
-  //     conflated page-level navigation with measure-level selection. We now
-  //     leave the sidebar neutral on the landing page; the .pillar-link.active
-  //     rule is still used correctly by pillar.html's switchPillar().
-  pillarLinks.forEach(function(link) {
-    link.classList.remove('active');
-    link.removeAttribute('aria-current');
-  });
-}
-
-// --- Event listeners ---
-selectEl.addEventListener('change', function() {
-  switchMeasure(+selectEl.value);
-});
-
-prevBtn.addEventListener('click', function() {
-  switchMeasure(window.currentMeasureIndex - 1);
-});
-
-nextBtn.addEventListener('click', function() {
-  switchMeasure(window.currentMeasureIndex + 1);
-});
-
-// Keyboard: left/right arrows when carousel header or main content has focus
-document.querySelector('.carousel-header').addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft') {
-    e.preventDefault();
-    switchMeasure(window.currentMeasureIndex - 1);
-  } else if (e.key === 'ArrowRight') {
-    e.preventDefault();
-    switchMeasure(window.currentMeasureIndex + 1);
-  }
-});
-
-// ============================================================
-// What's in Motion ticker
-// Shows the 3 most recently launched Strategic Plan actions,
-// pulled from pillar-data.json and rendered once on load. The
-// ticker does NOT change when the user switches measures — it's
-// a site-wide "what just launched" signal, not a per-measure
-// linkage. Cards are colored by the action's own pillar and
-// deep-link to pillar.html?p=N&action=<actionId>, which scrolls
-// to and highlights the action card on the Actions tab.
-// ============================================================
-function renderMotionTicker(pillarData) {
-  var motionContainer = sidebarRight.querySelectorAll('.sidebar-panel')[1]; // 2nd panel
-  if (!motionContainer || !pillarData || !pillarData.pillars) return;
-
-  // "Today" as a YYYY-MM-DD string so we can compare against launchDate
-  // with lexical ordering (both are zero-padded ISO dates).
-  var d = new Date();
-  var todayIso =
-    d.getFullYear() + '-' +
-    String(d.getMonth() + 1).padStart(2, '0') + '-' +
-    String(d.getDate()).padStart(2, '0');
-
-  // Collect every launched action across all pillars. We require BOTH
-  // hasStarted=true AND launchDate<=today as a defense in depth: data
-  // occasionally drifts (hasStarted flipped true while launchDate is still
-  // in the future), and we must never show "Launches in …" copy on the
-  // landing-page ticker. The /verify-motion skill enforces the same rule.
-  var launched = [];
-  pillarData.pillars.forEach(function(p) {
-    (p.focusAreas || []).forEach(function(fa) {
-      (fa.actions || []).forEach(function(a) {
-        if (a && a.hasStarted && a.launchDate && a.launchDate <= todayIso) {
-          launched.push({
-            actionId: a.actionId,
-            actionName: a.actionName,
-            launchDate: a.launchDate,
-            launchText: a.launchText || '',
-            pillarNum: p.pillarNum
-          });
-        }
-      });
-    });
-  });
-
-  // Sort most-recent first; tie-break by actionId ascending for stability
-  launched.sort(function(a, b) {
-    if (a.launchDate !== b.launchDate) return b.launchDate.localeCompare(a.launchDate);
-    return a.actionId.localeCompare(b.actionId);
-  });
-  var top3 = launched.slice(0, 3);
-
-  // Clear any existing cards (e.g., mockup HTML) before rendering
-  motionContainer.querySelectorAll('.motion-card').forEach(function(c) { c.remove(); });
-
-  top3.forEach(function(item) {
-    var card = document.createElement('div');
-    card.className = 'motion-card';
-    card.style.setProperty('--pcolor', 'var(--pillar' + item.pillarNum + ')');
-    card.style.setProperty('--pbg', 'var(--pillar' + item.pillarNum + '-bg)');
-    card.style.setProperty('--ptext', 'var(--pillar' + item.pillarNum + '-text)');
-    var href = 'pillar.html?p=' + item.pillarNum + '&action=' + encodeURIComponent(item.actionId);
-    card.innerHTML =
-      // h3 to keep heading hierarchy (h1 page, h2 measure, h3 panel cards).
-      '<h3>' + item.actionName + '</h3>' +
-      '<p>' + item.launchText + '</p>' +
-      '<a href="' + href + '">See Pillar ' + item.pillarNum + ' \u2192</a>';
-    motionContainer.appendChild(card);
-  });
-}
-
-// --- Initialize: load JSON, build dropdown, render first measure ---
-document.fonts.ready.then(function() {
-  fetch('data/measures.json')
-    .then(function(resp) { return resp.json(); })
-    .then(function(measures) {
-      window.allMeasures = measures;
-      window.currentMeasureIndex = 0;
-      buildDropdown(measures);
-      switchMeasure(0);
-    })
-    .catch(function(err) {
-      console.error('Failed to load measures.json:', err);
-    });
-
-  // pillar-data.json drives two landing-page widgets:
-  //   (a) the "Last updated" stamp in the left sidebar, and
-  //   (b) the "What's in Motion" ticker in the right sidebar.
-  // Parse "YYYY-MM-DD" as local date to avoid UTC-offset day-slip.
-  fetch('data/pillar-data.json')
-    .then(function(resp) { return resp.json(); })
-    .then(function(data) {
-      window.pillarData = data;
-      renderMotionTicker(data);
-
-      if (!data || !data.lastUpdated) return;
-      var parts = data.lastUpdated.split('-');
-      var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
-      var formatted = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      var dateEl = document.getElementById('lastUpdatedDate');
-      var wrapEl = document.getElementById('sidebarLastUpdated');
-      if (dateEl && wrapEl) {
-        dateEl.textContent = formatted;
-        wrapEl.hidden = false;
-      }
-    })
-    .catch(function(err) {
-      console.error('Failed to load pillar-data.json:', err);
-    });
-});
-
-// ============================================================
-// Mobile nav drawer
-// Shows/hides the left sidebar on screens <=768px. Clicking the
-// backdrop or pressing Escape closes the drawer. Body scroll is
-// locked while open so the fixed drawer is scrollable on its own.
+// Mobile nav drawer — shows/hides the left sidebar on <=768px.
 // ============================================================
 (function () {
   var navToggle = document.getElementById('navToggle');
@@ -1792,11 +1294,9 @@ document.fonts.ready.then(function() {
     document.body.classList.add('drawer-open');
     navToggle.setAttribute('aria-expanded', 'true');
     navToggle.setAttribute('aria-label', 'Close navigation menu');
-    // Swap icon to an X while open
     var icon = navToggle.querySelector('i');
     if (icon) { icon.className = 'bi bi-x-lg'; }
   }
-
   function closeDrawer() {
     sidebar.classList.remove('open');
     backdrop.classList.remove('open');
@@ -1805,10 +1305,8 @@ document.fonts.ready.then(function() {
     navToggle.setAttribute('aria-label', 'Open navigation menu');
     var icon = navToggle.querySelector('i');
     if (icon) { icon.className = 'bi bi-list'; }
-    // Return focus to the toggle button (accessibility)
     navToggle.focus();
   }
-
   navToggle.addEventListener('click', function () {
     if (sidebar.classList.contains('open')) closeDrawer();
     else openDrawer();
@@ -1817,8 +1315,6 @@ document.fonts.ready.then(function() {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && sidebar.classList.contains('open')) closeDrawer();
   });
-  // If the viewport grows past 768px while the drawer is open, reset state
-  // so the sidebar appears normally on desktop without the "open" override.
   window.addEventListener('resize', function () {
     if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
       sidebar.classList.remove('open');
@@ -1832,172 +1328,27 @@ document.fonts.ready.then(function() {
 })();
 
 // ============================================================
-// Right-sidebar accordion (mobile only)
-// At <=768px each .sidebar-panel-title becomes a clickable toggle
-// that collapses/expands the panel body. On desktop these titles
-// are plain headings — this behavior only triggers below 768px.
+// Sidebar "Last updated" stamp — pulled from pillar-data.json.
+// Shows the date of the most recent data refresh. Silent no-op on failure.
 // ============================================================
 (function () {
-  var sidebarRight = document.querySelector('.sidebar-right');
-  if (!sidebarRight) return;
-
-  function isMobile() { return window.innerWidth <= 768; }
-
-  // Delegate click handler on the right sidebar
-  sidebarRight.addEventListener('click', function (e) {
-    if (!isMobile()) return;
-    var title = e.target.closest('.sidebar-panel-title');
-    if (!title) return;
-    var panel = title.closest('.sidebar-panel');
-    if (!panel) return;
-    panel.classList.toggle('collapsed');
-    // Update aria-expanded on the title for screen readers
-    var expanded = !panel.classList.contains('collapsed');
-    title.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-  });
-
-  // Initialize ARIA roles on the panel titles for mobile context.
-  // Buttons would be more semantically correct, but these are existing
-  // .sidebar-panel-title divs — we augment with role=button + tabindex.
-  document.querySelectorAll('.sidebar-panel-title').forEach(function (t) {
-    t.setAttribute('role', 'button');
-    t.setAttribute('tabindex', '0');
-    t.setAttribute('aria-expanded', 'true');
-    // Keyboard support: Enter/Space trigger the same click handler
-    t.addEventListener('keydown', function (e) {
-      if (!isMobile()) return;
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        t.click();
+  fetch('data/pillar-data.json')
+    .then(function (resp) { return resp.json(); })
+    .then(function (data) {
+      if (!data || !data.lastUpdated) return;
+      var parts = data.lastUpdated.split('-');
+      var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      var formatted = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      var dateEl = document.getElementById('lastUpdatedDate');
+      var wrapEl = document.getElementById('sidebarLastUpdated');
+      if (dateEl && wrapEl) {
+        dateEl.textContent = formatted;
+        wrapEl.hidden = false;
       }
+    })
+    .catch(function (err) {
+      console.error('Failed to load pillar-data.json:', err);
     });
-  });
-
-  // On resize past desktop, remove any collapsed state so panels
-  // don't mysteriously hide sections when the layout reverts.
-  window.addEventListener('resize', function () {
-    if (!isMobile()) {
-      document.querySelectorAll('.sidebar-panel.collapsed').forEach(function (p) {
-        p.classList.remove('collapsed');
-        var t = p.querySelector('.sidebar-panel-title');
-        if (t) t.setAttribute('aria-expanded', 'true');
-      });
-    }
-  });
-})();
-
-// ============================================================
-// Chart responsiveness — re-render on viewport change
-// Chart.js handles its own canvas resize, but tick font size and
-// rotation are pinned at creation. We debounce a resize handler
-// to re-render the current measure when the viewport crosses a
-// breakpoint so labels stay legible.
-// ============================================================
-(function () {
-  var resizeTimer = null;
-  var lastBreakpoint = getBreakpoint();
-
-  function getBreakpoint() {
-    var w = window.innerWidth;
-    if (w <= 480) return 'xs';
-    if (w <= 768) return 'sm';
-    if (w <= 1024) return 'md';
-    return 'lg';
-  }
-
-  window.addEventListener('resize', function () {
-    if (resizeTimer) clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      var bp = getBreakpoint();
-      if (bp !== lastBreakpoint) {
-        lastBreakpoint = bp;
-        // Re-render only if measures are loaded. switchMeasure() rebuilds
-        // the chart with the current viewport's tick/font settings.
-        if (window.allMeasures && window.currentMeasureIndex != null) {
-          switchMeasure(window.currentMeasureIndex);
-        }
-      }
-    }, 200);
-  });
-})();
-
-// ============================================================
-// Iframe auto-height — postMessage handshake
-// When this page is embedded in an <iframe> on another site
-// (e.g. dpi.nc.gov), we post our content height up to the
-// parent window so the iframe can resize to avoid double
-// scrollbars or cut-off content. The parent page is expected
-// to listen for { type: 'sp-dashboard-height', height: N }
-// messages and set iframe.style.height = N + 'px'.
-//
-// When NOT in an iframe (window.parent === window) this is a
-// no-op, so the standalone page is unaffected.
-// ============================================================
-(function () {
-  if (window.parent === window) return;  // standalone — bail.
-
-  var lastPosted = 0;
-
-  function postHeight() {
-    // Use scrollHeight rather than offsetHeight so we include
-    // content that overflows the viewport (e.g. long pillar
-    // action lists). Add a 2px buffer to avoid a 1px scrollbar
-    // from sub-pixel rounding in the parent iframe.
-    var h = Math.max(
-      document.documentElement.scrollHeight,
-      document.body.scrollHeight
-    ) + 2;
-    if (h === lastPosted) return;
-    lastPosted = h;
-    try {
-      window.parent.postMessage(
-        { type: 'sp-dashboard-height', height: h },
-        '*'
-      );
-    } catch (e) {
-      // postMessage to a cross-origin parent can only fail if the
-      // parent window is gone; nothing to do.
-    }
-  }
-
-  // Initial post after fonts + layout settle.
-  if (document.readyState === 'complete') {
-    postHeight();
-  } else {
-    window.addEventListener('load', postHeight);
-  }
-
-  // Watch for content changes (carousel switches, pillar
-  // changes, chart re-renders, etc.). ResizeObserver is cheap
-  // and fires exactly when layout height changes.
-  if (typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(postHeight).observe(document.body);
-  } else {
-    // Older-browser fallback: poll every 500ms. Cheap because
-    // postHeight short-circuits when the height hasn't changed.
-    setInterval(postHeight, 500);
-  }
-
-  // Also repost on window resize in case the parent's width
-  // change affected our layout height.
-  window.addEventListener('resize', postHeight);
-})();
-</script>
-
-<script>
-// Intro blurb dismiss (quick-look Option B + D)
-(function(){
-  var band = document.getElementById('introBlurb');
-  var btn  = document.getElementById('introClose');
-  if (!band || !btn) return;
-  if (localStorage.getItem('introBlurbDismissed') === '1') {
-    band.classList.add('dismissed');
-    return;
-  }
-  btn.addEventListener('click', function(){
-    band.classList.add('dismissed');
-    try { localStorage.setItem('introBlurbDismissed', '1'); } catch(e){}
-  });
 })();
 </script>
 
