@@ -460,6 +460,32 @@
     position: relative;
     height: 220px;
   }
+  /* Zoomed trajectory view — now primary, sits above the full-scale bars.
+     Height bumped from 110 to 130 so the y-axis (13px tick labels, up to
+     6 ticks for wider ranges) always fits without clipping. */
+  .chart-trajectory {
+    position: relative;
+    height: 130px;
+    margin-bottom: 14px;
+  }
+  /* Shared subtitle style used above each chart section — SLUB pattern
+     (12px uppercase + letter-spacing + bold reads roughly equivalent to
+     14px regular, while staying visually distinct from axis labels). */
+  .chart-section-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #5a6268;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  /* Temporary visual cue — placeholder subtitle while wording is TBD */
+  .chart-section-label.placeholder {
+    font-style: italic;
+    color: #9ea2a6;
+    text-transform: none;
+    letter-spacing: 0;
+  }
   .chart-legend {
     display: flex;
     gap: 16px;
@@ -507,14 +533,20 @@
     border-top: 2px dashed var(--navy);
   }
 
+  /* No-data / in-development placeholder — fills the entire .chart-area
+     (which is position:relative) so it sits visually centered in the card,
+     not constrained to the 220px canvas-wrap. */
   .chart-no-data {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 220px;
     color: var(--text);
     font-size: 15px;
     font-style: italic;
+    padding: 20px;
+    text-align: center;
   }
 
   /* Notes */
@@ -1118,12 +1150,14 @@
       </div>
     </div>
 
-    <!-- Bar chart (Chart.js) -->
+    <!-- Chart card: zoomed trajectory (primary) above full-scale bars -->
     <div class="chart-area">
-      <div class="chart-target-callout" id="targetCallout" style="display:none;">
-        <span class="target-line-swatch"></span>
-        <span id="targetCalloutText"></span>
+      <div class="chart-section-label" id="chartTrajectoryLabel">Path to target</div>
+      <div class="chart-trajectory" id="chartTrajectoryWrap">
+        <canvas id="measureTrajectory" role="img"
+                aria-label="Zoomed trajectory view"></canvas>
       </div>
+      <div class="chart-section-label" id="chartBarLabel">Annual results</div>
       <div class="chart-canvas-wrap" id="chartWrap">
         <canvas id="measureChart" role="img"
                 aria-label="Bar chart showing measure progress toward 2030 target"></canvas>
@@ -1200,6 +1234,13 @@
    currently selected measure. Replaces the static HTML bars.
    ============================================================ */
 
+// Chart.js default font family is Helvetica Neue/Arial, which renders ~11%
+// taller at the same nominal px than Source Sans Pro. That made axis tick
+// labels (Chart.js default font) look bigger than value/endpoint labels
+// (our custom plugins, Source Sans Pro). Force Chart.js to use the site
+// font so every text element on the chart has the same visual size.
+Chart.defaults.font.family = "'Source Sans Pro', sans-serif";
+
 // --- Style-guide colors (NCDPI Data Visualization Style Guide) ---
 const COLORS = {
   baseline:  '#003A70',   // Highlighted Bar/Line (navy)
@@ -1262,6 +1303,69 @@ function formatValue(value, fmt) {
   }
 }
 
+// Tighter variant for chart titles/subtitles: drops the trailing decimal
+// when the value is a whole number (e.g., 92.0% → 92%). Strategic Plan
+// targets were all set in whole numbers, so this cleans up the subtitle
+// without introducing rounding on genuinely fractional values.
+function formatValueClean(value, fmt) {
+  if (value == null) return '';
+  const isWhole = Math.round(value) === value;
+  switch (fmt) {
+    case '#.#%':
+      return (isWhole ? Math.round(value) : value.toFixed(1)) + '%';
+    case '#.#':
+      return isWhole ? Math.round(value).toString() : value.toFixed(1);
+    case '#,###':
+    case '#':
+      return Math.round(value).toLocaleString('en-US');
+    default:
+      return value.toString();
+  }
+}
+
+// Format a y-axis tick so all labels share the same decimal precision as
+// the step size. When step is fractional (e.g., 0.5 on the ACT axis),
+// we want "18.0, 18.5, 19.0, 19.5, 20.0" — not "18, 18.5, 19, 19.5, 20"
+// (which mixes integer and decimal and looks janky). For whole-number
+// steps, falls through to formatValueClean (integer form).
+function formatAxisTick(value, fmt, step) {
+  if (value == null) return '';
+  const needsDecimals = step != null && step < 1;
+  if (!needsDecimals) return formatValueClean(value, fmt);
+  const s = step.toString();
+  const idx = s.indexOf('.');
+  const decimals = idx >= 0 ? s.length - idx - 1 : 0;
+  switch (fmt) {
+    case '#.#%': return value.toFixed(decimals) + '%';
+    case '#.#':  return value.toFixed(decimals);
+    case '#,###':
+    case '#':    return Math.round(value).toLocaleString('en-US');
+    default:     return value.toFixed(decimals);
+  }
+}
+
+// Pick a "nice" y-axis scale: snap min/max to round numbers so the range
+// divides into even steps. Used by the trajectory strip so gridlines are
+// always at equal intervals (avoids Chart.js auto-picking lopsided ticks
+// like 86 / 90 / 93 when the raw range is e.g. 86.5 – 92.25).
+function niceYAxisScale(minV, maxV, targetTicks) {
+  targetTicks = targetTicks || 5;
+  if (maxV === minV) return { min: minV - 1, max: maxV + 1, step: 1 };
+  const gap = maxV - minV;
+  const rawStep = gap / (targetTicks - 1);
+  const exp = Math.floor(Math.log10(Math.abs(rawStep)));
+  const norm = rawStep / Math.pow(10, exp);
+  let niceNorm;
+  if (norm < 1.5) niceNorm = 1;
+  else if (norm < 3) niceNorm = 2;
+  else if (norm < 7) niceNorm = 5;
+  else niceNorm = 10;
+  const step = niceNorm * Math.pow(10, exp);
+  const niceMin = Math.floor(minV / step) * step;
+  const niceMax = Math.ceil(maxV / step) * step;
+  return { min: niceMin, max: niceMax, step: step };
+}
+
 // --- Determine the display value and color for each data point ---
 function getBarValue(d) {
   // Priority: actual (future reported) > baseline (historical)
@@ -1291,38 +1395,70 @@ function getBarBorder(d) {
 
 // --- Render the chart ---
 let currentChart = null;
+let currentTrajectoryChart = null;
 
 function renderChart(measure) {
   const wrap = document.getElementById('chartWrap');
   const canvas = document.getElementById('measureChart');
   const legendEl = document.getElementById('chartLegend');
+  const trajWrap = document.getElementById('chartTrajectoryWrap');
+  const chartArea = document.querySelector('.chart-area');
 
-  // Handle measures with no data
-  if (!measure.dataSeries || measure.dataSeries.length === 0) {
+  // "No data" = dataSeries is missing, empty, OR every row is all-null.
+  // Schools of Character (under development) sits in the all-null case —
+  // one placeholder row so the chart card still knows what year to label,
+  // but no baseline, no actual, no target yet.
+  const hasAnyObservations = measure.dataSeries && measure.dataSeries.some(
+    d => d.baseline != null || d.actual != null || d.target != null
+  );
+  if (!hasAnyObservations) {
     canvas.style.display = 'none';
     legendEl.style.display = 'none';
-    targetCallout.style.display = 'none';
-    // Add "no data" message if not already present
-    if (!wrap.querySelector('.chart-no-data')) {
+    if (trajWrap) trajWrap.style.display = 'none';
+    const trajLabelEl = document.getElementById('chartTrajectoryLabel');
+    const barLabelEl = document.getElementById('chartBarLabel');
+    if (trajLabelEl) trajLabelEl.style.display = 'none';
+    if (barLabelEl) barLabelEl.style.display = 'none';
+    if (currentChart) { currentChart.destroy(); currentChart = null; }
+    if (currentTrajectoryChart) { currentTrajectoryChart.destroy(); currentTrajectoryChart = null; }
+    // Add placeholder message if not already present. Append to .chart-area
+    // (not .chart-canvas-wrap) so the absolute-positioned message fills the
+    // whole card and centers properly regardless of which children are shown.
+    if (!chartArea.querySelector('.chart-no-data')) {
       const msg = document.createElement('div');
       msg.className = 'chart-no-data';
-      msg.textContent = 'No data available yet.';
-      wrap.appendChild(msg);
+      msg.textContent = 'Measure in development — data coming soon.';
+      chartArea.appendChild(msg);
     }
     return;
   }
 
   // Remove any "no data" message and restore canvas
-  const noData = wrap.querySelector('.chart-no-data');
+  const noData = chartArea.querySelector('.chart-no-data');
   if (noData) noData.remove();
   canvas.style.display = '';
   legendEl.style.display = '';
 
-  // Destroy previous chart instance
+  // Destroy previous chart instances
   if (currentChart) {
     currentChart.destroy();
     currentChart = null;
   }
+  if (currentTrajectoryChart) {
+    currentTrajectoryChart.destroy();
+    currentTrajectoryChart = null;
+  }
+
+  // Render the trajectory FIRST so we can read its plot-area left offset
+  // (y-axis width + any layout.padding.left) and use that as left-padding
+  // on the bar chart. The bar chart's y-axis is disabled (see below);
+  // this padding replaces it and guarantees both plot areas start at
+  // exactly the same x, so the dots line up with bar centers regardless
+  // of tick-label widths.
+  renderTrajectoryChart(measure);
+  const trajPlotLeft = (currentTrajectoryChart && currentTrajectoryChart.chartArea)
+    ? currentTrajectoryChart.chartArea.left
+    : 0;
 
   // Build arrays from dataSeries
   const labels = measure.dataSeries.map(d => d.year);
@@ -1349,13 +1485,12 @@ function renderChart(measure) {
     };
   }
 
-  // Update the HTML target callout
-  if (finalTarget) {
-    targetCallout.style.display = '';
-    targetCalloutText.textContent = finalTarget.year + ' Target: ' + formatValue(finalTarget.target, measure.valueFormat);
-  } else {
-    targetCallout.style.display = 'none';
-  }
+  // Bar subtitle: we unhide here (in case it was hidden by the no-data
+  // branch on a prior render). Trajectory subtitle is managed by
+  // renderTrajectoryChart — don't override it here, since that function
+  // may have hidden it (measures with no future targets).
+  const barLabelEl = document.getElementById('chartBarLabel');
+  if (barLabelEl) barLabelEl.style.display = '';
 
   // Inline plugin: draw value labels above each bar
   const valueLabelsPlugin = {
@@ -1364,9 +1499,9 @@ function renderChart(measure) {
       const ctx = chart.ctx;
       const meta = chart.getDatasetMeta(0);
       ctx.save();
-      // Smaller label font on mobile to keep bars from being overrun
-      // by their own values when the chart is scaled down.
-      const labelFontSize = window.innerWidth <= 768 ? 11 : 13;
+      // Accessibility floor is 13px desktop / 12px mobile — matches the
+      // chart-wide scale so value labels read consistently with axis labels.
+      const labelFontSize = window.innerWidth <= 768 ? 12 : 13;
       ctx.font = "600 " + labelFontSize + "px 'Source Sans Pro', sans-serif";
       ctx.textAlign = 'center';
       meta.data.forEach((bar, i) => {
@@ -1408,7 +1543,13 @@ function renderChart(measure) {
       responsive: true,
       maintainAspectRatio: false,
       layout: {
-        padding: { top: 28 }   // room for value labels above bars
+        // top: room for value labels above bars
+        // right: matches trajectory's padding.right so both plot areas end
+        //   at the same x — keeps the shared year axis aligned with dots.
+        // left: matches the trajectory's y-axis width (measured above) so
+        //   both plot areas START at the same x. We disable the bar chart's
+        //   own y-axis (see below) since we're replacing it with padding.
+        padding: { top: 28, right: 28, left: trajPlotLeft }
       },
       scales: {
         y: {
@@ -1420,10 +1561,10 @@ function renderChart(measure) {
           grid: { display: false },
           ticks: {
             color: COLORS.axisValue,
-            // Smaller ticks and angled labels on mobile; otherwise the
-            // year labels crowd together or overflow the canvas.
+            // 13px desktop / 12px mobile — above the 12px a11y floor while
+            // still fitting seven year labels without crowding.
             font: {
-              size: window.innerWidth <= 768 ? 11 : 13,
+              size: window.innerWidth <= 768 ? 12 : 13,
               weight: '600'
             },
             maxTicksLimit: window.innerWidth <= 768 ? 6 : undefined,
@@ -1452,6 +1593,221 @@ function renderChart(measure) {
 
   // Update the legend to reflect which bar types are present
   updateLegend(measure, legendEl);
+  // (trajectory was rendered earlier, before the bar chart, so we could
+  // measure its y-axis width for plot-area alignment)
+}
+
+// --- Endpoint label plugin for trajectory (labels the 2030 target point) ---
+function trajectoryLabelsPlugin(measure) {
+  return {
+    id: 'trajLabels',
+    afterDatasetsDraw(chart) {
+      const ctx = chart.ctx;
+      // Collect unique non-null points by year index (dedupe across datasets)
+      const byIdx = {};
+      chart.data.datasets.forEach((ds, dsIdx) => {
+        const meta = chart.getDatasetMeta(dsIdx);
+        ds.data.forEach((v, i) => {
+          if (v != null) {
+            byIdx[i] = { v: v, x: meta.data[i].x, y: meta.data[i].y };
+          }
+        });
+      });
+      const pts = Object.keys(byIdx).map(k => parseInt(k,10)).sort((a,b)=>a-b).map(k => byIdx[k]);
+      if (pts.length === 0) return;
+      const last = pts[pts.length - 1];
+      const label = formatValue(last.v, measure.valueFormat);
+      // 13px floor matches the rest of the chart scale; bumped from 10px
+      // so the endpoint reads at the same weight as axis labels.
+      const fontSize = window.innerWidth <= 768 ? 12 : 13;
+      ctx.save();
+      ctx.font = "700 " + fontSize + "px 'Source Sans Pro', sans-serif";
+      ctx.textAlign = 'center';
+      const w = ctx.measureText(label).width;
+      const lx = last.x;
+      const ly = last.y - 8;
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.fillRect(lx - w/2 - 3, ly - fontSize - 1, w + 6, fontSize + 4);
+      ctx.fillStyle = COLORS.baseline;
+      ctx.fillText(label, lx, ly);
+      ctx.restore();
+    }
+  };
+}
+
+// --- Render the zoomed trajectory strip ---
+// Split series into "current" (has baseline or actual → solid dot, solid line)
+// and "target" (only target set → hollow dot, dashed line). The last current
+// point is duplicated into the target dataset so the dashed line visually
+// connects back to it (continuity hack from the prototype).
+function renderTrajectoryChart(measure) {
+  const trajWrap = document.getElementById('chartTrajectoryWrap');
+  const trajCanvas = document.getElementById('measureTrajectory');
+  if (!trajWrap || !trajCanvas) return;
+
+  const series = measure.dataSeries || [];
+  const isCurrent = series.map(d => d.baseline != null || d.actual != null);
+  const values = series.map(d => {
+    if (d.actual != null) return d.actual;
+    if (d.baseline != null) return d.baseline;
+    if (d.target != null) return d.target;
+    return null;
+  });
+  const labels = series.map(d => d.year);
+
+  const currentData = values.map((v, i) => isCurrent[i] ? v : null);
+  const targetData = values.map((v, i) => isCurrent[i] ? null : v);
+  const lastCurrentIdx = isCurrent.lastIndexOf(true);
+  if (lastCurrentIdx >= 0) targetData[lastCurrentIdx] = values[lastCurrentIdx];
+
+  const trajLabel = document.getElementById('chartTrajectoryLabel');
+
+  // If there are no future target points, hide the strip — a lone baseline dot
+  // doesn't communicate "movement" so there's nothing for this view to show.
+  const hasFutureTargets = series.some(d => d.baseline == null && d.actual == null && d.target != null);
+  if (!hasFutureTargets) {
+    trajWrap.style.display = 'none';
+    if (trajLabel) trajLabel.style.display = 'none';
+    return;
+  }
+  trajWrap.style.display = '';
+  if (trajLabel) {
+    trajLabel.style.display = '';
+    // "Path to [final target] by [final year]" — dynamic per measure.
+    // Use the clean formatter so whole-number targets drop their decimal
+    // (92.0% → 92%) while fractional values still show one decimal.
+    const targetFinalVal = values[values.length - 1];
+    const targetYear = labels[labels.length - 1];
+    trajLabel.textContent = 'Path to ' + formatValueClean(targetFinalVal, measure.valueFormat) + ' by ' + targetYear;
+  }
+
+  // Principled y-axis:
+  //   - Top of chart = data max (typically the 2030 target), so the subtitle's
+  //     target value visually caps the chart and user's eye doesn't land on
+  //     a higher number than "Path to X by 2030" promised.
+  //   - Bottom is padded ~10% below the lowest data point so the baseline
+  //     dot isn't flush against the floor.
+  //   - A "nice" step size is chosen for the gap, then yMin is snapped so
+  //     (yMax - yMin) divides evenly by step — keeps gridlines on even
+  //     intervals regardless of where the raw data lands.
+  //
+  // Caveat: assumes targets trend UPWARD (all Best-in-Nation measures do
+  // as of 2026-04). If a decreasing-goal measure is added, flip the
+  // padding to the top and anchor yMin to the target instead.
+  const finiteVals = values.filter(v => v != null);
+  const minV = Math.min(...finiteVals);
+  const maxV = Math.max(...finiteVals);
+  const gap = Math.max(maxV - minV, 1); // avoid zero-gap when all values equal
+  const paddedMin = minV - 0.10 * gap;
+  const scale = niceYAxisScale(paddedMin, maxV, 4);
+  const yStep = scale.step;
+  // yTopTick = the highest LABELED tick (typically the 2030 target).
+  // yMax extends a half-step above that — no tick, no gridline drawn there,
+  // it just gives the target dot some breathing room so it doesn't get
+  // sliced by the top of the plot area (classic Tableau-style buffer).
+  const yTopTick = maxV;
+  const yMax = yTopTick + 0.5 * yStep;
+  const numSteps = Math.ceil((yTopTick - paddedMin) / yStep);
+  const yMin = yTopTick - numSteps * yStep;
+
+  currentTrajectoryChart = new Chart(trajCanvas.getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Current',
+          data: currentData,
+          borderColor: COLORS.baseline,
+          backgroundColor: COLORS.baseline,
+          pointRadius: 4,
+          pointBackgroundColor: COLORS.baseline,
+          borderWidth: 2,
+          spanGaps: false
+        },
+        {
+          label: 'Target',
+          data: targetData,
+          borderColor: COLORS.baseline,
+          backgroundColor: 'transparent',
+          pointRadius: 3.5,
+          pointBackgroundColor: '#FFFFFF',
+          pointBorderColor: COLORS.baseline,
+          pointBorderWidth: 1.5,
+          borderWidth: 1.5,
+          borderDash: [5, 4],
+          spanGaps: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      // top padding: room for the endpoint value label (13px at ~16px line)
+      // plus a little breathing room so it doesn't touch the card border
+      layout: { padding: { top: 22, right: 28, left: 6, bottom: 0 } },
+      scales: {
+        y: {
+          display: true,
+          min: yMin, max: yMax,
+          ticks: {
+            color: COLORS.axisValue,
+            font: { size: window.innerWidth <= 768 ? 12 : 13 },
+            padding: 6,
+            // formatAxisTick (not formatValueClean) so fractional steps
+            // produce consistent decimals: 18.0 / 18.5 / 19.0, not 18 / 18.5 / 19.
+            callback: v => formatAxisTick(v, measure.valueFormat, yStep)
+          },
+          // Explicitly enumerate ticks from yMin to yTopTick at yStep.
+          // Chart.js's default tick generation snaps to "nice" multiples
+          // anchored at 0 — e.g., for yMin=35, step=2 it produces
+          // [36, 38, 40, 42] instead of [35, 37, 39, 41], which pushes the
+          // top tick PAST the 2030 target. Overriding here guarantees the
+          // target value IS the top tick.
+          afterBuildTicks: (axis) => {
+            const numTicks = Math.round((yTopTick - yMin) / yStep) + 1;
+            const arr = [];
+            for (let i = 0; i < numTicks; i++) {
+              arr.push({ value: yMin + i * yStep });
+            }
+            axis.ticks = arr;
+          },
+          // Keep the horizontal gridlines (#DEDEDE) for readability but
+          // drop the vertical axis rule and the short tick marks — the
+          // labels alone are enough anchoring for this small strip.
+          grid: { color: COLORS.gridline, drawTicks: false },
+          border: { display: false }
+        },
+        x: {
+          // Hidden — bar chart below provides the shared year axis.
+          display: false,
+          // offset:true matches the bar chart default — each point sits in
+          // the center of its year's category slot instead of flush against
+          // the plot edges. That way the trajectory dots line up with the
+          // MIDDLE of each bar below.
+          offset: true,
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false }
+      }
+    },
+    plugins: [trajectoryLabelsPlugin(measure)]
+  });
+
+  // Accessibility: describe the trajectory in plain language
+  const currentValueForLabel = (lastCurrentIdx >= 0) ? values[lastCurrentIdx] : null;
+  const targetFinal = values[values.length - 1];
+  const targetYear = labels[labels.length - 1];
+  const phrase = (currentValueForLabel != null)
+    ? 'Zoomed progress view: ' + measure.name + ' moves from ' +
+      formatValue(currentValueForLabel, measure.valueFormat) + ' today to ' +
+      formatValue(targetFinal, measure.valueFormat) + ' target by ' + targetYear + '.'
+    : 'Zoomed progress view: ' + measure.name + ' target of ' +
+      formatValue(targetFinal, measure.valueFormat) + ' by ' + targetYear + '.';
+  trajCanvas.setAttribute('aria-label', phrase);
 }
 
 // --- Update the HTML legend based on which bar types appear ---
@@ -1488,8 +1844,6 @@ const statusPill       = measureHeader.querySelector('.status-pill');
 const bigNumber     = document.querySelector('.current-value .big-number');
 const contextText   = document.querySelector('.current-value .context');
 const notesSection  = document.querySelector('.notes-section');
-const targetCallout     = document.getElementById('targetCallout');
-const targetCalloutText = document.getElementById('targetCalloutText');
 const sidebarRight  = document.querySelector('.sidebar-right');
 const pillarLinks   = document.querySelectorAll('.pillar-link');
 
