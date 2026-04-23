@@ -74,6 +74,9 @@ PRESERVE_FIELDS = (
     "statusLabel",
     "moreDataText",
     "notes",
+    "sourceHtml",     # optional narrative HTML with inline hyperlinks (used when a
+                      # measure cites multiple distinct sources — the CSV only has
+                      # one URL column, so this field is hand-authored in measures.json)
 )
 
 
@@ -435,6 +438,7 @@ def build_measure(menu_entry, pillars, dim_lookup, details, results, existing_ma
         "yAxisMax": y_axis_max,
         "sourceLabel": refresh(details_entry.get("sourceLabel"), existing.get("sourceLabel", "")),
         "sourceUrl": refresh(details_entry.get("sourceUrl"), existing.get("sourceUrl", "")),
+        "sourceHtml": existing.get("sourceHtml"),  # PRESERVE
         "moreDataUrl": (
             details_entry["moreDataUrl"]
             if ("moreDataUrl" in details_entry and details_entry["moreDataUrl"])
