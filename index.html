@@ -1266,12 +1266,14 @@
       </div>
     </div>
 
-    <!-- Bottom photo row — wraps the L-shape border back under the blurb -->
+    <!-- Bottom photo row — wraps the L-shape border back under the blurb.
+         loading="lazy" + decoding="async" keep these off the initial paint path;
+         they're below the fold on most desktop viewports. -->
     <section class="photos-bottom-row" aria-label="More North Carolina students">
-      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_208163126.jpeg" alt="Student in graduation cap and gown giving two thumbs up"></div>
-      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_244455048.jpeg" alt="A diverse group of kids on a youth soccer team cheering together"></div>
-      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_505413850.jpeg" alt="Student examining a robotics project in STEM class"></div>
-      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_431484992.jpg" alt="A diverse group of graduates celebrating with their diplomas"></div>
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_208163126.jpeg" alt="Student in graduation cap and gown giving two thumbs up" loading="lazy" decoding="async"></div>
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_244455048.jpeg" alt="A diverse group of kids on a youth soccer team cheering together" loading="lazy" decoding="async"></div>
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_505413850.jpeg" alt="Student examining a robotics project in STEM class" loading="lazy" decoding="async"></div>
+      <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_431484992.jpg" alt="A diverse group of graduates celebrating with their diplomas" loading="lazy" decoding="async"></div>
     </section>
 
   </main>
