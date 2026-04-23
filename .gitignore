@@ -29,3 +29,8 @@ images/Tableau Dashboard Screenshots/
 images/NCDPI Web Style Guide/
 images/NCDPI Data Visualization Style Guide Colors.csv
 images/Strategic Plan Style Guide.pdf
+
+# Pristine originals kept locally before in-place compression.
+# The pre-compression versions are already in git history from earlier commits,
+# so shipping them again would only bloat the repo.
+images/HappyPeoplePhotos/_Archive/
