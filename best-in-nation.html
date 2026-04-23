@@ -1929,7 +1929,17 @@ function switchMeasure(index) {
   if (m.nextUpdate) {
     notesHTML += '<p><strong>Next update:</strong> ' + m.nextUpdate + '</p>';
   }
-  if (m.sourceLabel && m.sourceUrl) {
+  // sourceHtml: optional hand-authored HTML for measures whose citation is a
+  // narrative paragraph with multiple embedded hyperlinks (e.g. Public School
+  // Enrollment, which draws from NCDPI + two DOA summaries). Takes precedence
+  // over the single-URL sourceLabel/sourceUrl pair. Hand-authored only —
+  // listed in PRESERVE_FIELDS so /rebuild-data never overwrites it.
+  // Label auto-pluralizes to "Sources:" when the HTML has more than one anchor.
+  if (m.sourceHtml) {
+    var sourceAnchorCount = (m.sourceHtml.match(/<a\b/gi) || []).length;
+    var sourceLabel = sourceAnchorCount > 1 ? 'Sources' : 'Source';
+    notesHTML += '<p><strong>' + sourceLabel + ':</strong> ' + m.sourceHtml + '</p>';
+  } else if (m.sourceLabel && m.sourceUrl) {
     notesHTML += '<p><strong>Source:</strong> <a href="' + m.sourceUrl + '" target="_blank">' + m.sourceLabel + '</a></p>';
   } else if (m.sourceLabel) {
     notesHTML += '<p><strong>Source:</strong> ' + m.sourceLabel + '</p>';
