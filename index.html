@@ -996,6 +996,11 @@
     grid-template-columns: 280px minmax(0, 1fr);
     min-height: calc(100vh - 160px);
     align-items: stretch; /* sidebar grows to match main content height */
+    /* Cap the landing layout so the welcome card doesn't grow a huge
+       dead-whitespace zone to the right of its 78ch-capped text on wide
+       monitors (1600px+). Viewport ≤1440px renders unchanged. */
+    max-width: 1440px;
+    margin-inline: auto;
   }
   .landing-main {
     min-width: 0;
