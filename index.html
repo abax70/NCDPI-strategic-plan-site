@@ -78,6 +78,12 @@
     align-items: stretch;
     min-height: 150px;
     position: relative;
+    /* Half-bleed: navy fills the viewport edge-to-edge so the masthead reads
+       as full-bleed (matching dpi.nc.gov), but the AEE white panel is anchored
+       to the 1440px content frame via .hero-banner-right margin-right below.
+       This keeps the AEE logo vertically aligned with the photo column on
+       wide monitors where .landing-layout is capped at 1440px. */
+    background: var(--navy-dark);
   }
   /* Left: dark blue with official geometric pattern from graphics team.
      The PNG is an <img> tag (decorative, aria-hidden) layered absolutely
@@ -142,12 +148,17 @@
   /* White focus outline for ≥3:1 contrast on navy hero bg (orange was ~2.9:1). */
   .hero-cta:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; box-shadow: 0 0 0 5px var(--navy); }
 
-  /* Right: AEE logo on official white geometric pattern from graphics team */
+  /* Right: AEE logo on official white geometric pattern from graphics team.
+     margin-right shifts the panel inward by the centering gutter on viewports
+     wider than 1440px so its left edge aligns with the photo column inside
+     the capped .landing-layout below. On viewports ≤1440px the calc clamps
+     to 0 and the panel stays flush with the viewport edge as before. */
   .hero-banner-right {
     width: 360px;
     flex-shrink: 0;
     position: relative;
     background: url('images/Background Patterns/StratPlan-Dashboard-Header_White-HiRes.png') center/cover no-repeat;
+    margin-right: max(0px, calc((100% - 1440px) / 2));
   }
   .hero-logo-overlay {
     position: absolute;
