@@ -56,12 +56,12 @@
     --pcolor: var(--pillar1);
     --pbg: var(--pillar1-bg);
     --ptext: var(--pillar1-text);
-    /* Hero text colour — navy for all pillars (Option A, promoted 2026-04-15).
-       Text sits on the near-white top band of the vertical gradient on every
-       pillar, so the old dark/light family split is retired. The variable is
-       kept (rather than hardcoding navy in the rules below) for future
+    /* Hero text colour — black for all pillars (graphics team, 2026-05-08).
+       Text sits on the near-white left edge of the per-pillar gradient SVGs,
+       so the old dark/light family split is retired. The variable is kept
+       (rather than hardcoding black in the rules below) for future
        flexibility and because several CSS rules already consume it. */
-    --hero-text: #003A70;
+    --hero-text: #000000;
 
     /* Status colors */
     /* #0F5FA8 = 5.17:1 with white (WCAG AA). Previously #197BCE (4.41:1). */
@@ -91,17 +91,11 @@
   }
   .pillar-hero-left {
     flex: 1;
-    /* Option A — vertical light→dark gradient (PDF-style, promoted 2026-04-15).
-       Text anchors on the near-white top band; pillar colour saturates at the
-       bottom as an accent. Navy text for every pillar, so the previous
-       dark/light family split (S.025) is retired. White plateau runs to 55%
-       so the title baseline sits clearly in unsaturated territory. */
-    background: linear-gradient(
-      to bottom,
-      #FFFFFF 0%,
-      #FFFFFF 55%,
-      var(--pcolor) 100%
-    );
+    /* Background gradient is a per-pillar SVG supplied by the graphics team
+       (2026-05-07), set in switchPillar() via PILLAR_HERO_GRADIENT. The fallback
+       below shows a neutral light tint until the JS swap runs, so first paint
+       isn't bare white. cover keeps the SVG filling the panel at any width. */
+    background: #e6edf6 center/cover no-repeat;
     color: var(--hero-text);
     padding: 16px 40px;
     display: flex;
@@ -145,10 +139,9 @@
        letterforms on warm/mid-tone pillars. */
     background: url('images/Background Patterns/StratPlan-Dashboard-Header_White-HiRes.png') center/cover no-repeat;
   }
-  /* S.025 light-family override retired 2026-04-15 when Option A landed:
-     navy text on the near-white top band of the vertical gradient works
-     for every pillar, so no family split is needed. The white geometric
-     pattern on .pillar-hero-right is handled by the default rule above. */
+  /* Per-pillar dark/light family text-color split (S.025) was retired 2026-04-15.
+     Navy text works on every pillar's hero gradient — the graphics-team SVGs
+     (2026-05-07) keep the left edge near-white where the title sits. */
 
   .pillar-hero-logo {
     position: absolute;
@@ -953,7 +946,7 @@
 
 <!-- ===== PILLAR HERO — Condensed, pillar-branded ===== -->
 <div class="pillar-hero" id="pillarHero">
-  <div class="pillar-hero-left">
+  <div class="pillar-hero-left" id="pillarHeroLeft">
     <img class="pillar-hero-icon" id="heroIcon" src="" alt="Strategic Pillar">
     <div class="pillar-hero-text">
       <span class="pillar-hero-label" id="heroLabel">PILLAR 1</span>
@@ -1144,11 +1137,24 @@ const PILLAR_TEXT = {
   5: '#39813F', 6: '#6B6F71', 7: '#0063A2', 8: '#801323'
 };
 
-// Per-pillar header geometric pattern. Recolored from the master White-HiRes
-// asset (graphics-team original) by _scripts/generate_pillar_header_patterns.py
-// so each pillar's hero panel carries its own color identity behind the AEE
-// logo. Filenames are URL-encoded once at definition time so we don't have to
-// escape spaces every time we set background-image.
+// Per-pillar LEFT-panel gradient (graphics team, 2026-05-07). Replaces the
+// vertical CSS gradient we shipped 2026-04-15. Each SVG is a horizontal
+// light→saturated wash with a 10px navy strip along the bottom edge.
+// background-size: cover stretches the 2010×110 art to fill the panel.
+const PILLAR_HERO_GRADIENT = {
+  1: 'images/Background%20Patterns/_pillars/Pillar1-DashboardHdr_2010x110.svg',
+  2: 'images/Background%20Patterns/_pillars/Pillar2-DashboardHdr_2010x110.svg',
+  3: 'images/Background%20Patterns/_pillars/Pillar3-DashboardHdr_2010x110.svg',
+  4: 'images/Background%20Patterns/_pillars/Pillar4-DashboardHdr_2010x110.svg',
+  5: 'images/Background%20Patterns/_pillars/Pillar5-DashboardHdr_2010x110.svg',
+  6: 'images/Background%20Patterns/_pillars/Pillar6-DashboardHdr_2010x110.svg',
+  7: 'images/Background%20Patterns/_pillars/Pillar7-DashboardHdr_2010x110.svg',
+  8: 'images/Background%20Patterns/_pillars/Pillar8-DashboardHdr_2010x110.svg'
+};
+
+// Per-pillar RIGHT-panel geometric pattern (graphics-team original, recolored
+// per pillar). Filenames are URL-encoded once at definition time so we don't
+// have to escape spaces every time we set background-image.
 const PILLAR_HERO_BG = {
   1: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P1_Students.png',
   2: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P2_Educators.png',
@@ -1169,6 +1175,7 @@ var heroIcon       = document.getElementById('heroIcon');
 var heroLabel      = document.getElementById('heroLabel');
 var heroTitle      = document.getElementById('heroTitle');
 var pillarHero     = document.getElementById('pillarHero');
+var pillarHeroLeft  = document.getElementById('pillarHeroLeft');
 var pillarHeroRight = document.getElementById('pillarHeroRight');
 var pillarLinks    = document.querySelectorAll('.pillar-link[data-pillar]');
 var tabBtns        = document.querySelectorAll('.tab-btn');
@@ -1217,6 +1224,10 @@ function switchPillar(index) {
   heroIcon.alt = 'Pillar ' + n + ': ' + p.pillarName + ' icon';
   heroLabel.textContent = 'PILLAR ' + n;
   heroTitle.textContent = p.pillarName;
+  // Swap the left-hero gradient to the per-pillar SVG (graphics-team art).
+  if (pillarHeroLeft && PILLAR_HERO_GRADIENT[n]) {
+    pillarHeroLeft.style.backgroundImage = "url('" + PILLAR_HERO_GRADIENT[n] + "')";
+  }
   // Swap the right-hero geometric pattern to the per-pillar recolor.
   if (pillarHeroRight && PILLAR_HERO_BG[n]) {
     pillarHeroRight.style.backgroundImage = "url('" + PILLAR_HERO_BG[n] + "')";
@@ -1228,11 +1239,10 @@ function switchPillar(index) {
   root.style.setProperty('--pbg', 'var(--pillar' + n + '-bg)');
   root.style.setProperty('--ptext', 'var(--pillar' + n + '-text)');
 
-  // 4a. Option A (vertical gradient, promoted 2026-04-15) uses navy text on
-  //     every pillar, sitting on the near-white top band of the gradient.
-  //     No per-family switching is needed — the :root default for --hero-text
-  //     handles it. We clear any legacy data-pillar-family attribute in case
-  //     stale stylesheets or serialised state still reference it.
+  // 4a. Navy text works on every pillar's hero (graphics-team SVGs keep the
+  //     left edge near-white). No per-family switching is needed — the :root
+  //     default for --hero-text handles it. Clear any legacy data-pillar-family
+  //     attribute in case stale state still references it.
   document.body.removeAttribute('data-pillar-family');
 
   // 5. Update sidebar active state
