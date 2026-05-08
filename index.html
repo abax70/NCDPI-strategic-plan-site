@@ -1005,8 +1005,10 @@
   .landing-layout {
     display: grid;
     grid-template-columns: 280px minmax(0, 1fr);
-    min-height: calc(100vh - 160px);
     align-items: stretch; /* sidebar grows to match main content height */
+    /* No min-height: on tall viewports a viewport-based min-height makes the
+       stretched sidebar overshoot the photo row. Natural content height
+       (hero + bottom photo row) is always tall enough on its own. */
     /* Cap the landing layout so the welcome card doesn't grow a huge
        dead-whitespace zone to the right of its 78ch-capped text on wide
        monitors (1600px+). Viewport ≤1440px renders unchanged. */
