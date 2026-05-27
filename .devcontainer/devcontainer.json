@@ -1,0 +1,40 @@
+// =============================================================================
+//  claude-sandbox devcontainer  (piloted from Claude-Sandbox/devcontainer-template)
+//
+//  Reproducible-dev mode: in VSCode run "Dev Containers: Reopen in Container".
+//  Inside, run `claude` normally in the integrated terminal (manual/Auto
+//  approvals) — interactive-with-approvals, NOT the autonomous YOLO wrapper.
+//
+//  PREREQUISITE (one-time, already set in your VSCode settings.json):
+//      "dev.containers.dockerPath": "podman"
+//
+//  Mounts exactly two things: this project folder, and your ~/.claude (login +
+//  skills + memory). Nothing else on the host is visible. NEVER add a mount for
+//  OneDrive/SharePoint, C:\Users\AndyBaxter\Data, or G:\My Drive\EPP Codebase.
+// =============================================================================
+{
+  "name": "claude-sandbox",
+  "image": "localhost/claude-sandbox:latest",
+  "workspaceFolder": "/home/vscode/work",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/work,type=bind",
+  "mounts": [
+    "source=${localEnv:USERPROFILE}/.claude,target=/home/vscode/.claude,type=bind"
+  ],
+  // Rootless-Podman recipe. --userns=keep-id maps your host user (uid 1000) to
+  // the container's vscode user, so the VS Code Server volume (/vscode, mounted
+  // external=true with no copy-up) and the bind mounts are owned correctly.
+  // Without it they appear root-owned and setup dies with "Permission denied".
+  // NOTE: --cap-drop=ALL is intentionally omitted here — it blocks the chown the
+  // extension's setup performs. The autonomous wrapper keeps full hardening;
+  // here, rootless + the strict mount list is the isolation boundary.
+  "runArgs": ["--userns=keep-id", "--security-opt=no-new-privileges"],
+  "remoteUser": "vscode",
+  // Skip the startup UID auto-remap — under rootless Podman that chown/usermod
+  // step fails. keep-id (above) already handles user/ownership mapping.
+  "updateRemoteUserUID": false,
+  "customizations": {
+    "vscode": {
+      "extensions": ["anthropic.claude-code", "ms-python.python", "ms-toolsai.jupyter"]
+    }
+  }
+}
