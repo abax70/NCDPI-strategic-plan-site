@@ -36,11 +36,18 @@ Newest session first. Started 2026-07-15; earlier history lives in `git log`.
   established conventions (1–4 substantive matches per post, one-line
   rationale). Result: 70 proposed matches across 30 posts;
   the Leandro and SB 227 legal statements intentionally unmatched.
-- Draft for Andy's review: `data/blog_focus_area_matches_draft_2026-07.csv`.
-  After review: fold into `blog_focus_area_matches_final.csv`, rerun
-  `data/build-pillar-data.py`, ship the new `pillar-data.json`.
+- Andy reviewed and approved the draft as-is → folded into
+  `blog_focus_area_matches_final.csv` (94 → 164 matches), reran
+  `data/build-pillar-data.py`, verified Stories tabs render locally.
 - Pre-update `blog_posts.csv` archived to
   `data/_Archive/blog_posts_2026-07-15_pre-update.csv`.
+
+### Shipped
+
+- Commit `a4fba10` pushed to master; GitHub Pages deploy verified **live**
+  (production serves `lastUpdated: 2026-07-15`, 164 story matches; live-site
+  hero screenshot checked at 2560px).
+- `drupal-delivery/` removal (Andy deleted; committed at wrapup).
 
 ### Decisions
 
@@ -50,3 +57,10 @@ Newest session first. Started 2026-07-15; earlier history lives in `git log`.
   pick-up doc going forward.
 - Landing logo opacity 0.85 and pillar baseline 5px are Claude's eyeball calls,
   flagged for Andy/graphics-team veto.
+- **Rebuild trap found:** `build-pillar-data.py` needs
+  `data/Strategic Plan Actions Tracker.xlsx`, which is absent in the
+  devcontainer — the date-based fallback silently flipped 16 action statuses
+  (including regressing a Completed action). Caught by diffing against the
+  committed JSON; the previous build's statuses were restored before shipping.
+  Any future rebuild here has the same trap until the tracker lives in-container
+  or the Smartsheet connector replaces it.
