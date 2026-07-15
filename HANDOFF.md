@@ -6,45 +6,44 @@ cc_updated: 2026-07-15
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-07-15 end-of-session. See CHANGELOG.md for the full record._
+_Last updated: 2026-07-15 end of second session. See CHANGELOG.md for the full record._
 
 ## Where things stand
 
-**Anchor: the 2026-08-05 state board meeting.** Meeting with Geoff 2026-07-16.
+**Anchor: the 2026-08-05 state board meeting.** Meeting with Geoff **2026-07-16
+(tomorrow)** — the site is current for it: statuses now come straight from
+Smartsheet and the live deploy was verified serving them.
 
-Everything from the 2026-07-15 session is **shipped and live** (commit `a4fba10`
-+ wrapup commit; GitHub Pages verified serving the new build):
+Shipped this session (commit `2fe9658`, live on Pages):
 
-- Graphics-team hero updates (2026-06-10 delivery) — landing + pillar heroes
-  reworked, verified at mobile/normal/wide widths. Hallie's sizing question
-  answered: assets worked as-is.
-- Stories refresh — 32 new posts (through 2026-06-25), 164 total focus-area
-  matches live on the pillar Stories tabs.
-- `drupal-delivery/` removed (Drupal-embed route abandoned).
+- **Smartsheet integration done; the tracker-xlsx trap is dead.**
+  `data/build-pillar-data.py` reads statuses via: live Smartsheet API (token)
+  → committed `data/action-statuses.csv` snapshot → legacy xlsx → hard abort
+  (no more silent date-based guessing). A live pull auto-refreshes the
+  snapshot CSV.
+- 5 actions flipped Not Started → In Progress from the live tracker; deploy
+  verified.
 
-## Next session: Smartsheet connector (Andy's call, 2026-07-15)
+**To refresh statuses in any future session:** just say "refresh statuses from
+Smartsheet" (Claude connector pull), or rerun `python data/build-pillar-data.py`
+on a machine with the token — `SMARTSHEET_API_TOKEN` env var or the gitignored
+one-line file `data/.smartsheet-token` (exists on the devcontainer host as of
+2026-07-15; never commit it — the repo is public).
 
-Set up the Smartsheet connector → automate the flow of activities into the
-dashboard. Notes going in:
+## Next session
 
-- The connector's MCP tools are available in devcontainer sessions (verified
-  present 2026-07-15; call `get_resource_guide` first per server instructions).
-- **Design target worth considering:** replace the `Strategic Plan Actions
-  Tracker.xlsx` dependency in `data/build-pillar-data.py`. That file is absent
-  in the devcontainer and the script's date-based fallback silently flips
-  action statuses (bit us 2026-07-15; statuses had to be restored by hand from
-  the committed JSON). Smartsheet-sourced statuses would kill the trap.
+- **Start building the pillar-page measure results** (backlog item, now the
+  main thread).
+- Debrief the Geoff meeting — fold any direction changes into the August-board
+  plan.
 
-## Backlog (after the connector)
+## Awaiting Andy
 
-- Start building the pillar-page measure results.
+- **Investigate P2.F2.A4** — exists in the Smartsheet tracker (launch
+  2027-07-01, Not Started) but not in `DIM_Actions.csv`, so it's not on the
+  site. If it's a real new action, add it to `DIM_Actions.csv` (its text can
+  be pulled from the sheet) and rebuild.
+- Delete `data/blog_focus_area_matches_draft_2026-07.csv` (graduated to final;
+  untracked — deletions are always Andy's).
 - Nudge graphics team if hero implementation needs sign-off (logo opacity 0.85
   and 5px navy baseline were our calls).
-
-## Awaiting Andy (deletions are always Andy's)
-
-- Delete `images/StratPlan-BIN-Dashboard-Graphics/` (delivery folder — fully
-  absorbed into images/ proper; contains `__MACOSX`/`.DS_Store` junk; untracked,
-  so it will pollute any future commit sweep until removed).
-- Delete `data/blog_focus_area_matches_draft_2026-07.csv` (graduated to final;
-  untracked).

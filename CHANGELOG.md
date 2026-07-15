@@ -2,6 +2,45 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-15 (second session) — Smartsheet connector: tracker xlsx dependency replaced
+
+**Context:** HANDOFF's queued task; meeting with Geoff 2026-07-16.
+
+### Smartsheet-sourced action statuses (commit `2fe9658`, pushed + deploy verified)
+
+- Discovered the tracker via the claude.ai Smartsheet connector: "Strategic
+  Plan Actions Tracker" (sheet ID `6831169615122308`, NCDPI Strategic Plan
+  Workspace), 110 rows with clean `Action ID` + `Status` picklist columns —
+  a direct replacement for the manually downloaded xlsx.
+- `build-pillar-data.py` status source is now a chain: **Smartsheet REST API
+  (live, stdlib urllib, no new deps) → committed `data/action-statuses.csv`
+  snapshot → legacy xlsx → hard abort.** A successful live pull rewrites the
+  snapshot, so the committed copy self-refreshes.
+- **The silent date-based fallback is deleted** — the trap that flipped 16
+  statuses on 2026-07-15 when the xlsx was absent. The build now refuses to
+  run rather than guess (tested: aborts with exit 1 before writing output).
+- Token plumbing: `SMARTSHEET_API_TOKEN` env var or gitignored
+  `data/.smartsheet-token` (one-line file; gitignore rule verified — repo is
+  public via Pages, token must never be committed). Andy created the token
+  file; the live-API path was tested with a real pull.
+- **Data refresh shipped:** 5 actions flipped Not Started → In Progress per
+  the live tracker (P5.F1.A3, P5.F1.A4, P7.F1.A4, P7.F3.A3, P8.F1.A1) —
+  edits project leads made in Smartsheet since the last xlsx download.
+  Verified rendering headlessly (pillars 5 and 8, no console errors; note
+  pillar.html's query param is `?p=N`, not `?pillar=N`) and confirmed the
+  GitHub Pages deploy serves the new statuses.
+
+### Decisions
+
+- Smartsheet's picklist value "Complete" is normalized to the site's
+  historical display text "Completed" (`STATUS_DISPLAY` map in the script).
+- **P2.F2.A4 exists in Smartsheet but not `DIM_Actions.csv`** — deliberately
+  excluded pending Andy's investigation; the merge ignores unknown IDs, so it
+  sits harmlessly in the snapshot.
+- Two refresh routes now exist: ask Claude to "refresh statuses from
+  Smartsheet" in any session (connector), or run the build on a machine with
+  the token (live API). The scheduled download reminder Andy floated is moot.
+
 ## 2026-07-15 — Graphics-team hero updates + stories refresh (pre-Geoff-meeting session)
 
 **Context:** Meeting with Geoff 2026-07-16; state board meeting 2026-08-05.
