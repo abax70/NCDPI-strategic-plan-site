@@ -89,6 +89,18 @@
     min-height: 110px;
     position: relative;
   }
+  /* Navy baseline strip across the FULL hero width (graphics team, 2026-06-10).
+     Replaces the 10px navy bar that was baked into the old gradient SVGs —
+     that bar stopped at the right panel's edge; this one spans both panels
+     and is thinner. Drawn in CSS so the 2026-06 recreated SVGs stay bar-free. */
+  .pillar-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 5px;
+    background: #003c73;
+    z-index: 3;
+  }
   .pillar-hero-left {
     flex: 1;
     /* Background gradient is a per-pillar SVG supplied by the graphics team
@@ -132,12 +144,10 @@
     width: 280px;
     flex-shrink: 0;
     position: relative;
-    /* White geometric pattern behind the AEE logo — same asset index.html uses
-       on its landing-page hero. Gives the logo a clean buffer on every pillar
-       and matches the cross-page design language. Graphics team feedback
-       (2026-04): the prior `--pcolor → white` gradient bled through the logo
-       letterforms on warm/mid-tone pillars. */
-    background: url('images/Background Patterns/StratPlan-Dashboard-Header_White-HiRes.png') center/cover no-repeat;
+    /* Plain white behind the new PillarHdr lockup (graphics team, 2026-06-10).
+       The lockup ships on its own white block (300×110 — the full panel), so
+       the per-pillar recolored patterns that used to sit back here are retired. */
+    background: #FFFFFF;
   }
   /* Per-pillar dark/light family text-color split (S.025) was retired 2026-04-15.
      Navy text works on every pillar's hero gradient — the graphics-team SVGs
@@ -151,9 +161,16 @@
     justify-content: center;
     z-index: 2;
   }
+  .pillar-hero-logo a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   .pillar-hero-logo img {
-    max-height: 80px;
-    max-width: 200px;
+    /* The 2026-06 lockup is designed as a full-panel block (300×110 art on
+       white); contain + the panel's white bg letterbox it seamlessly. */
+    width: 100%;
+    height: 100%;
     object-fit: contain;
   }
   /* =========================================================
@@ -963,7 +980,7 @@
   <div class="pillar-hero-right" id="pillarHeroRight">
     <div class="pillar-hero-logo">
       <a href="index.html">
-        <img src="images/Achieving Academic Excellence Logos/AEE Logos with Tagline/Logo-AchEdExc-tagline-MAIN.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
+        <img src="images/Achieving Academic Excellence Logos/Dashboard Header Logos/StratPlan-Dashboard-PillarHdr-HiRes.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
       </a>
     </div>
   </div>
@@ -1137,10 +1154,10 @@ const PILLAR_TEXT = {
   5: '#39813F', 6: '#6B6F71', 7: '#0063A2', 8: '#801323'
 };
 
-// Per-pillar LEFT-panel gradient (graphics team, 2026-05-07). Replaces the
-// vertical CSS gradient we shipped 2026-04-15. Each SVG is a horizontal
-// light→saturated wash with a 10px navy strip along the bottom edge.
-// background-size: cover stretches the 2010×110 art to fill the panel.
+// Per-pillar LEFT-panel gradient (graphics team; recreated 2026-06-10 without
+// the old built-in 10px navy bottom bar — the full-width navy baseline is now
+// drawn in CSS via .pillar-hero::after). Each SVG is a horizontal
+// light→saturated wash. cover stretches the 2010×110 art to fill the panel.
 const PILLAR_HERO_GRADIENT = {
   1: 'images/Background%20Patterns/_pillars/Pillar1-DashboardHdr_2010x110.svg',
   2: 'images/Background%20Patterns/_pillars/Pillar2-DashboardHdr_2010x110.svg',
@@ -1152,19 +1169,9 @@ const PILLAR_HERO_GRADIENT = {
   8: 'images/Background%20Patterns/_pillars/Pillar8-DashboardHdr_2010x110.svg'
 };
 
-// Per-pillar RIGHT-panel geometric pattern (graphics-team original, recolored
-// per pillar). Filenames are URL-encoded once at definition time so we don't
-// have to escape spaces every time we set background-image.
-const PILLAR_HERO_BG = {
-  1: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P1_Students.png',
-  2: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P2_Educators.png',
-  3: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P3_Community.png',
-  4: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P4_HealthySafe.png',
-  5: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P5_Operational.png',
-  6: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P6_Transformative.png',
-  7: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P7_Celebrate.png',
-  8: 'images/Background%20Patterns/_pillars/StratPlan-Dashboard-Header_White-HiRes_P8_Champions.png'
-};
+// Right-panel per-pillar recolored patterns were retired 2026-06-10: the new
+// PillarHdr lockup is a full-panel white block, so the panel is plain white
+// (set in CSS) and no longer swaps per pillar.
 
 // --- DOM references ---
 var pillarSelect   = document.getElementById('pillarSelect');
@@ -1176,7 +1183,6 @@ var heroLabel      = document.getElementById('heroLabel');
 var heroTitle      = document.getElementById('heroTitle');
 var pillarHero     = document.getElementById('pillarHero');
 var pillarHeroLeft  = document.getElementById('pillarHeroLeft');
-var pillarHeroRight = document.getElementById('pillarHeroRight');
 var pillarLinks    = document.querySelectorAll('.pillar-link[data-pillar]');
 var tabBtns        = document.querySelectorAll('.tab-btn');
 var tabPanels      = document.querySelectorAll('.tab-panel');
@@ -1227,10 +1233,6 @@ function switchPillar(index) {
   // Swap the left-hero gradient to the per-pillar SVG (graphics-team art).
   if (pillarHeroLeft && PILLAR_HERO_GRADIENT[n]) {
     pillarHeroLeft.style.backgroundImage = "url('" + PILLAR_HERO_GRADIENT[n] + "')";
-  }
-  // Swap the right-hero geometric pattern to the per-pillar recolor.
-  if (pillarHeroRight && PILLAR_HERO_BG[n]) {
-    pillarHeroRight.style.backgroundImage = "url('" + PILLAR_HERO_BG[n] + "')";
   }
 
   // 4. Update CSS custom properties for pillar colors

@@ -79,27 +79,19 @@
     min-height: 150px;
     position: relative;
     /* Half-bleed: navy fills the viewport edge-to-edge so the masthead reads
-       as full-bleed (matching dpi.nc.gov), but the AEE white panel is anchored
-       to the 1440px content frame via .hero-banner-right margin-right below.
-       This keeps the AEE logo vertically aligned with the photo column on
-       wide monitors where .landing-layout is capped at 1440px. */
+       as full-bleed (matching dpi.nc.gov). The AEE logo overlay is anchored
+       to the 1440px content frame via .hero-banner-right margin-right below,
+       keeping it vertically aligned with the photo column on wide monitors
+       where .landing-layout is capped at 1440px. */
     background: var(--navy-dark);
-  }
-  /* Left: dark blue with official geometric pattern from graphics team.
-     The PNG is an <img> tag (decorative, aria-hidden) layered absolutely
-     behind the text, so axe's contrast rule sees only the solid
-     --navy-dark background-color on the content-bearing element. */
-  .hero-banner-left {
-    flex: 1;
-    background-color: var(--navy-dark);
-    color: white;
-    padding: 20px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
     overflow: hidden;
   }
+  /* Official blue-boxes geometric pattern from the graphics team, spanning
+     the FULL banner width (graphics-team request, 2026-06-10 — it previously
+     stopped at the left panel's edge and read as cut off on wide monitors).
+     The PNG is an <img> tag (decorative, aria-hidden) layered absolutely
+     behind everything, so axe's contrast rule sees only the solid
+     --navy-dark background-color on the banner. */
   .hero-banner-bg {
     position: absolute;
     inset: 0;
@@ -109,9 +101,14 @@
     z-index: 0;
     pointer-events: none;
   }
-  .hero-banner-left > *:not(.hero-banner-bg) {
+  .hero-banner-left {
+    flex: 1;
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
-    z-index: 1;
   }
   .hero-banner-left h1 {
     font-size: 26px;
@@ -148,16 +145,17 @@
   /* White focus outline for ≥3:1 contrast on navy hero bg (orange was ~2.9:1). */
   .hero-cta:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; box-shadow: 0 0 0 5px var(--navy); }
 
-  /* Right: AEE logo on official white geometric pattern from graphics team.
-     margin-right shifts the panel inward by the centering gutter on viewports
-     wider than 1440px so its left edge aligns with the photo column inside
-     the capped .landing-layout below. On viewports ≤1440px the calc clamps
-     to 0 and the panel stays flush with the viewport edge as before. */
+  /* Right: white AEE logo (transparent-background lockup, graphics team
+     2026-06-10) floating directly over the blue-boxes pattern at reduced
+     opacity — replaces the old white-pattern panel, which visually cut the
+     hero in two. margin-right shifts the container inward by the centering
+     gutter on viewports wider than 1440px so the logo stays aligned with
+     the photo column inside the capped .landing-layout below. On viewports
+     ≤1440px the calc clamps to 0. */
   .hero-banner-right {
     width: 360px;
     flex-shrink: 0;
     position: relative;
-    background: url('images/Background Patterns/StratPlan-Dashboard-Header_White-HiRes.png') center/cover no-repeat;
     margin-right: max(0px, calc((100% - 1440px) / 2));
   }
   .hero-logo-overlay {
@@ -172,6 +170,7 @@
     max-height: 110px;
     max-width: 240px;
     object-fit: contain;
+    opacity: 0.85;
   }
   /* Pillar color strip at bottom */
   .hero-banner::after {
@@ -1180,8 +1179,8 @@
 
 <!-- ===== HERO BANNER — Compact, warm, celebratory ===== -->
 <div class="hero-banner">
+  <img class="hero-banner-bg" src="images/Background Patterns/StratPlan-Dashboard-Header_Blue-HiRes.png" alt="" aria-hidden="true">
   <div class="hero-banner-left">
-    <img class="hero-banner-bg" src="images/Background Patterns/StratPlan-Dashboard-Header_Blue-HiRes.png" alt="" aria-hidden="true">
     <!-- Hamburger toggle — only visible at <=768px via CSS media query.
          aria-controls points to the drawer nav; aria-expanded flips via JS. -->
     <button class="nav-toggle" id="navToggle" type="button"
@@ -1196,7 +1195,7 @@
   </div>
   <div class="hero-banner-right">
     <div class="hero-logo-overlay">
-      <img src="images/Achieving Academic Excellence Logos/AEE Logos with Tagline/Logo-AchEdExc-tagline-MAIN.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
+      <img src="images/Achieving Academic Excellence Logos/Dashboard Header Logos/StratPlan-Dashboard-HomeHdr-HiRes.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-20",
+  "lastUpdated": "2026-07-15",
   "pillars": [
     {
       "pillarId": "P1",
@@ -45,6 +45,22 @@
           ],
           "stories": [
             {
+              "blogNum": 40,
+              "title": "Meet Gina Holste, Northwest Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-gina-holste-northwest-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Watauga",
+              "rationale": "Honoree is a K-4 reading specialist featured for science-of-reading literacy instruction and an afterschool program recovering early-grades instructional time"
+            },
+            {
+              "blogNum": 38,
+              "title": "Meet Stephanie Lane, Charter School Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/24/meet-stephanie-lane-charter-school-teacher-year",
+              "publishDate": "March 24, 2026",
+              "county": "",
+              "rationale": "Lane's differentiated Phonics Rounds scaled to six first-grade classes with 115 of 120 students meeting end-of-year literacy benchmarks -- early literacy is the core P1.F1 aim"
+            },
+            {
               "blogNum": 25,
               "title": "2025 Points of Pride",
               "url": "https://www.dpi.nc.gov/blog/2025/12/23/2025-points-pride",
@@ -88,6 +104,38 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 61,
+              "title": "Congratulations to Bladen County Schools on Selection for the 2026–2027 Relay Graduate School of Education and NCDPI Partnership",
+              "url": "https://www.dpi.nc.gov/blog/2026/06/18/congratulations-bladen-county-schools-selection-2026-2027-relay-graduate-school-education-and-ncdpi",
+              "publishDate": "June 18, 2026",
+              "county": "Bladen",
+              "rationale": "The Relay partnership delivers yearlong coaching and professional learning focused on high-quality standards-aligned instruction and instructional leadership"
+            },
+            {
+              "blogNum": 52,
+              "title": "Meet Dr. Marlow Artis, Southeast Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dr-marlow-artis-southeast-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Craven",
+              "rationale": "Embedded executive functioning strategies schoolwide -- agendas; explicit note-taking; structured routines -- freeing teachers to engage students in higher-order thinking with an A performance grade result"
+            },
+            {
+              "blogNum": 39,
+              "title": "Meet Cason Justice, Southeast Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-cason-justice-southeast-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Onslow",
+              "rationale": "Honoree is featured for hands-on inquiry-based history instruction that moves students from memorizing to investigating -- a substantive example of elevating teaching and learning"
+            },
+            {
+              "blogNum": 36,
+              "title": "Meet Heather Dail, Northeast Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/24/meet-heather-dail-northeast-region-teacher-year",
+              "publishDate": "March 24, 2026",
+              "county": "Perquimans",
+              "rationale": "Dail's immersive real-world STEM instruction; schoolwide Hour of STEM; and pursuit of STEM School of Distinction substantively exemplify elevating teaching and learning"
+            },
             {
               "blogNum": 28,
               "title": "From Classroom to Community: A National History Teacher’s Journey",
@@ -165,6 +213,22 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 57,
+              "title": "Meet LaTresha Wilson, Southwest Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/meet-latresha-wilson-southwest-region-principal-year",
+              "publishDate": "May 11, 2026",
+              "county": "Mecklenburg",
+              "rationale": "Wilson explicitly names and corrects inequitable practices at a Title I school where the performance grade rose from D to B -- excellence for all is her stated framework"
+            },
+            {
+              "blogNum": 49,
+              "title": "Meet Deborah Brown, Charter School Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/30/meet-deborah-brown-charter-school-principal-year",
+              "publishDate": "April 30, 2026",
+              "county": "",
+              "rationale": "Led the school's Title I transition by doubling exceptional children's staffing and adding a full-time social worker as the economically disadvantaged share rose from 9% to 30%"
+            },
             {
               "blogNum": 30,
               "title": "Find Your Fit, Build Your Future in NC Public Schools",
@@ -325,6 +389,38 @@
           ],
           "stories": [
             {
+              "blogNum": 51,
+              "title": "Meet Dr. Darrell A. Harris, Jr., Piedmont Triad Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dr-darrell-harris-jr-piedmont-triad-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Guilford",
+              "rationale": "Students co-created the schoolwide cell phone policy through focus groups and a Freshman Academy redesigns the ninth-grade transition with tailored instruction and early intervention"
+            },
+            {
+              "blogNum": 42,
+              "title": "Meet Manzell Spencer, Sandhills Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-manzell-spencer-sandhills-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Cumberland",
+              "rationale": "Honoree is featured for a boys mentorship program and athletics-based belonging work that reconnects disengaged students to school life -- reimagining the student experience"
+            },
+            {
+              "blogNum": 37,
+              "title": "Meet Shannon Campbell, North Central Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/24/meet-shannon-campbell-north-central-region-teacher-year",
+              "publishDate": "March 24, 2026",
+              "county": "Wilson",
+              "rationale": "Campbell built belonging-centered programs -- TigerFest and the weekly Tiger Time block created for post-pandemic social-emotional needs -- reshaping the student experience schoolwide"
+            },
+            {
+              "blogNum": 32,
+              "title": "How Service Learning Shapes Confident, Capable Graduates",
+              "url": "https://www.dpi.nc.gov/blog/2026/02/03/how-service-learning-shapes-confident-capable-graduates",
+              "publishDate": "February 03, 2026",
+              "county": "New Hanover",
+              "rationale": "Service learning is presented as an intentional schoolwide practice connecting academics to real-world purpose -- a reimagined student experience"
+            },
+            {
               "blogNum": 30,
               "title": "Find Your Fit, Build Your Future in NC Public Schools",
               "url": "https://www.dpi.nc.gov/blog/2026/01/27/find-your-fit-build-your-future-nc-public-schools",
@@ -483,6 +579,46 @@
           ],
           "stories": [
             {
+              "blogNum": 60,
+              "title": "A message of gratitude and congratulations for the Class of 2026",
+              "url": "https://www.dpi.nc.gov/blog/2026/06/03/message-gratitude-and-congratulations-class-2026",
+              "publishDate": "June 03, 2026",
+              "county": "",
+              "rationale": "The letter centers on life-ready graduate outcomes -- record 87.7% graduation rate; AP credit; 382,964 CTE credentials; and 54% of graduates passing a college-level course"
+            },
+            {
+              "blogNum": 53,
+              "title": "Meet Dustin Farmer, Northwest Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dustin-farmer-northwest-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Ashe",
+              "rationale": "Individualized graduation plans got all six at-risk students to graduation with five enrolling in postsecondary; graduation rate topped 90% and CTE participation soared"
+            },
+            {
+              "blogNum": 45,
+              "title": "Parent Letter April 2026",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/13/parent-letter-april-2026",
+              "publishDate": "April 13, 2026",
+              "county": "",
+              "rationale": "Letter centers on record graduation rates; industry credentials; and 54% of graduates completing college-level coursework -- the core life-ready graduate outcomes"
+            },
+            {
+              "blogNum": 34,
+              "title": "Where NC Public Schools Can Take You",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/17/where-nc-public-schools-can-take-you",
+              "publishDate": "March 17, 2026",
+              "county": "",
+              "rationale": "The post frames public schools as launchpads into careers; college; and leadership -- alumni outcomes as evidence of life-ready graduates"
+            },
+            {
+              "blogNum": 32,
+              "title": "How Service Learning Shapes Confident, Capable Graduates",
+              "url": "https://www.dpi.nc.gov/blog/2026/02/03/how-service-learning-shapes-confident-capable-graduates",
+              "publishDate": "February 03, 2026",
+              "county": "New Hanover",
+              "rationale": "The post centers on alumni feedback showing graduates leave with independence; self-advocacy; and durable skills that prepare them for high school and life"
+            },
+            {
               "blogNum": 28,
               "title": "From Classroom to Community: A National History Teacher’s Journey",
               "url": "https://www.dpi.nc.gov/blog/2026/01/14/classroom-community-national-history-teachers-journey",
@@ -585,7 +721,7 @@
               "actionName": "Expand Teacher Recruitment Programs",
               "actionDesc": "Expand student recruitment programs starting no later than middle school, such as career academy programs, “Teaching as a Profession” CTE pathways and other programs to encourage more students to engage in the education profession.",
               "launchDate": "2026-07-01",
-              "launchText": "Launches in July, 2026",
+              "launchText": "Launched July, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -594,7 +730,7 @@
               "actionName": "Strengthen Beginning Teacher Support",
               "actionDesc": "Revise and strengthen Beginning Teacher (BT) policy and supports, including exploring a standard statewide definition of BTs and regionalized support approaches with partners.",
               "launchDate": "2026-07-01",
-              "launchText": "Launches in July, 2026",
+              "launchText": "Launched July, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -618,6 +754,38 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 53,
+              "title": "Meet Dustin Farmer, Northwest Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dustin-farmer-northwest-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Ashe",
+              "rationale": "Created a Teaching as a Profession class to prepare students for careers in education -- a grow-your-own educator pipeline strategy"
+            },
+            {
+              "blogNum": 50,
+              "title": "Meet Dr. Mariah Walker, North Central Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/30/meet-dr-mariah-walker-north-central-region-principal-year",
+              "publishDate": "April 30, 2026",
+              "county": "Wake",
+              "rationale": "Honoree regularly mentors new and aspiring educators in her district and through partnerships with NC State and NC Central -- direct support for the educator pipeline"
+            },
+            {
+              "blogNum": 46,
+              "title": "Joint statement about Governor Stein’s Budget",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/21/joint-statement-about-governor-steins-budget",
+              "publishDate": "April 21, 2026",
+              "county": "",
+              "rationale": "Statement frames the raises as the path to recruiting and retaining the best teachers; principals and staff in the country"
+            },
+            {
+              "blogNum": 35,
+              "title": "Once a Dark Horse, Always a Dark Horse",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/19/once-dark-horse-always-dark-horse",
+              "publishDate": "March 19, 2026",
+              "county": "Sampson",
+              "rationale": "The Dark Horse Fellows grow-your-own program exists explicitly to combat the teacher shortage by recruiting; developing; and retaining educators rooted in the community"
+            },
             {
               "blogNum": 29,
               "title": "From Bus Driver to EC Teacher",
@@ -663,7 +831,7 @@
               "actionName": "Uniform Instructional Coaching Model",
               "actionDesc": "Develop a uniform NCDPI model for instructional coaching that integrates literacy, numeracy and supports for low-performing schools.",
               "launchDate": "2026-07-01",
-              "launchText": "Launches in July, 2026",
+              "launchText": "Launched July, 2026",
               "hasStarted": true,
               "status": "In Progress"
             },
@@ -678,6 +846,22 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 49,
+              "title": "Meet Deborah Brown, Charter School Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/30/meet-deborah-brown-charter-school-principal-year",
+              "publishDate": "April 30, 2026",
+              "county": "",
+              "rationale": "Honoree built a round-table leadership team with elected teacher leaders and has led educator professional development seminars for NCCAT for over a decade -- growing leadership pathways for teachers"
+            },
+            {
+              "blogNum": 35,
+              "title": "Once a Dark Horse, Always a Dark Horse",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/19/once-dark-horse-always-dark-horse",
+              "publishDate": "March 19, 2026",
+              "county": "Sampson",
+              "rationale": "The program builds a high-school-to-classroom educator pathway -- forgivable tuition loans; dual-credit teacher education courses; paid internships; and job placement"
+            },
             {
               "blogNum": 29,
               "title": "From Bus Driver to EC Teacher",
@@ -722,6 +906,30 @@
           ],
           "stories": [
             {
+              "blogNum": 59,
+              "title": "Statement from North Carolina Superintendent of Public Instruction Maurice \"Mo\" Green on the State Budget",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/13/statement-north-carolina-superintendent-public-instruction-maurice-mo-green-state-budget",
+              "publishDate": "May 13, 2026",
+              "county": "",
+              "rationale": "The statement's core message is support for meaningful educator pay increases in the state budget framework"
+            },
+            {
+              "blogNum": 48,
+              "title": "Statement from North Carolina Superintendent of Public Instruction Maurice \"Mo\" Green on the May 1 NCAE March",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/29/statement-north-carolina-superintendent-public-instruction-maurice-mo-green-may-1-ncae-march",
+              "publishDate": "April 29, 2026",
+              "county": "",
+              "rationale": "The statement's central argument is that educators deserve adequate pay and points to budget proposals for substantial investment in teacher compensation"
+            },
+            {
+              "blogNum": 46,
+              "title": "Joint statement about Governor Stein’s Budget",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/21/joint-statement-about-governor-steins-budget",
+              "publishDate": "April 21, 2026",
+              "county": "",
+              "rationale": "Statement centers on the proposed 11% average teacher raise and highest starting salary in the Southeast -- educator compensation is the main subject"
+            },
+            {
               "blogNum": 8,
               "title": "Meet North Carolina’s Principal of the Year",
               "url": "https://www.dpi.nc.gov/blog/2025/10/08/meet-north-carolinas-principal-year",
@@ -749,7 +957,7 @@
               "actionName": "Recognize Educator Excellence",
               "actionDesc": "Engage with local boards of education to honor teachers and principals of the year, expand meaningful advisor roles for students, teachers and principals at the district and state levels and identify additional ways to publicly recognize educator excellence.",
               "launchDate": "2026-07-01",
-              "launchText": "Launches in July, 2026",
+              "launchText": "Launched July, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -773,6 +981,142 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 59,
+              "title": "Statement from North Carolina Superintendent of Public Instruction Maurice \"Mo\" Green on the State Budget",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/13/statement-north-carolina-superintendent-public-instruction-maurice-mo-green-state-budget",
+              "publishDate": "May 13, 2026",
+              "county": "",
+              "rationale": "Green frames pay as showing reverence for educators behind historic achievements -- an explicit restore-pride-in-the-profession argument"
+            },
+            {
+              "blogNum": 56,
+              "title": "Meet Jennifer McBrayer, Western Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/meet-jennifer-mcbrayer-western-region-principal-year",
+              "publishDate": "May 11, 2026",
+              "county": "Rutherford",
+              "rationale": "Regional Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 57,
+              "title": "Meet LaTresha Wilson, Southwest Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/meet-latresha-wilson-southwest-region-principal-year",
+              "publishDate": "May 11, 2026",
+              "county": "Mecklenburg",
+              "rationale": "Regional Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 51,
+              "title": "Meet Dr. Darrell A. Harris, Jr., Piedmont Triad Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dr-darrell-harris-jr-piedmont-triad-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Guilford",
+              "rationale": "Regional Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 52,
+              "title": "Meet Dr. Marlow Artis, Southeast Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dr-marlow-artis-southeast-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Craven",
+              "rationale": "Regional Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 53,
+              "title": "Meet Dustin Farmer, Northwest Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dustin-farmer-northwest-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Ashe",
+              "rationale": "Regional Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 54,
+              "title": "Meet Kelly E. Flora, Northeast Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-kelly-e-flora-northeast-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Dare",
+              "rationale": "Regional Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 49,
+              "title": "Meet Deborah Brown, Charter School Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/30/meet-deborah-brown-charter-school-principal-year",
+              "publishDate": "April 30, 2026",
+              "county": "",
+              "rationale": "Charter School Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 50,
+              "title": "Meet Dr. Mariah Walker, North Central Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/30/meet-dr-mariah-walker-north-central-region-principal-year",
+              "publishDate": "April 30, 2026",
+              "county": "Wake",
+              "rationale": "Regional Principal of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 39,
+              "title": "Meet Cason Justice, Southeast Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-cason-justice-southeast-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Onslow",
+              "rationale": "Regional Teacher of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 40,
+              "title": "Meet Gina Holste, Northwest Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-gina-holste-northwest-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Watauga",
+              "rationale": "Regional Teacher of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 41,
+              "title": "Meet Jonathan Lancho Villa, Piedmont Triad Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-jonathan-lancho-villa-piedmont-triad-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Surry",
+              "rationale": "Regional Teacher of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 42,
+              "title": "Meet Manzell Spencer, Sandhills Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-manzell-spencer-sandhills-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Cumberland",
+              "rationale": "Regional Teacher of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 36,
+              "title": "Meet Heather Dail, Northeast Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/24/meet-heather-dail-northeast-region-teacher-year",
+              "publishDate": "March 24, 2026",
+              "county": "Perquimans",
+              "rationale": "Regional Teacher of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 37,
+              "title": "Meet Shannon Campbell, North Central Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/24/meet-shannon-campbell-north-central-region-teacher-year",
+              "publishDate": "March 24, 2026",
+              "county": "Wilson",
+              "rationale": "Regional Teacher of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 38,
+              "title": "Meet Stephanie Lane, Charter School Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/24/meet-stephanie-lane-charter-school-teacher-year",
+              "publishDate": "March 24, 2026",
+              "county": "",
+              "rationale": "Charter School Teacher of the Year recognition is a named action under P2.F4"
+            },
+            {
+              "blogNum": 33,
+              "title": "Elevating Student Support: Creating Intentional Spaces and Celebrating the Professionals Who Make It Possible",
+              "url": "https://www.dpi.nc.gov/blog/2026/02/06/elevating-student-support-creating-intentional-spaces-and-celebrating-professionals-who-make-it",
+              "publishDate": "February 06, 2026",
+              "county": "Mecklenburg",
+              "rationale": "National School Counseling Week post celebrating student support professionals and calling for revering all staff"
+            },
             {
               "blogNum": 28,
               "title": "From Classroom to Community: A National History Teacher’s Journey",
@@ -863,7 +1207,7 @@
               "actionName": "Share School-Family Communication Best Practices",
               "actionDesc": "Promote collaboration and partner with PSUs to share best practices on effective communication between schools and families.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -878,6 +1222,70 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 60,
+              "title": "A message of gratitude and congratulations for the Class of 2026",
+              "url": "https://www.dpi.nc.gov/blog/2026/06/03/message-gratitude-and-congratulations-class-2026",
+              "publishDate": "June 03, 2026",
+              "county": "",
+              "rationale": "The letter substantively honors families as partners in the thirteen-year journey -- from conferences and homework help to graduation"
+            },
+            {
+              "blogNum": 56,
+              "title": "Meet Jennifer McBrayer, Western Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/meet-jennifer-mcbrayer-western-region-principal-year",
+              "publishDate": "May 11, 2026",
+              "county": "Rutherford",
+              "rationale": "McBrayer engages parents directly on social media about school funding and solicits family feedback through the Local Advisory Group"
+            },
+            {
+              "blogNum": 51,
+              "title": "Meet Dr. Darrell A. Harris, Jr., Piedmont Triad Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-dr-darrell-harris-jr-piedmont-triad-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Guilford",
+              "rationale": "Honoree builds close relationships with families of all backgrounds through events like the annual multicultural celebration and surveyed parents when shaping school policy"
+            },
+            {
+              "blogNum": 54,
+              "title": "Meet Kelly E. Flora, Northeast Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/01/meet-kelly-e-flora-northeast-region-principal-year",
+              "publishDate": "May 01, 2026",
+              "county": "Dare",
+              "rationale": "Initiatives like One School One Author; Bingo Nights; Club Days; and regular parent surveys intentionally engage families as partners in the school community"
+            },
+            {
+              "blogNum": 47,
+              "title": "A Message to North Carolina Families on Test Integrity",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/29/message-north-carolina-families-test-integrity",
+              "publishDate": "April 29, 2026",
+              "county": "",
+              "rationale": "Directly asks families to partner on test integrity by talking with their children and volunteering as proctors -- a concrete family engagement call to action"
+            },
+            {
+              "blogNum": 45,
+              "title": "Parent Letter April 2026",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/13/parent-letter-april-2026",
+              "publishDate": "April 13, 2026",
+              "county": "",
+              "rationale": "A superintendent letter written directly to parents to inform and thank them is a substantive family engagement communication"
+            },
+            {
+              "blogNum": 41,
+              "title": "Meet Jonathan Lancho Villa, Piedmont Triad Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-jonathan-lancho-villa-piedmont-triad-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Surry",
+              "rationale": "Honoree created the annual Multilingual Family Engagement Night that measurably increased English-learner family involvement -- a substantive family engagement effort"
+            },
+            {
+              "blogNum": 38,
+              "title": "Meet Stephanie Lane, Charter School Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/24/meet-stephanie-lane-charter-school-teacher-year",
+              "publishDate": "March 24, 2026",
+              "county": "",
+              "rationale": "Lane treats parents as a child's first teachers and structures family involvement through Mystery Readers and community readers in the classroom"
+            },
             {
               "blogNum": 30,
               "title": "Find Your Fit, Build Your Future in NC Public Schools",
@@ -906,7 +1314,7 @@
               "actionName": "Engage Philanthropic & Business Support",
               "actionDesc": "Engage philanthropic and business communities to fund and support research and adoption of innovative school models.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -948,6 +1356,30 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 56,
+              "title": "Meet Jennifer McBrayer, Western Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/meet-jennifer-mcbrayer-western-region-principal-year",
+              "publishDate": "May 11, 2026",
+              "county": "Rutherford",
+              "rationale": "She coordinates community partnerships for hands-on learning and led logistics with relief agencies and local government after Hurricane Helene"
+            },
+            {
+              "blogNum": 57,
+              "title": "Meet LaTresha Wilson, Southwest Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/meet-latresha-wilson-southwest-region-principal-year",
+              "publishDate": "May 11, 2026",
+              "county": "Mecklenburg",
+              "rationale": "Partnerships with churches and community organizations provide resources to families facing housing and food insecurity"
+            },
+            {
+              "blogNum": 33,
+              "title": "Elevating Student Support: Creating Intentional Spaces and Celebrating the Professionals Who Make It Possible",
+              "url": "https://www.dpi.nc.gov/blog/2026/02/06/elevating-student-support-creating-intentional-spaces-and-celebrating-professionals-who-make-it",
+              "publishDate": "February 06, 2026",
+              "county": "Mecklenburg",
+              "rationale": "CMS community partnerships for school-based virtual care and behavioral health teletherapy are held up as a model worth scaling statewide"
+            },
             {
               "blogNum": 28,
               "title": "From Classroom to Community: A National History Teacher’s Journey",
@@ -1066,7 +1498,16 @@
               "status": "Not Started"
             }
           ],
-          "stories": []
+          "stories": [
+            {
+              "blogNum": 56,
+              "title": "Meet Jennifer McBrayer, Western Region Principal of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/meet-jennifer-mcbrayer-western-region-principal-year",
+              "publishDate": "May 11, 2026",
+              "county": "Rutherford",
+              "rationale": "Consistent discipline expectations cut referrals by 37% and improved Teacher Working Conditions Survey ratings of student conduct and school culture"
+            }
+          ]
         },
         {
           "focusAreaId": "P4.F2",
@@ -1156,6 +1597,46 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 55,
+              "title": "AttendNC Bright Spots",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/attendnc-bright-spots",
+              "publishDate": "May 11, 2026",
+              "county": "",
+              "rationale": "Chronic absenteeism reduction is the entire subject -- a named P4.F2 focus on student well-being and attendance"
+            },
+            {
+              "blogNum": 43,
+              "title": "The AttendNC Research Guide",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/28/attendnc-research-guide",
+              "publishDate": "March 28, 2026",
+              "county": "",
+              "rationale": "Chronic absenteeism is the entire subject of the guide -- a named P4.F2 focus on student attendance and well-being"
+            },
+            {
+              "blogNum": 40,
+              "title": "Meet Gina Holste, Northwest Region Teacher of the Year",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/25/meet-gina-holste-northwest-region-teacher-year",
+              "publishDate": "March 25, 2026",
+              "county": "Watauga",
+              "rationale": "Honoree substantively discusses student anxiety; depression and device addiction and her training in de-escalation and emotional regulation -- a student well-being focus"
+            },
+            {
+              "blogNum": 33,
+              "title": "Elevating Student Support: Creating Intentional Spaces and Celebrating the Professionals Who Make It Possible",
+              "url": "https://www.dpi.nc.gov/blog/2026/02/06/elevating-student-support-creating-intentional-spaces-and-celebrating-professionals-who-make-it",
+              "publishDate": "February 06, 2026",
+              "county": "Mecklenburg",
+              "rationale": "Student and staff mental health is the core argument -- wraparound care; counselor ratios; teletherapy; and treating employee well-being as a funded norm"
+            },
+            {
+              "blogNum": 31,
+              "title": "Where Chronic Absenteeism Is Declining in North Carolina",
+              "url": "https://www.dpi.nc.gov/blog/2026/01/29/2025-attendnc-bright-spots",
+              "publishDate": "January 29, 2026",
+              "county": "",
+              "rationale": "Chronic absenteeism reduction is the entire subject of the post -- a named P4.F2 focus on student well-being and attendance"
+            },
             {
               "blogNum": 27,
               "title": "Celebrating Award-Winning School and Summer Nutrition Programs",
@@ -1260,7 +1741,7 @@
               "actionName": "Improve NCDPI Communication Access",
               "actionDesc": "Improve ability of PSU staff to communicate with NCDPI by making contact information more accessible and transparent and by enhancing support protocols, such as regular NCDPI staff office hour sessions.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1269,7 +1750,7 @@
               "actionName": "DPI Customer Service Survey",
               "actionDesc": "Develop and administer a survey to central office staff (a “DPI Customer Service Survey”) to assess customer service strengths and needs.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1278,7 +1759,7 @@
               "actionName": "PSU Capacity Building Guidance",
               "actionDesc": "Create and share NCDPI guidance focused on capacity building for PSUs, including best practices for strategic purchasing decisions and aligning budget decisions with instructional priorities.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1287,7 +1768,7 @@
               "actionName": "Evaluate NCDPI Building Condition",
               "actionDesc": "Evaluate the condition, functionality and safety of the NCDPI building and shared spaces to identify maintenance, modernization and accessibility needs that impact staff and visitor health, safety and productivity.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1418,6 +1899,22 @@
           ],
           "stories": [
             {
+              "blogNum": 58,
+              "title": "Update on Instructure/Canvas Cybersecurity Event",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/update-instructurecanvas-cybersecurity-event",
+              "publishDate": "May 11, 2026",
+              "county": "",
+              "rationale": "NCDPI's response to the Canvas cybersecurity incident -- disabling NCEdCloud access and securing the statewide platform with third-party forensics -- exemplifies modernizing and safeguarding NCDPI and PSU technology operations"
+            },
+            {
+              "blogNum": 47,
+              "title": "A Message to North Carolina Families on Test Integrity",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/29/message-north-carolina-families-test-integrity",
+              "publishDate": "April 29, 2026",
+              "county": "",
+              "rationale": "Details modernized testing operations -- unannounced monitoring visits; real-time detection tools with the test publisher; and a planned independent security review"
+            },
+            {
               "blogNum": 4,
               "title": "How NCDPI’s Office of Research & Promising Practices Turns Evidence into Action",
               "url": "https://www.dpi.nc.gov/blog/2025/09/17/how-ncdpis-office-research-promising-practices-turns-evidence-action",
@@ -1466,12 +1963,36 @@
               "actionName": "Annual Effective Practices Collection",
               "actionDesc": "Publish and promote an annual collection of effective and innovative practices drawn from local, statewide and national research, to inform policy, NCDPI work and PSU improvement efforts.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             }
           ],
           "stories": [
+            {
+              "blogNum": 55,
+              "title": "AttendNC Bright Spots",
+              "url": "https://www.dpi.nc.gov/blog/2026/05/11/attendnc-bright-spots",
+              "publishDate": "May 11, 2026",
+              "county": "",
+              "rationale": "Office of Research and Promising Practices bright-spots modeling with NC State positive-deviance fieldwork exemplifies transforming schools through research and development"
+            },
+            {
+              "blogNum": 43,
+              "title": "The AttendNC Research Guide",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/28/attendnc-research-guide",
+              "publishDate": "March 28, 2026",
+              "county": "",
+              "rationale": "An Office of Research and Promising Practices tool that translates attendance research into school and district practice exemplifies transforming schools through research and development"
+            },
+            {
+              "blogNum": 31,
+              "title": "Where Chronic Absenteeism Is Declining in North Carolina",
+              "url": "https://www.dpi.nc.gov/blog/2026/01/29/2025-attendnc-bright-spots",
+              "publishDate": "January 29, 2026",
+              "county": "",
+              "rationale": "AttendNC Counts uses bright-spot identification; context-adjusted models with Carolina Demography; and school learning visits -- a research-and-development approach to school improvement"
+            },
             {
               "blogNum": 12,
               "title": "Exploring Endless Opportunities – and a Zoo School – in the Piedmont Triad",
@@ -1593,7 +2114,7 @@
               "actionName": "Recruit & Retain for Low-Performing Schools",
               "actionDesc": "Explore strategies, including how to creatively use currently available funding allotments, to recruit and retain highly effective teachers and principals to work in low-performing schools and districts.",
               "launchDate": "2026-06-01",
-              "launchText": "Launches in June, 2026",
+              "launchText": "Launched June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1616,7 +2137,16 @@
               "status": "Not Started"
             }
           ],
-          "stories": []
+          "stories": [
+            {
+              "blogNum": 61,
+              "title": "Congratulations to Bladen County Schools on Selection for the 2026–2027 Relay Graduate School of Education and NCDPI Partnership",
+              "url": "https://www.dpi.nc.gov/blog/2026/06/18/congratulations-bladen-county-schools-selection-2026-2027-relay-graduate-school-education-and-ncdpi",
+              "publishDate": "June 18, 2026",
+              "county": "Bladen",
+              "rationale": "ODSSS is using the customized district support model to build a scalable statewide framework -- an integrated support system for schools and districts"
+            }
+          ]
         },
         {
           "focusAreaId": "P6.F4",
@@ -1660,7 +2190,24 @@
               "status": "Not Started"
             }
           ],
-          "stories": []
+          "stories": [
+            {
+              "blogNum": 48,
+              "title": "Statement from North Carolina Superintendent of Public Instruction Maurice \"Mo\" Green on the May 1 NCAE March",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/29/statement-north-carolina-superintendent-public-instruction-maurice-mo-green-may-1-ncae-march",
+              "publishDate": "April 29, 2026",
+              "county": "",
+              "rationale": "Substantively discusses school funding reform -- NC's 50th-place Making the Grade funding ranking and the push for greater state investment"
+            },
+            {
+              "blogNum": 46,
+              "title": "Joint statement about Governor Stein’s Budget",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/21/joint-statement-about-governor-steins-budget",
+              "publishDate": "April 21, 2026",
+              "county": "",
+              "rationale": "Endorses transition to a weighted Exceptional Children funding model as a long-standing priority -- a substantive funding reform position"
+            }
+          ]
         }
       ]
     },
@@ -1710,7 +2257,7 @@
               "actionName": "PIO Training & Support Materials",
               "actionDesc": "Create supportive materials and training for PIOs and NCDPI partners to adopt and adapt and coordinate communications.",
               "launchDate": "2026-05-01",
-              "launchText": "Launches in May, 2026",
+              "launchText": "Launched May, 2026",
               "hasStarted": false,
               "status": "Not Started"
             }
@@ -1754,7 +2301,7 @@
               "actionName": "Engage Non-Education Partners",
               "actionDesc": "Engage and align non-education partners’ communication efforts for this initiative.",
               "launchDate": "2026-07-01",
-              "launchText": "Launches in July, 2026",
+              "launchText": "Launched July, 2026",
               "hasStarted": false,
               "status": "Not Started"
             }
@@ -1789,7 +2336,7 @@
               "actionName": "Joint Community Engagement Events",
               "actionDesc": "Encourage joint events and community engagement activities where NCDPI and education partners present unified messaging about public education.",
               "launchDate": "2026-05-01",
-              "launchText": "Launches in May, 2026",
+              "launchText": "Launched May, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1804,6 +2351,22 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 45,
+              "title": "Parent Letter April 2026",
+              "url": "https://www.dpi.nc.gov/blog/2026/04/13/parent-letter-april-2026",
+              "publishDate": "April 13, 2026",
+              "county": "",
+              "rationale": "The letter exists to share the historic-milestones public education story with families -- direct public education messaging"
+            },
+            {
+              "blogNum": 34,
+              "title": "Where NC Public Schools Can Take You",
+              "url": "https://www.dpi.nc.gov/blog/2026/03/17/where-nc-public-schools-can-take-you",
+              "publishDate": "March 17, 2026",
+              "county": "",
+              "rationale": "Capstone of the Find Your Fit Build Your Future campaign sharing public education success stories with the public"
+            },
             {
               "blogNum": 30,
               "title": "Find Your Fit, Build Your Future in NC Public Schools",
@@ -1891,7 +2454,7 @@
               "actionName": "Train Advocacy Partners",
               "actionDesc": "Engage and train partners and communicators to advocate for public education.",
               "launchDate": "2026-05-01",
-              "launchText": "Launches in May, 2026",
+              "launchText": "Launched May, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
