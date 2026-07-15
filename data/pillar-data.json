@@ -1751,8 +1751,8 @@
               "actionDesc": "Develop and administer a survey to central office staff (a “DPI Customer Service Survey”) to assess customer service strengths and needs.",
               "launchDate": "2026-06-01",
               "launchText": "Launched June, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P5.F1.A4",
@@ -1760,8 +1760,8 @@
               "actionDesc": "Create and share NCDPI guidance focused on capacity building for PSUs, including best practices for strategic purchasing decisions and aligning budget decisions with instructional priorities.",
               "launchDate": "2026-06-01",
               "launchText": "Launched June, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P5.F1.A5",
@@ -2258,8 +2258,8 @@
               "actionDesc": "Create supportive materials and training for PIOs and NCDPI partners to adopt and adapt and coordinate communications.",
               "launchDate": "2026-05-01",
               "launchText": "Launched May, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             }
           ],
           "stories": [
@@ -2337,8 +2337,8 @@
               "actionDesc": "Encourage joint events and community engagement activities where NCDPI and education partners present unified messaging about public education.",
               "launchDate": "2026-05-01",
               "launchText": "Launched May, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P7.F3.A4",
@@ -2455,8 +2455,8 @@
               "actionDesc": "Engage and train partners and communicators to advocate for public education.",
               "launchDate": "2026-05-01",
               "launchText": "Launched May, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P8.F1.A2",

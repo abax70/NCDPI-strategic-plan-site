@@ -5,8 +5,11 @@ Reads:
   - DIM_Pillars.csv        (8 pillars with descriptions)
   - DIM_FocusAreas.csv     (26 focus areas, each mapped to a pillar)
   - DIM_Actions.csv        (109 actions, each mapped to a focus area)
-  - blog_focus_area_matches_final.csv  (94 blog-to-focus-area links)
-  - Strategic Plan Actions Tracker.xlsx (action statuses)
+  - blog_focus_area_matches_final.csv  (blog-to-focus-area links)
+  - Action statuses, from the first source that works:
+      1. Smartsheet API (live)  — needs a token; refreshes action-statuses.csv
+      2. action-statuses.csv    — committed snapshot of the last live pull
+      3. Strategic Plan Actions Tracker.xlsx — legacy manual download (local only)
 
 Produces:
   - pillar-data.json       (single nested JSON for the pillar dashboard)
@@ -37,6 +40,21 @@ ACTIONS_CSV = os.path.join(SCRIPT_DIR, "DIM_Actions.csv")
 BLOGS_CSV = os.path.join(SCRIPT_DIR, "blog_focus_area_matches_final.csv")
 TRACKER_XLSX = os.path.join(SCRIPT_DIR, "Strategic Plan Actions Tracker.xlsx")
 OUTPUT_JSON = os.path.join(SCRIPT_DIR, "pillar-data.json")
+
+# --- Smartsheet configuration ---
+# The tracker's system of record is the "Strategic Plan Actions Tracker" sheet
+# in the NCDPI Strategic Plan Workspace. With an API token present, the build
+# pulls statuses live and refreshes the committed snapshot CSV; without one,
+# the snapshot keeps the build reproducible on any machine (it is committed,
+# unlike the xlsx, which is gitignored and absent in the devcontainer).
+SMARTSHEET_SHEET_ID = "6831169615122308"
+SMARTSHEET_TOKEN_ENV = "SMARTSHEET_API_TOKEN"
+SMARTSHEET_TOKEN_FILE = os.path.join(SCRIPT_DIR, ".smartsheet-token")  # gitignored — never commit
+STATUS_SNAPSHOT_CSV = os.path.join(SCRIPT_DIR, "action-statuses.csv")
+
+# The site has always displayed "Completed" but the Smartsheet picklist value
+# is "Complete" — normalize so the display text stays stable.
+STATUS_DISPLAY = {"Complete": "Completed"}
 
 # Today's date for determining hasStarted
 TODAY = date.today()
@@ -257,18 +275,102 @@ def read_actions():
     return actions
 
 
-def read_action_statuses():
+def get_smartsheet_token():
     """
-    Read the Strategic Plan Actions Tracker XLSX to get the real status
-    for each action. Returns a dict: {ActionID: status_string}.
-    Falls back gracefully if the file doesn't exist or openpyxl isn't available.
+    Find a Smartsheet API token: the SMARTSHEET_API_TOKEN environment variable
+    wins; otherwise data/.smartsheet-token (a one-line file, gitignored so it
+    can never reach the public GitHub Pages repo). Returns "" if neither exists.
+    """
+    token = os.environ.get(SMARTSHEET_TOKEN_ENV, "").strip()
+    if token:
+        return token
+    if os.path.exists(SMARTSHEET_TOKEN_FILE):
+        with open(SMARTSHEET_TOKEN_FILE, "r", encoding="utf-8") as f:
+            return f.read().strip()
+    return ""
+
+
+def fetch_statuses_from_smartsheet(token):
+    """
+    Pull the tracker sheet live from the Smartsheet REST API.
+    Returns a list of (action_id, status, launch_date) tuples, or None on any
+    failure (network down, bad token, unexpected response) so the caller can
+    fall back to the committed snapshot. Uses stdlib urllib on purpose — no
+    third-party dependency to break a fresh machine.
+    """
+    import urllib.request
+
+    url = f"https://api.smartsheet.com/2.0/sheets/{SMARTSHEET_SHEET_ID}"
+    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            payload = json.load(resp)
+    except Exception as e:
+        print(f"  [WARN] Smartsheet API pull failed: {e}")
+        return None
+
+    # Cells carry a columnId, not a column name — build the id→title map first.
+    col_title = {c["id"]: c["title"] for c in payload.get("columns", [])}
+    records = []
+    for row in payload.get("rows", []):
+        vals = {}
+        for cell in row.get("cells", []):
+            title = col_title.get(cell.get("columnId"))
+            if title in ("Action ID", "Status", "Launch Date"):
+                value = cell.get("value")
+                vals[title] = str(value).strip() if value is not None else ""
+        aid = vals.get("Action ID", "")
+        status = vals.get("Status", "")
+        if aid and status:
+            records.append((aid, status, vals.get("Launch Date", "")))
+
+    if not records:
+        print("  [WARN] Smartsheet API returned no usable rows.")
+        return None
+    return records
+
+
+def write_status_snapshot(records):
+    """
+    Refresh the committed snapshot CSV after a successful live pull, so
+    token-less machines (like the devcontainer) build from current data.
+    """
+    with open(STATUS_SNAPSHOT_CSV, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["ActionID", "Status", "LaunchDate", "PulledDate"])
+        today = TODAY.isoformat()
+        for aid, status, launch in records:
+            writer.writerow([aid, status, launch, today])
+
+
+def read_statuses_from_snapshot():
+    """
+    Read the committed snapshot CSV → {ActionID: status}. Also reports how
+    old the snapshot is, since a stale pull date is the main thing to watch
+    on a machine without a token.
     """
     statuses = {}
-    if not os.path.exists(TRACKER_XLSX):
-        print(f"  [WARN] Tracker XLSX not found: {TRACKER_XLSX}")
-        print("  Using date-based status fallback.")
-        return statuses
+    pulled_dates = set()
+    with open(STATUS_SNAPSHOT_CSV, "r", encoding="utf-8-sig") as f:
+        for row in csv.DictReader(f):
+            aid = row.get("ActionID", "").strip()
+            status = row.get("Status", "").strip()
+            if aid and status:
+                statuses[aid] = status
+            if row.get("PulledDate", "").strip():
+                pulled_dates.add(row["PulledDate"].strip())
+    pulled = max(pulled_dates) if pulled_dates else "unknown date"
+    print(f"  Loaded {len(statuses)} action statuses from snapshot CSV (pulled {pulled}).")
+    return statuses
 
+
+def read_statuses_from_xlsx():
+    """
+    Legacy source: the manually downloaded tracker XLSX. Kept as a fallback
+    for a machine that has the xlsx but no token and no snapshot.
+    Returns {ActionID: status_string}; empty dict on any failure.
+    """
+    statuses = {}
     try:
         import openpyxl
         wb = openpyxl.load_workbook(TRACKER_XLSX, data_only=True, read_only=True)
@@ -305,12 +407,55 @@ def read_action_statuses():
         wb.close()
         print(f"  Loaded {len(statuses)} action statuses from tracker XLSX.")
     except ImportError:
-        print("  [WARN] openpyxl not installed — using date-based status fallback.")
+        print("  [WARN] openpyxl not installed — cannot read tracker XLSX.")
     except Exception as e:
         print(f"  [WARN] Error reading tracker XLSX: {e}")
-        print("  Using date-based status fallback.")
 
     return statuses
+
+
+def read_action_statuses():
+    """
+    Get the real status for each action: {ActionID: status_string}.
+
+    Sources, in priority order:
+      1. Smartsheet API (live) — needs a token (see get_smartsheet_token).
+         A successful pull also refreshes the committed snapshot CSV.
+      2. action-statuses.csv — committed snapshot of the last live pull.
+      3. Strategic Plan Actions Tracker.xlsx — legacy manual download.
+
+    If every source fails, the build ABORTS. The old date-based fallback was
+    removed on purpose: on 2026-07-15 it silently flipped 16 action statuses
+    (including regressing a Completed action) when the xlsx was absent in the
+    devcontainer. Wrong-but-plausible output is worse than no output.
+    """
+    token = get_smartsheet_token()
+    if token:
+        records = fetch_statuses_from_smartsheet(token)
+        if records:
+            write_status_snapshot(records)
+            print(f"  Loaded {len(records)} action statuses live from Smartsheet; snapshot CSV refreshed.")
+            return {aid: STATUS_DISPLAY.get(status, status) for aid, status, _ in records}
+        print("  [WARN] Live pull failed — falling back to the committed snapshot CSV.")
+
+    if os.path.exists(STATUS_SNAPSHOT_CSV):
+        statuses = read_statuses_from_snapshot()
+        if statuses:
+            return {aid: STATUS_DISPLAY.get(s, s) for aid, s in statuses.items()}
+
+    if os.path.exists(TRACKER_XLSX):
+        statuses = read_statuses_from_xlsx()
+        if statuses:
+            return {aid: STATUS_DISPLAY.get(s, s) for aid, s in statuses.items()}
+
+    raise SystemExit(
+        "\n[ERROR] No action-status source available.\n"
+        f"  Tried: Smartsheet API (token {'found' if token else 'not found'}), "
+        f"{os.path.basename(STATUS_SNAPSHOT_CSV)}, {os.path.basename(TRACKER_XLSX)}.\n"
+        "  Refusing to guess statuses from launch dates — that silently corrupted\n"
+        "  the data once already. Restore data/action-statuses.csv (git checkout)\n"
+        "  or provide a Smartsheet token, then rerun."
+    )
 
 
 def read_blog_matches():
@@ -381,14 +526,15 @@ def build_pillar_data():
     actions = read_actions()
     print(f"  Found {len(actions)} actions.")
 
-    print("  Reading action statuses from tracker XLSX...")
+    print("  Reading action statuses (Smartsheet API -> snapshot CSV -> XLSX)...")
     statuses = read_action_statuses()
 
     print("  Reading blog_focus_area_matches_final.csv...")
     stories = read_blog_matches()
     print(f"  Found {len(stories)} blog-focus-area matches.")
 
-    # 2. Merge action statuses from tracker XLSX
+    # 2. Merge action statuses from the tracker (unknown IDs — e.g. actions in
+    #    Smartsheet not yet in DIM_Actions.csv — are ignored by design)
     for action in actions:
         if action["actionId"] in statuses:
             action["status"] = statuses[action["actionId"]]
