@@ -2,6 +2,31 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-16 (pm) — Geoff meeting debrief folded into the plan
+
+**Context:** Debrief of today's Geoff meeting (state board 2026-08-05). Worked as a
+session from Central Command; the plan lands here per the new "notes local, dates up"
+convention (Central Command keeps only the anchor dates).
+
+### Plan
+- **Primary remaining deliverable for the board update: the pillar measure charts** —
+  identical in form to the best-in-nation (BiN) charts already built, but showing the
+  measures tied to the non-BiN pillars. Geoff expects ~15 to have data by 8/5.
+- **Source & pipeline:** measure data lives in a rough Google Sheet, `StratPlanMeasures`
+  (Geoff's live scratchpad), not chart-ready. Finalized rows flagged `Y` in the
+  **Finalized** column. Design call: build a *repeatable cleaning script* (not a
+  one-time hand-clean) that reads the sheet and emits the BiN charts' data contract,
+  since data arrives in waves.
+- **Backward chain:** populate `Y` measures by Mon 7/20 noon (Geoff → Supt. Mo Green
+  that day, SPAC 7/21); additional data by Fri 7/24 EOD; holding pattern
+  (leadership-required changes + actions/stories only) to 8/5.
+- **Open size-the-effort questions** parked in HANDOFF: were the BiN charts
+  templated/scripted or bespoke? How many rows are `Y` right now?
+
+### Docs
+- `HANDOFF.md` rewritten around the pillar-chart plan (Where things stand / Next
+  session / Open threads).
+
 ## 2026-07-16 — Hero polish before the Geoff meeting
 
 **Context:** Meeting with Geoff today (state board 2026-08-05). Andy reviewed
