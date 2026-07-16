@@ -2,6 +2,54 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-16 — Hero polish before the Geoff meeting
+
+**Context:** Meeting with Geoff today (state board 2026-08-05). Andy reviewed
+yesterday's site edits and came in with a small punchlist. Kickoff synced the
+laptop with the desktop's 5 unpushed commits (line-ending-only churn discarded
+via `git restore .`, then fast-forward pull).
+
+### Hero updates
+
+- **Landing (`index.html`):** swapped the taglined `StratPlan-Dashboard-HomeHdr`
+  lockup out; now uses `Logo-AchEdExc-WhiteOrange.png` — same clean AEE mark
+  without the "Best in the Nation — Our 2030 Plan..." tagline, per graphics
+  team's tagline-free preference. Also anchored the hero title ("Best in the
+  Nation") to the same 1440px content frame as the sidebar heading, so on wide
+  monitors it aligns with `STRATEGIC PILLARS` below instead of hugging the
+  viewport edge (`max(40px, calc((100vw - 1440px) / 2 + 20px))` — mirror of the
+  AEE-logo margin-right anchor on the right panel).
+- **Best-in-Nation (`best-in-nation.html`):** biggest change of the session. Was
+  a split hero (navy squares on left, WHITE panel with decorative corner squares
+  on right, navy taglined logo). Now matches the landing treatment — one
+  continuous blue-squares field spanning the full hero width with the
+  `WhiteOrange` AEE lockup floating over the right side. Required hoisting the
+  `.hero-banner-bg` <img> out of `.hero-banner-left` to be a direct child of
+  `.hero-banner`, dropping `.hero-banner-left`'s solid navy background so the
+  pattern shows through, and giving `.hero-banner` the navy fill + `overflow:
+  hidden` treatment.
+- **Pillar (`pillar.html`):** narrowed the CSS navy baseline strip from 5px to
+  4px (~25%) — Andy's read was that it still felt thick. Logo asset unchanged
+  (already tagline-free / squares-free).
+
+### Docs
+
+- Refreshed the "diverged forever — DO NOT reconcile" warning in the project
+  `CLAUDE.md`: the divergence resolved itself once the desktop pushed its
+  history and this laptop fast-forwarded; replaced the warning with a note
+  about the recurring CRLF/LF line-ending churn between Windows host and
+  container (verify with `git diff --ignore-cr-at-eol` before assuming files
+  really changed). `CLAUDE.md` remains untracked in the repo by convention.
+
+### Session mechanics
+
+- Anthropic's Bash safety classifier was down intermittently through the
+  session — auto mode kept blocking on any shell call. Workarounds: dropped
+  out of auto mode for manual approvals, then switched to Opus 4.7 which
+  cleared it. Preview server also needed `run_in_background: true` to stay
+  alive between shell invocations (a plain `nohup` inside a wrapped Bash call
+  gets reaped when the wrapper exits).
+
 ## 2026-07-15 (second session) — Smartsheet connector: tracker xlsx dependency replaced
 
 **Context:** HANDOFF's queued task; meeting with Geoff 2026-07-16.

@@ -104,7 +104,12 @@
   .hero-banner-left {
     flex: 1;
     color: white;
-    padding: 20px 40px;
+    /* Left padding anchors the title to the same 1440px content frame as the
+       sidebar heading (STRATEGIC PILLARS sits 20px into a centered 1440-max
+       landing-layout). Below 1440px viewport the max() falls back to 40px so
+       laptop layouts stay unchanged. Mirrors the AEE-logo margin-right trick
+       on the right panel. Andy 2026-07-16. */
+    padding: 20px 40px 20px max(40px, calc((100vw - 1440px) / 2 + 20px));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1195,7 +1200,7 @@
   </div>
   <div class="hero-banner-right">
     <div class="hero-logo-overlay">
-      <img src="images/Achieving Academic Excellence Logos/Dashboard Header Logos/StratPlan-Dashboard-HomeHdr-HiRes.png" alt="Achieving Educational Excellence: Best in the Nation, Our 2030 Plan">
+      <img src="images/Achieving Academic Excellence Logos/Logo-AchEdExc-WhiteOrange.png" alt="Achieving Educational Excellence">
     </div>
   </div>
 </div>
