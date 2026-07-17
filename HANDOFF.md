@@ -44,8 +44,9 @@ post-8/5 shared-file extraction.
    verify) or a new `valueFormat` shows up.
 2. **Chunk E:** accessibility pass (canvas aria-labels exist from the BiN
    pattern; check contrast on the new blue/gray pills, keyboard order,
-   plain-language descriptions), then commit, push, **verify the GitHub Pages
-   deploy live** — the JSON + rendering are inert on production until pushed.
+   plain-language descriptions), then commit, push, verify the Pages deploy.
+   **Note: the chunk-C push already put the charts on production** (2026-07-17,
+   deploy verified) — E is a polish pass on a live feature, not a launch.
 3. Re-verify headlessly after the data refresh (the chunk-C Playwright
    routine: every canvas paints, all 8 pillars, 3 widths, console clean).
 
