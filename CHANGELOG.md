@@ -2,6 +2,27 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-17 (evening) — Housekeeping before the Monday deadline
+
+**Context:** Short end-of-day session to knock off quick, low-risk items ahead
+of the 7/20 noon data wave. No feature work.
+
+- **Deleted two stale untracked files** (both flagged in HANDOFF): the draft
+  blog→focus-area match CSV (`data/blog_focus_area_matches_draft_2026-07.csv`)
+  and the raw braindump note (`notes/pillar-measures-20260717.md`, content
+  already graduated into the plan doc).
+- **P1.M10 `sourceLabel` set** to "NCDPI Proficiency dashboard" in
+  `data/pillar-measures.json`. Root cause found: the pillar.html render logic
+  has no branch for a bare `sourceUrl`, so a measure with only a URL and no
+  label renders **no Source line at all** — the label is what makes the
+  Tableau link appear. (Still open: hand-authored `sourceHtml` for P4.M4,
+  P4.M7, P5.M3, P7.M2.)
+- **Added `.gitattributes`** (`* text=auto eol=lf`) to permanently fix the
+  intermittent CRLF/LF churn between the Windows host and the Linux container.
+  The one-time `git add --renormalize .` sweep of already-tracked files is
+  deferred to the start of the next session (HANDOFF step 0) so its
+  line-ending-only diff stays isolated from the data-wave work.
+
 ## 2026-07-17 (chunk C) — Pillar Results tabs render measure charts
 
 **Context:** Third chunk of the pillar-measure-charts plan; same deadline chain

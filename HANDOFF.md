@@ -36,6 +36,18 @@ post-8/5 shared-file extraction.
 
 ## Next session (Monday 7/20 morning — deadline is noon)
 
+0. **FIRST, before touching data — run the line-ending renormalize sweep.**
+   `.gitattributes` (`* text=auto eol=lf`) was committed 7/17 to kill the
+   CRLF/LF churn, but the already-tracked files still need a one-time rewrite
+   to LF. Do this *before* the data wave so the line-ending-only diff stays
+   isolated from real work:
+   ```bash
+   git add --renormalize .        # rewrites any CRLF-stored tracked files to LF
+   git status                     # review the line-ending-only diff
+   git commit -m "Renormalize tracked files to LF"   # only if the diff is non-empty
+   ```
+   The `.gitattributes` file carries a comment explaining this. After the
+   sweep, the "CRLF/LF churn" note under Repo state notes is obsolete.
 1. **New data wave:** download the fresh sheet export to
    `data/source/StrategicPlan_measures.xlsx`, re-run
    `python data/build-pillar-measures.py`, work the warning list. Hand-authored
@@ -52,21 +64,24 @@ post-8/5 shared-file extraction.
 
 ## Awaiting Andy
 
-- **Hand-author `sourceHtml`** for P4.M4, P4.M7, P5.M3, P7.M2 (their cards
-  currently render **no Source line**) and a human `sourceLabel` for P1.M10's
-  bare Tableau URL. Edit `data/pillar-measures.json` directly; preserved
-  across re-runs.
+- **Hand-author `sourceHtml`** for P4.M4, P4.M7, P5.M3, P7.M2 — their cards
+  still render **no Source line**. Edit `data/pillar-measures.json` directly;
+  preserved across re-runs. (P1.M10's `sourceLabel` is now done — set to
+  "NCDPI Proficiency dashboard" on 7/17; note the render logic has no branch
+  for a bare `sourceUrl`, so a label is required for the Source link to show.)
 - **Raise with Geoff:** P5.M2 chartability (all-1s milestone); P1.M5 goal text
   mid-edit ("percentage number of…" — visible on the live P1 card now).
 - **Carried over:** investigate P2.F2.A4 (Smartsheet tracker vs
-  DIM_Actions.csv); delete `data/blog_focus_area_matches_draft_2026-07.csv`;
-  keep-or-delete `notes/pillar-measures-20260717.md` (raw braindump, content
-  graduated into the plan doc).
+  DIM_Actions.csv). _(Done 7/17: deleted the draft blog-match CSV and the
+  raw braindump note.)_
 
 ## Repo state notes
 
 - Local `master` = `origin/master`; pushes deploy via GitHub Pages.
+- `.gitattributes` (`* text=auto eol=lf`) committed 7/17; the tracked-file
+  renormalize sweep is still pending — see step 0.
 - CRLF/LF churn appears intermittently between Windows host and container —
   verify with `git diff --ignore-cr-at-eol` before treating a modified-file
-  list as real work; discard with `git restore .` if empty. No `.gitattributes`
-  yet (permanent fix, deferred).
+  list as real work; discard with `git restore .` if empty. **Being fixed
+  permanently by step 0** (the `.gitattributes` + renormalize); this note
+  retires once that lands.

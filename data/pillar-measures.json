@@ -90,7 +90,7 @@
     "metricText": null,
     "valueFormat": "#.#%",
     "yAxisMax": 72.0,
-    "sourceLabel": null,
+    "sourceLabel": "NCDPI Proficiency dashboard",
     "sourceUrl": "https://public.tableau.com/views/Proficiency-StateLevel/Proficiency-StateLevel?:showVizHome=no",
     "sourceHtml": null,
     "moreDataUrl": null,
