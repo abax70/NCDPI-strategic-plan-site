@@ -2,6 +2,56 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-17 (chunk C) — Pillar Results tabs render measure charts
+
+**Context:** Third chunk of the pillar-measure-charts plan; same deadline chain
+(Y-set populated by Mon 7/20 noon → 7/24 → 8/5 board meeting). Chunk D's
+verification effectively rode along, since `data/pillar-measures.json` is
+already real data.
+
+### Shipped (pillar.html only, +918 lines)
+
+- **BiN chart engine transplanted into pillar.html** — formatters, style-guide
+  colors, hatch pattern, trajectory strip + annual bars, legend, notes/source
+  block. Kept near-verbatim against best-in-nation.html on purpose (fix a bug
+  in one → fix it in both; shared-file extraction is a planned post-8/5
+  cleanup). Chart.js pinned at 4.4.7 + annotation 3.1.0, same as BiN.
+- **Four deliberate departures from the BiN engine**, each commented in place:
+  1. Measures stack vertically in `.measure-block` cards (no carousel);
+     element lookups are per-block instead of fixed IDs; titles are h3.
+  2. `$#,###` value format added to all three formatters (BiN has no dollar
+     measures; the pipeline can emit one any wave).
+  3. **Direction awareness** — for decrease measures (P4.M4 chronic
+     absenteeism, 25% → 15%) the trajectory anchors the target as the *bottom*
+     labeled tick (BiN hardcodes upward) and the meets/below bar coloring
+     inverts via `isDecreaseMeasure()`.
+  4. **New status band** — green pill for `on-target`/`record-high`, blue for
+     `approaching-target`, muted gray for `baseline`/unknown; hand-authored
+     `statusOverride {type, label}` always wins over derived fields; null
+     status renders no pill (the pipeline's regression rule).
+- **Lazy chart rendering** — tab panels are `display:none` when inactive, so
+  a canvas rendered there sizes to 0×0. `buildResultsTab()` builds DOM
+  immediately but defers Chart.js creation until the Results tab is visible;
+  `switchTab()` flushes the pending render. Chart instances are tracked and
+  destroyed on pillar switch.
+- **Per-pillar conditionals** — P1/P4/P5/P7 get stacked measure cards + a
+  "more measures coming" footnote + BiN link; P2/P3/P6/P8 keep the original
+  placeholder (which already carries the BiN link). Decision 1 (no BiN
+  duplication) holds.
+- `pillar-measures.json` is fetched alongside pillar-data.json at init;
+  a fetch failure degrades to the placeholder and never blocks
+  Actions/Stories.
+
+### Verified
+
+- Headless Playwright at 375/1280/2560 across all 8 pillars: every canvas
+  confirmed to **paint non-blank pixels** (not just page-load), placeholder
+  states correct, pillar-switching while on the Results tab rebuilds cleanly,
+  zero console/page errors. P1 + P4 screenshots eyeballed.
+- Synthetic tests for paths real data doesn't exercise yet: `$#,###`
+  formatting, `statusOverride` precedence (with star icon for record-high),
+  null-status → no pill.
+
 ## 2026-07-17 (chunk B) — Pillar-measures pipeline built and verified
 
 **Context:** First implementation chunk of the pillar-measure-charts plan
