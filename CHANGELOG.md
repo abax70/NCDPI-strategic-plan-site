@@ -2,6 +2,68 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-17 (chunk B) — Pillar-measures pipeline built and verified
+
+**Context:** First implementation chunk of the pillar-measure-charts plan
+(deadline chain: Y-set populated by Mon 7/20 noon → more data by 7/24 → holding
+pattern to the 8/5 board meeting).
+
+### Shipped (commits `73f84d9` code + docs commit, both pushed)
+
+- **`data/build-pillar-measures.py`** — repeatable cleaning script: reads the
+  downloaded xlsx export of Geoff's `StrategicPlan_measures` sheet
+  (`data/source/`, gitignored) and emits **`data/pillar-measures.json`** in the
+  measures.json schema, so pillar.html can reuse the BiN chart component.
+  Each data wave = re-run + work the warning list, not a re-clean.
+- All plan decision rules implemented and tested (synthetic xlsx tests for the
+  guards the real data doesn't exercise): strict-Y filter, duplicate-ID hard
+  abort (no output clobber), widened `P#.M#[a-z]` sub-ID pattern with
+  DIM_Measures.csv as registry (unknown / mid-split IDs excluded with loud
+  warnings), P5.M2 excluded by name, format-aware parsing (percent cells are
+  *fractions* with `%` number formats → converted to percent points; `-`/`.`/
+  `TBD` → null), direction-aware derived status, BiN-style yAxisMax (1.2 ×
+  series max, percent-capped at 100), end-of-run warning summary.
+- **First real run: 6 measures charted** (P1.M5, P1.M10, P4.M4, P4.M7, P5.M3,
+  P7.M2), 13 BiN rows skipped, P5.M2 excluded — matches the plan inventory.
+  Output is contract-identical to a BiN measures.json entry (verified
+  field-by-field) plus one new field, `statusOverride`.
+- Testing caught and fixed a real bug: the sub-ID sibling check used
+  `startswith`, which would have false-matched P1.M10 as a sub-ID of P1.M1.
+
+### Decisions
+
+- **New derived-status vocabulary** (chunk C renders it): `on-target` /
+  `approaching-target` / `baseline`, labels like "Approaching Target — 24.3%".
+  Derived fields regenerate every run; the hand-override lives in
+  `statusOverride` `{type, label}` (preserved, renderer should prefer it). A
+  regression vs. prior year derives *no* status (null + warning) rather than
+  printing "Approaching target" over a decline.
+- **Scratchpad prose never auto-publishes.** Most Source cells are Geoff's
+  meeting notes (one literally contains an open question). Only clean
+  "prose + one URL" or bare-URL cells auto-split; everything else stays null
+  with a hand-review warning — fix-up channel is hand-authored `sourceHtml`
+  (preserved field, BiN renderer already prefers it).
+- **`data/source/` is gitignored** — the export carries staff-name columns
+  (Chief / Business Owner / Responsible Person) and Geoff's raw notes; repo is
+  public via Pages. The script never reads the staff columns (plan decision 6).
+  Each machine downloads its own export; the generated JSON is tracked.
+
+### Andy's warning-list to-dos (from the first run)
+
+- Hand-author `sourceHtml` for P4.M4, P4.M7, P5.M3, P7.M2; add a human
+  `sourceLabel` for P1.M10 (bare Tableau URL).
+- P5.M2 chartability + P1.M5 mid-edit goal text ("percentage number of…") →
+  raise with Geoff.
+
+## 2026-07-17 (planning session) — Chunked pillar-measure-charts plan approved
+
+- Sheet triage + column mapping session (chunk A of the work). Output:
+  **`notes/plan-pillar-measures-20260717.md`** (commit `9675a19`) — the pickup
+  doc for all implementation chunks: source/column mapping to the measures.json
+  contract, sub-ID handling rules, today's Y inventory (20 Y rows − 13 BiN =
+  7 net-new, P5.M2 excluded), and the chunk table (B pipeline / C rendering /
+  D populate+verify / E accessibility) with per-chunk model recommendations.
+
 ## 2026-07-16 (pm) — Geoff meeting debrief folded into the plan
 
 **Context:** Debrief of today's Geoff meeting (state board 2026-08-05). Worked as a

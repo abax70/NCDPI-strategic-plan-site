@@ -1,90 +1,74 @@
 ---
 cc_status: hot
 cc_strand: strategic-plan
-cc_updated: 2026-07-16
+cc_updated: 2026-07-17
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-07-16 (Geoff debrief folded in). See CHANGELOG.md for full record._
+_Last updated: 2026-07-17 (chunk B shipped). See CHANGELOG.md for full record._
 
 ## Where things stand
 
-**Anchor: the 2026-08-05 state board meeting.** The Geoff meeting (7/16) is now
-debriefed and folded in. The primary remaining development goal for the board
-update is the **pillar measure charts** — identical in form to the best-in-nation
-(BiN) charts already built, but showing the measures tied to the *non-BiN*
-pillars. Geoff expects ~15 of these to have data by 8/5.
+**Anchor: the 2026-08-05 state board meeting.** Deadline chain: **Y-set
+populated by Mon 7/20 noon** (Geoff reviews with Supt. Mo Green that day; SPAC
+7/21) → additional data by Fri 7/24 EOD → holding pattern to 8/5.
 
-**Source & pipeline.** Measure data currently lives in a rough Google Sheet on
-Google Drive, `StratPlanMeasures` — Geoff's live scratchpad as he meets with
-teams to define measures. It is NOT chart-ready. An intermediate cleaning step
-turns it into the chart source. Rows that are finalized and ready to populate are
-flagged `Y` in the sheet's **Finalized** column.
+**The approved plan is `notes/plan-pillar-measures-20260717.md`** (chunk table,
+column mapping, decision rules). Progress through the chunks:
 
-- **Design call (Andy + Claude, 7/16):** make the cleaning step a *repeatable
-  script*, not a one-time hand-clean. Data arrives in waves (the `Y` set now, more
-  by 7/24, and likely edits after the Mo/SPAC reviews), so the script should read
-  `StratPlanMeasures` and emit exactly the data contract the BiN charts already
-  consume — each new wave becomes a re-run, not a re-clean.
+| Chunk | Scope | Status |
+|---|---|---|
+| A | Sheet triage + mapping (the plan doc) | ✅ done 7/17 |
+| B | `data/build-pillar-measures.py` pipeline | ✅ done 7/17, commit `73f84d9` |
+| C | Results-tab rendering in pillar.html | **next** — plan recommends Opus, fresh session |
+| D | Populate + verify on real Y set | after C (data side already real) |
+| E | Accessibility + final review, deploy | last |
 
-Shipped the prior session (single commit, hero polish):
+**Chunk B shipped:** `python data/build-pillar-measures.py` reads the
+downloaded xlsx export (`data/source/StrategicPlan_measures.xlsx`, gitignored —
+staff names + Geoff's notes, public repo) and emits `data/pillar-measures.json`
+in the measures.json schema. First real run charted 6 measures (P1.M5, P1.M10,
+P4.M4, P4.M7, P5.M3, P7.M2); P5.M2 excluded; 13 BiN rows skipped. **Per-wave
+refresh routine:** download the sheet to `data/source/`, re-run the script,
+work the warning list. Hand-authored fields (`sourceHtml`, `statusOverride`,
+descriptions) survive rebuilds.
 
-- Landing + Best-in-Nation heroes now use the tagline-free `WhiteOrange` AEE
-  lockup on a full-width blue-squares field. BiN got the biggest rework — its old
-  split-panel layout was replaced with landing's continuous-pattern treatment.
-- Pillar hero baseline strip trimmed 5px → 4px.
-- Landing hero title anchored to the 1440px content frame so it aligns with
-  `STRATEGIC PILLARS` on wide monitors (laptop unchanged).
-- Project `CLAUDE.md` refreshed: old "diverged forever" warning retired; new note
-  on the CRLF/LF line-ending churn between Windows host and container.
+## Next session — chunk C (rendering)
 
-## Next session — pillar measure charts
+- Transplant the BiN two-chart component + status band from
+  `best-in-nation.html` into `pillar.html`'s `buildResultsTab()`, reading
+  `data/pillar-measures.json` (already real data — filter by `pillarNumber`).
+- Per-pillar conditional: charts for finalized measures; the existing
+  "data coming" note otherwise; per-measure note when a pillar has
+  some-but-not-all. "View the Best in the Nation measures" link (P1/P8
+  especially — decision 1, no duplication).
+- **New status vocabulary to render:** `on-target` / `approaching-target` /
+  `baseline` + preserved `statusOverride` `{type, label}` which should WIN over
+  the derived fields. BiN's pill only knows `record-high`; this is new UI.
+- **`formatValue` in pillar.html needs a `$#,###` case** before any dollar
+  measure goes Y (script infers the format; BiN renderer doesn't speak it).
+- Chart.js pinned at 4.4.7 + annotation 3.1.0 — keep. Verify charts actually
+  render (not just page-load); size check 375/1280/2560; `?p=N` param.
 
-Backward chain to the board meeting:
+## Awaiting Andy (warning-list from chunk B's first run)
 
-- **[by Mon 7/20, noon]** Populate all currently-finalized (`Y`) measures into the
-  pillar charts. Geoff reviews with Supt. Mo Green that day; SPAC (the
-  strategic-plan governing committee) the next day, 7/21. Expect feedback after.
-- **[by Fri 7/24, EOD]** Populate any additional measure data that has come in (the
-  ball is in Geoff's court on what lands).
-- **[7/24 → 8/5]** Holding pattern — only leadership-required changes, plus routine
-  actions/stories updates.
-
-First moves:
-
-- Pull up `StratPlanMeasures` via the Google Drive connector and read its real
-  columns.
-- Confirm the BiN charts' data contract — the file/shape they read today is the
-  cleaning script's output target.
-- Build the cleaning script, then populate the `Y` set.
-
-## Open threads
-
-- **Size-the-effort questions (raise with Geoff / resolve early):**
-  - How were the BiN charts built — templated/scripted (point at new data → chart
-    appears) or bespoke per chart? Single biggest driver of whether 15 charts is a
-    day or a week.
-  - How many rows are `Y` *right now*? Sizes the 7/20 pass specifically (vs. the
-    ~15 expected by 8/5).
-
-## Awaiting Andy
-
-- **Investigate P2.F2.A4** — still exists in the Smartsheet tracker (launch
-  2027-07-01, Not Started) but not in `DIM_Actions.csv`, so it's not on the site.
-  Carried over.
-- Delete `data/blog_focus_area_matches_draft_2026-07.csv` (graduated to final;
-  untracked — deletions are always Andy's). Carried over.
-- Nudge graphics team if hero implementation needs sign-off — last session the
-  answer was "yes, they gave us tagline-free variants in April; just needed to
-  point at them."
+- **Hand-author `sourceHtml`** for P4.M4, P4.M7, P5.M3, P7.M2 (source cells are
+  Geoff's scratchpad — left null on purpose) and a human `sourceLabel` for
+  P1.M10's bare Tableau URL. Edit `data/pillar-measures.json` directly; these
+  fields are preserved across re-runs.
+- **Raise with Geoff:** P5.M2 chartability (all-1s milestone); P1.M5 goal text
+  mid-edit in the sheet ("percentage number of…" — flows into the JSON as-is).
+- **Carried over:** investigate P2.F2.A4 (in Smartsheet tracker, not in
+  DIM_Actions.csv); delete `data/blog_focus_area_matches_draft_2026-07.csv`;
+  decide whether to keep or delete `notes/pillar-measures-20260717.md` (the
+  raw braindump — its content graduated into the committed plan doc).
 
 ## Repo state notes
 
-- Local `master` = `origin/master` now. The old "intentionally diverged, do not
-  reconcile" warning is retired.
-- CRLF/LF line-ending churn appears intermittently between Windows host and
-  container. Always verify with `git diff --ignore-cr-at-eol` before treating a
-  modified-file list as real work; discard with `git restore .` if empty.
-- No `.gitattributes` in the repo — adding one would be the permanent fix, but
-  deferred.
+- Local `master` = `origin/master`; pushes deploy via GitHub Pages (the new
+  JSON is inert until chunk C references it).
+- CRLF/LF churn appears intermittently between Windows host and container —
+  verify with `git diff --ignore-cr-at-eol` before treating a modified-file
+  list as real work; discard with `git restore .` if empty. No `.gitattributes`
+  yet (permanent fix, deferred).
