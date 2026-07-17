@@ -25,6 +25,13 @@ data/.smartsheet-token
 data/*.xlsx
 data/*.md
 
+# Downloaded exports of Geoff's StrategicPlan_measures Google Sheet — input to
+# data/build-pillar-measures.py. NEVER commit: contains staff-name columns
+# (Chief / NCDPI Business Owner / Responsible DPI Person) and Geoff's raw
+# meeting notes, and this repo is public via GitHub Pages. Each machine
+# downloads its own copy; the generated data/pillar-measures.json IS tracked.
+data/source/
+
 # Reference materials
 reference/
 

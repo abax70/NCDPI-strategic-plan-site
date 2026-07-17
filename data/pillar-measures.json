@@ -1,0 +1,458 @@
+[
+  {
+    "id": "ap-at-least-1-course",
+    "measureId": "P1.M5",
+    "name": "AP At Least 1 Course",
+    "pillarNumber": 1,
+    "pillarName": "Prepare Each Student for Their Next Phase in Life",
+    "menuLabel": "AP At Least 1 Course",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the percentage number of high school students enrolled in at least one AP course.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#,###",
+    "yAxisMax": 131400.0,
+    "sourceLabel": "Based on fall enrollment numbers reported in JLEOC report (Broaden Successful Participation in Advanced Courses)",
+    "sourceUrl": "https://webservices.ncleg.gov/ViewDocSiteFile/91497",
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "approaching-target",
+    "statusLabel": "Approaching Target — 99,397",
+    "statusOverride": null,
+    "currentValue": "99,397",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 97317.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 99397.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 101500.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 103500.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 105500.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 107500.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 109500.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "proficiency",
+    "measureId": "P1.M10",
+    "name": "Proficiency",
+    "pillarNumber": 1,
+    "pillarName": "Prepare Each Student for Their Next Phase in Life",
+    "menuLabel": "Proficiency",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Increase the percentage of students scoring levels 3, 4 or 5 on the End of Grade (EOG) and End of Course (EOC) tests.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 72.0,
+    "sourceLabel": null,
+    "sourceUrl": "https://public.tableau.com/views/Proficiency-StateLevel/Proficiency-StateLevel?:showVizHome=no",
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "approaching-target",
+    "statusLabel": "Approaching Target — 55.0%",
+    "statusOverride": null,
+    "currentValue": "55.0%",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": "Oct.",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 54.2,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 55.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 56.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 57.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 58.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 59.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 60.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "chronic-absenteeism",
+    "measureId": "P4.M4",
+    "name": "Chronic Absenteeism",
+    "pillarNumber": 4,
+    "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
+    "menuLabel": "Chronic Absenteeism",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and decrease chronic absenteeism rates across PSUs.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 30.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "approaching-target",
+    "statusLabel": "Approaching Target — 24.3%",
+    "statusOverride": null,
+    "currentValue": "24.3%",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 25.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 24.3,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 23.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 21.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 19.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 17.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 15.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "school-violence",
+    "measureId": "P4.M7",
+    "name": "School Violence",
+    "pillarNumber": 4,
+    "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
+    "menuLabel": "School Violence",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Increase the percentage of schools reporting none to a limited number of incidents of violence annually.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 99.6,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 78.2%",
+    "statusOverride": null,
+    "currentValue": "78.2%",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": "Jan/Feb",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 78.2,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 79.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 80.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 81.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 82.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 83.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "financial-and-human-resource-systems",
+    "measureId": "P5.M3",
+    "name": "Financial and Human Resource Systems",
+    "pillarNumber": 5,
+    "pillarName": "Optimize Operational Excellence",
+    "menuLabel": "Financial and Human Resource Systems",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the number of PSUs that adopt modernized financial and human resources systems.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#",
+    "yAxisMax": 138.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 15",
+    "statusOverride": null,
+    "currentValue": "15",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 15.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 35.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 55.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 75.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 95.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 115.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "communication-professional-development",
+    "measureId": "P7.M2",
+    "name": "Communication Professional Development",
+    "pillarNumber": 7,
+    "pillarName": "Celebrate the Excellence in Public Education",
+    "menuLabel": "Communication Professional Development",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the number of professional development opportunities provided for PIOs and NCDPI partners to use shared messaging and materials.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#",
+    "yAxisMax": 12.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 4",
+    "statusOverride": null,
+    "currentValue": "4",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 4.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 8.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 10.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 10.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 10.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 10.0,
+        "actual": null
+      }
+    ]
+  }
+]
