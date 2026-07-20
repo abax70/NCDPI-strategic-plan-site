@@ -1808,6 +1808,11 @@ function renderStories(focusArea) {
 // Guarded so a CDN failure can't take down the Actions/Stories tabs.
 if (typeof Chart !== 'undefined') {
   Chart.defaults.font.family = "'Source Sans Pro', sans-serif";
+  // Respect the OS "reduce motion" setting: render charts instantly
+  // instead of the ~1s grow-in. (Mirrored in best-in-nation.html.)
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    Chart.defaults.animation = false;
+  }
 }
 
 // --- Style-guide colors (NCDPI Data Visualization Style Guide) ---
@@ -2350,6 +2355,9 @@ function buildMeasureBlock(m) {
     '<div class="measure-header">' +
       (m.iconUrl ? '<img src="' + m.iconUrl + '" alt="' + m.name + ' icon">' : '') +
       '<div>' +
+        // Measure-ID chip, same badge the focus-area/action headers use
+        // (punch list 2026-07-20 #1) — gives every chart a citable ID.
+        '<span class="action-id-badge" style="font-size:10px; margin-bottom:3px; display:inline-block;">' + m.measureId + '</span>' +
         '<h3>' + m.name + '</h3>' +
         '<p class="goal"><strong>Goal:</strong> ' + (m.goal || '') + '</p>' +
         statusPillHTML(m) +

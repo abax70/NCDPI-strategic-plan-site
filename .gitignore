@@ -24,6 +24,10 @@ data/.smartsheet-token
 # some contain not-yet-cleared content) and local-only working notes (*.md).
 data/*.xlsx
 data/*.md
+# …except the generated gaps report (build-pillar-measures.py): deliberately
+# publishable — it never quotes raw sheet text — and tracked so it syncs
+# across machines for pinging Geoff after each data wave.
+!data/measure-gaps.md
 
 # Downloaded exports of Geoff's StrategicPlan_measures Google Sheet — input to
 # data/build-pillar-measures.py. NEVER commit: contains staff-name columns

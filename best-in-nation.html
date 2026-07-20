@@ -1247,6 +1247,12 @@
 // font so every text element on the chart has the same visual size.
 Chart.defaults.font.family = "'Source Sans Pro', sans-serif";
 
+// Respect the OS "reduce motion" setting: render charts instantly
+// instead of the ~1s grow-in. (Mirrored in pillar.html.)
+if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  Chart.defaults.animation = false;
+}
+
 // --- Style-guide colors (NCDPI Data Visualization Style Guide) ---
 const COLORS = {
   baseline:  '#003A70',   // Highlighted Bar/Line (navy)
