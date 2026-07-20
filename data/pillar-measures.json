@@ -152,6 +152,234 @@
     ]
   },
   {
+    "id": "epp-enrollment",
+    "measureId": "P2.M2a",
+    "name": "EPP Enrollment",
+    "pillarNumber": 2,
+    "pillarName": "Revere Public School Educators",
+    "menuLabel": "EPP Enrollment",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the number of teacher candidates enrolling in traditional educator-preparation programs (EPPs).",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#,###",
+    "yAxisMax": 3720.0,
+    "sourceLabel": "(calculated as number of candidates in first year traditional pathway program)",
+    "sourceUrl": "https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome?%3Aembed=y",
+    "sourceHtml": "<a href=\"https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome\" target=\"_blank\" rel=\"noopener\">NCDPI EPP Dashboard</a> (calculated as the number of candidates in first-year traditional pathway programs)",
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "approaching-target",
+    "statusLabel": "Approaching Target — 2,594",
+    "statusOverride": null,
+    "currentValue": "2,594",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 2360.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 2594.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 2700.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 2800.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 2900.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 3000.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 3100.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "epp-completion",
+    "measureId": "P2.M2b",
+    "name": "EPP Completion",
+    "pillarNumber": 2,
+    "pillarName": "Revere Public School Educators",
+    "menuLabel": "EPP Completion",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the number of teacher candidates completing traditional educator-preparation programs (EPPs).",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#,###",
+    "yAxisMax": 3120.0,
+    "sourceLabel": "(calculated as number of candidates completing traditional pathway program)",
+    "sourceUrl": "https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome?%3Aembed=y",
+    "sourceHtml": "<a href=\"https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome\" target=\"_blank\" rel=\"noopener\">NCDPI EPP Dashboard</a> (calculated as the number of candidates completing traditional pathway programs)",
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": null,
+    "statusLabel": null,
+    "statusOverride": null,
+    "currentValue": "2,088",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 2096.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 2088.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 2200.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 2300.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 2400.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 2500.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 2600.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "psus-with-advanced-teaching-roles",
+    "measureId": "P2.M4a",
+    "name": "PSUs with Advanced Teaching Roles",
+    "pillarNumber": 2,
+    "pillarName": "Revere Public School Educators",
+    "menuLabel": "PSUs with Advanced Teaching Roles",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the number of PSUs implementing Advanced Teaching Roles (ATR).",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#",
+    "yAxisMax": 68.4,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "approaching-target",
+    "statusLabel": "Approaching Target — 37",
+    "statusOverride": null,
+    "currentValue": "37",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 34.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 37.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 41.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 45.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 49.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 53.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 57.0,
+        "actual": null
+      }
+    ]
+  },
+  {
     "id": "chronic-absenteeism",
     "measureId": "P4.M4",
     "name": "Chronic Absenteeism",
