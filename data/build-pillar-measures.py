@@ -52,6 +52,9 @@ Key rules (decision numbers reference the plan doc):
   - Chief / NCDPI Business Owner / Responsible DPI Person columns are never
     read (decision 6 — staff names, public repo).
   - The end-of-run WARNING SUMMARY is the per-wave to-do list.
+  - The gaps report (data/measure-gaps.md) also reconciles DIM_Measures.csv
+    against ALL sheet rows both ways every run (punch #3), so unregistered
+    sub-IDs get DIM rows before a wave flips them Y.
 
 Author: Andy Baxter / Claude  |  2026-07-17
 """
@@ -323,8 +326,13 @@ def load_existing():
 
 
 def read_sheet(xlsx_path):
-    """Read the Pillars tab → list of Y-flagged row dicts (cells kept raw for
-    format-aware parsing). Aborts on duplicate Y-row Measure IDs."""
+    """Read the Pillars tab → (Y-flagged row dicts, ID census).
+
+    Y rows keep raw cells for format-aware parsing; duplicate Y-row Measure
+    IDs abort. The census records EVERY non-blank Measure ID (row number +
+    Finalized? text) so the gaps report can reconcile DIM against the whole
+    sheet — not-yet-Y rows are exactly the ones worth registering in DIM
+    before a wave flips them Y (punch list 2026-07-20 #3)."""
     wb = openpyxl.load_workbook(xlsx_path, data_only=True)
     if SHEET_NAME not in wb.sheetnames:
         abort(f"sheet tab '{SHEET_NAME}' not found in {xlsx_path} "
@@ -354,12 +362,15 @@ def read_sheet(xlsx_path):
         abort("no year columns recognized in the sheet header row")
 
     rows = []
+    census = []  # (row_num, measure_id, finalized_text) for ALL rows with an ID
     seen_ids = {}
     for row in ws.iter_rows(min_row=2):
         finalized = clean_text(row[headers[COL_FINALIZED]].value)
+        mid = clean_text(row[headers[COL_ID]].value)
+        if mid:
+            census.append((row[0].row, mid, finalized))
         if finalized.casefold() != "y":
             continue
-        mid = clean_text(row[headers[COL_ID]].value)
         if mid in seen_ids:
             abort(f"duplicate Measure ID '{mid}' among Y-flagged rows "
                   f"(rows {seen_ids[mid]} and {row[0].row}) — Geoff's sheet is "
@@ -381,7 +392,7 @@ def read_sheet(xlsx_path):
             "year_cells": {yr: row[idx] for yr, (idx, _) in year_cols.items()},
             "year_roles": {yr: role for yr, (idx, role) in year_cols.items()},
         })
-    return rows
+    return rows, census
 
 
 # --- Derivations ------------------------------------------------------------
@@ -580,6 +591,43 @@ def sort_key(measure, dim_lookup):
 GAPS_MD = os.path.join(SCRIPT_DIR, "measure-gaps.md")
 
 
+def dim_reconciliation(dim_lookup, census):
+    """Two-way DIM_Measures.csv <-> sheet audit (punch list 2026-07-20 #3).
+
+    Compares against ALL sheet rows, not just Y ones: an unregistered ID is
+    harmless until a wave flips it Y and the pipeline excludes it — this
+    section exists so DIM rows get added BEFORE that happens, and so DIM
+    rows the sheet restructured away (e.g. a base ID split into sub-IDs)
+    can't linger. IDs and row numbers only — no sheet prose (public repo)."""
+    findings = []
+    sheet_ids = {}
+    for row_num, mid, _fin in census:
+        sheet_ids.setdefault(mid, []).append(row_num)
+
+    for mid, row_nums in sorted(sheet_ids.items()):
+        if len(row_nums) > 1:
+            findings.append(
+                f"sheet ID `{mid}` appears on {len(row_nums)} rows "
+                f"({', '.join(map(str, row_nums))}) — needs distinct sub-IDs: "
+                f"2+ of them Y aborts the build; exactly one Y would chart "
+                f"under the ambiguous shared ID")
+        if not MEASURE_ID_RE.match(mid):
+            findings.append(
+                f"sheet row {row_nums[0]}: Measure ID `{mid}` doesn't match "
+                f"P#.M#[a-z] — needs a real ID before it can chart")
+        elif mid not in dim_lookup:
+            findings.append(
+                f"sheet ID `{mid}` is not in DIM_Measures.csv — it will be "
+                f"EXCLUDED if flagged Y; add the DIM row (name + sort) now")
+
+    for mid in sorted(dim_lookup):
+        if mid not in sheet_ids:
+            findings.append(
+                f"DIM ID `{mid}` is no longer anywhere in the sheet — "
+                f"restructured out? Remove or remap the DIM row")
+    return findings
+
+
 def measure_gaps(row, measure):
     """Missing-field notes for one charted measure. Sheet-column gaps are
     phrased for pinging Geoff; hand-authored gaps are Andy's side."""
@@ -604,7 +652,7 @@ def measure_gaps(row, measure):
     return out
 
 
-def write_gaps_report(gaps, warnings):
+def write_gaps_report(gaps, warnings, dim_findings):
     """data/measure-gaps.md — tracked, regenerated every run. Andy pastes
     from it to ping Geoff after each wave.
 
@@ -634,6 +682,14 @@ def write_gaps_report(gaps, warnings):
     if not any_gap:
         lines += ["All charted measures have their display fields. 🎉", ""]
 
+    lines += ["## DIM ↔ sheet reconciliation (all rows, not just finalized)", ""]
+    if dim_findings:
+        lines += [f"- {f}" for f in dim_findings]
+    else:
+        lines.append("- in sync — every sheet ID is registered in "
+                     "DIM_Measures.csv and every DIM ID is still in the sheet")
+    lines.append("")
+
     lines += ["## Pipeline warnings this run", ""]
     if warnings:
         for mid, msg in warnings:
@@ -659,7 +715,7 @@ def main():
     dim_lookup = read_dim_measures()
     pillar_names = read_pillars()
     existing_map = load_existing()
-    y_rows = read_sheet(xlsx_path)
+    y_rows, id_census = read_sheet(xlsx_path)
 
     print(f"  - DIM_Measures.csv: {len(dim_lookup)} registry rows")
     print(f"  - DIM_Pillars.csv: {len(pillar_names)} pillars")
@@ -722,7 +778,7 @@ def main():
         json.dump(charted, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
-    write_gaps_report(gaps, WARNINGS)
+    write_gaps_report(gaps, WARNINGS, dim_reconciliation(dim_lookup, id_census))
 
     new_ids = charted_ids - set(existing_map)
     print(f"\n  Output: {OUTPUT_JSON}")

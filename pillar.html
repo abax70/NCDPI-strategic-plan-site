@@ -649,6 +649,8 @@
        - measure titles are h3 (page h2s are the tab headings)
        - status pill has on-target / approaching-target variants
          (BiN only renders record-high + baseline)
+       - jump strip (anchor links) when a pillar has 4+ measures —
+         meaningless in BiN's one-at-a-time carousel
      ========================================================= */
   .results-measures {
     padding: 8px 0;
@@ -680,7 +682,8 @@
     line-height: 1.5;
   }
   .measure-header .goal strong { font-weight: 700; }
-  .measure-header .status-pill {
+  .measure-header .status-pill,
+  .results-jump-strip .status-pill {
     margin-top: 8px;
     display: inline-flex;
     align-items: center;
@@ -697,16 +700,59 @@
      Default pill (above) = the "good news" green, used by on-target
      and record-high. Approaching-target gets a neutral-informational
      blue — progress, not yet success. Baseline gets the muted gray. */
-  .measure-header .status-pill.approaching-target {
+  .measure-header .status-pill.approaching-target,
+  .results-jump-strip .status-pill.approaching-target {
     background: var(--navy-light);
     border-color: var(--navy);
     color: var(--navy);
   }
-  .measure-header .status-pill.baseline {
+  .measure-header .status-pill.baseline,
+  .results-jump-strip .status-pill.baseline {
     background: #F0F1F3;
     border-color: #8C9EA0;
     color: var(--text);
   }
+
+  /* Jump strip (punch list 2026-07-20 #6) — table of contents shown only
+     when a pillar has 4+ measures. Each row links to a measure card and
+     carries its status pill, so the strip doubles as an at-a-glance
+     status summary. NOT mirrored in best-in-nation.html (deliberate
+     departure from the parity rule: BiN is a carousel, so anchor links
+     into stacked cards have no equivalent there). */
+  .results-jump-strip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 20px;
+    margin-bottom: 24px;
+  }
+  .results-jump-strip ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .results-jump-strip li + li { border-top: 1px solid var(--border); }
+  .results-jump-strip a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    text-decoration: none;
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .results-jump-strip a:hover .jump-name,
+  .results-jump-strip a:focus-visible .jump-name { text-decoration: underline; }
+  .results-jump-strip .status-pill {
+    margin-top: 0;
+    flex-shrink: 0;
+    font-size: 12px;
+    padding: 2px 10px;
+  }
+  /* Anchored scrolls land with a little air above the card header. */
+  .measure-block { scroll-margin-top: 16px; }
 
   /* Current value — big number callout */
   .current-value {
@@ -2350,6 +2396,9 @@ function statusPillHTML(m) {
 function buildMeasureBlock(m) {
   var block = document.createElement('section');
   block.className = 'measure-block';
+  // Anchor target for the jump strip. measureId is unique per pillar
+  // (the pipeline hard-aborts on duplicates) and dots are legal in ids.
+  block.id = 'measure-' + m.measureId;
 
   var html =
     '<div class="measure-header">' +
@@ -2438,6 +2487,23 @@ function buildResultsTab(pillar) {
 
   container.className = 'results-measures';
   container.innerHTML = '';
+
+  // Jump strip (punch list 2026-07-20 #6): once a pillar stacks 4+ cards
+  // the page gets long, so lead with anchor links (name + status pill)
+  // that double as a status summary. Under 4 measures it's just noise.
+  if (currentResultsMeasures.length >= 4) {
+    var strip = document.createElement('nav');
+    strip.className = 'results-jump-strip';
+    strip.setAttribute('aria-label', 'Measures on this page');
+    strip.innerHTML = '<ul>' + currentResultsMeasures.map(function(m) {
+      return '<li><a href="#measure-' + m.measureId + '">' +
+        '<span class="jump-name">' + m.name + '</span>' +
+        statusPillHTML(m) +
+        '</a></li>';
+    }).join('') + '</ul>';
+    container.appendChild(strip);
+  }
+
   currentResultsMeasures.forEach(function(m) {
     container.appendChild(buildMeasureBlock(m));
   });

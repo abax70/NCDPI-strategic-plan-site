@@ -6,70 +6,72 @@ cc_updated: 2026-07-20
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-07-20 (deadline day — shipped). See CHANGELOG.md for the
-full record._
+_Last updated: 2026-07-20 (second session — pre-7/24 prep done). See
+CHANGELOG.md for the full record._
 
 ## Where things stand
 
-**The 7/20-noon deadline was met**: the fresh Y-set is live on production
-(deploy verified), including **3 new Pillar 2 measures** (P2.M2a, P2.M2b,
-P2.M4a) — 9 measures total across P1/P2/P4/P5/P7.
+**All pre-7/24 prep is done.** The 7/20-noon deadline was met last session
+(9 measures live across P1/P2/P4/P5/P7); this session landed the three
+queued items:
 
-**The pillar-measure-charts plan is COMPLETE (chunks A–E).** Chunk E's
-accessibility pass shipped 7/20: axe zero-violations, reduced-motion support
-(mirrored in best-in-nation.html per the parity rule), measure-ID chips,
-nice-number y-max rounding, and the new per-run gaps report
-(`data/measure-gaps.md`).
+- **Jump strip (punch #6) is built and verified, currently dormant** — it
+  appears automatically when any pillar reaches 4+ measures (max today is
+  P2's 3). Verified synthetically; no action needed when the 7/24 wave
+  triggers it for real, but eyeball it.
+- **DIM_Measures.csv is fully reconciled with the sheet** (two-way audit,
+  punch #3): 5 stale base rows removed, 8 sub-ID rows added (55 total).
+  The pipeline re-run confirmed byte-identical pillar-measures.json.
+  **Andy: review the drafted short names in the diff** (commit `HEAD`).
+- **The gaps report now self-audits DIM every run** — a "DIM ↔ sheet
+  reconciliation" section in `data/measure-gaps.md` catches unregistered /
+  stale / malformed / duplicate IDs each wave.
+- **`tools/verify-charts.py` exists** — the headless verify routine is a
+  real tool now (8 pillars × 3 widths, painted-pixel per canvas, card
+  counts vs JSON, console clean, jump-strip contract). Run it after any
+  chart-engine or data change: `python tools/verify-charts.py`.
 
 **Remaining deadline chain:** additional data by **Fri 7/24 EOD** → holding
 pattern (leadership-required changes + actions/stories only) → **8/5 state
 board meeting**.
 
-## Next session (before the 7/24 wave)
+## Next session: the 7/24 data wave
 
-1. **Jump strip** (punch #6, approved): when a pillar has **4+ measures**,
-   prepend anchor links (measure name + status pill) to the Results tab —
-   doubles as an at-a-glance summary. ~30 lines in `buildResultsTab()`.
-   No pillar triggers it yet, so it must land before the 7/24 wave does.
-2. **DIM two-way audit** (punch #3, approved): reconcile DIM_Measures.csv
-   against the current sheet in both directions (sheet IDs missing from DIM;
-   DIM rows the sheet restructured from under us). Claude edits DIM directly;
-   Andy reviews via diff. Consider folding a DIM-staleness section into the
-   gaps report so it can't drift again.
-3. **7/24 data wave**: Andy downloads the fresh export → re-run
-   `python data/build-pillar-measures.py` → work `data/measure-gaps.md` +
-   the warning list → headless re-verify → commit, push, verify deploy.
-   Watch for: another pillar going 0 → some measures (just verify; it's
-   data-driven), or a brand-new `valueFormat`.
+1. Andy downloads the fresh export to `data/source/StrategicPlan_measures.xlsx`.
+2. `python data/build-pillar-measures.py` → work the warning list + both
+   sections of `data/measure-gaps.md` (missing fields AND the new DIM
+   reconciliation section).
+3. `python tools/verify-charts.py` (replaces the old scratchpad routine).
+   If a pillar hit 4+ measures, the jump strip goes live — eyeball it once.
+4. Commit, push, verify the Pages deploy.
+   Watch for: a brand-new `valueFormat`, another pillar going 0 → some
+   measures (data-driven, just verify), and the P4.M6 situation below.
 
 ## Awaiting Andy
 
-- **`sourceHtml` for 5 measures** — P4.M4, P4.M7, P5.M3, P7.M2, P2.M4a still
-  render **no Source line**. Andy drafts the text (or sends URLs), Claude
-  writes the JSON. The gaps report now nags about these every run.
-- **Ping Geoff** (can paste from `data/measure-gaps.md`): does he want
-  WhyMeasureMatters filled for pillar measures (Andy guesses no)? Plus the
-  carried-over items — P5.M2 chartability (all-1s milestone) and P1.M5's
-  mid-edit goal text ("percentage number of…", visible on the live P1 card).
-- **Decide:** track `notes/punchlist-20260720.md` (the plan doc is tracked;
-  the punch list is currently untracked/local-only)?
+- **`sourceHtml` for 5 measures** — P4.M4, P4.M7, P5.M3, P7.M2, P2.M4a
+  still render **no Source line**. Andy drafts text (or sends URLs), Claude
+  writes the JSON. The gaps report nags about these every run.
+- **Ping Geoff** (paste from `data/measure-gaps.md`) — the list grew this
+  session:
+  - **P4.M6 is shared by 4 sheet rows** (YRBS items) — needs distinct
+    sub-letters before any goes Y (2+ Y aborts the build; exactly one Y
+    charts under the ambiguous ID).
+  - Row 2's literal `NEW` Measure ID (Schools of Character) needs a real ID.
+  - P2.M3a and P2.M3c exist but **no P2.M3b** — deliberate?
+  - Carried over: WhyMeasureMatters for pillar measures (Andy guesses no),
+    P5.M2 chartability (all-1s milestone), P1.M5's mid-edit goal text
+    ("percentage number of…", visible on the live P1 card).
 
 ## Repo state notes
 
 - Local `master` = `origin/master`; pushes deploy via GitHub Pages
   (production URL: abax70.github.io/NCDPI-strategic-plan-site).
-- **CRLF/LF churn is fixed for good** — `.gitattributes` + the 7/20
-  renormalize sweep (`1e2b9a2`). The old "verify with
-  `--ignore-cr-at-eol`" ritual is retired.
-- `data/measure-gaps.md` is generated by the pipeline every run and is
-  deliberately tracked (gitignore negation). It never quotes raw sheet
-  text — the repo is public.
-- The headless verify routine lives only in session scratchpads and has
-  now been rebuilt twice — worth promoting to `tools/verify-charts.py`
-  next time it's touched (checks: 8 pillars × 3 widths, per-canvas
-  painted-pixel test, card counts vs JSON, console clean; use a viewport
-  TALLER than the page for screenshots — see CHANGELOG 7/20 for the
-  full-page screenshot artifact gotcha).
-- Chart engine parity rule still in force: bug fixes land in BOTH
-  pillar.html and best-in-nation.html until the post-8/5 shared-file
-  extraction.
+- `data/measure-gaps.md` is generated every run and deliberately tracked.
+  It never quotes raw sheet prose (public repo) — IDs and row numbers only
+  in the reconciliation section.
+- Chart engine parity rule still in force for the SHARED engine: bug fixes
+  land in BOTH pillar.html and best-in-nation.html until the post-8/5
+  extraction. The jump strip is a documented deliberate departure
+  (pillar.html only — BiN's carousel has no stacked cards to anchor into).
+- `notes/punchlist-20260720.md` is tracked as of this session.

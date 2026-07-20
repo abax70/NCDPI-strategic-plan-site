@@ -2,6 +2,58 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-20 (second session) — Pre-7/24 prep: jump strip, DIM reconciliation, verify tool
+
+**Context:** Prep session between the noon deadline and the 7/24 EOD data wave.
+All three queued HANDOFF items landed, plus both open decisions resolved
+(punch list now tracked; verify routine promoted to a tool).
+
+### Shipped
+
+- **Jump strip (punch #6)** in `pillar.html`: when a pillar has 4+ measures,
+  `buildResultsTab()` prepends a nav card of anchor links — measure name left,
+  status pill right — doubling as an at-a-glance status summary. Measure cards
+  got `id="measure-<ID>"` anchors. **Deliberately NOT mirrored in
+  best-in-nation.html** (parity-rule departure, commented in place: BiN's
+  carousel renders one measure at a time, so anchors into stacked cards have
+  no equivalent). No pillar triggers it yet (max is P2's 3), so it was
+  verified synthetically: fetch-intercepted a 4th P2 measure → strip appears,
+  all anchors resolve, all pill variants render (incl. no-pill for
+  null-status P2.M2b), anchor click scrolls the card into view.
+- **`tools/verify-charts.py`** — the twice-rebuilt scratchpad verify routine
+  is now a real tool. Serves the repo on localhost, drives headless Chromium
+  over 8 pillars × 3 widths (375/1280/2560): zero console/page errors, card
+  counts vs pillar-measures.json (placeholder when 0), painted-pixel test on
+  every canvas, and the jump-strip contract (present iff 4+ measures, one
+  link per measure, no dead anchors). `--screenshots DIR` uses a
+  taller-than-page viewport instead of `full_page` (the Chart.js mid-resize
+  freeze gotcha from 7/20). Full run: PASS.
+- **DIM two-way audit (punch #3)**: the sheet had restructured **five base
+  measures into sub-splits** — P1.M17→a/b, P2.M2→a/b, P2.M3→a/c, P2.M4→a/b,
+  P6.M1→a/b/c. Removed the 5 stale base rows from `DIM_Measures.csv`, added
+  the 8 missing sub-ID rows (55 rows total, both directions now fully
+  reconciled). Short names for the new rows are Claude drafts for Andy's
+  diff review (e.g. "Beginning Teacher Retention", "Low-performing
+  Districts"). Safe for the BiN build (DIM is lookup-only there; all 5
+  removed bases were non-BiN). Pipeline re-run after the edits produced a
+  **byte-identical pillar-measures.json** — neutral to the 9 live measures.
+- **Gaps report now self-audits DIM (punch #3 follow-through)**:
+  `build-pillar-measures.py` censuses ALL sheet Measure IDs (not just
+  Y-flagged) and writes a "DIM ↔ sheet reconciliation" section into
+  `data/measure-gaps.md` every run — unregistered sheet IDs, stale DIM IDs,
+  malformed IDs, duplicate-ID rows. Registry drift can't silently recur.
+- **`notes/punchlist-20260720.md` is now tracked** (Andy's call).
+
+### Sheet anomalies found (for Geoff, via the gaps report)
+
+- **P4.M6 is shared by 4 rows** (40–43, the YRBS mental-health items; one
+  marked "Question removed from YRBS survey"). Needs distinct sub-letters:
+  2+ flagged Y aborts the build; exactly one Y would chart under the
+  ambiguous shared ID.
+- Row 2 has a literal **`NEW`** as its Measure ID (Schools of Character).
+- The sheet has **P2.M3a and P2.M3c but no P2.M3b** — possibly deliberate;
+  confirm while pinging Geoff.
+
 ## 2026-07-20 — Deadline-day data wave + chunk E + punch-list build-out
 
 **Context:** The noon deadline (Y-set populated; Geoff → Supt. Green today,
