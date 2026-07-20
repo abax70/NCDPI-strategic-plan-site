@@ -2,6 +2,83 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-20 — Deadline-day data wave + chunk E + punch-list build-out
+
+**Context:** The noon deadline (Y-set populated; Geoff → Supt. Green today,
+SPAC 7/21). Everything shipped and deploy-verified live well before noon.
+**The pillar-measure-charts plan is now complete, chunks A–E.**
+
+### Shipped (3 commits: `1e2b9a2`, `0c7bcb0`, `5fc264d`, all pushed + live)
+
+- **Renormalize sweep** (`1e2b9a2`): one-time LF rewrite of 3 CRLF-stored
+  CSVs (244 lines, content-identical under `--ignore-cr-at-eol`). The
+  CRLF/LF churn issue is permanently closed.
+- **Data wave** (`0c7bcb0`): fresh sheet export → **3 new P2 measures**
+  (P2.M2a EPP Enrollment, P2.M2b EPP Completion, P2.M4a PSUs with Advanced
+  Teaching Roles) — Pillar 2 went 0 → 3 charts with zero renderer changes
+  (the conditional is data-driven, as designed). Added the DIM_Measures.csv
+  registry rows for Geoff's finalized sub-IDs; fixed 3 DIM typos ("Rolese",
+  "Stuff Pay", "$67 ,641"). The 6 existing measures came through
+  byte-identical (no data changes this wave; preserved fields survived).
+  Hand-authored `sourceHtml` for P2.M2a/b — Geoff's parenthetical
+  methodology note had auto-split into the *link text*; now "NCDPI EPP
+  Dashboard" links with the note trailing in parens. P2.M2b derives **no**
+  status pill (2,096 → 2,088; the regression rule working as intended).
+- **Chunk E accessibility** (`5fc264d`): audit came back strong — axe-core
+  WCAG A/AA **zero violations** on Results tabs, status-pill text contrast
+  8.9–13.7:1, every canvas already `role="img"` with plain-language labels,
+  keyboard order sane. One real gap found and fixed: charts ignored OS
+  **prefers-reduced-motion**; now `Chart.defaults.animation = false` under
+  it, in BOTH pillar.html and best-in-nation.html (parity rule).
+- **Punch list** (from Andy's review, `notes/punchlist-20260720.md`) —
+  adjudicated all 6 items; approved recs built same-day in `5fc264d`:
+  - **#1 Measure-ID chips** on measure cards (`.action-id-badge` reuse).
+  - **#2 Gaps report**: pipeline now writes `data/measure-gaps.md` every
+    run — per-measure missing sheet fields (for pinging Geoff) + the
+    warning list. Tracked via a `.gitignore` negation of `data/*.md`.
+    **Deliberately never quotes raw sheet cell text** (public repo; same
+    rationale as gitignored `data/source/`). Day one: 9/9 measures have
+    gaps (no WhyMeasureMatters anywhere; only P1.M5 has a Next update).
+  - **#4a Nice-number y-max**: derived yAxisMax now rounds up to a nice
+    mantissa (68.4 → 70, 3,720 → 4,000, 131,400 → 150,000) — matches the
+    convention Andy's hand-set BiN maxes already followed (1.2× then round).
+
+### Decisions
+
+- **Stacked cards stay; no carousel** (punch #6). Decisive argument: the
+  BiN carousel renders one measure's DOM at a time, so a print/PDF for a
+  board packet would capture one chart of N; stacking prints the whole
+  dossier, keeps Ctrl+F working, and keeps free heading navigation for
+  screen readers. Independent design-agent opinion concurred. Mitigation
+  for long pages: a **jump strip** (measure name + status pill as anchor
+  links) when a pillar hits **4+ measures** — queued, no pillar triggers
+  it yet.
+- **Single source of truth** (punch #3): the JSON is *not* it. Three
+  layers, each owning its slice — Geoff's sheet: data + what's finalized;
+  DIM_Measures.csv: site-facing identity (official IDs incl. sub-splits,
+  short titles, sort); pillar-measures.json: generated output + Andy's
+  hand-authored presentation overlay. Claude edits DIM directly (Andy
+  reviews via diff). Two-way DIM-vs-sheet audit queued.
+- **Status vocabulary clarified** (punch #5): "baseline" was never
+  blanket-replaced — it still applies to single-actual measures. The
+  ladder: meets same-or-next upcoming target → On Target; improved vs
+  prior year → Approaching Target; regressed → no pill. P1.M5 is
+  Approaching because it improved but hasn't met the *2026* target
+  (no 2025 target needed). BiN's statuses are hand-curated
+  (record-high/baseline) and stay that way until a post-8/5 unification.
+- **Screenshot-artifact gotcha** (worth remembering): a Playwright
+  `full_page` capture of a page *taller than the viewport* expands the
+  window mid-shot and freezes Chart.js mid-resize-animation — bars pile
+  up at the left edge and look badly broken. Not a site bug. Use a
+  viewport taller than the page when screenshotting chart pages.
+
+### Session mechanics
+
+- The chunk-C verify routine was rebuilt from scratch (prior session's
+  scratchpad was gone): 8 pillars × 3 widths, per-canvas painted-pixel
+  check, card counts vs JSON, console clean. Still scratchpad-only —
+  candidate for `tools/verify-charts.py` if we keep rebuilding it.
+
 ## 2026-07-17 (evening) — Housekeeping before the Monday deadline
 
 **Context:** Short end-of-day session to knock off quick, low-risk items ahead

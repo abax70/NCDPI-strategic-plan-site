@@ -1,87 +1,75 @@
 ---
 cc_status: hot
 cc_strand: strategic-plan
-cc_updated: 2026-07-17
+cc_updated: 2026-07-20
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-07-17 (chunk C shipped). See CHANGELOG.md for full record._
+_Last updated: 2026-07-20 (deadline day — shipped). See CHANGELOG.md for the
+full record._
 
 ## Where things stand
 
-**Anchor: the 2026-08-05 state board meeting.** Deadline chain: **Y-set
-populated by Mon 7/20 noon** (Geoff reviews with Supt. Mo Green that day; SPAC
-7/21) → additional data by Fri 7/24 EOD → holding pattern to 8/5.
+**The 7/20-noon deadline was met**: the fresh Y-set is live on production
+(deploy verified), including **3 new Pillar 2 measures** (P2.M2a, P2.M2b,
+P2.M4a) — 9 measures total across P1/P2/P4/P5/P7.
 
-**The approved plan is `notes/plan-pillar-measures-20260717.md`.** Progress:
+**The pillar-measure-charts plan is COMPLETE (chunks A–E).** Chunk E's
+accessibility pass shipped 7/20: axe zero-violations, reduced-motion support
+(mirrored in best-in-nation.html per the parity rule), measure-ID chips,
+nice-number y-max rounding, and the new per-run gaps report
+(`data/measure-gaps.md`).
 
-| Chunk | Scope | Status |
-|---|---|---|
-| A | Sheet triage + mapping (the plan doc) | ✅ done 7/17 |
-| B | `data/build-pillar-measures.py` pipeline | ✅ done 7/17, commit `73f84d9` |
-| C | Results-tab rendering in pillar.html | ✅ done 7/17 (this session) |
-| D | Populate + verify on real Y set | ✅ current wave verified with C; **re-run per wave** |
-| E | Accessibility + final review, deploy check | **next** |
+**Remaining deadline chain:** additional data by **Fri 7/24 EOD** → holding
+pattern (leadership-required changes + actions/stories only) → **8/5 state
+board meeting**.
 
-**Chunk C shipped:** pillar.html's Results tab renders the BiN two-chart
-component for finalized measures (P1/P4/P5/P7 today), stacked cards, new
-status pills (`on-target` green / `approaching-target` blue / `baseline`
-gray, `statusOverride` wins, null = no pill), direction-aware charts (P4.M4
-decreases), `$#,###` format wired, lazy render (charts wait for the tab to be
-visible). Verified headlessly at 375/1280/2560 on all 8 pillars, zero console
-errors. The chart engine is a deliberate near-verbatim copy of
-best-in-nation.html — **bug fixes must land in both files** until the planned
-post-8/5 shared-file extraction.
+## Next session (before the 7/24 wave)
 
-## Next session (Monday 7/20 morning — deadline is noon)
-
-0. **FIRST, before touching data — run the line-ending renormalize sweep.**
-   `.gitattributes` (`* text=auto eol=lf`) was committed 7/17 to kill the
-   CRLF/LF churn, but the already-tracked files still need a one-time rewrite
-   to LF. Do this *before* the data wave so the line-ending-only diff stays
-   isolated from real work:
-   ```bash
-   git add --renormalize .        # rewrites any CRLF-stored tracked files to LF
-   git status                     # review the line-ending-only diff
-   git commit -m "Renormalize tracked files to LF"   # only if the diff is non-empty
-   ```
-   The `.gitattributes` file carries a comment explaining this. After the
-   sweep, the "CRLF/LF churn" note under Repo state notes is obsolete.
-1. **New data wave:** download the fresh sheet export to
-   `data/source/StrategicPlan_measures.xlsx`, re-run
-   `python data/build-pillar-measures.py`, work the warning list. Hand-authored
-   fields survive rebuilds. Charts for new measures appear with **no code
-   changes** unless a new pillar goes from 0 → some measures (then just
-   verify) or a new `valueFormat` shows up.
-2. **Chunk E:** accessibility pass (canvas aria-labels exist from the BiN
-   pattern; check contrast on the new blue/gray pills, keyboard order,
-   plain-language descriptions), then commit, push, verify the Pages deploy.
-   **Note: the chunk-C push already put the charts on production** (2026-07-17,
-   deploy verified) — E is a polish pass on a live feature, not a launch.
-3. Re-verify headlessly after the data refresh (the chunk-C Playwright
-   routine: every canvas paints, all 8 pillars, 3 widths, console clean).
+1. **Jump strip** (punch #6, approved): when a pillar has **4+ measures**,
+   prepend anchor links (measure name + status pill) to the Results tab —
+   doubles as an at-a-glance summary. ~30 lines in `buildResultsTab()`.
+   No pillar triggers it yet, so it must land before the 7/24 wave does.
+2. **DIM two-way audit** (punch #3, approved): reconcile DIM_Measures.csv
+   against the current sheet in both directions (sheet IDs missing from DIM;
+   DIM rows the sheet restructured from under us). Claude edits DIM directly;
+   Andy reviews via diff. Consider folding a DIM-staleness section into the
+   gaps report so it can't drift again.
+3. **7/24 data wave**: Andy downloads the fresh export → re-run
+   `python data/build-pillar-measures.py` → work `data/measure-gaps.md` +
+   the warning list → headless re-verify → commit, push, verify deploy.
+   Watch for: another pillar going 0 → some measures (just verify; it's
+   data-driven), or a brand-new `valueFormat`.
 
 ## Awaiting Andy
 
-- **Hand-author `sourceHtml`** for P4.M4, P4.M7, P5.M3, P7.M2 — their cards
-  still render **no Source line**. Edit `data/pillar-measures.json` directly;
-  preserved across re-runs. (P1.M10's `sourceLabel` is now done — set to
-  "NCDPI Proficiency dashboard" on 7/17; note the render logic has no branch
-  for a bare `sourceUrl`, so a label is required for the Source link to show.)
-- **Raise with Geoff:** P5.M2 chartability (all-1s milestone); P1.M5 goal text
-  mid-edit ("percentage number of…" — visible on the live P1 card now).
-- **Carried over:** investigate P2.F2.A4 (Smartsheet tracker vs
-  DIM_Actions.csv). _(Done 7/17: deleted the draft blog-match CSV and the
-  raw braindump note.)_
+- **`sourceHtml` for 5 measures** — P4.M4, P4.M7, P5.M3, P7.M2, P2.M4a still
+  render **no Source line**. Andy drafts the text (or sends URLs), Claude
+  writes the JSON. The gaps report now nags about these every run.
+- **Ping Geoff** (can paste from `data/measure-gaps.md`): does he want
+  WhyMeasureMatters filled for pillar measures (Andy guesses no)? Plus the
+  carried-over items — P5.M2 chartability (all-1s milestone) and P1.M5's
+  mid-edit goal text ("percentage number of…", visible on the live P1 card).
+- **Decide:** track `notes/punchlist-20260720.md` (the plan doc is tracked;
+  the punch list is currently untracked/local-only)?
 
 ## Repo state notes
 
-- Local `master` = `origin/master`; pushes deploy via GitHub Pages.
-- `.gitattributes` (`* text=auto eol=lf`) committed 7/17; the tracked-file
-  renormalize sweep is still pending — see step 0.
-- CRLF/LF churn appears intermittently between Windows host and container —
-  verify with `git diff --ignore-cr-at-eol` before treating a modified-file
-  list as real work; discard with `git restore .` if empty. **Being fixed
-  permanently by step 0** (the `.gitattributes` + renormalize); this note
-  retires once that lands.
+- Local `master` = `origin/master`; pushes deploy via GitHub Pages
+  (production URL: abax70.github.io/NCDPI-strategic-plan-site).
+- **CRLF/LF churn is fixed for good** — `.gitattributes` + the 7/20
+  renormalize sweep (`1e2b9a2`). The old "verify with
+  `--ignore-cr-at-eol`" ritual is retired.
+- `data/measure-gaps.md` is generated by the pipeline every run and is
+  deliberately tracked (gitignore negation). It never quotes raw sheet
+  text — the repo is public.
+- The headless verify routine lives only in session scratchpads and has
+  now been rebuilt twice — worth promoting to `tools/verify-charts.py`
+  next time it's touched (checks: 8 pillars × 3 widths, per-canvas
+  painted-pixel test, card counts vs JSON, console clean; use a viewport
+  TALLER than the page for screenshots — see CHANGELOG 7/20 for the
+  full-page screenshot artifact gotcha).
+- Chart engine parity rule still in force: bug fixes land in BOTH
+  pillar.html and best-in-nation.html until the post-8/5 shared-file
+  extraction.
