@@ -46,7 +46,7 @@
     --pillar1-text: #003A70;
     --pillar2-text: #6E1360;
     --pillar3-text: #097A93;
-    --pillar4-text: #CB5277;
+    --pillar4-text: #C75128;
     --pillar5-text: #39813F;
     --pillar6-text: #6B6F71;
     --pillar7-text: #0063A2;
@@ -331,7 +331,8 @@
     /* 19px / weight 700 qualifies as WCAG "large text" (≥14pt bold =
        ≥18.66px bold), shifting the contrast threshold from 4.5:1 to 3:1.
        This rescues .tab-btn.active on light pillars: --pillar4-text
-       (#CB5277) gives 3.90:1 and --pillar5-text (#39813F) gives 4.46:1
+       (#C75128, Medium Orange per graphics team 2026-07-21; the old pink
+       #CB5277 gave 3.90:1) gives 4.22:1 and --pillar5-text (#39813F) gives 4.46:1
        against the panel bg (#F5F7FA) — both fail 4.5:1 but both pass 3:1.
        Axe's color-contrast rule requires weight ≥700 to classify as bold
        (the prior weight 600 was treated as normal). */
@@ -1418,7 +1419,7 @@ const PILLAR_ICONS = {
 
 // Contrast-safe text colors for pillar-branded elements (WCAG 4.5:1 on white)
 const PILLAR_TEXT = {
-  1: '#003A70', 2: '#6E1360', 3: '#097A93', 4: '#CB5277',
+  1: '#003A70', 2: '#6E1360', 3: '#097A93', 4: '#C75128',
   5: '#39813F', 6: '#6B6F71', 7: '#0063A2', 8: '#801323'
 };
 

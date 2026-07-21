@@ -49,7 +49,7 @@
     --pillar1-text: #003A70;
     --pillar2-text: #6E1360;
     --pillar3-text: #097A93;
-    --pillar4-text: #CB5277;
+    --pillar4-text: #C75128;
     --pillar5-text: #39813F;
     --pillar6-text: #6B6F71;
     --pillar7-text: #0063A2;
@@ -820,9 +820,18 @@
       font-size: 13px;
       padding: 8px 18px;
     }
+    /* Logo strip: the 5px pillar-color bar (.hero-banner::after) overlaps the
+       bottom of this strip once the hero stacks, so the flex-centered logo sat
+       visually low — nearly touching the bar (graphics team, 2026-07-21).
+       padding-bottom offsets the bar's height so the logo re-centers in the
+       space ABOVE the bar; the taller strip adds breathing room to match the
+       pillar pages' logo band. */
     .hero-banner-right {
       width: 100%;
-      height: 80px;
+      height: 88px;
+    }
+    .hero-logo-overlay {
+      padding-bottom: 5px;
     }
     .hero-logo-overlay img {
       max-height: 60px;
@@ -960,7 +969,9 @@
       font-size: 13px;
       margin-bottom: 10px;
     }
-    .hero-banner-right { height: 60px; }
+    /* 72px (not 60) for the same reason as the 768px block: the 50px logo in a
+       60px strip left 0px of visible space above the overlapping 5px bar. */
+    .hero-banner-right { height: 72px; }
     .hero-logo-overlay img {
       max-height: 50px;
       max-width: 160px;
@@ -1280,11 +1291,13 @@
       </section>
 
       <!-- Right-hand vertical photo stack — 3 taller tiles, aligned top with the blurb.
-           Track-girl-in-victory-pose sits at the bottom so the CTA button points toward her. -->
+           Track girl on top, painter on the bottom (graphics team 2026-07-21):
+           her raised arms directly below the recycle-bin photo read as if she
+           were holding the bin. -->
       <div class="photos-right-col" role="group" aria-label="North Carolina students">
-        <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_379642447.jpeg" alt="Young student painting on an easel in art class"></div>
-        <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_1106761622.jpeg" alt="Elementary student holding a classroom recycling bin"></div>
         <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_1407146432.jpeg" alt="Young student cheering with arms raised at a track stadium"></div>
+        <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_1106761622.jpeg" alt="Elementary student holding a classroom recycling bin"></div>
+        <div class="photo-tile"><img src="images/HappyPeoplePhotos/AdobeStock_379642447.jpeg" alt="Young student painting on an easel in art class"></div>
       </div>
     </div>
 
