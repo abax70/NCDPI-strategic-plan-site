@@ -1,18 +1,30 @@
 ---
 cc_status: hot
 cc_strand: strategic-plan
-cc_updated: 2026-07-20
+cc_updated: 2026-07-21
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-07-20 (second session — pre-7/24 prep done). See
+_Last updated: 2026-07-21 (graphics-feedback round shipped). See
 CHANGELOG.md for the full record._
 
 ## Where things stand
 
-**All pre-7/24 prep is done.** The 7/20-noon deadline was met last session
-(9 measures live across P1/P2/P4/P5/P7); this session landed the three
+**Geoff meeting: Tue 7/22 at 3pm.** Andy gets the "last" round of feedback
+prior to the 7/24 data wave — expect a small punch list from it, likely the
+final leadership-driven changes before the holding pattern to 8/5.
+
+**Graphics team feedback is fully resolved (7/21, commit `8d8aeab`,
+deploy verified):** Pillar 4 pink → Medium Orange #C75128 (tabs + Stories
+links, contrast improved to 4.53:1 on white), homepage photo stack
+reordered (track girl top — her raised arms under the recycle-bin photo
+read as holding the bin), and mobile hero logo now clears the pillar-color
+bar (~8–12px, was 0px at ≤480px). Their sign-off: "once those are wrapped
+up, we're good to go."
+
+**All pre-7/24 prep is done.** The 7/20-noon deadline was met (9 measures
+live across P1/P2/P4/P5/P7); the 7/20 second session landed the three
 queued items:
 
 - **Jump strip (punch #6) is built and verified, currently dormant** — it
@@ -52,8 +64,8 @@ board meeting**.
 - **`sourceHtml` for 5 measures** — P4.M4, P4.M7, P5.M3, P7.M2, P2.M4a
   still render **no Source line**. Andy drafts text (or sends URLs), Claude
   writes the JSON. The gaps report nags about these every run.
-- **Ping Geoff** (paste from `data/measure-gaps.md`) — the list grew this
-  session:
+- **Raise with Geoff — the 7/22 3pm meeting is the natural venue** (list
+  is pasteable from `data/measure-gaps.md`):
   - **P4.M6 is shared by 4 sheet rows** (YRBS items) — needs distinct
     sub-letters before any goes Y (2+ Y aborts the build; exactly one Y
     charts under the ambiguous ID).

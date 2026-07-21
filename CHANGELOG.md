@@ -2,6 +2,47 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-21 — Graphics-team feedback round: three small visual fixes
+
+**Context:** Graphics team reviewed the site and sent three requests (with
+screenshots). All three shipped in one commit (`8d8aeab`, pushed + Pages
+deploy verified live in ~75s). Andy meets Geoff 7/22 3pm for the "last"
+feedback round before the 7/24 data wave.
+
+### Shipped
+
+- **Pillar 4 pink → Medium Orange (#C75128)**: the `--pillar4-text` token
+  (was #CB5277) in index.html, pillar.html, best-in-nation.html, plus the
+  `PILLAR_TEXT` JS map in pillar.html. Drives the active tab text and
+  Stories links. **Contrast improved both places it renders**: 4.53:1 on
+  white (the old pink was 4.19:1 — a latent AA miss for the 16px story
+  links, despite the JS map's "4.5:1 on white" comment) and 4.22:1 vs
+  3.90:1 on the panel bg for the large-text tabs. WCAG comment at the
+  tab-btn rule updated with the new numbers.
+- **Homepage photo-stack swap**: track girl (arms raised) to the top,
+  painter to the bottom — her raised arms directly below the recycle-bin
+  photo read as if she were holding the bin. HTML comment updated (the old
+  one documented the opposite ordering rationale).
+- **Mobile hero logo breathing room**: root cause — the 5px pillar-color
+  bar (`.hero-banner::after`) overlaps the bottom of the logo strip once
+  the hero stacks, and at ≤480px the 50px logo in a 60px strip had **0px**
+  visible space above the bar. Fix: strip 80→88px (≤768px) / 60→72px
+  (≤480px) + `padding-bottom: 5px` on the overlay so the flex-centered
+  logo re-centers in the space *above* the bar (~12px / ~8.5px clear now,
+  matching the pillar pages' logo band).
+
+### Verified
+
+- `tools/verify-charts.py` full suite PASS (first real use since it was
+  promoted to a tool — 8 pillars × 3 widths, zero console errors).
+- Headless screenshots of all three fixes at 375/700/1280; computed colors
+  confirmed `rgb(199, 81, 40)` on the P4 active tab and story link.
+- Production spot-checked after push: #C75128 serving on all three pages,
+  new strip heights live, photo order flipped.
+- Gotcha for future screenshot scripts: Playwright's `clip` uses
+  *document* coordinates, not viewport — clipping y:0 after a scroll
+  still shoots the top of the page.
+
 ## 2026-07-20 (second session) — Pre-7/24 prep: jump strip, DIM reconciliation, verify tool
 
 **Context:** Prep session between the noon deadline and the 7/24 EOD data wave.
