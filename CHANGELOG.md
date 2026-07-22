@@ -2,6 +2,60 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-22 — Geoff's punch list: descriptions, footnote move, MeasureName prep
+
+**Context:** Geoff + leadership's "last" feedback round (from the 7/22 3pm
+meeting), four items, none contested. New anchor date agreed: **measures
+lock EOD Fri 7/24** for the 8/5 board meeting. Andy ran out of gas before
+reviewing the drafted description text — review carries to next session
+(four specific flags in HANDOFF).
+
+### Shipped
+
+- **"Additional measures…" footnote moved to the top** of the Results
+  panel (item 4) — now directly under the Actions/Stories/Results picker,
+  above the jump strip and cards; BiN link stays at the bottom.
+  `.results-footnote` margins retuned for the new position.
+- **Description line on measure cards** (item 2): pillar.html now renders
+  hand-authored `definition` as "**Description:** …" between the Goal and
+  the status pill — same order and typographic treatment as BiN's measure
+  header (CSS mirrored, incl. the ≤480px size step).
+- **Drafted `definition` + `currentDescription` for all 9 live measures**
+  into `data/pillar-measures.json` (both PRESERVED pipeline fields; a
+  re-run after the edits was **byte-identical**, proving they survive
+  waves). Voice matches BiN's LandingPage_MeasureDetailsText.csv style:
+  plain language, jargon defined, big-number phrase + "(2024–25)"-style
+  period suffix. P4.M7's draft uses the sheet's concrete threshold
+  ("five or fewer acts", from the raw source cell) instead of the goal's
+  vague "limited number".
+- **MeasureName prep** (item 1, sheet column lands by 7/24): the pipeline
+  now prefers the sheet's MeasureName when present and non-blank
+  (tolerant header match — "MeasureName"/"Measure Name"/any case, since
+  Geoff's actual spelling is unknown), falls back to DIM, and warns into
+  the gaps report on sheet≠DIM drift. DIM keeps owning IDs, sort, and
+  the BiN flag.
+- Item 3 (sources) needed no code — Geoff updates the sheet's Source
+  cells by 7/24; the existing auto-split/warn logic handles them.
+
+### Verified
+
+- `tools/verify-charts.py` full PASS (8 pillars × 3 widths).
+- Screenshots eyeballed at 1280 and 375 (P1, P4): footnote position,
+  Description line, big-number phrases all render correctly.
+- Pipeline regression: re-run on the real 7/20 export → byte-identical
+  JSON (MeasureName change is neutral while the column is absent).
+- Synthetic-xlsx test of the MeasureName path: "Measure Name" header
+  matched, sheet name wins + drift warning fires, identical name stays
+  quiet. Confirmed the name-derived `id` slug is renderer-inert
+  (pillar.html anchors key on `measureId`).
+
+### Found while working
+
+- **P5.M3 unit discrepancy**: Geoff's raw source cell says "16 PSUs
+  (15 LEAs) have migrated" but the charted value is 15 — confirm with
+  Geoff whether the measure counts PSUs or LEAs (affects the drafted
+  phrase "public school units").
+
 ## 2026-07-21 — Graphics-team feedback round: three small visual fixes
 
 **Context:** Graphics team reviewed the site and sent three requests (with

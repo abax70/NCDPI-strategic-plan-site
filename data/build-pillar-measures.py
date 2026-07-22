@@ -103,6 +103,10 @@ COL_FINALIZED = "Finalized?"
 COL_PILLAR = "Pillar"
 COL_ID = "Measure ID"
 COL_MEASURE = "Measure"
+# Display-title column Geoff promised on 7/22 (expected by the 7/24 wave).
+# OPTIONAL until it lands — read_sheet matches the header tolerantly since
+# we haven't seen his actual spelling yet ("MeasureName" / "Measure Name").
+COL_NAME = "MeasureName"
 COL_AVAILABLE = "When Available?"
 COL_SOURCE = "Source"
 COL_WHY = "WhyMeasureMatters"
@@ -349,6 +353,14 @@ def read_sheet(xlsx_path):
             abort(f"required column '{required}' not found in sheet header "
                   f"row (headers: {sorted(headers)})")
 
+    # Optional MeasureName column (see COL_NAME note): tolerant match on
+    # spacing/case so "Measure Name" and "measurename" both count.
+    name_col = next(
+        (idx for h, idx in headers.items()
+         if h.replace(" ", "").casefold() == COL_NAME.casefold()),
+        None,
+    )
+
     # Year columns: header regex, classified baseline (Current/Actual) vs Target.
     year_cols = {}  # year int -> (col idx, 'baseline'|'target')
     for h, idx in headers.items():
@@ -385,6 +397,7 @@ def read_sheet(xlsx_path):
             "measureId": mid,
             "pillar_raw": cell_of(COL_PILLAR).value if COL_PILLAR in headers else None,
             "measure_text": clean_text(cell_of(COL_MEASURE).value),
+            "sheet_name": clean_text(row[name_col].value) if name_col is not None else "",
             "available": clean_text(cell_of(COL_AVAILABLE).value) if COL_AVAILABLE in headers else "",
             "source_raw": cell_of(COL_SOURCE).value if COL_SOURCE in headers else None,
             "why": clean_text(cell_of(COL_WHY).value) if COL_WHY in headers else "",
@@ -532,7 +545,15 @@ def build_measure(row, dim_entry, pillar_names, existing_map):
     status_type, status_label = derive_status(mid, series, value_format)
     source_label, source_url = split_source(mid, row["source_raw"])
 
-    name = dim_entry["name"] or mid
+    # Title precedence (Geoff 7/22): once the sheet's MeasureName column
+    # exists, Geoff owns display titles — sheet wins when non-blank; DIM
+    # MeasureName stays as the fallback (and DIM keeps owning IDs, sort,
+    # and the BiN flag). Warn on drift so the two never silently diverge.
+    sheet_name = row.get("sheet_name") or ""
+    if sheet_name and dim_entry["name"] and sheet_name != dim_entry["name"]:
+        warn(mid, f"sheet MeasureName {sheet_name!r} != DIM "
+                  f"{dim_entry['name']!r} — sheet wins; update DIM to match")
+    name = sheet_name or dim_entry["name"] or mid
     latest_actual = next(
         (e["baseline"] for e in reversed(series) if e["baseline"] is not None), None
     )

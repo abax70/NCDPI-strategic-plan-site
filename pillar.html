@@ -682,7 +682,19 @@
     color: var(--text);
     line-height: 1.5;
   }
-  .measure-header .goal strong { font-weight: 700; }
+  /* Definition sits directly under the goal; one typographic step down
+     via size alone so it reads as context without fading the contrast.
+     (Mirrors best-in-nation.html's .definition treatment.) */
+  .measure-header .definition {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  .measure-header .goal strong,
+  .measure-header .definition strong {
+    font-weight: 700;
+  }
   .measure-header .status-pill,
   .results-jump-strip .status-pill {
     margin-top: 8px;
@@ -853,14 +865,16 @@
   .notes-section strong { color: var(--text); }
   .notes-section a { color: var(--navy); }
 
-  /* Footer row under the stacked measures: "more coming" note + BiN link */
+  /* "More coming" note — leads the Results panel, above the measure
+     cards (moved from the bottom per Geoff's 7/22 feedback). */
   .results-footnote {
     font-size: 14px;
     color: var(--text);
     font-style: italic;
-    margin: 20px 4px 8px;
+    margin: 0 4px 16px;
     line-height: 1.6;
   }
+  /* Footer row under the stacked measures: the BiN link */
   .results-bin-link {
     display: inline-block;
     margin: 0 4px;
@@ -897,6 +911,7 @@
     }
     .measure-header h3 { font-size: 18px; }
     .measure-header .goal { font-size: 14px; }
+    .measure-header .definition { font-size: 13px; }
     .current-value .big-number { font-size: 30px; }
   }
 
@@ -2410,6 +2425,10 @@ function buildMeasureBlock(m) {
         '<span class="action-id-badge" style="font-size:10px; margin-bottom:3px; display:inline-block;">' + m.measureId + '</span>' +
         '<h3>' + m.name + '</h3>' +
         '<p class="goal"><strong>Goal:</strong> ' + (m.goal || '') + '</p>' +
+        // Plain-language definition (hand-authored `definition`, a
+        // preserved pipeline field) — same Goal/Description/pill order
+        // as the BiN measure header (Geoff's 7/22 feedback).
+        (m.definition ? '<p class="definition"><strong>Description:</strong> ' + m.definition + '</p>' : '') +
         statusPillHTML(m) +
       '</div>' +
     '</div>';
@@ -2489,6 +2508,15 @@ function buildResultsTab(pillar) {
   container.className = 'results-measures';
   container.innerHTML = '';
 
+  // Only a subset of each pillar's measures is finalized so far (~15
+  // expected by the 8/5 board meeting) — say so rather than letting the
+  // page imply this is the complete set. Leads the panel (above the
+  // charts) per Geoff's 7/22 feedback; was originally below the cards.
+  var note = document.createElement('p');
+  note.className = 'results-footnote';
+  note.textContent = 'Additional measures for this pillar are being finalized and will appear here as data becomes available.';
+  container.appendChild(note);
+
   // Jump strip (punch list 2026-07-20 #6): once a pillar stacks 4+ cards
   // the page gets long, so lead with anchor links (name + status pill)
   // that double as a status summary. Under 4 measures it's just noise.
@@ -2508,14 +2536,6 @@ function buildResultsTab(pillar) {
   currentResultsMeasures.forEach(function(m) {
     container.appendChild(buildMeasureBlock(m));
   });
-
-  // Only a subset of each pillar's measures is finalized so far (6 of
-  // ~15 expected by the 8/5 board meeting) — say so rather than letting
-  // the page imply this is the complete set.
-  var note = document.createElement('p');
-  note.className = 'results-footnote';
-  note.textContent = 'Additional measures for this pillar are being finalized and will appear here as data becomes available.';
-  container.appendChild(note);
 
   var binLink = document.createElement('a');
   binLink.className = 'results-bin-link';
