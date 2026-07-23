@@ -1,25 +1,43 @@
 ---
 cc_status: hot
 cc_strand: strategic-plan
-cc_updated: 2026-07-22
+cc_updated: 2026-07-23
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-07-22 (Geoff's punch list shipped; description drafts
-awaiting Andy's review). See CHANGELOG.md for the full record._
+_Last updated: 2026-07-23 (descriptions reviewed + approved; Geoff
+questions emailed and pending). See CHANGELOG.md for the full record._
 
 ## Where things stand
 
-**Geoff's 7/22 feedback round is shipped** (all four items — footnote
-moved to top of Results, Description line renders on measure cards,
-descriptions drafted for all 9 measures, MeasureName pipeline prep).
-Nothing contested; no further leadership feedback expected before the
-data wave.
+**Descriptions are reviewed and approved.** Andy walked all 9 drafted
+measure descriptions on 7/23 — every one stands as written, no JSON
+edits. Two are locked *pending Geoff's answers* (see below); the current
+text is the default and only changes if he pushes back.
 
-**New anchor: measures LOCK at EOD Fri 7/24** for the 8/5 board meeting
-(Andy + Geoff agreed 7/22). After that: holding pattern —
-leadership-required changes + actions/stories only.
+**Geoff's 7/22 feedback round is shipped** (footnote moved to top of
+Results, Description line on measure cards, descriptions for all 9
+measures, MeasureName pipeline prep). Nothing contested.
+
+**Anchor holds: measures LOCK at EOD Fri 7/24** for the 8/5 board meeting.
+After that: holding pattern — leadership-required changes + actions/stories
+only.
+
+## Awaiting Geoff (emailed 7/23, before the Fri lock)
+
+Two answers change site text; three are sheet hygiene for the data wave:
+
+1. **P4.M7 wording** — description says "**five or fewer acts**" (from the
+   sheet's "0–5 acts" cell); goal says vague "none to a limited number."
+   Keep concrete, or soften? *Default = keep.* If he softens, reword
+   `definition` + `currentDescription`.
+2. **P5.M3 unit** — source cell "16 PSUs (**15 LEAs**)"; charted value 15.
+   PSU or LEA? Description says "public school units" — reword if it's LEAs.
+3. **P4.M6** shared by 4 YRBS rows — needs distinct sub-letters (2+ Y aborts
+   the build).
+4. Row 2's literal **`NEW`** Measure ID (Schools of Character).
+5. **P2.M3a and P2.M3c but no P2.M3b** — deliberate, or missing row?
 
 **Geoff's 7/24 promises** (both land with the data wave):
 - A **MeasureName column** in the sheet → becomes the display-title
@@ -30,30 +48,6 @@ leadership-required changes + actions/stories only.
   5 measures with no Source line (P4.M4, P4.M7, P5.M3, P7.M2, P2.M4a)
   should mostly resolve. Hand-author `sourceHtml` for whatever survives
   the warning list.
-
-## FIRST: Andy reviews the drafted descriptions (pre-lock)
-
-All 9 measures now have Claude-drafted `definition` (the "Description:"
-line) and `currentDescription` (the phrase beside the big number) in
-`data/pillar-measures.json` — **committed but not yet reviewed**. They
-render live, so review before the 7/24 lock. Four specific flags:
-
-1. **Year suffixes.** BiN's "(2024–25)" school-year style used
-   throughout; P5.M3 says "(as of 2025)" (cumulative adoption count).
-   Confirm the period is right for P1.M5 (fall enrollment snapshot?),
-   P2.M2a/b (EPP reporting year), and P7.M2.
-2. **P5.M3 unit question — needs Geoff.** His raw source cell says
-   "16 PSUs (15 LEAs) have migrated"; the charted value is 15. If 15
-   counts LEAs, the drafted phrase "public school units" is wrong.
-3. **P4.M7 threshold.** Draft says "five or fewer acts" (grounded in the
-   sheet's "0-5 acts" source cell) instead of the goal's vague "limited
-   number". Flag if Geoff prefers vague.
-4. **P1.M5 count vs percentage.** The draft describes a *count* (what
-   the data is); the goal text still reads "percentage number of…"
-   (Geoff's known mid-edit text — his fix, already on his list).
-
-Edit any draft directly in the JSON (both fields are preserved — safe
-against re-runs) or tell Claude the changes.
 
 ## Next session: the 7/24 data wave
 
@@ -69,16 +63,12 @@ against re-runs) or tell Claude the changes.
    Watch for: a brand-new `valueFormat`, another pillar going 0 → some
    measures, and the P4.M6 situation below.
 
-## Awaiting Andy / Geoff
+## Longer-running carry-overs (not blocking the lock)
 
-- **Sheet anomalies — status after the 7/22 meeting unknown** (Andy
-  didn't report whether these came up; re-confirm before the wave):
-  - **P4.M6 shared by 4 YRBS rows** — needs distinct sub-letters before
-    any goes Y (2+ Y aborts the build).
-  - Row 2's literal `NEW` Measure ID (Schools of Character).
-  - P2.M3a and P2.M3c exist but no P2.M3b — deliberate?
-  - Carried over: WhyMeasureMatters for pillar measures, P5.M2
-    chartability (all-1s milestone), P1.M5's mid-edit goal text.
+- **WhyMeasureMatters** for pillar measures (no `whyItCounts` on any yet).
+- **P5.M2 chartability** — all-1s milestone; excluded by name in the pipeline.
+- **P1.M5 goal text** — Geoff's mid-edit "percentage number of…" (his fix; the
+  description already says "number" correctly).
 
 ## Repo state notes
 
@@ -93,3 +83,8 @@ against re-runs) or tell Claude the changes.
   (pillar only) and the measure-card header (the new Description line is
   pillar-card markup, not shared engine).
 - `notes/punchlist-20260720.md` is tracked.
+- **Stray file to relocate (not ours):**
+  `images/HappyPeoplePhotos/reporting-process-guide.html` is a 1,044-line EPP
+  Performance Reporting guide (dated 2026-05-07) that belongs in **EPP-Codebase**
+  — misplaced here in early May, never tracked. Andy to move it from the host;
+  it's unreachable from this container. Left untouched at 7/23 cleanup.

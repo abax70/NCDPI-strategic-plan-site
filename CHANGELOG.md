@@ -2,6 +2,48 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-23 — Description review complete; Geoff questions out; scratch cleanup
+
+**Context:** Holding-pattern session two days before the **EOD Fri 7/24
+measures lock**. No data wave yet (Geoff's fresh export lands 7/24). Main
+event: Andy's pre-lock review of the 9 drafted measure descriptions (queued
+from 7/22). Doc-only session — no code changes to commit.
+
+### Descriptions reviewed — all 9 approved, zero edits
+
+- Walked every measure's `definition` + `currentDescription` against its goal
+  text. **All drafts stand as written; no JSON changes.** The 7/22 drafts move
+  from "committed but unreviewed" to reviewed + approved.
+- Adjudicated the four flags:
+  - **P4.M7** — keep the concrete "five or fewer acts" (from the sheet's
+    "0–5 acts" cell), not the goal's vague "none to a limited number."
+    Contingent on Geoff: changes only if he wants it softened.
+  - **P5.M3** — hold on the PSU-vs-LEA unit; description keeps "public school
+    units" pending Geoff (source cell "16 PSUs (15 LEAs)"; charted value 15).
+  - **P1.M5** — description correctly describes a *count* ("number of…"); the
+    goal's "percentage number" is Geoff's known mid-edit typo (his fix).
+  - **Year suffixes confirmed** — P1.M5 = full school year, P2.M2a/b = correct
+    EPP reporting-year label, P7.M2 = school year. All "(2024–25)" stand.
+
+### Geoff questions emailed (before the Fri 7/24 lock)
+
+- Andy emailed Geoff: **P4.M7 wording** (keep "five or fewer" vs soften),
+  **P5.M3 unit** (PSU vs LEA), plus the carried-over sheet anomalies —
+  **P4.M6** shared by 4 YRBS rows, the literal **`NEW`** Measure ID, and the
+  **missing P2.M3b**. Awaiting answers (not expected 7/23).
+
+### Scratch cleanup
+
+- Deleted 5 untracked scratch files, none tracked or site-referenced: the empty
+  `images/HappyPeoplePhotos/StratPlan-Photos/` skeleton (only macOS `.DS_Store`
+  cruft, no photos), `gradient-preview.html`, `pill-color-preview.html`,
+  `checkdata_baseline.txt`, `checkdata_refreshed.txt`.
+- **Flagged, not deleted:** `images/HappyPeoplePhotos/reporting-process-guide.html`
+  — a 1,044-line EPP Performance Reporting Process Guide (dated 2026-05-07,
+  references a non-existent `_Reference/` path). It's stray **EPP-Codebase**
+  content misplaced in this repo back in early May; left in place for Andy to
+  relocate to EPP-Codebase from the host (unreachable from this container).
+
 ## 2026-07-22 — Geoff's punch list: descriptions, footnote move, MeasureName prep
 
 **Context:** Geoff + leadership's "last" feedback round (from the 7/22 3pm
