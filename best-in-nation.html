@@ -427,6 +427,22 @@
     border-color: #8C9EA0;
     color: var(--text);
   }
+  /* Measure-ID chip above the title — same badge treatment as the pillar
+     pages' measure cards (Geoff 7/24: every BiN measure is also a pillar
+     measure; surface its ID in the same position). Navy on pillar-bg for
+     AA contrast; --pbg is set on .measure-header and updated by
+     switchMeasure() to follow the active measure's pillar. */
+  .action-id-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    background: var(--pbg, var(--navy-light));
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
 
   /* Current value — big number callout (from Mockup A) */
   .current-value {
@@ -1133,9 +1149,12 @@
     </div>
 
     <!-- Measure identity -->
-    <div class="measure-header">
+    <div class="measure-header" style="--pbg: var(--pillar1-bg);">
       <img src="images/Measure Graphics/StratPlan-BIN-GradRate.svg" alt="Graduation Rate icon">
       <div>
+        <!-- Measure-ID chip, same position as the pillar measure cards.
+             Text + --pbg tint updated by switchMeasure(). -->
+        <span class="action-id-badge" style="font-size:10px; margin-bottom:3px; display:inline-block;">P1.M1</span>
         <h2>Cohort Graduation Rate</h2>
         <p class="goal"><strong>Goal:</strong> Increase the adjusted four-year cohort high school graduation rate to 92% by 2030.</p>
         <p class="definition"><strong>Description:</strong> The cohort graduation rate measures the percentage of 9th-graders who go on to graduate from high school within four years.</p>
@@ -1848,6 +1867,7 @@ const counterEl     = document.querySelector('.carousel-counter');
 const prevBtn       = document.querySelector('.carousel-btn[aria-label="Previous measure"]');
 const nextBtn       = document.querySelector('.carousel-btn[aria-label="Next measure"]');
 const measureHeader = document.querySelector('.measure-header');
+const headerBadge   = measureHeader.querySelector('.action-id-badge');
 const headerIcon    = measureHeader.querySelector('img');
 const headerTitle   = measureHeader.querySelector('h2');
 const headerGoal       = measureHeader.querySelector('.goal');
@@ -1893,6 +1913,11 @@ function switchMeasure(index) {
   counterEl.textContent = 'Measure ' + (index + 1) + ' of ' + total;
 
   // 2. Measure header — icon, title, goal, definition, status pill
+  // Measure-ID chip + its pillar-bg tint (all BiN measures are P1 except
+  // P8.M2 Public School Enrollment, so the tint almost always stays put).
+  headerBadge.textContent = m.measureId || '';
+  headerBadge.style.display = m.measureId ? '' : 'none';
+  measureHeader.style.setProperty('--pbg', 'var(--pillar' + m.pillarNumber + '-bg)');
   headerIcon.src = m.iconUrl || '';
   headerIcon.alt = m.name + ' icon';
   headerTitle.textContent = m.name;
