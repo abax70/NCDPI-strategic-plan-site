@@ -460,12 +460,30 @@ def build_data_series(row):
 # so pillar charts read the same (68.4 → 70, 3,720 → 4,000).
 NICE_MANTISSAS = [1, 1.2, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10]
 
+# Ceiling for a series with nothing positive to scale from — see
+# derive_y_axis_max(). Set 2026-07-27 (Andy) for P1.M17b, whose 0.0%
+# baseline and 0.0 targets are REAL values, not placeholders.
+FLAT_ZERO_Y_MAX = 10.0
+
 
 def derive_y_axis_max(values, value_format):
     """BiN convention: 1.2 × series max, rounded up to a nice number,
-    capped at 100 for percent measures."""
+    capped at 100 for percent measures.
+
+    Flat-at-zero guard (2026-07-27): a series with nothing above zero has no
+    range to scale from — 1.2 × 0 = 0, which is not a usable ceiling. This hit
+    P1.M17b (EC identification disproportionality), whose 0.0% baseline and
+    0.0 targets are REAL measured values, not missing data: the measure is at
+    zero and the goal is to stay there. Returning 0 here left the trajectory
+    chart to invent its own range, and it invented a NEGATIVE one
+    (-0.10% .. 0.025%) on a metric that cannot go below zero. Hand back a
+    usable ceiling instead and let the chart's flat-series branch anchor the
+    floor at 0.
+    """
     if not values:
         return None
+    if max(values) <= 0:
+        return FLAT_ZERO_Y_MAX
     y_max = max(values) * 1.2
     if y_max > 0:
         exp = math.floor(math.log10(y_max))

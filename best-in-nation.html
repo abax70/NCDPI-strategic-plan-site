@@ -1728,18 +1728,46 @@ function renderTrajectoryChart(measure) {
   const finiteVals = values.filter(v => v != null);
   const minV = Math.min(...finiteVals);
   const maxV = Math.max(...finiteVals);
-  const gap = Math.max(maxV - minV, 1); // avoid zero-gap when all values equal
-  const paddedMin = minV - 0.10 * gap;
-  const scale = niceYAxisScale(paddedMin, maxV, 4);
-  const yStep = scale.step;
-  // yTopTick = the highest LABELED tick (typically the 2030 target).
-  // yMax extends a half-step above that — no tick, no gridline drawn there,
-  // it just gives the target dot some breathing room so it doesn't get
-  // sliced by the top of the plot area (classic Tableau-style buffer).
-  const yTopTick = maxV;
-  const yMax = yTopTick + 0.5 * yStep;
-  const numSteps = Math.ceil((yTopTick - paddedMin) / yStep);
-  const yMin = yTopTick - numSteps * yStep;
+  let yStep, yMax, numSteps, yMin, yTopTick;
+  if (maxV === minV) {
+    // FLAT SERIES guard — parity with pillar.html (full rationale there).
+    // No Best-in-Nation measure is flat as of 2026-07-27, so this branch is
+    // unreachable today. It is carried here under the shared-engine parity
+    // rule: the old zero-gap fallback (`Math.max(maxV - minV, 1)`) silently
+    // produced a NEGATIVE axis for a series flat at zero, which is exactly
+    // what broke P1.M17b on the pillar side. Fixing only one engine would
+    // leave the same landmine here for whoever adds the first flat BiN
+    // measure before the post-8/5 extraction.
+    const flatFloor = minV >= 0 ? 0 : minV;
+    const flatCeil = (measure.yAxisMax != null && measure.yAxisMax > flatFloor)
+      ? measure.yAxisMax
+      : (minV === 0 ? 1 : minV + Math.abs(minV) * 0.2);
+    yStep = niceYAxisScale(flatFloor, flatCeil, 5).step;
+    numSteps = Math.max(1, Math.round((flatCeil - flatFloor) / yStep));
+    yMin = flatFloor;
+    yTopTick = flatFloor + numSteps * yStep;
+    yMax = yTopTick;
+  } else {
+    const gap = maxV - minV;
+    const paddedMin = minV - 0.10 * gap;
+    yStep = niceYAxisScale(paddedMin, maxV, 4).step;
+    // yTopTick = the highest LABELED tick (typically the 2030 target).
+    // yMax extends a half-step above that — no tick, no gridline drawn there,
+    // it just gives the target dot some breathing room so it doesn't get
+    // sliced by the top of the plot area (classic Tableau-style buffer).
+    yTopTick = maxV;
+    yMax = yTopTick + 0.5 * yStep;
+    numSteps = Math.ceil((yTopTick - paddedMin) / yStep);
+    yMin = yTopTick - numSteps * yStep;
+    // Non-negative floor guard (parity with pillar.html). Shifts by WHOLE
+    // steps so the target value stays on a labeled tick. No-op for all 14
+    // BiN measures today — none approaches zero.
+    if (minV >= 0 && yMin < 0) {
+      const drop = Math.ceil(-yMin / yStep - 1e-9);
+      yMin += drop * yStep;
+      numSteps -= drop;
+    }
+  }
 
   currentTrajectoryChart = new Chart(trajCanvas.getContext('2d'), {
     type: 'line',

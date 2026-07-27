@@ -1,0 +1,27 @@
+MeasureID	MeasureName	MeasureMetricTxt	Origin
+P1.M1	Cohort Graduation Rate	Percentage of 9th-graders graduating from high school four years later	BiN - existing MeasureMetricTxt
+P1.M2	ACT Composite Score	Average ACT composite score	BiN - existing MeasureMetricTxt
+P1.M3	AP Participation	Percentage of 10th, 11th, and 12th-graders who take an Advanced Placement exam	BiN - existing MeasureMetricTxt
+P1.M4	AP Performance	Percentage of 10th, 11th, and 12th-graders who pass an Advanced Placement exam	BiN - existing MeasureMetricTxt
+P1.M5	AP Course Participation	Number of high school students enrolled in at least one AP course	Pillar - from approved description (Andy 7/23)
+P1.M6	Dual Enrollment Participation	Percentage of high school graduates that enroll in at least one dual enrollment course	BiN - existing MeasureMetricTxt
+P1.M7	Dual Enrollment Credit	Percentage of high school graduates who earn high school credit in at least one dual enrollment course	BiN - existing MeasureMetricTxt
+P1.M8	CTE Participation	Percentage of all students participating in a Career and Technical Education course	BiN - existing MeasureMetricTxt
+P1.M9	CTE Credentials	Number of Career and Technical Education credentials earned by students	BiN - existing MeasureMetricTxt
+P1.M10	End-of-Grade and End-of-Course Proficiency	Percentage of students scoring Level 3 or above on state EOG and EOC tests	Pillar - from approved description (Andy 7/23)
+P1.M11	NAEP Grade 4 Reading	Average scale score on 4th grade reading national assessment (NAEP)	BiN - existing MeasureMetricTxt
+P1.M12	NAEP Grade 8 Reading	Average scale score on 8th grade reading national assessment (NAEP)	BiN - existing MeasureMetricTxt
+P1.M13	NAEP Grade 4 Math	Average scale score on 4th grade mathematics national assessment (NAEP)	BiN - existing MeasureMetricTxt
+P1.M14	NAEP Grade 8 Math	Average scale score on 8th grade mathematics national assessment (NAEP)	BiN - existing MeasureMetricTxt
+P1.M15	Schools of Character	Number of schools recognized as National Schools of Character	BiN - existing MeasureMetricTxt
+P1.M17b	Percent of LEAs with Disproportionate Representation in EC Programs	Percentage of local education agencies with disproportionate representation in Exceptional Children programs resulting from inappropriate identification	Pillar - DRAFTED 2026-07-27, pending Andy review
+P2.M2a	Traditional Educator Preparation Program Enrollment	Number of teacher candidates enrolled in traditional educator preparation programs	Pillar - from approved description (Andy 7/23)
+P2.M2b	Traditional Education Preparation Program Completion	Number of teacher candidates completing traditional educator preparation programs	Pillar - from approved description (Andy 7/23)
+P2.M3a	Beginning Teacher Retention	Percentage of beginning teachers who remained teaching in NC public schools	Pillar - from approved description (Andy 7/23)
+P2.M4a	LEAs Implementing Advanced Teaching Roles	Number of public school units implementing Advanced Teaching Roles	Pillar - from approved description (Andy 7/23)
+P2.M4b	Teachers Serving in Advanced Teaching Roles	Number of teachers serving in Advanced Teaching Roles	Pillar - from approved description (Andy 7/23)
+P4.M4	Chronic Absenteeism	Percentage of students missing 10% or more of school days	Pillar - from approved description (Andy 7/23)
+P4.M7	Schools Reporting 0-5 Acts of Crime and Violence Annually	Percentage of schools reporting five or fewer acts of crime and violence	Pillar - from approved description (Andy 7/23)
+P5.M3	School Business Systems Modernization	Number of public school units that have adopted modernized financial and HR systems	Pillar - from approved description (Andy 7/23)
+P7.M2	Professional Development Opportunities for PIOs	Number of professional development opportunities provided for PIOs and NCDPI partners	Pillar - from approved description (Andy 7/23)
+P8.M2	Public School Enrollment	Percentage of school-aged children enrolled in public schools	BiN - existing MeasureMetricTxt

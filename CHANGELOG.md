@@ -2,6 +2,105 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-27 — P1.M17b included + flat-series axis fix; titles decided; metric-text table
+
+**Context:** Second session of 7/27. The morning wrapup (12:42) closed the 7/24
+work; an afternoon thread then built the metric-text export and ended before it
+could be wrapped, leaving two untracked files. This session picked those up and
+closed **both** decisions left open at the 7/24 wrapup. Geoff out all week, back
+**8/3**; board meeting **8/5**.
+
+### Decisions
+
+- **P1.M17b is IN — the earlier recommendation to exclude it was wrong.** That
+  recommendation read the all-zero series as missing data. Andy corrected it:
+  the 0.0% baseline and the 0.0 targets are **real measured values** — NC is at
+  zero EC-identification disproportionality and the goal is to hold there.
+  Excluding it would have hidden true data. Flagged for Geoff on 8/3 instead.
+- **Titles: clearer, not shorter.** Geoff invited shortening; Andy's answer was
+  mostly the opposite — spell the acronyms out (EC → Exceptional Child, PIOs →
+  Public Information Officer, LEAs → PSUs on P2.M4a). Five sheet cells change;
+  three of the eight proposals were declined as already correct (P2.M2a, P1.M10)
+  or better long (P2.M4b, kept parallel with P2.M4a). One genuine shortening:
+  P4.M7, 57 → 40 chars, safe because the approved description still carries the
+  concrete "five or fewer acts" threshold.
+- **Bar-chart empty space on P1.M17b: left as-is** for Geoff to react to on 8/3.
+  Collapsing the region for one measure would break card-to-card layout
+  consistency.
+
+### Fixed — flat-at-zero series rendered a NEGATIVE axis
+
+Two bugs converged; the second was the real one and was not visible from the
+symptom.
+
+- **Direction misclassification.** `isDecreaseMeasure()` tests
+  `finalTarget < firstObserved`. For P1.M17b that is `0.0 < 0.0` → **false**, so
+  a measure whose goal reads "decrease disproportionality" took the *increasing*
+  branch, anchored its target to the **top** of the plot, and padded below it.
+- **Zero-gap fallback.** `Math.max(maxV - minV, 1)` invented a full percentage
+  POINT of range for a flat series.
+- Net effect: an axis of **-0.10% .. 0.025%** on a metric that cannot go below
+  zero, with the flat line reading as "at the ceiling" when zero is its floor.
+- **Fixes:** `derive_y_axis_max()` now returns `FLAT_ZERO_Y_MAX` (10.0) instead
+  of `1.2 × 0 = 0` for a series with nothing positive
+  (`data/build-pillar-measures.py`); a **flat-series branch** ahead of the
+  increase/decrease split anchors the floor at 0 and takes the ceiling from
+  `yAxisMax` (`pillar.html`); a **non-negative floor guard** shifts `tickStart`
+  by whole steps so the target stays on a labeled tick. `isDecreaseMeasure()`
+  deliberately left untouched so the other 11 measures cannot shift.
+- **Parity rule honored:** the same guard landed in `best-in-nation.html`, where
+  it is unreachable today (no BiN measure is flat or near zero) and commented as
+  such. Fixing one engine would have left the landmine in the other.
+- Result: axis `0% .. 10%`, ticks 0/2/4/6/8/10. Verified no-op for all 12
+  charting measures.
+
+### Added
+
+- **P1.M17b `definition` + `currentDescription`** — the measure had **none**.
+  Drafted 2026-07-27, **NOT yet Andy-reviewed** (the other nine went through the
+  7/23 review). The description carries the "zero is the goal, and North
+  Carolina is currently at zero" framing that makes a flat line legible.
+- **`tools/export-metric-text.py` + `notes/measure-metric-text.tsv`** — from the
+  unwrapped afternoon thread, now tracked. Builds a paste-ready 26-measure
+  MeasureMetricTxt table for Geoff's sheet (BiN rows use existing metric text;
+  pillar rows derive by stripping the year parenthetical off the approved
+  description). P1.M17b was the only `NEEDS DRAFTING` row; now filled, zero gaps.
+- **`notes/sheet-edits-20260727.md`** — turnkey list of Andy's 5 sheet edits, the
+  3 no-ops, and the "Febuary 2027" typo (confirmed live on the rendered card).
+- **`notes/meeting-agenda-20260803.md`** — the 8/3 Geoff agenda, consolidating
+  the improvised defaults, the P1.M17b caveats, the P2.M4a unit question, and
+  the MeasureMetricTxt proposal.
+
+### Caught — a labeling bug that would have misled Geoff
+
+`export-metric-text.py` stamped every pillar row
+`Pillar - from approved description (Andy 7/23)`. Applied to the P1.M17b text
+drafted minutes earlier, that would have laundered unreviewed Claude prose into
+Geoff's sheet as Andy-approved. Added an explicit `DRAFTED_SINCE_REVIEW` map;
+the row now reads `Pillar - DRAFTED 2026-07-27, pending Andy review`.
+
+### Verified
+
+- `verify-charts.py` PASS (8 pillars × 3 widths); `verify-bin-chips.py` PASS
+  (14 chips, tints, console clean) — the latter also confirms the BiN JS edit
+  parses and runs.
+- Pipeline re-run is **idempotent**: the first re-run changed exactly one line
+  (`yAxisMax`), confirming preserved fields survive and no 7/24 data moved.
+- P1.M17b card screenshotted at 1280 and eyeballed before and after.
+- `flake8 --max-line-length=100` adds **no new findings**; the three it reports
+  are pre-existing and were deliberately left alone.
+
+### Open
+
+- P1.M17b's drafted description awaits Andy's review; its year suffix uses the
+  site-standard `(2024–25)` but the source is SPP/APR **FFY 2024** — on the 8/3
+  agenda.
+- **P2.M4a LEA→PSU is a title change only.** It does not change what the sheet
+  counts; if the underlying figure is a count of LEAs, the new title misstates
+  it. Note the contrast: LEA is *genuinely correct* for P1.M17b, since Indicator
+  9 is a federal IDEA determination made at LEA level. The site will
+  legitimately use both words.
+
 ## 2026-07-24 — Geoff meeting + BiN chips shipped + data wave staged (wrapped 7/27)
 
 **Context:** Lock day. Geoff emailed a morning update (titles in, BiN

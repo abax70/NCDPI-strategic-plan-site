@@ -2120,7 +2120,33 @@ function renderTrajectoryChart(measure, els) {
   const maxV = Math.max(...finiteVals);
   const gap = Math.max(maxV - minV, 1);
   let yMin, yMax, yStep, tickStart, numSteps;
-  if (!decrease) {
+  if (maxV === minV) {
+    // FLAT SERIES — every value identical, so the data supplies no range.
+    // Live case: P1.M17b (EC identification disproportionality), sitting at a
+    // real measured 0.0% with real 0.0 targets through 2030. The measure is at
+    // zero and the goal is to hold it there.
+    //
+    // Both branches below would mishandle it. `gap` falls back to 1 (one whole
+    // percentage POINT of invented range), and isDecreaseMeasure() returns
+    // false here because it tests `finalTarget < firstObserved` — 0.0 < 0.0 is
+    // false — so a "decrease disproportionality" measure took the increasing
+    // branch, anchored its target to the TOP of the plot, and padded below into
+    // negative territory: an axis of -0.10% .. 0.025%. Wrong twice over, since
+    // zero is this metric's floor, not its ceiling.
+    //
+    // Anchor the floor at 0 and take the ceiling from the pipeline-derived
+    // yAxisMax (see derive_y_axis_max() in data/build-pillar-measures.py, which
+    // hands back FLAT_ZERO_Y_MAX for a series with nothing above zero).
+    const flatFloor = minV >= 0 ? 0 : minV;
+    const flatCeil = (measure.yAxisMax != null && measure.yAxisMax > flatFloor)
+      ? measure.yAxisMax
+      : (minV === 0 ? 1 : minV + Math.abs(minV) * 0.2);
+    yStep = niceYAxisScale(flatFloor, flatCeil, 5).step;
+    numSteps = Math.max(1, Math.round((flatCeil - flatFloor) / yStep));
+    tickStart = flatFloor;
+    yMin = flatFloor;
+    yMax = flatFloor + numSteps * yStep;
+  } else if (!decrease) {
     // Increasing: top tick = target (maxV); pad below the lowest point.
     const paddedMin = minV - 0.10 * gap;
     yStep = niceYAxisScale(paddedMin, maxV, 4).step;
@@ -2137,6 +2163,19 @@ function renderTrajectoryChart(measure, els) {
     yMin = minV - 0.5 * yStep;   // breathing room below the target dot
     yMax = minV + numSteps * yStep;
   }
+
+  // Non-negative floor guard. Percentages, counts and dollars cannot go below
+  // zero, so neither should their axis — the "breathing room" padding above is
+  // what drove P1.M17b negative. Shifting tickStart by WHOLE steps preserves
+  // the invariant that the target value lands on a labeled tick.
+  // No-op for all 12 measures charting as of 2026-07-27; this guards the class
+  // of bug, so a future measure that approaches zero can't reintroduce it.
+  if (minV >= 0 && tickStart < 0) {
+    const drop = Math.ceil(-tickStart / yStep - 1e-9);
+    tickStart += drop * yStep;
+    numSteps -= drop;
+  }
+  if (minV >= 0) yMin = Math.max(0, yMin);
 
   const chart = new Chart(els.trajCanvas.getContext('2d'), {
     type: 'line',
