@@ -87,8 +87,19 @@ def main():
     # table goes to Geoff, and mislabelling fresh Claude prose as Andy-approved
     # would launder an unreviewed draft into the sheet. Add the measure ID here
     # when you draft a new description; remove it once Andy signs off.
+    # Any measure whose description was drafted AFTER Andy's 2026-07-23 review round.
+    # Without an entry here a fresh draft is labeled "approved (Andy 7/23)" in a table
+    # that goes to Geoff -- i.e. unreviewed prose laundered as Andy-signed-off.
+    # Add on drafting; REMOVE once Andy signs off.
     DRAFTED_SINCE_REVIEW = {
+        # Staged in the 7/24 data wave, still unreviewed as of 2026-07-27.
+        "P2.M3a": "Pillar - DRAFTED 2026-07-24, pending Andy review",
+        "P2.M4b": "Pillar - DRAFTED 2026-07-24, pending Andy review",
+        # Drafted 2026-07-27.
         "P1.M17b": "Pillar - DRAFTED 2026-07-27, pending Andy review",
+        # New in the 7/27 export (Pillar 6 went live this wave).
+        "P6.M1a": "Pillar - DRAFTED 2026-07-27, pending Andy review",
+        "P6.M1b": "Pillar - DRAFTED 2026-07-27, pending Andy review",
     }
     for m in load(PILLAR_JSON):
         metric = strip_year(m.get("currentDescription") or "")

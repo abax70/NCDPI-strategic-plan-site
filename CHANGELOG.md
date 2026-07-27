@@ -2,6 +2,116 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-27 (session 3) — Andy's title edits land; Pillar 6 goes live; axis-invariant tool
+
+**Context:** Third session of 7/27. Andy made his 5 sheet edits and pulled a fresh
+export mid-session. This session consumed that export end-to-end. Geoff still out,
+back **8/3**; board meeting **8/5**.
+
+### Data wave from the 7/27 export: 12 → 14 measures
+
+- **Pillar 6 charts for the first time** — `P6.M1a` Low-Performing Schools (baseline
+  685, target 450 by 2030) and `P6.M1b` Low-Performing School Districts (23 → 13).
+  Both are decrease measures with a single 2025 baseline, the same shape as P4.M7 /
+  P5.M3 / P7.M2. Pillars 3 and 8 keep the placeholder.
+- **`P8.M2` did NOT go live** — it is a Best-in-Nation row and is skipped by the
+  pillar pipeline. An early read of the Y-flag census guessed otherwise; the
+  pipeline run corrected it.
+- **All 5 title edits landed**, plus the `Febuary 2027` → `February 2027` fix.
+  A structural before/after comparison of the JSON confirmed **zero data movement**
+  in the existing 12 measures — only names, slugs, menuLabels and the one date.
+  Preserved hand-authored fields all survived.
+- P2.M2b's "Traditional **Education** → **Educator**" fix missed the first export
+  and was caught by verifying the sheet rather than trusting the edit list; Andy
+  re-exported.
+
+### DIM_Measures.csv name sync — 12 rows, warnings 20 → 8
+
+- Sheet wins, DIM follows. Edited with line-level surgery rather than a CSV
+  rewrite, because the file has ragged rows (a Google Sheets export artifact:
+  some rows carry 28 trailing empty fields, others 6). Diff is exactly 12 in /
+  12 out, no reformatting.
+- **Verified the BiN page is untouched**: `data/build-measures.py` treats DIM
+  `MeasureName` as *canonical* for Best-in-Nation measures, so this was checked
+  before editing — all 12 renamed rows have an empty `BestInNationGoal` flag, and
+  `data/measures.json` re-built byte-identical afterward.
+- The 8 remaining warnings are all known no-ops: the four `sourceHtml` warnings and
+  the P1.M10 bare-URL warning fire on the **raw sheet cell**, but hand-authored
+  values are already in the JSON; two regression warnings are the status rule
+  working as designed; P5.M2 is the by-name exclusion.
+
+### Caught — the 7/27 labeling guard was itself incomplete
+
+`DRAFTED_SINCE_REVIEW` in `tools/export-metric-text.py` listed only P1.M17b, so
+**P2.M3a and P2.M4b** — drafted in the 7/24 wave, after Andy's 7/23 review — were
+being stamped `Pillar - from approved description (Andy 7/23)` in the table headed
+for Geoff. Same failure mode the map was added to prevent, one wave later. Map now
+carries all five pending IDs and is commented with the add-on-draft /
+remove-on-signoff rule. The table's 9 "approved" rows now match exactly the 9 Andy
+reviewed on 7/23.
+
+### Added — `tools/verify-chart-scales.py`
+
+The 7/27 flat-at-zero bug was invisible to `verify-charts.py`, which only proves a
+canvas painted non-blank pixels. This tool reads the **live Chart.js scale objects**
+in a headless browser and asserts four axis invariants: every plotted value inside
+`[scale.min, scale.max]`; no negative floor on a measure whose format cannot go
+negative (the exact P1.M17b bug); the final target landing on a labeled tick (the
+stated contract of the increase/decrease branches); and a non-degenerate axis.
+
+- **PASS on all 28 charts.** `--self-test` runs the invariants against synthetic bad
+  charts with no browser — all four fire, and a known-good chart produces no false
+  positive.
+- Charts are matched to measures via the enclosing `measure-<ID>` card, **not** by
+  aria-label text: P2.M2a "…Program Enrollment" and P2.M2b "…Program Completion"
+  share their first 30 characters, and a name-prefix match assigned both charts to
+  P2.M2a and invented a violation. That false positive is why the ID lookup exists.
+
+### Found while working
+
+- **The export has a second worksheet, `Notes on Recommended Changes`, that the
+  pipeline never reads.** It currently holds one row: P1.M5, with the "increase the
+  **percentage number** of high school students…" text. The **main sheet's P1.M5
+  goal cell is clean** ("increase the number of…"). So that phrasing is not a stray
+  mid-edit typo of Geoff's awaiting his fix — it is a *recommended change* parked in
+  a separate tab, consistent with the SPAC percentage idea. Worth watching as a
+  change channel we would otherwise never see.
+- **P1.M17b's `nextUpdate` typo is fixed at the source** — no longer a site-side
+  concern.
+
+### Drafted, pending Andy's review
+
+- `P6.M1a` / `P6.M1b` `definition` + `currentDescription`, written in the
+  established voice. **Both lean on the statutory definition of low-performing**
+  (performance grade of D or F with growth not exceeding expected; a district when
+  a majority of its graded schools are). That framing came from general knowledge,
+  **not** from the repo or the sheet, and is flagged for Andy to confirm.
+- `notes/review-packet-20260727.md` — one pass covering all 5 pending descriptions,
+  the 4 hand-authored `sourceHtml` lines, and both sets of DIM changes. Contains **no
+  raw sheet prose**, per the public-repo rule that also governs `measure-gaps.md`.
+
+### Verified
+
+- `verify-charts.py` PASS (8 pillars × 3 widths), `verify-bin-chips.py` PASS
+  (14 chips), `verify-chart-scales.py` PASS (28 charts) + self-test PASS.
+- Pipeline re-run after hand-editing the P6 descriptions was **byte-identical** —
+  preserved fields survive.
+- Pillar 6 screenshotted at 2560 and eyeballed: chips, descriptions, direction-aware
+  "PATH TO … BY 2030" strips, baseline pills, source links all correct.
+- `flake8 --max-line-length=100` clean on both changed tools; the only 3 findings
+  are pre-existing in `build-pillar-measures.py`, which this session did not modify.
+
+### Open
+
+- **BiN disaggregation note is NOT an import.** Searching every cell of every sheet
+  in the export found zero occurrences of "disaggregat". Per Andy, this was already
+  settled in an earlier session today from a Geoff email: there are **no separate
+  URLs** for disaggregated results, so the plan is hand-written text along the lines
+  of "the data source displays results disaggregated by subgroup." The exact wording
+  is not recorded here — it needs Andy's email. HANDOFF's prior wording ("these go
+  into `data/measures.json` by hand **from the final export**") was stale and sent
+  this session looking for data that was never going to be there.
+
 ## 2026-07-27 — P1.M17b included + flat-series axis fix; titles decided; metric-text table
 
 **Context:** Second session of 7/27. The morning wrapup (12:42) closed the 7/24

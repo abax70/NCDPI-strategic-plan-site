@@ -152,12 +152,12 @@
     ]
   },
   {
-    "id": "percent-of-leas-with-disproportionate-representation-in-ec-programs",
+    "id": "exceptional-child-identification-disproportionality",
     "measureId": "P1.M17b",
-    "name": "Percent of LEAs with Disproportionate Representation in EC Programs",
+    "name": "Exceptional Child Identification Disproportionality",
     "pillarNumber": 1,
     "pillarName": "Prepare Each Student for Their Next Phase in Life",
-    "menuLabel": "Percent of LEAs with Disproportionate Representation in EC Programs",
+    "menuLabel": "Exceptional Child Identification Disproportionality",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -180,7 +180,7 @@
     "currentValue": "0.0%",
     "currentDescription": "Percentage of local education agencies with disproportionate representation in Exceptional Children programs resulting from inappropriate identification (2024–25)",
     "whyItCounts": null,
-    "nextUpdate": "Febuary 2027",
+    "nextUpdate": "February 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -304,12 +304,12 @@
     ]
   },
   {
-    "id": "traditional-education-preparation-program-completion",
+    "id": "traditional-educator-preparation-program-completion",
     "measureId": "P2.M2b",
-    "name": "Traditional Education Preparation Program Completion",
+    "name": "Traditional Educator Preparation Program Completion",
     "pillarNumber": 2,
     "pillarName": "Revere Public School Educators",
-    "menuLabel": "Traditional Education Preparation Program Completion",
+    "menuLabel": "Traditional Educator Preparation Program Completion",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -456,12 +456,12 @@
     ]
   },
   {
-    "id": "leas-implementing-advanced-teaching-roles",
+    "id": "psus-implementing-advanced-teaching-roles",
     "measureId": "P2.M4a",
-    "name": "LEAs Implementing Advanced Teaching Roles",
+    "name": "PSUs Implementing Advanced Teaching Roles",
     "pillarNumber": 2,
     "pillarName": "Revere Public School Educators",
-    "menuLabel": "LEAs Implementing Advanced Teaching Roles",
+    "menuLabel": "PSUs Implementing Advanced Teaching Roles",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -684,12 +684,12 @@
     ]
   },
   {
-    "id": "schools-reporting-0-5-acts-of-crime-and-violence-annually",
+    "id": "schools-with-few-or-no-violent-incidents",
     "measureId": "P4.M7",
-    "name": "Schools Reporting 0-5 Acts of Crime and Violence Annually",
+    "name": "Schools with Few or No Violent Incidents",
     "pillarNumber": 4,
     "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
-    "menuLabel": "Schools Reporting 0-5 Acts of Crime and Violence Annually",
+    "menuLabel": "Schools with Few or No Violent Incidents",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -836,12 +836,164 @@
     ]
   },
   {
-    "id": "professional-development-opportunities-for-pios",
+    "id": "low-performing-schools",
+    "measureId": "P6.M1a",
+    "name": "Low-Performing Schools",
+    "pillarNumber": 6,
+    "pillarName": "Lead Transformative Change",
+    "menuLabel": "Low-Performing Schools",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and decrease the number of identified low performing schools annually.",
+    "definition": "North Carolina identifies low-performing schools each year under state law: a school is low-performing when it earns a school performance grade of D or F and does not exceed expected academic growth. This measure is the number of public schools on that list; fewer is better.",
+    "metricText": null,
+    "valueFormat": "#",
+    "yAxisMax": 900.0,
+    "sourceLabel": "Low-Performing Schools List, NCDPI",
+    "sourceUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/school-accountability-and-reporting/accountability-data-sets-and-reports#2024-25Reports-4468",
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 685",
+    "statusOverride": null,
+    "currentValue": "685",
+    "currentDescription": "Number of public schools identified as low-performing (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": "October 2026",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 685.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 650.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 600.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 550.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 500.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 450.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "low-performing-school-districts",
+    "measureId": "P6.M1b",
+    "name": "Low-Performing School Districts",
+    "pillarNumber": 6,
+    "pillarName": "Lead Transformative Change",
+    "menuLabel": "Low-Performing School Districts",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and decrease the number of identified low performing school districts annually.",
+    "definition": "A school district is identified as low-performing under state law when a majority of its schools that receive a performance grade are themselves identified as low-performing. This measure is the number of North Carolina school districts on that list; fewer is better.",
+    "metricText": null,
+    "valueFormat": "#",
+    "yAxisMax": 30.0,
+    "sourceLabel": "Low-Performing Districts List, NCDPI",
+    "sourceUrl": "https://www.dpi.nc.gov/districts-schools/accountability-and-testing/school-accountability-and-reporting/accountability-data-sets-and-reports#2024-25Reports-4468",
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 23",
+    "statusOverride": null,
+    "currentValue": "23",
+    "currentDescription": "Number of school districts identified as low-performing (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": "October 2026",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 23.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 21.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 19.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 17.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 15.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 13.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "public-information-officer-professional-development",
     "measureId": "P7.M2",
-    "name": "Professional Development Opportunities for PIOs",
+    "name": "Public Information Officer Professional Development",
     "pillarNumber": 7,
     "pillarName": "Celebrate the Excellence in Public Education",
-    "menuLabel": "Professional Development Opportunities for PIOs",
+    "menuLabel": "Public Information Officer Professional Development",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
