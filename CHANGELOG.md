@@ -2,6 +2,69 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-07-24 — Geoff meeting + BiN chips shipped + data wave staged (wrapped 7/27)
+
+**Context:** Lock day. Geoff emailed a morning update (titles in, BiN
+sources updated, asterisked Finalized rows, a new BiN-chips request) and
+met Andy at 3pm; the transcript came through partial, so outcomes were
+reconstructed from Andy's debrief. Geoff is **out the week of 7/27**,
+check-in **8/3**. The lock soft-landed: Y set locked-ish, asterisks
+resolve when Shaun (YRBS) / Curtis (low-performing) confirm — Andy CC'd,
+Andy flips them to Y.
+
+### Shipped (commit `2b6e963`, pushed + Pages deploy verified live)
+
+- **BiN measure-ID chips**: every Best in Nation measure now shows its
+  measure ID above the title, mirroring the pillar cards' badge (Geoff's
+  email ask). Chip text + pillar-bg tint update with the carousel; IDs
+  come from measures.json's existing `measureId` (matches DIM). Verified
+  all 14 as the carousel advances + 375/1280 screenshots; parity-rule
+  departure commented in place (BiN-only markup).
+
+### Staged this session, committed at this wrapup (drafts NOT yet Andy-reviewed)
+
+- **Data wave from the 7/24 export: 9 → 12 measures** — new P1.M17b (EC
+  disproportionality), P2.M3a (Beginning Teacher Retention), P2.M4b
+  (Teachers in ATR). Pillar 2 hit 5 measures → **jump strip live for the
+  first time** (verified, incl. no-pill rows). Existing 9 kept data +
+  approved descriptions byte-for-byte; MeasureName column landed (sheet
+  titles now win — 10 drift warnings pending the title decision below).
+  Auto-split resolved sources for P4.M4 and P2.M4a.
+- **Drafts for Andy's review**: P2.M3a + P2.M4b `definition`/
+  `currentDescription`; hand-authored `sourceHtml` for P2.M3a, P4.M7,
+  P5.M3, P7.M2 (prose-only source cells).
+- **Pipeline fix**: `split_source` no longer leaves a dangling "(" in
+  the label when the URL sat inside parens (hit P1.M17b, P2.M4b).
+- **DIM reconciliation**: P2.M3c→P2.M3b rename (Geoff re-lettered),
+  P4.M6 split into a–d with drafted names, P6.M1c removed (gone from
+  sheet). Both directions reconcile clean.
+
+### Decisions
+
+- **From the meeting (via Andy):** Schools of Character OUT (Mo wants an
+  action plan first — retires the literal-`NEW`-ID anomaly); P1.M5 stays
+  a **count** through at least 8/5; Geoff adding "disaggregated results
+  at source link" notes to some BiN Source cells (Superintendent request)
+  → manual BiN import next session; improvised defaults to confirm 8/3:
+  P4.M7 "five or fewer acts", P5.M3 "public school units".
+- **Two Andy decisions deliberately left open** (top of HANDOFF):
+  P1.M17b in/out (all-zero series renders a broken-looking empty chart;
+  Claude recommends exclusion until data lands Feb 2027) and the
+  title-shortening proposals (8 measures over ~40 chars).
+
+### Verified
+
+- verify-charts.py full PASS twice (post-wave, post-drafts); P1/P2
+  screenshots eyeballed at 2560; BiN chip test script (scratchpad) all
+  14 pass; preserved-field survival re-confirmed after hand-edits.
+
+### Session mechanics
+
+- 3pm-meeting transcript paste lost minutes ~4–22 (copy captured only
+  the rendered scroll region); Granola connector turned out to have no
+  account behind it. Reconstructed from Andy's debrief — next time
+  scroll the full transcript before copying, or export it.
+
 ## 2026-07-23 — Description review complete; Geoff questions out; scratch cleanup
 
 **Context:** Holding-pattern session two days before the **EOD Fri 7/24

@@ -1,21 +1,21 @@
 [
   {
-    "id": "ap-at-least-1-course",
+    "id": "ap-course-participation",
     "measureId": "P1.M5",
-    "name": "AP At Least 1 Course",
+    "name": "AP Course Participation",
     "pillarNumber": 1,
     "pillarName": "Prepare Each Student for Their Next Phase in Life",
-    "menuLabel": "AP At Least 1 Course",
+    "menuLabel": "AP Course Participation",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
-    "goal": "Establish a baseline and increase the percentage number of high school students enrolled in at least one AP course.",
+    "goal": "Establish a baseline and increase the number of high school students enrolled in at least one AP course.",
     "definition": "Advanced Placement (AP) courses are college-level classes in subjects like English or calculus that high school students can take for potential college credit. This measure is the number of high school students enrolled in at least one AP course.",
     "metricText": null,
     "valueFormat": "#,###",
     "yAxisMax": 150000.0,
-    "sourceLabel": "Based on fall enrollment numbers reported in JLEOC report (Broaden Successful Participation in Advanced Courses)",
-    "sourceUrl": "https://webservices.ncleg.gov/ViewDocSiteFile/91497",
+    "sourceLabel": "Broaden Successful Participation in Advanced Courses (NCDPI report)",
+    "sourceUrl": "https://www.dpi.nc.gov/students-families/enhanced-opportunities/advanced-learning-and-gifted-education/apibcie-coursework",
     "sourceHtml": null,
     "moreDataUrl": null,
     "moreDataText": null,
@@ -28,7 +28,7 @@
     "currentValue": "99,397",
     "currentDescription": "Number of high school students enrolled in at least one AP course (2024–25)",
     "whyItCounts": null,
-    "nextUpdate": null,
+    "nextUpdate": "December 2026",
     "notes": null,
     "dataSeries": [
       {
@@ -76,12 +76,12 @@
     ]
   },
   {
-    "id": "proficiency",
+    "id": "end-of-grade-and-end-of-course-proficiency",
     "measureId": "P1.M10",
-    "name": "Proficiency",
+    "name": "End-of-Grade and End-of-Course Proficiency",
     "pillarNumber": 1,
     "pillarName": "Prepare Each Student for Their Next Phase in Life",
-    "menuLabel": "Proficiency",
+    "menuLabel": "End-of-Grade and End-of-Course Proficiency",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -104,7 +104,7 @@
     "currentValue": "55.0%",
     "currentDescription": "Percentage of students scoring Level 3 or above on state EOG and EOC tests (2024–25)",
     "whyItCounts": null,
-    "nextUpdate": "Oct.",
+    "nextUpdate": "October 2026",
     "notes": null,
     "dataSeries": [
       {
@@ -152,21 +152,97 @@
     ]
   },
   {
-    "id": "epp-enrollment",
-    "measureId": "P2.M2a",
-    "name": "EPP Enrollment",
-    "pillarNumber": 2,
-    "pillarName": "Revere Public School Educators",
-    "menuLabel": "EPP Enrollment",
+    "id": "percent-of-leas-with-disproportionate-representation-in-ec-programs",
+    "measureId": "P1.M17b",
+    "name": "Percent of LEAs with Disproportionate Representation in EC Programs",
+    "pillarNumber": 1,
+    "pillarName": "Prepare Each Student for Their Next Phase in Life",
+    "menuLabel": "Percent of LEAs with Disproportionate Representation in EC Programs",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
-    "goal": "Establish a baseline and increase the number of teacher candidates enrolling in traditional educator-preparation programs (EPPs).",
+    "goal": "Establish a baseline and decrease disproportionality in identification of students for Exceptional Children (EC) programs.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 0.0,
+    "sourceLabel": "NCDPI State Performance Plan/Annual Performance Report (SPP/APR), Indicator 9",
+    "sourceUrl": "https://www.dpi.nc.gov/districts-schools/classroom-resources/exceptional-children/data-state-performance-plans#FFY2024SPPAPR-8828",
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 0.0%",
+    "statusOverride": null,
+    "currentValue": "0.0%",
+    "currentDescription": null,
+    "whyItCounts": null,
+    "nextUpdate": "Febuary 2027",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 0.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 0.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 0.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 0.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 0.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 0.0,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "traditional-educator-preparation-program-enrollment",
+    "measureId": "P2.M2a",
+    "name": "Traditional Educator Preparation Program Enrollment",
+    "pillarNumber": 2,
+    "pillarName": "Revere Public School Educators",
+    "menuLabel": "Traditional Educator Preparation Program Enrollment",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the number of teacher candidates enrolling in traditional educator preparation programs (EPPs).",
     "definition": "Educator preparation programs (EPPs) are the college- and university-based programs that train new teachers. This measure is the number of teacher candidates enrolling in North Carolina's traditional EPPs each year — the front end of the state's teacher pipeline.",
     "metricText": null,
     "valueFormat": "#,###",
     "yAxisMax": 4000.0,
-    "sourceLabel": "(calculated as number of candidates in first year traditional pathway program)",
+    "sourceLabel": "NC Educator Preparation Program Dashboards, NCDPI ( calculated as number of candidates in first year traditional pathway program",
     "sourceUrl": "https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome?%3Aembed=y",
     "sourceHtml": "<a href=\"https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome\" target=\"_blank\" rel=\"noopener\">NCDPI EPP Dashboard</a> (calculated as the number of candidates in first-year traditional pathway programs)",
     "moreDataUrl": null,
@@ -180,7 +256,7 @@
     "currentValue": "2,594",
     "currentDescription": "Number of teacher candidates enrolled in traditional educator preparation programs (2024–25)",
     "whyItCounts": null,
-    "nextUpdate": null,
+    "nextUpdate": "April 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -228,21 +304,21 @@
     ]
   },
   {
-    "id": "epp-completion",
+    "id": "traditional-education-preparation-program-completion",
     "measureId": "P2.M2b",
-    "name": "EPP Completion",
+    "name": "Traditional Education Preparation Program Completion",
     "pillarNumber": 2,
     "pillarName": "Revere Public School Educators",
-    "menuLabel": "EPP Completion",
+    "menuLabel": "Traditional Education Preparation Program Completion",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
-    "goal": "Establish a baseline and increase the number of teacher candidates completing traditional educator-preparation programs (EPPs).",
+    "goal": "Establish a baseline and increase the number of teacher candidates completing traditional educator preparation programs (EPPs).",
     "definition": "Educator preparation programs (EPPs) are the college- and university-based programs that train new teachers. This measure is the number of teacher candidates completing a traditional North Carolina EPP each year — new teachers ready to enter the classroom.",
     "metricText": null,
     "valueFormat": "#,###",
     "yAxisMax": 3500.0,
-    "sourceLabel": "(calculated as number of candidates completing traditional pathway program)",
+    "sourceLabel": "NC Educator Preparation Program Dashboards, NCDPI ( calculated as number of candidates completing traditional pathway program",
     "sourceUrl": "https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome?%3Aembed=y",
     "sourceHtml": "<a href=\"https://bi.nc.gov/t/DPI-EducatorRecruitmentandSupport/views/EPPDashboardHomeProduction2025/EPPDashboardHome\" target=\"_blank\" rel=\"noopener\">NCDPI EPP Dashboard</a> (calculated as the number of candidates completing traditional pathway programs)",
     "moreDataUrl": null,
@@ -256,7 +332,7 @@
     "currentValue": "2,088",
     "currentDescription": "Number of teacher candidates completing traditional educator preparation programs (2024–25)",
     "whyItCounts": null,
-    "nextUpdate": null,
+    "nextUpdate": "April 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -304,12 +380,88 @@
     ]
   },
   {
-    "id": "psus-with-advanced-teaching-roles",
-    "measureId": "P2.M4a",
-    "name": "PSUs with Advanced Teaching Roles",
+    "id": "beginning-teacher-retention",
+    "measureId": "P2.M3a",
+    "name": "Beginning Teacher Retention",
     "pillarNumber": 2,
     "pillarName": "Revere Public School Educators",
-    "menuLabel": "PSUs with Advanced Teaching Roles",
+    "menuLabel": "Beginning Teacher Retention",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase retention of beginning teachers, especially in low-performing and high-poverty schools.",
+    "definition": "Beginning teachers are those in their first three years in the classroom. This measure tracks the percentage of North Carolina's beginning teachers who continue teaching in the state's public schools from one year to the next.",
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 100.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": "NCDPI State of the Teaching Profession report",
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": null,
+    "statusLabel": null,
+    "statusOverride": null,
+    "currentValue": "85.3%",
+    "currentDescription": "Percentage of beginning teachers who remained teaching in NC public schools (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": null,
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 87.08,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 85.3,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 87.5,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 88.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 88.5,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 89.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 89.5,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "leas-implementing-advanced-teaching-roles",
+    "measureId": "P2.M4a",
+    "name": "LEAs Implementing Advanced Teaching Roles",
+    "pillarNumber": 2,
+    "pillarName": "Revere Public School Educators",
+    "menuLabel": "LEAs Implementing Advanced Teaching Roles",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -318,8 +470,8 @@
     "metricText": null,
     "valueFormat": "#",
     "yAxisMax": 70.0,
-    "sourceLabel": null,
-    "sourceUrl": null,
+    "sourceLabel": "Advanced Teaching Roles Annual Evaluation Report",
+    "sourceUrl": "https://www.dpi.nc.gov/educators/recruitment-support/advanced-teaching-roles",
     "sourceHtml": null,
     "moreDataUrl": null,
     "moreDataText": null,
@@ -332,7 +484,7 @@
     "currentValue": "37",
     "currentDescription": "Number of public school units implementing Advanced Teaching Roles (2024–25)",
     "whyItCounts": null,
-    "nextUpdate": null,
+    "nextUpdate": "October 2026",
     "notes": null,
     "dataSeries": [
       {
@@ -380,6 +532,82 @@
     ]
   },
   {
+    "id": "teachers-serving-in-advanced-teaching-roles",
+    "measureId": "P2.M4b",
+    "name": "Teachers Serving in Advanced Teaching Roles",
+    "pillarNumber": 2,
+    "pillarName": "Revere Public School Educators",
+    "menuLabel": "Teachers Serving in Advanced Teaching Roles",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Establish a baseline and increase the number of teachers serving in advanced roles (Advanced Teaching Roles) that support peer learning.",
+    "definition": "Advanced Teaching Roles (ATR) let excellent teachers lead teams of colleagues or take on larger rosters for additional pay, extending their impact without leaving the classroom. This measure is the number of teachers statewide serving in an advanced role.",
+    "metricText": null,
+    "valueFormat": "#,###",
+    "yAxisMax": 3500.0,
+    "sourceLabel": "Advanced Teaching Roles Annual Evaluation Report",
+    "sourceUrl": "https://www.dpi.nc.gov/educators/recruitment-support/advanced-teaching-roles",
+    "sourceHtml": null,
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "approaching-target",
+    "statusLabel": "Approaching Target — 1,494",
+    "statusOverride": null,
+    "currentValue": "1,494",
+    "currentDescription": "Number of teachers serving in Advanced Teaching Roles (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": "October 2026",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": 849.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 1494.0,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": 1750.0,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 2000.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": 2250.0,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 2500.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": 2750.0,
+        "actual": null
+      }
+    ]
+  },
+  {
     "id": "chronic-absenteeism",
     "measureId": "P4.M4",
     "name": "Chronic Absenteeism",
@@ -394,8 +622,8 @@
     "metricText": null,
     "valueFormat": "#.#%",
     "yAxisMax": 30.0,
-    "sourceLabel": null,
-    "sourceUrl": null,
+    "sourceLabel": "NC School Report Cards North Carolina State Report ( calculated as the percentage of students who were enrolled in a North Carolina public school for at least 10 school days at any time during the school year, and whose total number of absences is equal to or greater than 10 percent of the total number of days that the student has been enrolled at any school during a given school year",
+    "sourceUrl": "https://ncfvapublicprod.ondemand.sas.com/src/state/2025",
     "sourceHtml": null,
     "moreDataUrl": null,
     "moreDataText": null,
@@ -456,12 +684,12 @@
     ]
   },
   {
-    "id": "school-violence",
+    "id": "schools-reporting-0-5-acts-of-crime-and-violence-annually",
     "measureId": "P4.M7",
-    "name": "School Violence",
+    "name": "Schools Reporting 0-5 Acts of Crime and Violence Annually",
     "pillarNumber": 4,
     "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
-    "menuLabel": "School Violence",
+    "menuLabel": "Schools Reporting 0-5 Acts of Crime and Violence Annually",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -472,7 +700,7 @@
     "yAxisMax": 100.0,
     "sourceLabel": null,
     "sourceUrl": null,
-    "sourceHtml": null,
+    "sourceHtml": "NCDPI Consolidated Data Report",
     "moreDataUrl": null,
     "moreDataText": null,
     "badgeImageUrl": null,
@@ -484,7 +712,7 @@
     "currentValue": "78.2%",
     "currentDescription": "Percentage of schools reporting five or fewer acts of crime and violence (2024–25)",
     "whyItCounts": null,
-    "nextUpdate": "Jan/Feb",
+    "nextUpdate": "March 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -532,12 +760,12 @@
     ]
   },
   {
-    "id": "financial-and-human-resource-systems",
+    "id": "school-business-systems-modernization",
     "measureId": "P5.M3",
-    "name": "Financial and Human Resource Systems",
+    "name": "School Business Systems Modernization",
     "pillarNumber": 5,
     "pillarName": "Optimize Operational Excellence",
-    "menuLabel": "Financial and Human Resource Systems",
+    "menuLabel": "School Business Systems Modernization",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
@@ -548,7 +776,7 @@
     "yAxisMax": 150.0,
     "sourceLabel": null,
     "sourceUrl": null,
-    "sourceHtml": null,
+    "sourceHtml": "Reports from public school units to NCDPI",
     "moreDataUrl": null,
     "moreDataText": null,
     "badgeImageUrl": null,
@@ -560,7 +788,7 @@
     "currentValue": "15",
     "currentDescription": "Number of public school units that have adopted modernized financial and HR systems (as of 2025)",
     "whyItCounts": null,
-    "nextUpdate": null,
+    "nextUpdate": "July 2027",
     "notes": null,
     "dataSeries": [
       {
@@ -608,23 +836,23 @@
     ]
   },
   {
-    "id": "communication-professional-development",
+    "id": "professional-development-opportunities-for-pios",
     "measureId": "P7.M2",
-    "name": "Communication Professional Development",
+    "name": "Professional Development Opportunities for PIOs",
     "pillarNumber": 7,
     "pillarName": "Celebrate the Excellence in Public Education",
-    "menuLabel": "Communication Professional Development",
+    "menuLabel": "Professional Development Opportunities for PIOs",
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
-    "goal": "Establish a baseline and increase the number of professional development opportunities provided for PIOs and NCDPI partners to use shared messaging and materials.",
+    "goal": "Establish a baseline and increase the number of professional development opportunities provided for Public Information Officers (PIOs) and NCDPI partners to use shared messaging and materials.",
     "definition": "Public information officers (PIOs) handle communications for school districts. This measure counts the professional development opportunities NCDPI provides each year to help PIOs and partner organizations use shared messaging and materials.",
     "metricText": null,
     "valueFormat": "#",
     "yAxisMax": 12.0,
     "sourceLabel": null,
     "sourceUrl": null,
-    "sourceHtml": null,
+    "sourceHtml": "NCDPI Communication and Information Division",
     "moreDataUrl": null,
     "moreDataText": null,
     "badgeImageUrl": null,

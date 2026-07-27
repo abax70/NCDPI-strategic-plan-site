@@ -260,9 +260,16 @@ def split_source(measure_id, raw):
         return None, None
 
     urls = URL_RE.findall(text)
-    # Trim separator punctuation only — never parens, which are part of the
-    # prose ("... (Broaden Successful Participation in Advanced Courses)").
+    # Trim separator punctuation only — never balanced parens, which are part
+    # of the prose ("... Report (SPP/APR), Indicator 9"). But a "Prose (URL)"
+    # cell leaves a dangling "(" or "()" behind once the URL is removed —
+    # those parens wrapped the URL, not prose, so strip them when unbalanced
+    # (caught live on P1.M17b and P2.M4b, 7/24 wave).
     prose = URL_RE.sub("", text).strip(" ;:,–—-").strip()
+    while prose.endswith("()"):
+        prose = prose[:-2].rstrip(" ;:,–—-").strip()
+    if prose.endswith("(") and prose.count("(") > prose.count(")"):
+        prose = prose[:-1].rstrip(" ;:,–—-").strip()
 
     if len(urls) == 1 and not prose:
         warn(measure_id, "Source is a bare URL — add a human-readable "
