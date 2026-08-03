@@ -1535,21 +1535,61 @@ function renderChart(measure) {
       const labelFontSize = window.innerWidth <= 768 ? 12 : 13;
       ctx.font = "600 " + labelFontSize + "px 'Source Sans Pro', sans-serif";
       ctx.textAlign = 'center';
+      const padX = 4, padY = 2;
+      const LABEL_GAP = 2;   // minimum clear space between two label boxes
+
+      // Measure every candidate label first, then decide which ones fit.
+      const items = [];
       meta.data.forEach((bar, i) => {
         const val = chart.data.datasets[0].data[i];
         if (val == null) return;
         const formatted = formatValue(val, measure.valueFormat);
-        const x = bar.x;
-        const y = bar.y - 8;
+        items.push({
+          text: formatted,
+          x: bar.x,
+          y: bar.y - 8,
+          w: ctx.measureText(formatted).width
+        });
+      });
+
+      // Collision cull (added 2026-08-03). Each label paints an opaque white
+      // pad, so two overlapping labels do not merely look crowded — the later
+      // one ERASES the tail of the earlier one, turning "382,964" into
+      // "382,96". At 375px this hit 6 of 7 labels on CTE Credentials, the only
+      // six-digit measure on this page. Desktop has zero collisions, so this
+      // is a no-op there.
+      //
+      // The first and last labels are always kept: the baseline and the 2030
+      // target are the two numbers the chart exists to communicate. Interior
+      // labels are dropped when they would touch either a neighbour already
+      // committed to, or the final label.
+      const boxL = it => it.x - it.w / 2 - padX;
+      const boxR = it => it.x + it.w / 2 + padX;
+      let shown = items;
+      if (items.length > 2) {
+        const last = items[items.length - 1];
+        shown = [items[0]];
+        for (let k = 1; k < items.length - 1; k++) {
+          const cand = items[k];
+          if (boxL(cand) - boxR(shown[shown.length - 1]) < LABEL_GAP) continue;
+          if (boxL(last) - boxR(cand) < LABEL_GAP) continue;
+          shown.push(cand);
+        }
+        shown.push(last);
+      }
+
+      shown.forEach(it => {
         // White background pad — erases any reference line behind the label
-        const textWidth = ctx.measureText(formatted).width;
-        const padX = 4, padY = 2;
         ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(x - textWidth / 2 - padX, y - 11 - padY, textWidth + padX * 2, 14 + padY * 2);
+        ctx.fillRect(it.x - it.w / 2 - padX, it.y - 11 - padY, it.w + padX * 2, 14 + padY * 2);
         // Draw the label text
         ctx.fillStyle = COLORS.dataLabel;
-        ctx.fillText(formatted, x, y);
+        ctx.fillText(it.text, it.x, it.y);
       });
+
+      // Expose what was actually drawn, for tools/verify-value-labels.py.
+      // Parity with pillar.html's valueLabelsPlugin — see the note there.
+      chart.$drawnValueLabels = { drawn: shown, total: items.length };
       ctx.restore();
     }
   };

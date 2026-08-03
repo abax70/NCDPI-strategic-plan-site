@@ -16,7 +16,7 @@
     "yAxisMax": 100.0,
     "sourceLabel": "NC Department of Public Instruction Cohort Graduation Rate Dashboard",
     "sourceUrl": "https://go.ncdpi.gov/CGRState",
-    "sourceHtml": null,
+    "sourceHtml": "<a href=\"https://go.ncdpi.gov/CGRState\" target=\"_blank\" rel=\"noopener\">NC Department of Public Instruction Cohort Graduation Rate Dashboard</a> (includes results disaggregated by student subgroups)",
     "moreDataUrl": "https://go.ncdpi.gov/CGRState",
     "moreDataText": "Explore graduation rate data",
     "badgeImageUrl": "images/Badges/Badges-GradRate.svg",

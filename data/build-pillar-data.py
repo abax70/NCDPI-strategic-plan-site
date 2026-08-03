@@ -545,6 +545,37 @@ def build_pillar_data():
             elif "not started" in status_lower:
                 action["hasStarted"] = False
 
+    # 2b. Reconcile launchText against the merged status (added 2026-08-03).
+    #
+    # ActionLaunchDate is a PLANNED date. format_launch_text() sees only the
+    # date, so the moment a planned date passes it renders "Launched <Month>"
+    # whether or not the action actually started. Real status arrives here, in
+    # step 2 above -- this is the first point in the build where both facts are
+    # known, which is why the reconciliation lives here and not in the formatter.
+    #
+    # This is not cosmetic. The pillar action card renders launchText INSTEAD of
+    # the status when hasStarted is false (pillar.html:1719-1722), so an action
+    # whose planned date slipped would display "Launched August, 2026" with the
+    # words "Not Started" appearing nowhere on the card -- a flat false claim
+    # rather than a contradiction a reader could spot. On 2026-08-03 this hit 22
+    # actions, 13 of them from a single 2026-08-01 planned cohort, three days
+    # before a State Board meeting.
+    #
+    # The landing-page "What's in Motion" ticker was already immune: it requires
+    # hasStarted AND launchDate <= today (best-in-nation.html, renderMotionTicker).
+    # This brings the pillar cards up to the same standard.
+    reconciled = 0
+    for action in actions:
+        if action["hasStarted"] or not action["launchDate"]:
+            continue
+        launch_date = date.fromisoformat(action["launchDate"])
+        if launch_date <= TODAY:
+            action["launchText"] = f"Planned for {launch_date.strftime('%B, %Y')}"
+            reconciled += 1
+    if reconciled:
+        print(f"  Reconciled {reconciled} launch labels: planned date passed, "
+              f"status still Not Started -> 'Planned for <Month>, <Year>'.")
+
     # 3. Nest actions into focus areas
     for action in actions:
         fa_id = action["focusAreaId"]
@@ -581,8 +612,29 @@ def build_pillar_data():
     # 6. Build the final sorted list of pillars
     pillar_list = sorted(pillars.values(), key=lambda p: p["pillarNum"])
 
+    # lastUpdated is PRESERVED here, not stamped with TODAY (changed 2026-08-03).
+    #
+    # It is a public claim -- the site renders it as "Last updated <date>" in the
+    # sidebar -- and it means "the date the dashboard last changed for a user":
+    # updated measure data, Smartsheet action data, or stories, or a structural
+    # change big enough to belong in a user-facing changelog.
+    #
+    # Stamping TODAY on every run got that wrong in BOTH directions: a no-op
+    # rebuild bumped the date with nothing changed, while the 7/24 and 7/27
+    # measure waves (which run build-pillar-measures.py, not this script) never
+    # bumped it at all -- leaving the site advertising 2026-07-15 while showing
+    # 7/27 data. Ownership of the stamp now sits in tools/update-stamp.py, which
+    # fingerprints the built output and bumps the date only when it really moved.
+    existing_stamp = None
+    if os.path.exists(OUTPUT_JSON):
+        try:
+            with open(OUTPUT_JSON, encoding="utf-8") as f:
+                existing_stamp = json.load(f).get("lastUpdated")
+        except (json.JSONDecodeError, OSError):
+            existing_stamp = None   # corrupt/unreadable: fall through to TODAY
+
     output = {
-        "lastUpdated": TODAY.isoformat(),
+        "lastUpdated": existing_stamp or TODAY.isoformat(),
         "pillars": pillar_list
     }
 

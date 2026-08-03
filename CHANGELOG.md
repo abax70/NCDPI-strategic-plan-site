@@ -2,6 +2,125 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-08-03 — Pre-board integrity pass: three false claims removed from the live site
+
+**Context:** Geoff back in town; the board views the site **Wed 8/5**. Opened as a
+`/kickoff`. Plan was a board-readiness QA pass plus Andy's description review. The
+QA pass found more than expected, and consumed most of the session.
+
+### Fixed — the site was making three false claims
+
+**1. 22 action cards claimed "Launched" for actions that had not started.**
+`ActionLaunchDate` is a *planned* date; `format_launch_text()` renders "Launched
+<Month>" the moment it passes, knowing nothing about status, which is merged ~400
+lines later. Worse than a visible contradiction: the pillar card shows `launchText`
+**instead of** the status when `hasStarted` is false (`pillar.html:1719-1722`), so
+the words "Not Started" appeared nowhere — a flat false claim. 13 of the 22 were a
+single `2026-08-01` cohort that crossed the line three days before the board
+meeting; the oldest had been live since January. Fixed with a reconciliation step
+at the status merge (the first point where both facts are known) → **"Planned for
+August, 2026"** (Andy's choice from four options). The landing-page "What's in
+Motion" ticker was already immune — it requires `hasStarted AND launchDate <=
+today` — so this brings the pillar cards up to the standard the ticker already set.
+
+**2. Bar value labels were showing wrong numbers at 375px.** Each label paints an
+opaque white pad before its text, so overlapping labels don't merely crowd — the
+later one **erases the tail** of the earlier. `97,317` rendered as `97,31`,
+`382,964` as `382,96`. Fixed with a collision cull in `valueLabelsPlugin`: first
+and last labels always survive (baseline + 2030 target), interior labels drop when
+they would touch a kept neighbour. Desktop has zero collisions, so it is a no-op
+there. Landed in **both** `pillar.html` and `best-in-nation.html` per the parity rule.
+
+**3. "Last updated Jul 15, 2026"** in every sidebar while the site served 7/27
+data including two new Pillar 6 measures. See the `update-stamp.py` note below.
+
+### Added — `tools/verify-value-labels.py` (the fourth verify tool)
+
+The label bug was invisible to all three existing tools: `verify-charts.py` proves
+only that a canvas painted non-blank pixels (a clipped label paints fine, and it
+passed at 375px throughout), `verify-chart-scales.py` checks axes, `verify-bin-chips.py`
+checks DOM. A canvas is opaque to the DOM, so both plugins now publish their culled
+set as `chart.$drawnValueLabels = {drawn, total}` and the tool asserts four
+invariants: no two **drawn** labels overlap; first and last always survive; a
+non-empty draw set; non-empty label text.
+
+- **PASS on 108 charts** across 375/768/1280/2560. `--self-test` fires all four
+  invariants with no false positive, no browser needed.
+- **Proven against the real bug, not just synthetics:** temporarily disabling the
+  cull made it fail with **51 problems across 27 charts** at 375px, then pass again
+  on restore.
+- That test corrected the session's own scoping error — see Corrections below.
+
+### Added — `tools/update-stamp.py`, and the stamp changes meaning
+
+`lastUpdated` was stamped `TODAY` by `build-pillar-data.py` on every run, which was
+wrong in both directions: a no-op rebuild bumped it, while the 7/24 and 7/27 measure
+waves (which run `build-pillar-measures.py`) never touched it at all.
+
+- **New definition (Andy):** the date the dashboard changed *for a user* — updated
+  measure data, Smartsheet action data, or stories, **or** a structural change big
+  enough for a user-facing changelog.
+- Rule (a) is mechanical, so the tool fingerprints the built JSON the site serves
+  and bumps only on a real content change. Rule (b) is a judgment call no
+  fingerprint can make, so it is `--force`.
+- `build-pillar-data.py` now **preserves** the field. `--check` exits 1 when content
+  moved without a bump — wire it into a pre-push; it caught the 7/15 staleness on
+  its first run. Baseline lives in the new tracked `data/stamp-state.json`.
+
+### Data — Smartsheet live refresh (110 statuses)
+
+First live pull since 7/15. **5 status changes**, and the refresh notably did *not*
+resolve the "Launched" problem — which is what proved it was a content bug rather
+than stale data (Andy's instinct: "I doubt those Aug actions started over the
+weekend"). Two are **regressions** worth Geoff's eye:
+
+- Forward: `P2.F1.A2`, `P5.F1.A5`, `P7.F2.A3` → In Progress.
+- **Backward: `P7.F3.A3`, `P8.F2.A1` → Not Started.** P7.F3.A3 had flipped
+  *forward* in the 7/15 refresh, so it has now moved twice.
+
+### Content
+
+- **`P6.M1b` definition corrected.** Andy supplied the statutory language from the
+  DPI site. The draft's denominator ("schools that receive a performance grade") was
+  wrong; G.S. 115C-105.39A(a) requires schools that received **both** a performance
+  grade **and** a school growth score. **`P6.M1a` was verified accurate as drafted** —
+  "does not exceed expected growth" is exactly equivalent to the statute's "met or
+  not met expected growth" given the three growth designations.
+- **Disaggregation note applied** to `P1.M1` (BiN) and `P1.M10` (Pillar 1) from
+  Geoff's email. Both Source lines *already* linked the exact dashboard he wanted
+  "click here" to point at, so a literal reading would have put the same URL on
+  screen twice; Andy chose to fold it into the existing link instead. Written as
+  `sourceHtml` — a PRESERVE field in both build scripts — so it survives the next
+  data wave. A `sourceLabel` edit would have been silently overwritten.
+
+### Review — partial, deliberately not closed out
+
+Andy reviewed the P6 statutory question and nodded the other four descriptions,
+then ran out of gas ("will review first thing tomorrow"). Sections B (`sourceHtml`)
+and C (DIM structural edits) of the review packet are **not** signed off.
+**`DRAFTED_SINCE_REVIEW` was left untouched and the TSV was not regenerated** —
+removing IDs early has laundered unreviewed prose as approved twice already.
+
+### Corrections to this session's own record
+
+- **The label bug was reported as affecting 2 measures; it was ~27 charts / 51
+  collisions at 375px.** The ad-hoc sweep used a fallback formatter measuring raw
+  values (`97317`, `17.0`) instead of rendered strings (`97,317`, `17.0%`), plus a
+  fallback font — both made labels look narrower than they are, so percentage
+  measures came back clean when they were also colliding. The fix already covered
+  them; only the description of the scope was wrong. The new tool reads what was
+  actually drawn and does not have that blind spot.
+- **The review packet's "4 hand-authored `sourceHtml`" count was already stale** —
+  there were 6 (P2.M2a/b also have them). Today's edit makes 8.
+- `pillar.html`'s deep-link param is **`?p=N`**, not `?pillar=N` — cost one wasted
+  screenshot round (also recorded in the 7/15 entry).
+
+### Notes
+
+- **`notes/geoff-open-questions.md`** (new) — rolling short-form ask list, 15 items,
+  8/3-new ones marked. `meeting-agenda-20260803.md` stays as the backing detail.
+- No Geoff check-in was held 8/3.
+
 ## 2026-07-27 (session 3) — Andy's title edits land; Pillar 6 goes live; axis-invariant tool
 
 **Context:** Third session of 7/27. Andy made his 5 sheet edits and pulled a fresh

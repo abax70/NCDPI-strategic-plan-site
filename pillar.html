@@ -2347,19 +2347,58 @@ function renderMeasureCharts(measure, block) {
       const labelFontSize = window.innerWidth <= 768 ? 12 : 13;
       ctx.font = "600 " + labelFontSize + "px 'Source Sans Pro', sans-serif";
       ctx.textAlign = 'center';
+      const padX = 4, padY = 2;
+      const LABEL_GAP = 2;   // minimum clear space between two label boxes
+
+      const items = [];
       meta.data.forEach((bar, i) => {
         const val = chart.data.datasets[0].data[i];
         if (val == null) return;
         const formatted = formatValue(val, measure.valueFormat);
-        const x = bar.x;
-        const y = bar.y - 8;
-        const textWidth = ctx.measureText(formatted).width;
-        const padX = 4, padY = 2;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(x - textWidth / 2 - padX, y - 11 - padY, textWidth + padX * 2, 14 + padY * 2);
-        ctx.fillStyle = COLORS.dataLabel;
-        ctx.fillText(formatted, x, y);
+        items.push({
+          text: formatted,
+          x: bar.x,
+          y: bar.y - 8,
+          w: ctx.measureText(formatted).width
+        });
       });
+
+      // Collision cull (added 2026-08-03). Each label paints an opaque white
+      // pad, so overlapping labels ERASE each other's tails rather than just
+      // looking crowded — "97,317" rendered as "97,31" on P1.M5 at 375px,
+      // 6 of 7 labels affected. Desktop has zero collisions; no-op there.
+      // First and last are always kept (baseline + 2030 target); interior
+      // labels drop when they would touch a kept neighbour or the final label.
+      // Parity: same cull lives in best-in-nation.html's valueLabelsPlugin.
+      const boxL = it => it.x - it.w / 2 - padX;
+      const boxR = it => it.x + it.w / 2 + padX;
+      let shown = items;
+      if (items.length > 2) {
+        const last = items[items.length - 1];
+        shown = [items[0]];
+        for (let k = 1; k < items.length - 1; k++) {
+          const cand = items[k];
+          if (boxL(cand) - boxR(shown[shown.length - 1]) < LABEL_GAP) continue;
+          if (boxL(last) - boxR(cand) < LABEL_GAP) continue;
+          shown.push(cand);
+        }
+        shown.push(last);
+      }
+
+      shown.forEach(it => {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(it.x - it.w / 2 - padX, it.y - 11 - padY, it.w + padX * 2, 14 + padY * 2);
+        ctx.fillStyle = COLORS.dataLabel;
+        ctx.fillText(it.text, it.x, it.y);
+      });
+
+      // Expose what was actually drawn, for tools/verify-value-labels.py.
+      // Reading the culled set is the only way to check this from outside: the
+      // canvas is opaque to the DOM, and a clipped label paints pixels just as
+      // happily as a correct one (which is why verify-charts.py missed the bug
+      // this cull fixes). Total candidates are kept alongside so the checker can
+      // tell "nothing was dropped" from "everything was dropped".
+      chart.$drawnValueLabels = { drawn: shown, total: items.length };
       ctx.restore();
     }
   };

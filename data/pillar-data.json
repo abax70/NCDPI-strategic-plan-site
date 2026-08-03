@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-15",
+  "lastUpdated": "2026-08-03",
   "pillars": [
     {
       "pillarId": "P1",
@@ -98,7 +98,7 @@
               "actionName": "PreK-12 Teaching & Learning Framework",
               "actionDesc": "Design a Pre-K–12 Teaching and Learning Framework with PSUs to set shared expectations for standards-aligned instruction, integrated supports and access to high-quality learning for all students.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             }
@@ -189,7 +189,7 @@
               "actionName": "Expand Advanced Learning Opportunities",
               "actionDesc": "Expand access to advanced learning opportunities K-12, including North Carolina Governor’s School and K-8 talent development programming, aligned to student strengths, interests and career pathways.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -355,7 +355,7 @@
               "actionName": "Strengthen Grade-Level Transitions",
               "actionDesc": "Identify strategies for PSUs to strengthen grade-level transitions through coordinated planning, advising and personalized pathways between pre-K, elementary, middle and high school.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -364,7 +364,7 @@
               "actionName": "Expand Arts, Athletics & Leadership",
               "actionDesc": "Promote whole-child development and student engagement by expanding access to arts, athletics and student-led leadership opportunities that are aligned to academic standards and designed to cultivate students’ strengths, interests and well-being.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -373,7 +373,7 @@
               "actionName": "Embed AI Safely & Ethically",
               "actionDesc": "Establish scalable approaches to embed artificial intelligence safely, responsibly and ethically, and ensure collaborative problem-solving is included in the learning experience.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -721,7 +721,7 @@
               "actionName": "Expand Teacher Recruitment Programs",
               "actionDesc": "Expand student recruitment programs starting no later than middle school, such as career academy programs, “Teaching as a Profession” CTE pathways and other programs to encourage more students to engage in the education profession.",
               "launchDate": "2026-07-01",
-              "launchText": "Launched July, 2026",
+              "launchText": "Planned for July, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -731,15 +731,15 @@
               "actionDesc": "Revise and strengthen Beginning Teacher (BT) policy and supports, including exploring a standard statewide definition of BTs and regionalized support approaches with partners.",
               "launchDate": "2026-07-01",
               "launchText": "Launched July, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P2.F1.A3",
               "actionName": "Professional Learning Standards",
               "actionDesc": "Develop, adopt and promote statewide standards for high-quality professional learning to serve as guidance for the design and evaluation of professional learning opportunities, including microcredentials.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -957,7 +957,7 @@
               "actionName": "Recognize Educator Excellence",
               "actionDesc": "Engage with local boards of education to honor teachers and principals of the year, expand meaningful advisor roles for students, teachers and principals at the district and state levels and identify additional ways to publicly recognize educator excellence.",
               "launchDate": "2026-07-01",
-              "launchText": "Launched July, 2026",
+              "launchText": "Planned for July, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -966,7 +966,7 @@
               "actionName": "Reduce Teacher Burden Models",
               "actionDesc": "Explore models that increase instructional capacity by reducing burden on teachers, including eliminating or significantly reducing unpaid teacher duties, streamlining compliance processes, increasing teacher planning time and increasing flexible scheduling.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1207,7 +1207,7 @@
               "actionName": "Share School-Family Communication Best Practices",
               "actionDesc": "Promote collaboration and partner with PSUs to share best practices on effective communication between schools and families.",
               "launchDate": "2026-06-01",
-              "launchText": "Launched June, 2026",
+              "launchText": "Planned for June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1314,7 +1314,7 @@
               "actionName": "Engage Philanthropic & Business Support",
               "actionDesc": "Engage philanthropic and business communities to fund and support research and adoption of innovative school models.",
               "launchDate": "2026-06-01",
-              "launchText": "Launched June, 2026",
+              "launchText": "Planned for June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1546,7 +1546,7 @@
               "actionName": "Student Behavior Pilot Program",
               "actionDesc": "Develop a student behavior pilot to address behavior challenges and scale trauma-informed practices in PSUs identified with significant discipline referrals.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1555,7 +1555,7 @@
               "actionName": "Implement PBIS",
               "actionDesc": "Support PSUs in implementing Positive Behavioral Interventions and Supports (PBIS) and share best practices for fostering supportive school environments and reducing behavioral challenges.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1741,7 +1741,7 @@
               "actionName": "Improve NCDPI Communication Access",
               "actionDesc": "Improve ability of PSU staff to communicate with NCDPI by making contact information more accessible and transparent and by enhancing support protocols, such as regular NCDPI staff office hour sessions.",
               "launchDate": "2026-06-01",
-              "launchText": "Launched June, 2026",
+              "launchText": "Planned for June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1769,15 +1769,15 @@
               "actionDesc": "Evaluate the condition, functionality and safety of the NCDPI building and shared spaces to identify maintenance, modernization and accessibility needs that impact staff and visitor health, safety and productivity.",
               "launchDate": "2026-06-01",
               "launchText": "Launched June, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P5.F1.A6",
               "actionName": "Standardize Work Order Processes",
               "actionDesc": "Review, refine and standardize work order, maintenance and operational support request processes to ensure consistent, timely and transparent service delivery to all NCDPI offices and stakeholders.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             }
@@ -1847,7 +1847,7 @@
               "actionName": "Launch Enhanced Data Analytics",
               "actionDesc": "Launch enhanced data analytic tools for use with the NCSIS.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1963,7 +1963,7 @@
               "actionName": "Annual Effective Practices Collection",
               "actionDesc": "Publish and promote an annual collection of effective and innovative practices drawn from local, statewide and national research, to inform policy, NCDPI work and PSU improvement efforts.",
               "launchDate": "2026-06-01",
-              "launchText": "Launched June, 2026",
+              "launchText": "Planned for June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             }
@@ -2114,7 +2114,7 @@
               "actionName": "Recruit & Retain for Low-Performing Schools",
               "actionDesc": "Explore strategies, including how to creatively use currently available funding allotments, to recruit and retain highly effective teachers and principals to work in low-performing schools and districts.",
               "launchDate": "2026-06-01",
-              "launchText": "Launched June, 2026",
+              "launchText": "Planned for June, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -2302,8 +2302,8 @@
               "actionDesc": "Engage and align non-education partners’ communication efforts for this initiative.",
               "launchDate": "2026-07-01",
               "launchText": "Launched July, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "hasStarted": true,
+              "status": "In Progress"
             }
           ],
           "stories": []
@@ -2336,9 +2336,9 @@
               "actionName": "Joint Community Engagement Events",
               "actionDesc": "Encourage joint events and community engagement activities where NCDPI and education partners present unified messaging about public education.",
               "launchDate": "2026-05-01",
-              "launchText": "Launched May, 2026",
-              "hasStarted": true,
-              "status": "In Progress"
+              "launchText": "Planned for May, 2026",
+              "hasStarted": false,
+              "status": "Not Started"
             },
             {
               "actionId": "P7.F3.A4",
@@ -2498,16 +2498,16 @@
               "actionName": "10 Million Books Campaign",
               "actionDesc": "Develop and launch a statewide reading campaign where students will collectively read 10 million books annually, in collaboration with state and local partners.",
               "launchDate": "2026-01-01",
-              "launchText": "Launched January, 2026",
-              "hasStarted": true,
-              "status": "In Progress"
+              "launchText": "Planned for January, 2026",
+              "hasStarted": false,
+              "status": "Not Started"
             },
             {
               "actionId": "P8.F2.A2",
               "actionName": "PSU Family Engagement Toolkits",
               "actionDesc": "Develop toolkits for PSUs to engage families and partners in their schools.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -2542,7 +2542,7 @@
               "actionName": "Engage Policymakers in Schools",
               "actionDesc": "Engage local and state policymakers to attend events, visit schools and participate in public education initiatives.",
               "launchDate": "2026-08-01",
-              "launchText": "Launches in August, 2026",
+              "launchText": "Planned for August, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
