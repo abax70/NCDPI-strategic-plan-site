@@ -91,16 +91,15 @@ def main():
     # Without an entry here a fresh draft is labeled "approved (Andy 7/23)" in a table
     # that goes to Geoff -- i.e. unreviewed prose laundered as Andy-signed-off.
     # Add on drafting; REMOVE once Andy signs off.
-    DRAFTED_SINCE_REVIEW = {
-        # Staged in the 7/24 data wave, still unreviewed as of 2026-07-27.
-        "P2.M3a": "Pillar - DRAFTED 2026-07-24, pending Andy review",
-        "P2.M4b": "Pillar - DRAFTED 2026-07-24, pending Andy review",
-        # Drafted 2026-07-27.
-        "P1.M17b": "Pillar - DRAFTED 2026-07-27, pending Andy review",
-        # New in the 7/27 export (Pillar 6 went live this wave).
-        "P6.M1a": "Pillar - DRAFTED 2026-07-27, pending Andy review",
-        "P6.M1b": "Pillar - DRAFTED 2026-07-27, pending Andy review",
-    }
+    # EMPTY as of 2026-08-04: Andy signed off on all five (P2.M3a, P2.M4b,
+    # P1.M17b, P6.M1a, P6.M1b). His description review happened 8/3 -- P6.M1b was
+    # corrected then, per G.S. 115C-105.39A(a); the rest were read and accepted --
+    # and the IDs were held here until the rest of the review packet
+    # (notes/review-packet-20260727.md) closed on 8/4, which is what its Section D3
+    # was asking. Each description was confirmed byte-identical to the 8/3 text
+    # before clearing, so this records a decision already made rather than making
+    # one. Refill it the next time a description is drafted.
+    DRAFTED_SINCE_REVIEW = {}
     for m in load(PILLAR_JSON):
         metric = strip_year(m.get("currentDescription") or "")
         if metric:
