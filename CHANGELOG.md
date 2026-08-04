@@ -2,6 +2,97 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-08-04 — Review packet finished: Sections B and C, source lines get real links
+
+**Context:** Opened as a `/kickoff`; the board views the site **tomorrow, 8/5**.
+Andy resumed the review pass he'd said he would do "first thing." Sections B and C
+are now complete, which closes the packet — Section A was done 8/3 and Section D's
+questions are all answered. One genuinely new problem surfaced in C.
+
+### Shipped — Section B's five source lines now carry real links (`94206f1`)
+
+Andy added the two missing source URLs to the `StrategicPlan_measures` sheet and
+replaced the Tableau embed URLs with `go.ncdpi.gov` permalinks, then re-exported.
+
+**Those sheet edits do not reach the site on their own**, for two independent
+reasons worth remembering: `sourceHtml` is a PRESERVE field, so the build reads it
+and writes it back untouched; and the raw Source cells are still scratchpad prose
+the pipeline deliberately refuses to publish (P2.M3a's carries meeting notes about
+CSI/TSI schools, P4.M7's an analytic aside and the typo "Reprot"). So all five
+lines were hand-authored in `data/pillar-measures.json`.
+
+| Measure | Change |
+|---|---|
+| P1.M10 | → `go.ncdpi.gov/TestingState`. **Cosmetic** — the permalink redirects to exactly the `public.tableau.com` URL it replaced. |
+| P2.M2a | → `go.ncdpi.gov/EPPEnrollment`. **Not cosmetic** — lands on the `EnrollmentCharts` view, not `EPPDashboardHome`. |
+| P2.M2b | → same permalink as P2.M2a. Both measures share one link; Andy confirmed intentional. |
+| P2.M3a | + link to the 2024-25 State of the Teaching Profession report. Labelled **"(PDF)"** — the URL is a direct 920 KB download. |
+| P4.M7 | + link to the Annual Report on Discipline, Alternative Learning and Dropout 2024-25. Label stays "NCDPI Consolidated Data Report" per Andy. |
+
+P5.M3 and P7.M2 keep no link — no public source document. P5.M3 also keeps
+"public school units" rather than the sheet's newer "Reports from LEAs" (Andy's
+call), which leaves the PSU-vs-LEA question open rather than silently resolving it.
+
+- All five URLs return **200**, verified before publishing.
+- All five confirmed to render as **real anchors** in `pillar.html` — no verify tool
+  covers source lines, so this was checked directly against the served page.
+- The rebuild refreshed P1.M10's sheet-derived `sourceLabel`/`sourceUrl` and changed
+  **nothing else**. The re-cleaned workbook flipped no `Finalized?` flags (28 Y = 14
+  pillar + 13 BiN + P5.M2 excluded), so no measure entered or left the site.
+- Four verify tools pass. Stamp bumped 2026-08-03 → 2026-08-04.
+
+### Section C — the three structural edits check out, but the P4.M6 names moved
+
+All three 7/24 edits are in place, and none touches Best-in-Nation
+(`BestInNationGoal` is unset on every affected row, so HANDOFF's rename warning
+does not apply): `P2.M3c → P2.M3b` done and dormant; `P4.M6` split into a–d done;
+`P6.M1c` removed — and `git log -S` confirms it was **never** in a built
+`pillar-measures.json`, so nothing was ever published and no user sees a removal.
+
+C2 needed no work: zero MeasureName-drift warnings and the DIM↔sheet reconciliation
+reports "in sync," so all 12 name syncs held through the re-clean.
+
+**The find: P4.M6a–d now have authored names in the sheet that are not names.**
+
+| ID | DIM (Claude draft, 7/24) | Sheet (now) |
+|---|---|---|
+| P4.M6a | Missed School Due to Feeling Unsafe | Percentage of High School Students Who Felt Unsafe at School or On Their Way to School |
+| P4.M6b | Student Sense of Belonging | Percentage of High School Students Who Feel Like They Belong at Their School |
+| P4.M6c | Students Reporting Poor Mental Health | Percentage of High School Students Who Reported That Their Mental Health Was Not Good |
+| P4.M6d | Students Feeling Sad or Hopeless | Percentage of High School Students Who Felt Sad or Hopeless |
+
+**Andy's read: the DIM names are correct as *names*; the sheet's long forms are
+really metric descriptions that landed in the wrong column.** Being sorted out, but
+explicitly **not before 8/5**.
+
+Two things make this worth carrying loudly. First, **no part of the pipeline can
+see it** — the MeasureName drift check only fires on `Y`-flagged rows and these are
+`*`; the "in sync" reconciliation compares IDs, not names. It surfaced only because
+Section C sent someone looking. Second, under C2's own *sheet wins, DIM follows*
+rule, the moment Shaun confirms and these flip to `Y` the sheet text becomes the
+card titles — at 86 / 75 / 84 / 58 characters, against live titles that are far
+shorter.
+
+There is an unused lever: `menuLabel` falls back to `name` only when DIM's
+`MeasureLbl` is empty (`build-pillar-measures.py:596`), and `MeasureLbl` is blank on
+every pillar measure today. A short `MeasureLbl` plus the long official
+`MeasureName` would satisfy both needs without renegotiating anyone's wording.
+
+### Also found, not fixed (both pre-existing, both in `measures.json`)
+
+Neither is in the packet's count — the packet said 4 hand-authored source lines,
+HANDOFF corrected it to 8, and the true number is **10**. P1.M8 and P8.M2 live only
+on the Best-in-Nation side and have never been through a review pass.
+
+- **P8.M2's Statistical Profile link returns 403** to a scripted client even with a
+  browser user-agent. Could be an APEX app refusing non-browsers, or a dead deep
+  link — indistinguishable from the container. **Needs a human click.**
+- **P1.M8's Perkins link has moved** — `cte.ed.gov/pcrn/explorer` now redirects to
+  `octae.ed.gov/pcrn/explorer`. Works, so not urgent.
+- **P2.M2a/b's `sourceLabel` is still mangled** from the sheet ("( calculated as
+  number of candidates…", unbalanced paren, truncated mid-word). Invisible, because
+  `sourceHtml` wins in rendering — but it will be inherited by whoever touches it.
+
 ## 2026-08-03 — Pre-board integrity pass: three false claims removed from the live site
 
 **Context:** Geoff back in town; the board views the site **Wed 8/5**. Opened as a
