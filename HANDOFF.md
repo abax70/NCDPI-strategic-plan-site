@@ -15,8 +15,8 @@ anyone reads this.** Everything below is pushed and live.
 
 The 8/4 session finished the review packet. `notes/review-packet-20260727.md` is
 now **fully reviewed** — Section A closed 8/3, Sections B and C closed 8/4, and
-Section D's three questions are all answered (D1 on 8/3; D2 needs no action; D3 is
-the `DRAFTED_SINCE_REVIEW` decision below). Five source lines now carry real,
+Section D's three questions are all answered (D1 on 8/3; D2 needs no action; D3 was
+the `DRAFTED_SINCE_REVIEW` clear, done 8/4). Five source lines now carry real,
 verified links. All four verify tools pass; stamp is 2026-08-04.
 
 The 8/3 session before it was a pre-board integrity pass that found and fixed
@@ -27,34 +27,37 @@ width (`97,317` → `97,31`), and a sidebar stamp reading "Jul 15" while serving
 
 **Geoff is back.** No check-in was held 8/3 or 8/4.
 
-## FIRST: the one open decision from the review pass
+## The review packet is CLOSED
 
-**`DRAFTED_SINCE_REVIEW` in `tools/export-metric-text.py` is still UNTOUCHED** and
-still lists all five IDs (P2.M3a, P2.M4b, P1.M17b, P6.M1a, P6.M1b);
-`notes/measure-metric-text.tsv` was **not** regenerated.
+`notes/review-packet-20260727.md` is fully done — Sections A (8/3), B, C, and D
+(8/4). **`DRAFTED_SINCE_REVIEW` in `tools/export-metric-text.py` is now empty**
+(`4b3520d`) and `notes/measure-metric-text.tsv` is regenerated: 28 measures, zero
+"pending Andy review" rows, no gaps.
 
-That was correct while the packet was open. **It is now the only thing left in the
-packet** — Section D3 asks literally "anything to change before these five drafts
-lose their 'pending review' label?", and the answer is now no. So the remaining
-step is: clear the five IDs and re-run `tools/export-metric-text.py`.
+Before clearing, each of the five descriptions (P2.M3a, P2.M4b, P1.M17b, P6.M1a,
+P6.M1b) was confirmed **byte-identical** to the text Andy reviewed on 8/3, so the
+clear recorded a decision already made rather than making one. That check is the
+thing to repeat next time — the guardrail exists because removing an ID early
+laundered unreviewed prose as approved twice (7/27, both caught). The dict keeps
+its comment block for the next drafting wave.
 
-**It was deliberately NOT done on 8/4 without Andy saying so.** Removing an ID early
-has laundered unreviewed prose as approved **twice** (7/27, both caught), and the
-day before a board meeting is the wrong time to test that guardrail. Confirm with
-Andy, then clear and re-run.
+**One loose end left behind, needs Andy's judgment, not urgent:** all 14 pillar rows
+in the TSV now read `"from approved description (Andy 7/23)"`, but five of them were
+actually approved **8/3**. Accurate that they *are* approved, imprecise about when —
+and this table goes to Geoff. Whether to date them separately is a call Andy parked
+for a fresher day (8/4, end of session).
 
 ## Next session queue
 
-1. **Clear `DRAFTED_SINCE_REVIEW` + regenerate the TSV** (above) — needs one yes.
-2. **Sort out the P4.M6a–d names** — see the trap below. Andy: "we'll get it
+1. **Sort out the P4.M6a–d names** — see the trap below. Andy: "we'll get it
    straightened out but not by tomorrow."
-3. **Ask Geoff the 8/3 questions** — `notes/geoff-open-questions.md` is the
+2. **Ask Geoff the 8/3 questions** — `notes/geoff-open-questions.md` is the
    short-form list (15 items, 8/3-new ones marked). The two most urgent, because
    they are about what the board saw Wednesday:
    - Is **"Planned for August, 2026"** the wording he wants on 22 action cards?
    - Did **P7.F3.A3** and **P8.F2.A1** regress to Not Started deliberately, or did
      a project lead mis-click? P7.F3.A3 has now moved twice.
-4. **Two Best-in-Nation source links need a human** (found 8/4, both pre-existing,
+3. **Two Best-in-Nation source links need a human** (found 8/4, both pre-existing,
    both in `data/measures.json`, neither ever reviewed):
    - **P8.M2's Statistical Profile link 403s** to a scripted client even with a
      browser user-agent — `apps.schools.nc.gov/public/f?p=145:11::::::`. Could be
@@ -62,12 +65,12 @@ Andy, then clear and re-run.
      from the container, so Andy has to click it.**
    - **P1.M8's Perkins link moved** — `cte.ed.gov/pcrn/explorer` now redirects to
      `octae.ed.gov/pcrn/explorer`. Works; update when convenient.
-5. **Watch for Shaun** (the four YRBS P4.M6 measures) and **Curtis** (low-performing
+4. **Watch for Shaun** (the four YRBS P4.M6 measures) and **Curtis** (low-performing
    schools) → Andy flips those asterisks to Y → that wave brings P4.M6a–d live.
    Expect parser warnings: P4.M6a's 2030 target cell is a literal `-%` and the
    YRBS series are biennial ("-" in off years). **Do not let that wave land before
    the name trap below is resolved.**
-6. **After 8/5:** the chart-engine extraction (see parity rule below).
+5. **After 8/5:** the chart-engine extraction (see parity rule below).
 
 ## TRAP: the P4.M6a–d names will be overwritten by descriptions
 
@@ -147,7 +150,7 @@ official `MeasureName` satisfies both without renegotiating anyone's wording.
   hand-authored `sourceHtml` lines across both data files: that each renders on
   its page, that its rendered anchor count matches the source data (catching
   mangled or escaped markup), and that each href responds. **PASS as of 8/4**, with
-  the two known WARNs (P1.M8, P8.M2) described in queue item 4.
+  the two known WARNs (P1.M8, P8.M2) described in queue item 3.
   - Worth knowing if you extend it: **`best-in-nation.html` is a carousel** — only
     one measure is in the DOM at a time, so a plain page-load scrape finds measure
     1 and silently "loses" the other 13. It looks exactly like a site bug and is
@@ -184,7 +187,7 @@ official `MeasureName` satisfies both without renegotiating anyone's wording.
     an earlier HANDOFF corrected it to 8. The true count is 7 in
     `data/pillar-measures.json` + 3 in `data/measures.json` (P1.M1, P1.M8, P8.M2).
     **P1.M8 and P8.M2 are BiN-only and have never been through a review pass** — see
-    queue item 4.
+    queue item 3.
   - As of 8/4, six of the ten carry live links, all verified 200 and confirmed to
     render as real anchors. P2.M3a's is labelled **"(PDF)"** because the URL is a
     direct 920 KB download. P5.M3 and P7.M2 carry no link by design.
