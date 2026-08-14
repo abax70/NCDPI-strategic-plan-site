@@ -18,8 +18,30 @@
   "workspaceFolder": "/home/vscode/work",
   "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/work,type=bind",
   "mounts": [
-    "source=${localEnv:USERPROFILE}/.claude,target=/home/vscode/.claude,type=bind"
+    "source=${localEnv:USERPROFILE}/.claude,target=/home/vscode/.claude,type=bind",
+    // Plugins dir is container-local (named volume), NOT shared from the host. The
+    // host's ~/.claude/plugins JSON records Windows absolute paths (C:\Users\...),
+    // which this Linux container can't resolve — that leakage silently breaks the
+    // plugins subsystem (e.g. /plugin install failing, figma/code-review not loading).
+    // Canonical source: Claude-Sandbox/devcontainer-template (change-spec item C3).
+    "source=claude-sandbox-plugins,target=/home/vscode/.claude/plugins,type=volume",
+    // Keep Codex login and settings Linux-native and isolated to this project.
+    "source=${devcontainerId}-codex,target=/home/vscode/.codex,type=volume",
+    // gh + wrangler logins. SHARED volumes (fixed names), not ${devcontainerId}
+    // per-project ones: a GitHub or Cloudflare login is account-level, not
+    // project-level, so a per-project volume would mean re-running `gh auth login`
+    // in every repo's container for no benefit. Authenticate once, persists
+    // everywhere, survives rebuilds.
+    "source=claude-sandbox-gh,target=/home/vscode/.config/gh,type=volume",
+    "source=claude-sandbox-wrangler,target=/home/vscode/.config/.wrangler,type=volume"
   ],
+  // Cloudflare's OAuth flow redirects to a callback server on localhost:8976.
+  // Without this forward the browser can't reach it and `wrangler login` just
+  // hangs forever. You must ALSO run it as:
+  //     wrangler login --callback-host=0.0.0.0
+  // so wrangler listens on all interfaces inside the container, not just its own
+  // loopback. This is the #1 reason wrangler login "does nothing" in a container.
+  "forwardPorts": [8976],
   // Rootless-Podman recipe. --userns=keep-id maps your host user (uid 1000) to
   // the container's vscode user, so the VS Code Server volume (/vscode, mounted
   // external=true with no copy-up) and the bind mounts are owned correctly.
@@ -34,7 +56,12 @@
   "updateRemoteUserUID": false,
   "customizations": {
     "vscode": {
-      "extensions": ["anthropic.claude-code", "ms-python.python", "ms-toolsai.jupyter"]
+      "extensions": [
+        "anthropic.claude-code",
+        "openai.chatgpt",
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
     }
   }
 }
