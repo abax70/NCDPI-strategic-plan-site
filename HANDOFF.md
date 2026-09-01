@@ -15,17 +15,35 @@ two summer blog posts matched and live (164 → 168 matches), stamp 2026-09-01,
 all four verify tools pass. The 8/14 CGR baseline fix (87.7 → 87.8, `cd736fe`)
 is merged. Remote = local = deployed.
 
-## HARD GATE — no measure updates until the October SBE meeting
+**Then, 9/1 evening: branch `bin-2026-actuals` (local only, DO NOT push before
+9/2)** carries the 2025-26 actuals port — see the gate section below and
+`notes/STRAT-PLAN-PORT-2026.md` (the hand-carried brief; treat its values table
+as source of truth). Four 2026 actuals set (P1.M1 88.8, P1.M10 59.2, P6.M1a
+523, P6.M1b 10 — all meet target, all verified teal), one engine fix (decrease
+trajectory tick anchor, `7a240ee`), new `tools/verify-2026-actuals.py` valence
+checker. All four verify tools + the new one pass on the branch. **Merging to
+master IS publishing** (legacy GitHub Pages, no staging) — merge only on/after
+Wed 2026-09-02, and remember the repo itself is public, so even pushing the
+unmerged branch exposes the values.
 
-The 2025-26 accountability data released publicly **Wed 9/2**, but **Geoff's
-explicit call (via Andy, 9/1): do NOT update the site's accountability-fed
-measures (CGR, proficiency, etc.) until the October SBE meeting — Wed
-2026-10-07 — after the data correction window closes.** "The data is public
-now" is irrelevant to this gate. Stories and action statuses are unaffected.
-Memory: `project-strat-plan-measures-wait-october-sbe`.
+## GATE LIFTED 9/1 evening — populate now; re-verify after the October SBE
+
+Geoff's earlier 9/1 call to hold accountability-fed measures until October was
+**revised by Geoff himself, by email, 9/1 ~5:30 pm: "populate now" stands**
+(recorded in `notes/STRAT-PLAN-PORT-2026.md`, gate 3). What remains of the old
+gate is a *caution*: accountability numbers can be revised until the
+**2026-10-07 SBE meeting** — expect a re-verify pass after 10/7 (re-run
+`tools/verify-2026-actuals.py`, updating its EXPECTED table if numbers were
+corrected). The embargo on 2026 values becoming public lifts **Wed 2026-09-02**;
+before that, nothing 2026-flavored gets pushed anywhere public.
+Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
 
 ## Next session queue
 
+0. **Merge `bin-2026-actuals` → master (on/after Wed 9/2 only)**, push =
+   deploy, then re-run the four verify tools plus `verify-2026-actuals.py`
+   against the deployed state and run `tools/update-stamp.py --check`.
+   Two decisions ride along for Andy — see "Needs Andy" below.
 1. **Friday 9/4: Andy meets Geoff.** Standing agenda:
    - The 28 past-due launch labels — 22 "Planned for August, 2026" + 6 new
      September ones (P5.F3.A4, P6.F2.A1, P6.F2.A2, P6.F3.A3, P8.F1.A2,
@@ -47,11 +65,41 @@ Memory: `project-strat-plan-measures-wait-october-sbe`.
    → asterisks flip to Y → that wave goes live. Expect parser warnings (P4.M6a
    2030 target is literal `-%`; YRBS is biennial). **Do not let it land before
    the name trap is resolved.**
-5. **October SBE (10/7): the measure-update wave** — CGR, proficiency, etc.,
-   from the corrected accountability data. First measure-data touch since the
-   gate; re-read the gate section above when it lands.
-6. Chart-engine extraction (post-8/5 item, still pending; parity rule below
+   **NEW TRAP (9/1): `build-pillar-measures.py` writes `actual: None`
+   unconditionally (`build_data_series`, ~line 447) — a regeneration run WIPES
+   the four hand-set 2026 actuals.** Before the next wave runs, teach the
+   script to preserve non-null `actual` values from the existing JSON (or
+   read actuals from the sheet); `tools/verify-2026-actuals.py` will catch a
+   wipe after the fact, but fix the cause, not the symptom.
+5. **October SBE (10/7): the re-verify pass** — the 2026 actuals are already
+   populated (branch `bin-2026-actuals`, 9/1); after 10/7, re-check the four
+   values against the corrected accountability data and re-run
+   `tools/verify-2026-actuals.py`. A correction is a one-line data edit; the
+   commit provenance (`8da1273`) names each source.
+6. **Engine edge, low priority, both copies:** the *increasing* trajectory
+   branch (best-in-nation.html AND pillar.html) still anchors its lattice at
+   `maxV`, assuming the final target is the series max — the exact mirror of
+   the decrease bug fixed in `7a240ee`. It breaks the day an actual OVERSHOOTS
+   its 2030 target (plausible: CGR 2029/2030). `verify-chart-scales.py` will
+   catch it; fix both copies per the parity rule when it fires or when
+   convenient.
+7. Chart-engine extraction (post-8/5 item, still pending; parity rule below
    applies until then).
+
+## Needs Andy (two decisions, surfaced at the 9/1 evening port)
+
+1. **The headline callouts on the four updated measures still describe
+   2024–25.** The charts now show the 2026 actuals, but the hand-authored
+   fields (`currentValue`, `currentDescription`, `statusLabel`, `nextUpdate`
+   in both data files) still say e.g. "87.8% … (2024–25)" and "Record High —
+   87.8%" on P1.M1, "Approaching Target — 55.0%" on P1.M10, "Baseline Year"
+   on both P6 measures. Updating them makes public *claims* (88.8% would be a
+   new record high; the badge press release cites 87.8%) — his wording call,
+   not ours. Deliberately left untouched per the port brief's scope; apply his
+   wording in a follow-up commit on the branch (or after merge).
+2. **When to stamp:** "Last updated" reads 2026-09-01 (data-change date). If
+   Andy prefers the public-launch date, `tools/update-stamp.py --force` on
+   merge day.
 
 ## TRAP: the P4.M6a–d names will be overwritten by descriptions
 
@@ -105,7 +153,10 @@ alongside the long official `MeasureName` satisfies both.
   `verify-chart-scales.py` (axis invariants; `--self-test`),
   `verify-value-labels.py` (label overlap, 108 charts × 4 widths;
   `--self-test`). Each exists because a real bug slipped past the previous
-  ones; new bug class → add a fifth, don't widen one.
+  ones; new bug class → add a fifth, don't widen one. **The fifth arrived
+  9/1: `verify-2026-actuals.py`** (bar-color valence + P6 decrease-axis flip
+  — none of the four reads color); wave-specific EXPECTED table, re-run at
+  the post-10/7 re-verify.
 - `tools/check-source-lines.py` — NOT a fifth verify tool (written to confirm a
   change, hasn't earned pre-push status). Checks the 10 hand-authored
   `sourceHtml` lines; downgrades TLS/401/403 to WARN on purpose.

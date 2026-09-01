@@ -2,6 +2,51 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-09-01 (evening) — 2025-26 actuals populated on branch `bin-2026-actuals` (NOT live)
+
+**Context:** Geoff reversed his own October hold by email (~5:30 pm): "populate
+now." Andy hand-carried the port brief from Accountability-Team
+(`notes/STRAT-PLAN-PORT-2026.md`) and asked for the charts updated **but not
+made live** — today is 9/1 and the 2026 embargo lifts Wed 9/2, so everything
+sits on the local branch, unpushed. Merge = publish.
+
+### The port (`8da1273`)
+
+- Four 2026 `actual` values set, first use of the field: P1.M1 CGR **88.8**
+  (target 88.0), P1.M10 proficiency **59.2** (56.0), P6.M1a low-performing
+  schools **523** (650), P6.M1b districts **10** (21). All four meet target →
+  all four bars verified teal. Values verified 9/1 against the
+  Accountability-Team pipeline; correction window open until the 10/7 SBE.
+- The brief's baseline correction (P1.M1 2025: 87.7 → 87.8) was **already
+  merged** (`cd736fe`, 8/14) — nothing to do.
+- The brief's planned embargo pre-commit hook was **never built** — nothing to
+  remove.
+
+### Engine fix (`7a240ee`) — decrease trajectory tick anchor
+
+P6.M1b's 2026 actual (10) undershoots even its 2030 target (13), so the
+series minimum stopped being the final target and the decrease branch's
+`tickStart = minV` broke the target-on-a-labeled-tick invariant — caught by
+`verify-chart-scales.py` doing exactly its job. Lattice now anchors at the
+final target and extends down by whole steps (no-op when nothing undershoots).
+pillar.html only; the BiN copy hardcodes the increasing case (documented
+divergence). The *increasing* branch has the mirror edge in both copies —
+logged in HANDOFF, not fixed.
+
+### New checker (`231f95b`) — `tools/verify-2026-actuals.py`
+
+Valence (teal #077890 on all four 2026 bars), values, P6 flipped-axis
+engagement, and card legends. Mutation-tested: a below-target actual fails
+three ways (value, rust color, missing legend entry). All five tools pass on
+the branch.
+
+### Left for Andy (in HANDOFF)
+
+Headline callouts (`currentValue`/`statusLabel`/`nextUpdate`) on the four
+measures still say 2024–25 — wording is his call ("record high" is a claim).
+Stamp date preference. Plus a new trap: `build-pillar-measures.py` regeneration
+would wipe hand-set actuals — gate the next wave on preserving them.
+
 ## 2026-09-01 — Stories + Smartsheet refresh; the October-SBE measure hold is recorded
 
 **Context:** `/kickoff` with Andy's agenda: update stories and Smartsheet actions.
