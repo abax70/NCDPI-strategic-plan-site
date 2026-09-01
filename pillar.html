@@ -2155,13 +2155,25 @@ function renderTrajectoryChart(measure, els) {
     yMin = tickStart;
     yMax = maxV + 0.5 * yStep;   // breathing room above the target dot
   } else {
-    // Decreasing: bottom tick = target (minV); pad above the highest point.
+    // Decreasing: the FINAL TARGET anchors the tick lattice — it must land
+    // on a labeled tick (the stated invariant, asserted by
+    // tools/verify-chart-scales.py). Usually it is also the series minimum,
+    // so anchoring at minV used to be equivalent — until an actual dropped
+    // BELOW the final target (first live case, 2026-09-01: P6.M1b districts,
+    // 2026 actual 10 vs. 2030 target 13) and minV stopped being the target.
+    // Anchor at the target and extend the lattice down by WHOLE steps to
+    // cover any undershooting point; when nothing undershoots this reduces
+    // exactly to the old tickStart = minV behavior.
     const paddedMax = maxV + 0.10 * gap;
     yStep = niceYAxisScale(minV, paddedMax, 4).step;
-    numSteps = Math.ceil((paddedMax - minV) / yStep);
-    tickStart = minV;
-    yMin = minV - 0.5 * yStep;   // breathing room below the target dot
-    yMax = minV + numSteps * yStep;
+    const finalTarget = series.reduce(
+      (last, d) => d.target != null ? d.target : last, null);
+    const anchor = finalTarget != null ? finalTarget : minV;
+    const stepsBelowAnchor = Math.max(0, Math.ceil((anchor - minV) / yStep - 1e-9));
+    tickStart = anchor - stepsBelowAnchor * yStep;
+    numSteps = Math.ceil((paddedMax - tickStart) / yStep);
+    yMin = tickStart - 0.5 * yStep;   // breathing room below the bottom tick
+    yMax = tickStart + numSteps * yStep;
   }
 
   // Non-negative floor guard. Percentages, counts and dollars cannot go below
