@@ -2,6 +2,53 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-09-01 — Stories + Smartsheet refresh; the October-SBE measure hold is recorded
+
+**Context:** `/kickoff` with Andy's agenda: update stories and Smartsheet actions.
+Branch had diverged 1-and-1 (local devcontainer commit vs. remote CGR baseline
+fix `cd736fe`, 87.7 → 87.8, flagged by leadership 8/13); merged cleanly (`9848789`).
+
+### Smartsheet pull (`ced5d01`)
+
+- Live pull, 110 statuses: **zero churn since the 8/3 snapshot.** P7.F3.A3 and
+  P8.F2.A1 still Not Started, unchanged — the "deliberate or mis-click?" question
+  keeps for Geoff.
+- Only content change: six Not Started actions crossed their 2026-09-01 launch
+  date (P5.F3.A4, P6.F2.A1, P6.F2.A2, P6.F3.A3, P8.F1.A2, P8.F1.A3), so their
+  cards flip "Launches in September, 2026" → past-due "Planned for September,
+  2026". 28 past-due labels total now (22 August + 6 September).
+
+### Stories refresh (`508e140`, `91a1162`)
+
+- Blog pagination walked past the 6/25 boundary — the two-month summer gap is
+  real. **Two new posts** (62 → 64): the 8/26 Mo Green statement on the Meta
+  social-media settlement and the 8/28 Back to School Message 2026-27.
+  Pre-update `blog_posts.csv` archived to
+  `data/_Archive/blog_posts_2026-09-01_pre-update.csv`.
+- Five matches drafted (`data/blog_focus_area_matches_draft_2026-09.csv`);
+  **Andy struck the borderline P4.F1** match for the Meta statement and approved
+  the other four: Meta → P4.F2; Back to School → P1.F5, P1.F2 (10 Million Book
+  Challenge), P3.F1. Final CSV 164 → 168 matches.
+- The Meta statement was **matched, not left unmatched** like the SB 227/Leandro
+  legal statements — its substance is well-being policy (it even cites the
+  P4.M6a–d YRBS indicators). Andy concurred.
+- Rebuilt; stamp 2026-08-04 → 2026-09-01; **all four verify tools pass.**
+
+### Decisions
+
+- **HARD GATE (Geoff, via Andy 9/1): the 9/2 accountability release does NOT
+  update site measures.** CGR, proficiency, etc. wait for the **October SBE
+  meeting (Wed 10/7)**, after the data correction window closes. Recorded in
+  session memory (`project-strat-plan-measures-wait-october-sbe`).
+- Andy meets Geoff **Friday 9/4** — launch-label wording, the P7/P8 status
+  regressions, and `notes/geoff-open-questions.md` are the standing agenda.
+
+### Found, not ours to fix
+
+- Mo's 8/28 letter cites the graduation rate as **87.7%** — the site was
+  corrected to **87.8** on 8/14 (`cd736fe`), so dpi.nc.gov's blog and this site
+  now disagree. Comms-side fix; flagged for the Geoff meeting.
+
 ## 2026-08-04 — Review packet finished: Sections B and C, source lines get real links
 
 **Context:** Opened as a `/kickoff`; the board views the site **tomorrow, 8/5**.

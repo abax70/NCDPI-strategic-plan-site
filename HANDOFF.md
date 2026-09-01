@@ -1,223 +1,155 @@
 ---
-cc_status: hot
+cc_status: warm
 cc_strand: strategic-plan
-cc_updated: 2026-08-04
+cc_updated: 2026-09-01
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-08-04. See CHANGELOG.md for the full record of that session._
+_Last updated: 2026-09-01. Session records: CHANGELOG.md._
 
 ## Where things stand
 
-**The board views the site Wednesday 8/5 — that is today or yesterday by the time
-anyone reads this.** Everything below is pushed and live.
+9/1 session done and **deployed**: Smartsheet pull (zero status churn since 8/3),
+two summer blog posts matched and live (164 → 168 matches), stamp 2026-09-01,
+all four verify tools pass. The 8/14 CGR baseline fix (87.7 → 87.8, `cd736fe`)
+is merged. Remote = local = deployed.
 
-The 8/4 session finished the review packet. `notes/review-packet-20260727.md` is
-now **fully reviewed** — Section A closed 8/3, Sections B and C closed 8/4, and
-Section D's three questions are all answered (D1 on 8/3; D2 needs no action; D3 was
-the `DRAFTED_SINCE_REVIEW` clear, done 8/4). Five source lines now carry real,
-verified links. All four verify tools pass; stamp is 2026-08-04.
+## HARD GATE — no measure updates until the October SBE meeting
 
-The 8/3 session before it was a pre-board integrity pass that found and fixed
-**three false claims** the site was making: 22 action cards saying "Launched" for
-actions that had not started, bar value labels showing **wrong numbers** at mobile
-width (`97,317` → `97,31`), and a sidebar stamp reading "Jul 15" while serving
-7/27+ data.
-
-**Geoff is back.** No check-in was held 8/3 or 8/4.
-
-## The review packet is CLOSED
-
-`notes/review-packet-20260727.md` is fully done — Sections A (8/3), B, C, and D
-(8/4). **`DRAFTED_SINCE_REVIEW` in `tools/export-metric-text.py` is now empty**
-(`4b3520d`) and `notes/measure-metric-text.tsv` is regenerated: 28 measures, zero
-"pending Andy review" rows, no gaps.
-
-Before clearing, each of the five descriptions (P2.M3a, P2.M4b, P1.M17b, P6.M1a,
-P6.M1b) was confirmed **byte-identical** to the text Andy reviewed on 8/3, so the
-clear recorded a decision already made rather than making one. That check is the
-thing to repeat next time — the guardrail exists because removing an ID early
-laundered unreviewed prose as approved twice (7/27, both caught). The dict keeps
-its comment block for the next drafting wave.
-
-**One loose end left behind, needs Andy's judgment, not urgent:** all 14 pillar rows
-in the TSV now read `"from approved description (Andy 7/23)"`, but five of them were
-actually approved **8/3**. Accurate that they *are* approved, imprecise about when —
-and this table goes to Geoff. Whether to date them separately is a call Andy parked
-for a fresher day (8/4, end of session).
+The 2025-26 accountability data released publicly **Wed 9/2**, but **Geoff's
+explicit call (via Andy, 9/1): do NOT update the site's accountability-fed
+measures (CGR, proficiency, etc.) until the October SBE meeting — Wed
+2026-10-07 — after the data correction window closes.** "The data is public
+now" is irrelevant to this gate. Stories and action statuses are unaffected.
+Memory: `project-strat-plan-measures-wait-october-sbe`.
 
 ## Next session queue
 
-1. **Sort out the P4.M6a–d names** — see the trap below. Andy: "we'll get it
-   straightened out but not by tomorrow."
-2. **Ask Geoff the 8/3 questions** — `notes/geoff-open-questions.md` is the
-   short-form list (15 items, 8/3-new ones marked). The two most urgent, because
-   they are about what the board saw Wednesday:
-   - Is **"Planned for August, 2026"** the wording he wants on 22 action cards?
-   - Did **P7.F3.A3** and **P8.F2.A1** regress to Not Started deliberately, or did
-     a project lead mis-click? P7.F3.A3 has now moved twice.
-3. **Two Best-in-Nation source links need a human** (found 8/4, both pre-existing,
-   both in `data/measures.json`, neither ever reviewed):
-   - **P8.M2's Statistical Profile link 403s** to a scripted client even with a
-     browser user-agent — `apps.schools.nc.gov/public/f?p=145:11::::::`. Could be
-     an APEX app refusing non-browsers or a dead deep link; **indistinguishable
-     from the container, so Andy has to click it.**
-   - **P1.M8's Perkins link moved** — `cte.ed.gov/pcrn/explorer` now redirects to
-     `octae.ed.gov/pcrn/explorer`. Works; update when convenient.
-4. **Watch for Shaun** (the four YRBS P4.M6 measures) and **Curtis** (low-performing
-   schools) → Andy flips those asterisks to Y → that wave brings P4.M6a–d live.
-   Expect parser warnings: P4.M6a's 2030 target cell is a literal `-%` and the
-   YRBS series are biennial ("-" in off years). **Do not let that wave land before
-   the name trap below is resolved.**
-5. **After 8/5:** the chart-engine extraction (see parity rule below).
+1. **Friday 9/4: Andy meets Geoff.** Standing agenda:
+   - The 28 past-due launch labels — 22 "Planned for August, 2026" + 6 new
+     September ones (P5.F3.A4, P6.F2.A1, P6.F2.A2, P6.F3.A3, P8.F1.A2,
+     P8.F1.A3). Is that the wording he wants?
+   - P7.F3.A3 / P8.F2.A1: still Not Started as of the 9/1 pull — deliberate
+     regression or mis-click? (P7.F3.A3 has moved twice.)
+   - `notes/geoff-open-questions.md` — 15 items.
+   - FYI: Mo's 8/28 blog letter says CGR 87.7%; site corrected to 87.8 on 8/14.
+     Blog-side fix, not ours.
+   - Parked from 8/4: the TSV's `"from approved description (Andy 7/23)"`
+     provenance on five rows actually approved 8/3 — date them separately?
+2. **Sort out the P4.M6a–d names** before Shaun's wave lands — see TRAP below.
+3. **Two BiN source links need a human** (both in `data/measures.json`, never
+   reviewed): P8.M2's Statistical Profile link 403s to scripted clients
+   (`apps.schools.nc.gov/public/f?p=145:11::::::`) — **Andy must click it**;
+   P1.M8's Perkins link redirects `cte.ed.gov` → `octae.ed.gov` — update when
+   convenient.
+4. **Watch for Shaun** (YRBS P4.M6a–d) and **Curtis** (low-performing schools)
+   → asterisks flip to Y → that wave goes live. Expect parser warnings (P4.M6a
+   2030 target is literal `-%`; YRBS is biennial). **Do not let it land before
+   the name trap is resolved.**
+5. **October SBE (10/7): the measure-update wave** — CGR, proficiency, etc.,
+   from the corrected accountability data. First measure-data touch since the
+   gate; re-read the gate section above when it lands.
+6. Chart-engine extraction (post-8/5 item, still pending; parity rule below
+   applies until then).
 
 ## TRAP: the P4.M6a–d names will be overwritten by descriptions
 
-The sheet now carries authored `MeasureName` values for P4.M6a–d that **are not
-names** — they are metric descriptions in the wrong column (Andy's read, 8/4):
+The sheet carries authored `MeasureName` values for P4.M6a–d that are metric
+descriptions, not names (86/75/84/58 chars vs. short DIM names like "Missed
+School Due to Feeling Unsafe" / "Student Sense of Belonging" / "Students
+Reporting Poor Mental Health" / "Students Feeling Sad or Hopeless").
 
-| ID | DIM — correct as the *name* | Sheet — really a *description* |
-|---|---|---|
-| P4.M6a | Missed School Due to Feeling Unsafe | Percentage of High School Students Who Felt Unsafe at School or On Their Way to School |
-| P4.M6b | Student Sense of Belonging | Percentage of High School Students Who Feel Like They Belong at Their School |
-| P4.M6c | Students Reporting Poor Mental Health | Percentage of High School Students Who Reported That Their Mental Health Was Not Good |
-| P4.M6d | Students Feeling Sad or Hopeless | Percentage of High School Students Who Felt Sad or Hopeless |
+**Nothing in the pipeline will warn you**: the MeasureName drift check fires
+only on `Y`-flagged rows (these are `*`), and reconciliation compares IDs, not
+names. Under *sheet wins, DIM follows*, the moment they flip to `Y` the long
+text becomes the card titles.
 
-**Nothing in the pipeline will warn you.** The MeasureName drift check fires only on
-`Y`-flagged rows and these are `*`; the "in sync" reconciliation compares IDs, not
-names. This surfaced only because someone read Section C.
-
-**Why it bites:** under the standing *sheet wins, DIM follows* rule, the moment
-Shaun confirms and these flip to `Y`, the sheet text becomes the card titles — at
-**86 / 75 / 84 / 58 characters**, against live titles that are far shorter.
-
-**The lever, currently unused:** `menuLabel` falls back to `name` only when DIM's
-`MeasureLbl` is empty (`data/build-pillar-measures.py:596`), and `MeasureLbl` is
-blank on **every** pillar measure today. A short `MeasureLbl` alongside the long
-official `MeasureName` satisfies both without renegotiating anyone's wording.
+**The lever, currently unused:** `menuLabel` falls back to `name` only when
+DIM's `MeasureLbl` is empty (`data/build-pillar-measures.py:596`), and
+`MeasureLbl` is blank on every pillar measure today. A short `MeasureLbl`
+alongside the long official `MeasureName` satisfies both.
 
 ## Longer-running carry-overs (not blocking)
 
-- **P2.M4a says PSUs but may count LEAs.** The 7/27 retitle aligned the title with
-  its approved description; it did **not** change what the sheet counts. Same family
-  as the P5.M3 unit question. Note LEA is *genuinely correct* for P1.M17b (federal
-  IDEA determination at LEA level), and "district" is correct for P6.M1b (district
-  identification applies to LEAs; charters are not in districts). The site will
-  legitimately use both words — be deliberate rather than normalizing them.
-  **8/4:** the sheet's P5.M3 Source cell was re-cleaned to "Reports from LEAs", but
-  the site deliberately **keeps "Reports from public school units to NCDPI"** (Andy's
-  call). The question stays open rather than being silently resolved by a sheet edit.
-- **P2.M2a/b's `sourceLabel` is mangled** — `"…NCDPI ( calculated as number of
-  candidates…"`, unbalanced paren, truncated mid-word, straight from the sheet cell.
-  **Invisible on the site** because `sourceHtml` wins in rendering, so this is not
-  urgent — but it is waiting for whoever next touches that field.
-- **P1.M17b's "Annual Results" chart is ~200px of near-empty white** — all bars are
-  zero-height, showing a row of `0.0%` labels on the baseline. More pronounced on
-  mobile. Deliberately left as-is for Geoff's reaction; he has not yet seen it.
-- **P1.M17b's year suffix** uses the site-standard `(2024–25)` but the source is
-  SPP/APR **FFY 2024**, a federal fiscal year.
-- **WhyMeasureMatters** for pillar measures (no `whyItCounts` on any); the export's
-  `MeasureContextNote` and `WhyMeasureMatters` columns are empty in every row.
-- **P5.M2 chartability** — all-1s NCSIS milestone; excluded by name.
-- **P1.M5** stays a **count**; the percentage idea sits in the export's
-  `Notes on Recommended Changes` side tab, which the pipeline never reads.
-- **P2.M3a `nextUpdate`** — "When Available?" cell is blank (no Next update line).
-- **P2.M2b and P2.M3a derive no status pill** — both regressed vs. prior year; the
-  rule refuses to print "Approaching target" over a decline. `statusOverride` if
-  Geoff wants text there.
+- **P2.M4a says PSUs but may count LEAs** (family: P5.M3 unit question). LEA is
+  *genuinely correct* for P1.M17b (federal IDEA determination); "district" is
+  correct for P6.M1b. Be deliberate, don't normalize. The sheet's P5.M3 Source
+  cell says "Reports from LEAs"; the site deliberately keeps "public school
+  units" (Andy's call) — question stays open.
+- **P2.M2a/b `sourceLabel` is mangled** (unbalanced paren, truncated) —
+  invisible because `sourceHtml` wins in rendering; waiting for whoever next
+  touches the field.
+- **P1.M17b "Annual Results" chart is near-empty white** (all bars zero-height)
+  — deliberately left for Geoff's reaction; he has not seen it.
+- **P1.M17b year suffix** is site-standard `(2024–25)` but the source is
+  SPP/APR FFY 2024.
+- **WhyMeasureMatters/whyItCounts** empty on all pillar measures.
+- **P5.M2** excluded by name (all-1s NCSIS milestone).
+- **P1.M5** stays a count; the percentage idea lives in the export's side tab,
+  which the pipeline never reads.
+- **P2.M3a `nextUpdate`** blank ("When Available?" cell empty).
+- **P2.M2b and P2.M3a derive no status pill** (regressed vs. prior year; rule
+  refuses "Approaching target" over a decline). `statusOverride` if Geoff wants
+  text.
 
-## Repo state notes
+## Repo state notes (durable)
 
-- Local `master` = `origin/master`; pushes deploy via GitHub Pages
-  (production URL: abax70.github.io/NCDPI-strategic-plan-site).
-- **Verification is now FOUR tools**, all passing as of this wrapup:
-  - `tools/verify-charts.py` — 8 pillars × 3 widths; cards, painted pixels,
-    jump-strip contract, console clean.
-  - `tools/verify-bin-chips.py` — 14 BiN measure-ID chips, tints, console.
-  - `tools/verify-chart-scales.py` — reads live Chart.js scale objects and asserts
-    axis invariants. `--self-test` runs without a browser.
-  - `tools/verify-value-labels.py` — **new 8/3.** Asserts no two *drawn* value
-    labels overlap, and that the first and last always survive the cull. Catches
-    what the other three structurally cannot: **painted pixels prove nothing about
-    whether the number is complete.** 108 charts across 4 widths. `--self-test`
-    confirms all four invariants still fire.
-  - **Each tool exists because a real bug slipped past the previous ones.** If a
-    new bug class appears, the pattern is to add a fifth, not to widen one.
-- **`tools/check-source-lines.py` — new 8/4, and deliberately NOT a fifth verify
-  tool.** It was written to confirm a change, not to catch a regression that bit
-  us, so it has not earned a place in the pre-push set. It checks all 10
-  hand-authored `sourceHtml` lines across both data files: that each renders on
-  its page, that its rendered anchor count matches the source data (catching
-  mangled or escaped markup), and that each href responds. **PASS as of 8/4**, with
-  the two known WARNs (P1.M8, P8.M2) described in queue item 3.
-  - Worth knowing if you extend it: **`best-in-nation.html` is a carousel** — only
-    one measure is in the DOM at a time, so a plain page-load scrape finds measure
-    1 and silently "loses" the other 13. It looks exactly like a site bug and is
-    not one. The tool drives the `.carousel-select` by array index instead.
-  - It downgrades TLS-cert failures and 401/403 to WARN on purpose: inside this
-    container neither is distinguishable from real breakage, and a tool that cries
-    wolf gets ignored.
-- **`tools/update-stamp.py` owns the "Last updated" date.** `build-pillar-data.py`
-  now *preserves* the field rather than stamping `TODAY`. Run `update-stamp.py`
-  after any data wave; `--check` exits 1 if content moved without a bump (good
-  pre-push hook); `--force` for structural changes a fingerprint cannot detect.
-  Baseline lives in tracked `data/stamp-state.json`.
-- **Smartsheet live pull works from the container** — `data/.smartsheet-token`
-  exists and `build-pillar-data.py` refreshes `data/action-statuses.csv`
-  automatically. The CSV's 4th column is a pull date, so *every* row shows as
-  changed in `git diff` even when no status moved; compare column 2 to see real
-  churn.
-- `data/DIM_Measures.csv` **has ragged rows** — a Sheets export artifact where some
-  rows carry 28 trailing empty fields and others 6. Edit it with line-level surgery,
-  **not** a `csv` round-trip, or the whole file reformats.
-- **`data/build-measures.py` treats DIM `MeasureName` as canonical for BiN
-  measures.** Before renaming any DIM row, check its `BestInNationGoal` flag; if it
-  is set, the rename changes the Best-in-Nation page too.
-- **`sourceHtml` is a PRESERVE field in both build scripts** and both renderers
-  prefer it — it is the correct place for any hand-authored Source line. A
-  `sourceLabel` edit gets overwritten by the next build.
-  - **Corollary, learned the hard way 8/4: editing the Source cell in the sheet does
-    NOT change the site.** Two independent reasons — the build preserves `sourceHtml`
-    rather than regenerating it, *and* a multi-part or prose Source cell is refused
-    by the parser anyway (it warns "needs hand review" and leaves the field null).
-    Sheet edits are still worth making as the durable record, but the site only moves
-    when `sourceHtml` is hand-edited in `data/pillar-measures.json`.
-  - **There are 10 hand-authored source lines, not 4 or 8.** The 7/27 packet said 4;
-    an earlier HANDOFF corrected it to 8. The true count is 7 in
-    `data/pillar-measures.json` + 3 in `data/measures.json` (P1.M1, P1.M8, P8.M2).
-    **P1.M8 and P8.M2 are BiN-only and have never been through a review pass** — see
-    queue item 3.
-  - As of 8/4, six of the ten carry live links, all verified 200 and confirmed to
-    render as real anchors. P2.M3a's is labelled **"(PDF)"** because the URL is a
-    direct 920 KB download. P5.M3 and P7.M2 carry no link by design.
-- `data/measure-gaps.md` is generated every run and deliberately tracked. It never
-  quotes raw sheet prose (public repo) — **the same rule governs anything written
-  into `notes/`.** Its date stamp changes every run, so it always shows in
-  `git status`; that is expected, not drift.
-- **Chart engine parity rule still in force** for the SHARED engine: bug fixes land
-  in BOTH `pillar.html` and `best-in-nation.html` until the post-8/5 extraction.
-  The 8/3 label cull is the most recent example. Deliberate departures, commented
-  in place: the jump strip (pillar only), the pillar measure-card header markup,
-  and the BiN measure-ID chip.
-- `pillar.html`'s deep-link param is **`?p=N`**, not `?pillar=N`.
+- `master` pushes deploy via GitHub Pages
+  (abax70.github.io/NCDPI-strategic-plan-site). **Andy's VS Code shares this
+  working tree and can Sync mid-session** — it did on 9/1, pushing the
+  checkpoint trail before wrapup. Check `git ls-remote` before assuming
+  unpushed.
+- **Verification is FOUR tools**, all passing 2026-09-01: `verify-charts.py`
+  (8 pillars × 3 widths), `verify-bin-chips.py` (14 chips),
+  `verify-chart-scales.py` (axis invariants; `--self-test`),
+  `verify-value-labels.py` (label overlap, 108 charts × 4 widths;
+  `--self-test`). Each exists because a real bug slipped past the previous
+  ones; new bug class → add a fifth, don't widen one.
+- `tools/check-source-lines.py` — NOT a fifth verify tool (written to confirm a
+  change, hasn't earned pre-push status). Checks the 10 hand-authored
+  `sourceHtml` lines; downgrades TLS/401/403 to WARN on purpose.
+  `best-in-nation.html` is a carousel — only one measure in the DOM at a time;
+  the tool drives `.carousel-select` by index.
+- **`tools/update-stamp.py` owns "Last updated"** — run after any data wave;
+  `--check` exits 1 if content moved without a bump; baseline in tracked
+  `data/stamp-state.json`.
+- **Smartsheet live pull works from the container** (`data/.smartsheet-token`;
+  `build-pillar-data.py` refreshes `action-statuses.csv`). The 4th column is
+  the pull date, so every row diffs; compare column 2 for real churn.
+- `data/DIM_Measures.csv` has ragged rows — line-level surgery only, no `csv`
+  round-trip.
+- `build-measures.py` treats DIM `MeasureName` as canonical for BiN — check
+  `BestInNationGoal` before renaming any DIM row.
+- **`sourceHtml` is a PRESERVE field** in both build scripts; both renderers
+  prefer it. Sheet Source-cell edits do NOT reach the site (build preserves,
+  and the parser refuses multi-part/prose cells). **10 hand-authored source
+  lines**: 7 in `pillar-measures.json` + 3 in `measures.json` (P1.M1, P1.M8,
+  P8.M2). P1.M8/P8.M2 are BiN-only, never reviewed (queue item 3). Six carry
+  live links; P2.M3a's is labelled "(PDF)" (920 KB download); P5.M3 and P7.M2
+  have no link by design.
+- `data/measure-gaps.md` is generated and tracked; never quotes raw sheet prose
+  (public repo) — same rule for anything in `notes/`. Its date stamp always
+  shows in `git status`; expected, not drift.
+- **Chart-engine parity rule in force**: shared-engine fixes land in BOTH
+  `pillar.html` and `best-in-nation.html` until the extraction. Deliberate
+  departures are commented in place (jump strip, pillar card header, BiN chip).
+- `pillar.html` deep-link param is **`?p=N`**, not `?pillar=N`.
+- Blog refresh pattern (last run 9/1): walk dpi.nc.gov/blog pagination past the
+  boundary date, append to `blog_posts.csv` (archive pre-update copy first),
+  BlogNum = row order in `blog_posts.csv`, draft matches for Andy (1–4
+  substantive per post, one-line rationale; pure legal statements stay
+  unmatched — SB 227/Leandro precedent), fold approved rows into
+  `blog_focus_area_matches_final.csv`, rebuild, stamp, verify.
 - Tracked notes: `punchlist-20260720.md`, `meeting-agenda-20260724.md`,
   `meeting-agenda-20260803.md`, `sheet-edits-20260727.md`,
-  `review-packet-20260727.md`, `measure-metric-text.tsv`,
+  `review-packet-20260727.md` (CLOSED 8/4), `measure-metric-text.tsv`,
   `geoff-open-questions.md`.
 - **Stray file to relocate (not ours):**
   `images/HappyPeoplePhotos/reporting-process-guide.html` belongs in
-  **EPP-Codebase** — Andy to move it from the host; unreachable from this container.
+  EPP-Codebase — Andy to move from the host; unreachable from this container.
 
-## Scratchpad harnesses NOT committed (recreate if needed)
+## Scratchpad harnesses NOT committed
 
-**8/4:** nothing left in the scratchpad worth keeping — the session's one-shot
-source-line checker was promoted to `tools/check-source-lines.py` rather than left
-to vanish.
-
-The one-shot scripts from 8/3 live only in the session scratchpad and will vanish:
-`set_disagg_source.py` (applies the disaggregation `sourceHtml`, aborts if the row's
-`sourceUrl` drifts from the URL baked into the hand-authored HTML), and the ad-hoc
-screenshot/sweep helpers. The sweeps were **superseded** by
-`tools/verify-value-labels.py` and should not be resurrected — they measured
-*candidate* labels with a fallback formatter and undercounted the bug by ~13x.
+9/1: nothing worth keeping — the pre-pull `action-statuses-pre.csv` snapshot
+and raw post HTML were one-shot inputs, superseded by the committed CSVs.
