@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-04",
+  "lastUpdated": "2026-09-01",
   "pillars": [
     {
       "pillarId": "P1",
@@ -104,6 +104,14 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 64,
+              "title": "Back to School Message 2026-27",
+              "url": "https://www.dpi.nc.gov/blog/2026/08/28/back-school-message-2026-27",
+              "publishDate": "August 28, 2026",
+              "county": "",
+              "rationale": "Announces the 10 Million Book Challenge, a statewide student reading initiative launching January 2027"
+            },
             {
               "blogNum": 61,
               "title": "Congratulations to Bladen County Schools on Selection for the 2026–2027 Relay Graduate School of Education and NCDPI Partnership",
@@ -578,6 +586,14 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 64,
+              "title": "Back to School Message 2026-27",
+              "url": "https://www.dpi.nc.gov/blog/2026/08/28/back-school-message-2026-27",
+              "publishDate": "August 28, 2026",
+              "county": "",
+              "rationale": "Centers on life-ready outcomes -- record graduation rate, AP qualifying scores, 382,964 CTE credentials, 54% passing a college-level course -- and every-pathway framing (college, community college, apprenticeship, workforce)"
+            },
             {
               "blogNum": 60,
               "title": "A message of gratitude and congratulations for the Class of 2026",
@@ -1223,6 +1239,14 @@
           ],
           "stories": [
             {
+              "blogNum": 64,
+              "title": "Back to School Message 2026-27",
+              "url": "https://www.dpi.nc.gov/blog/2026/08/28/back-school-message-2026-27",
+              "publishDate": "August 28, 2026",
+              "county": "",
+              "rationale": "Thanks families as partners whose engagement makes a lasting difference, mirroring the Class of 2026 letter's approved P3.F1 match"
+            },
+            {
               "blogNum": 60,
               "title": "A message of gratitude and congratulations for the Class of 2026",
               "url": "https://www.dpi.nc.gov/blog/2026/06/03/message-gratitude-and-congratulations-class-2026",
@@ -1597,6 +1621,14 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 63,
+              "title": "Statement from North Carolina Superintendent of Public Instruction Maurice \"Mo\" Green on Meta Social Media Settlement",
+              "url": "https://www.dpi.nc.gov/blog/2026/08/26/statement-north-carolina-superintendent-public-instruction-maurice-mo-green-meta-social-media",
+              "publishDate": "August 26, 2026",
+              "county": "",
+              "rationale": "The settlement's up-to-$645M is directed at student mental health; the statement centers on YRBS well-being results, counselor/social worker/psychologist ratios, and names student mental health as the center of a strategic plan pillar"
+            },
             {
               "blogNum": 55,
               "title": "AttendNC Bright Spots",
