@@ -123,7 +123,7 @@
         "year": "2026",
         "baseline": null,
         "target": 56.0,
-        "actual": null
+        "actual": 59.2
       },
       {
         "year": "2027",
@@ -883,7 +883,7 @@
         "year": "2026",
         "baseline": null,
         "target": 650.0,
-        "actual": null
+        "actual": 523
       },
       {
         "year": "2027",
@@ -959,7 +959,7 @@
         "year": "2026",
         "baseline": null,
         "target": 21.0,
-        "actual": null
+        "actual": 10
       },
       {
         "year": "2027",
