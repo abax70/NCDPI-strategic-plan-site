@@ -15,16 +15,14 @@ two summer blog posts matched and live (164 → 168 matches), stamp 2026-09-01,
 all four verify tools pass. The 8/14 CGR baseline fix (87.7 → 87.8, `cd736fe`)
 is merged. Remote = local = deployed.
 
-**Then, 9/1 evening: branch `bin-2026-actuals` (local only, DO NOT push before
-9/2)** carries the 2025-26 actuals port — see the gate section below and
-`notes/STRAT-PLAN-PORT-2026.md` (the hand-carried brief; treat its values table
-as source of truth). Four 2026 actuals set (P1.M1 88.8, P1.M10 59.2, P6.M1a
-523, P6.M1b 10 — all meet target, all verified teal), one engine fix (decrease
-trajectory tick anchor, `7a240ee`), new `tools/verify-2026-actuals.py` valence
-checker. All four verify tools + the new one pass on the branch. **Merging to
-master IS publishing** (legacy GitHub Pages, no staging) — merge only on/after
-Wed 2026-09-02, and remember the repo itself is public, so even pushing the
-unmerged branch exposes the values.
+**9/2: the 2025-26 actuals port is MERGED AND DEPLOYED** (branch
+`bin-2026-actuals` → master, embargo lifted, Andy's explicit go). The port:
+four 2026 actuals (P1.M1 88.8, P1.M10 59.2, P6.M1a 523, P6.M1b 10 — all meet
+target, all verified teal), one engine fix (decrease trajectory tick anchor,
+`7a240ee`), the 2025–26 CGR record-high badge + 9/2 DPI press-release link,
+new `tools/verify-2026-actuals.py` valence checker, stamp 2026-09-02. Brief:
+`notes/STRAT-PLAN-PORT-2026.md` (its values table is source of truth). All
+five verify tools passed pre-merge.
 
 ## GATE LIFTED 9/1 evening — populate now; re-verify after the October SBE
 
@@ -40,10 +38,9 @@ Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
 
 ## Next session queue
 
-0. **Merge `bin-2026-actuals` → master (on/after Wed 9/2 only)**, push =
-   deploy, then re-run the four verify tools plus `verify-2026-actuals.py`
-   against the deployed state and run `tools/update-stamp.py --check`.
-   Two decisions ride along for Andy — see "Needs Andy" below.
+0. ~~Merge `bin-2026-actuals` → master~~ **done 9/2, deployed.** One decision
+   still rides for Andy — see "Needs Andy" below (the 2024–25 headline
+   callouts).
 1. **Friday 9/4: Andy meets Geoff.** Standing agenda:
    - The 28 past-due launch labels — 22 "Planned for August, 2026" + 6 new
      September ones (P5.F3.A4, P6.F2.A1, P6.F2.A2, P6.F3.A3, P8.F1.A2,
@@ -100,11 +97,10 @@ Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
    callout to match. Deliberately left untouched per the port brief's scope;
    apply his wording in a follow-up commit.
 
-Related follow-up (Claude, when the link exists): `badgePressReleaseUrl`
-still points at the Sept 2025 release (87.8%). When DPI publishes the
-2025-26 results release (~early Sept 2026), swap the URL. The old
-`Badges-GradRate.svg` file stays in the repo (nothing references it;
-deletion is Andy's call).
+_Resolved 9/2: `badgePressReleaseUrl` now points at the 9/2/2026 DPI
+release ("2026 Graduation Rate Reaches Historic High…"), from Andy,
+verified 200._ The old `Badges-GradRate.svg` file stays in the repo
+(nothing references it; deletion is Andy's call).
 
 _Resolved 9/2: stamp question — the badge swap moved content on 9/2, so
 "Last updated" now reads 2026-09-02 (launch day) via the normal tool run._

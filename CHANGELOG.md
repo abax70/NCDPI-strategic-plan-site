@@ -11,8 +11,13 @@ new year) to replace the 2024–25 badge everywhere. Both references updated
 `badgeAltText` in measures.json; alt text now carries the year in both
 places). Verified rendering live: badge draws, correct file, zero console
 errors. Stamp 2026-09-01 → 2026-09-02. Old `Badges-GradRate.svg` kept on
-disk, unreferenced (deletion is Andy's call); `badgePressReleaseUrl` still
-points at the Sept 2025 release — swap when the 2025-26 release publishes.
+disk, unreferenced (deletion is Andy's call).
+
+**Deployed:** `badgePressReleaseUrl` swapped to the 9/2/2026 DPI release
+("2026 Graduation Rate Reaches Historic High…", from Andy, verified 200),
+then — on Andy's explicit go, embargo lifted — `bin-2026-actuals` merged to
+master and pushed (push = deploy; spot-check the live site after the Pages
+rebuild).
 
 ## 2026-09-01 (evening) — 2025-26 actuals populated on branch `bin-2026-actuals` (NOT live)
 
