@@ -2,6 +2,18 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-09-02 — CGR badge swapped to the 2025–26 record-high version (same branch)
+
+Graphics team delivered `images/Badges/25-26_Badges-GradRate.svg` ("Highest
+4-Year Graduation Rate in NC History, **2025–2026**" — same shield design,
+new year) to replace the 2024–25 badge everywhere. Both references updated
+(the static `<img>` in best-in-nation.html and `badgeImageUrl` +
+`badgeAltText` in measures.json; alt text now carries the year in both
+places). Verified rendering live: badge draws, correct file, zero console
+errors. Stamp 2026-09-01 → 2026-09-02. Old `Badges-GradRate.svg` kept on
+disk, unreferenced (deletion is Andy's call); `badgePressReleaseUrl` still
+points at the Sept 2025 release — swap when the 2025-26 release publishes.
+
 ## 2026-09-01 (evening) — 2025-26 actuals populated on branch `bin-2026-actuals` (NOT live)
 
 **Context:** Geoff reversed his own October hold by email (~5:30 pm): "populate

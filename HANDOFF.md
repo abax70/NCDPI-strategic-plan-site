@@ -86,20 +86,28 @@ Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
 7. Chart-engine extraction (post-8/5 item, still pending; parity rule below
    applies until then).
 
-## Needs Andy (two decisions, surfaced at the 9/1 evening port)
+## Needs Andy (one decision, surfaced at the 9/1 evening port)
 
 1. **The headline callouts on the four updated measures still describe
    2024–25.** The charts now show the 2026 actuals, but the hand-authored
    fields (`currentValue`, `currentDescription`, `statusLabel`, `nextUpdate`
    in both data files) still say e.g. "87.8% … (2024–25)" and "Record High —
    87.8%" on P1.M1, "Approaching Target — 55.0%" on P1.M10, "Baseline Year"
-   on both P6 measures. Updating them makes public *claims* (88.8% would be a
-   new record high; the badge press release cites 87.8%) — his wording call,
-   not ours. Deliberately left untouched per the port brief's scope; apply his
-   wording in a follow-up commit on the branch (or after merge).
-2. **When to stamp:** "Last updated" reads 2026-09-01 (data-change date). If
-   Andy prefers the public-launch date, `tools/update-stamp.py --force` on
-   merge day.
+   on both P6 measures. Updating them makes public *claims* — his wording
+   call, not ours. Note the graphics team's 9/2 badge swap ("Highest 4-Year
+   Graduation Rate in NC History, 2025–2026") already asserts the new CGR
+   record visually, which strengthens the case for refreshing the P1.M1
+   callout to match. Deliberately left untouched per the port brief's scope;
+   apply his wording in a follow-up commit.
+
+Related follow-up (Claude, when the link exists): `badgePressReleaseUrl`
+still points at the Sept 2025 release (87.8%). When DPI publishes the
+2025-26 results release (~early Sept 2026), swap the URL. The old
+`Badges-GradRate.svg` file stays in the repo (nothing references it;
+deletion is Andy's call).
+
+_Resolved 9/2: stamp question — the badge swap moved content on 9/2, so
+"Last updated" now reads 2026-09-02 (launch day) via the normal tool run._
 
 ## TRAP: the P4.M6a–d names will be overwritten by descriptions
 
