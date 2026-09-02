@@ -2,6 +2,25 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-09-02 (later) — headline callouts catch up to the 2025–26 actuals
+
+Andy's go ("update those dates, asap") closed the one decision left from the
+port. On all four updated measures: `currentValue` + `currentDescription` now
+show the 2026 actual with a (2025–26) tag; status chips updated per
+`derive_status`'s own vocabulary — P1.M1 "Record High — 88.8%", P1.M10
+"Approaching Target" → **"On Target — 59.2%"**, P6.M1a/b "Baseline Year" →
+**"On Target — 523 / 10"**; `nextUpdate` advanced (P1.M1 next-cohort text →
+September 2027; the other three "October 2026" → "September 2027"). One JS
+fix rode along: the BiN record-year pill scanned only `baseline` entries and
+still said "Record High · 2025" — it now also sees `actual` and shows
+"Record High · 2026". Verified rendered (chips, callouts, pill, zero console
+errors); verify-2026-actuals + bin-chips + charts pass; stamp unchanged
+(2026-09-02). Deployed same day.
+
+**Carry-forward sharpened:** a `build-pillar-measures.py` regen would revert
+these chips too (`derive_status` reads baselines only) — the preservation fix
+must cover status derivation, not just the `actual` field (HANDOFF item 4).
+
 ## 2026-09-02 — CGR badge swapped to the 2025–26 record-high version (same branch)
 
 Graphics team delivered `images/Badges/25-26_Badges-GradRate.svg` ("Highest

@@ -64,10 +64,14 @@ Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
    the name trap is resolved.**
    **NEW TRAP (9/1): `build-pillar-measures.py` writes `actual: None`
    unconditionally (`build_data_series`, ~line 447) — a regeneration run WIPES
-   the four hand-set 2026 actuals.** Before the next wave runs, teach the
-   script to preserve non-null `actual` values from the existing JSON (or
-   read actuals from the sheet); `tools/verify-2026-actuals.py` will catch a
-   wipe after the fact, but fix the cause, not the symptom.
+   the four hand-set 2026 actuals.** And `derive_status` reads `baseline`
+   entries ONLY, so a regen would also revert the 9/2 callout/chip updates
+   (P6 back to "Baseline Year", P1.M10 back to "Approaching Target");
+   `currentValue`/`currentDescription`/`nextUpdate` are regenerated from the
+   sheet too. Before the next wave runs, teach the script to preserve
+   non-null `actual` values and fold actuals into status derivation (or read
+   actuals from the sheet); `tools/verify-2026-actuals.py` will catch a wipe
+   after the fact, but fix the cause, not the symptom.
 5. **October SBE (10/7): the re-verify pass** — the 2026 actuals are already
    populated (branch `bin-2026-actuals`, 9/1); after 10/7, re-check the four
    values against the corrected accountability data and re-run
@@ -83,19 +87,14 @@ Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
 7. Chart-engine extraction (post-8/5 item, still pending; parity rule below
    applies until then).
 
-## Needs Andy (one decision, surfaced at the 9/1 evening port)
+## Needs Andy — nothing open from the port
 
-1. **The headline callouts on the four updated measures still describe
-   2024–25.** The charts now show the 2026 actuals, but the hand-authored
-   fields (`currentValue`, `currentDescription`, `statusLabel`, `nextUpdate`
-   in both data files) still say e.g. "87.8% … (2024–25)" and "Record High —
-   87.8%" on P1.M1, "Approaching Target — 55.0%" on P1.M10, "Baseline Year"
-   on both P6 measures. Updating them makes public *claims* — his wording
-   call, not ours. Note the graphics team's 9/2 badge swap ("Highest 4-Year
-   Graduation Rate in NC History, 2025–2026") already asserts the new CGR
-   record visually, which strengthens the case for refreshing the P1.M1
-   callout to match. Deliberately left untouched per the port brief's scope;
-   apply his wording in a follow-up commit.
+_Resolved 9/2 (Andy: "update those dates, asap"): the four measures'
+headline callouts now carry the 2025–26 actuals — P1.M1 "Record High —
+88.8%" (BiN pill derives "Record High · 2026"; JS fixed to see `actual`,
+not just `baseline`), P1.M10/P6.M1a/P6.M1b flip to "On Target — 59.2% /
+523 / 10" per derive_status's own vocabulary, descriptions read (2025–26),
+nextUpdate lines advanced to September 2027._
 
 _Resolved 9/2: `badgePressReleaseUrl` now points at the 9/2/2026 DPI
 release ("2026 Graduation Rate Reaches Historic High…"), from Andy,

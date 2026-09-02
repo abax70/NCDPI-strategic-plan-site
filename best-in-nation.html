@@ -2001,13 +2001,16 @@ function switchMeasure(index) {
     statusPill.style.display = '';
     statusPill.className = 'status-pill';
     // Surface the year of the record so users know the time frame.
-    // The "record year" is the most recent entry in dataSeries with a non-null
-    // baseline (observed data). Future years have baseline:null and only targets,
-    // so they're skipped. Falls back to the plain label if dataSeries is missing.
+    // The "record year" is the most recent entry in dataSeries with observed
+    // data — a non-null baseline OR actual (actuals arrived 2026-09: post-
+    // baseline years carry their observation in `actual`, e.g. P1.M1 2026).
+    // Future years have only targets, so they're skipped. Falls back to the
+    // plain label if dataSeries is missing.
     var recordYear = '';
     if (Array.isArray(m.dataSeries)) {
       for (var i = m.dataSeries.length - 1; i >= 0; i--) {
-        if (m.dataSeries[i] && m.dataSeries[i].baseline != null) {
+        if (m.dataSeries[i] &&
+            (m.dataSeries[i].baseline != null || m.dataSeries[i].actual != null)) {
           recordYear = m.dataSeries[i].year;
           break;
         }
