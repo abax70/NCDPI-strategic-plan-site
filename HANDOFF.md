@@ -1,12 +1,15 @@
 ---
 cc_status: warm
 cc_strand: strategic-plan
-cc_updated: 2026-09-01
+cc_updated: 2026-09-10
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-09-01. Session records: CHANGELOG.md._
+_Last updated: 2026-09-10. Session records: CHANGELOG.md._
+
+9/10: doc-only session — added `notes/working-with-claude.md` (colleague-facing
+process write-up). No dashboard, data, or deploy change; nothing to carry.
 
 ## Where things stand
 

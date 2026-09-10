@@ -2,6 +2,22 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-09-10 — colleague-facing "how we built this with Claude" write-up
+
+A colleague asked how the dashboard was built with Claude — the flow, major
+steps, how Claude produced the site, and what tools were used. Wrote
+`notes/working-with-claude.md`: a non-technical explainer grounded in the repo
+(PROJECT-PLAN.md, this CHANGELOG's history, the `data/build-*.py` pipeline, the
+`tools/verify-*.py` suite, and the `.claude/skills/` routines) rather than a
+generic account. Covers the Tableau→website pivot, the CSV/XLSX→JSON pipeline,
+hand-authored HTML/CSS/JS pages, verification (verify scripts + Playwright +
+axe/pa11y), and GitHub Pages deploy.
+
+- Doc only, no site/data touched — no linter applies.
+- Placed in `notes/` (not repo root) to keep a meta-doc out of the Pages root,
+  consistent with the other internal working docs already there.
+- No PII, nothing embargoed, no tokens.
+
 ## 2026-09-02 (later) — headline callouts catch up to the 2025–26 actuals
 
 Andy's go ("update those dates, asap") closed the one decision left from the
