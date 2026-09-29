@@ -1163,9 +1163,9 @@
     "badgeAltText": null,
     "badgePressReleaseUrl": null,
     "statusType": "on-target",
-    "statusLabel": "On Target — 523",
+    "statusLabel": "On Target — 521",
     "statusOverride": null,
-    "currentValue": "523",
+    "currentValue": "521",
     "currentDescription": "Number of public schools identified as low-performing (2025–26)",
     "whyItCounts": null,
     "nextUpdate": "September 2027",
@@ -1187,7 +1187,7 @@
         "year": "2026",
         "baseline": null,
         "target": 650.0,
-        "actual": 523
+        "actual": 521
       },
       {
         "year": "2027",
