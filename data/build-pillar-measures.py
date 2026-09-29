@@ -369,14 +369,21 @@ def read_sheet(xlsx_path):
     )
 
     # Year columns: header regex, classified baseline (Current/Actual) vs Target.
-    year_cols = {}  # year int -> (col idx, 'baseline'|'target')
+    # One year can carry BOTH roles: the 9/4 sheet added "2026 (Actual)" next
+    # to "2026 (Target)". Keyed by (year, role) — the old year-only key let
+    # the later column silently overwrite the earlier, dropping every 2026
+    # target (found 2026-09-29 before it ever ran).
+    year_cols = {}  # (year int, 'baseline'|'target') -> col idx
     for h, idx in headers.items():
         m = YEAR_HEADER_RE.search(h)
         if not m:
             continue
         year = int(m.group(1))
         role = "target" if "target" in h.lower() else "baseline"
-        year_cols[year] = (idx, role)
+        if (year, role) in year_cols:
+            abort(f"two {role} columns for {year} in the sheet header — "
+                  f"refusing to guess which one Geoff means")
+        year_cols[(year, role)] = idx
     if not year_cols:
         abort("no year columns recognized in the sheet header row")
 
@@ -409,43 +416,76 @@ def read_sheet(xlsx_path):
             "source_raw": cell_of(COL_SOURCE).value if COL_SOURCE in headers else None,
             "why": clean_text(cell_of(COL_WHY).value) if COL_WHY in headers else "",
             "context": clean_text(cell_of(COL_CONTEXT).value) if COL_CONTEXT in headers else "",
-            "year_cells": {yr: row[idx] for yr, (idx, _) in year_cols.items()},
-            "year_roles": {yr: role for yr, (idx, role) in year_cols.items()},
+            "year_cells": {key: row[idx] for key, idx in year_cols.items()},
         })
     return rows, census
 
 
 # --- Derivations ------------------------------------------------------------
 
-def build_data_series(row):
+def observed(entry):
+    """The observed value for one dataSeries year: a hand-set `actual` if
+    present, else the sheet's `baseline`. Every "what did we measure" read
+    goes through here so a hand-set actual counts for status, currentValue
+    and the gaps report — not just for the chart (fix 2026-09-29; before
+    this, derive_status read baselines only and a regen reverted the 9/2
+    "On Target" chips to "Baseline Year")."""
+    return entry["actual"] if entry.get("actual") is not None else entry["baseline"]
+
+
+def build_data_series(row, existing):
     """Sheet year cells → measures.json dataSeries (+ inferred valueFormat).
 
     Convention (matches measures.json): observed actuals go in `baseline`,
-    targets in `target`, `actual` reserved for future post-baseline tracking.
+    targets in `target`. `actual` holds post-baseline values that the sheet
+    does not carry — hand-set from a verified port (first use 2026-09-01:
+    the 2025-26 accountability actuals, notes/STRAT-PLAN-PORT-2026.md).
+    The sheet does not supply them (its "2026 (Actual)" column, added 9/4,
+    is blank), so `actual` is PRESERVED from the existing JSON per year;
+    before 2026-09-29 it was written as None unconditionally and a regen
+    silently wiped the hand-set values. If the sheet later fills the same
+    year, both land in the entry and a warning asks for a hand reconcile.
     All year rows are kept even when null — chart x-axis spacing depends on
     consistent years (build-measures.py convention).
     """
+    kept_actuals = {e["year"]: e["actual"] for e in existing.get("dataSeries", [])
+                    if e.get("actual") is not None}
     series = []
     kinds = []
     values = []
-    for year in sorted(row["year_cells"]):
-        cell = row["year_cells"][year]
+    parsed = {}  # (year, role) -> value
+    for (year, role), cell in row["year_cells"].items():
         val, kind = parse_cell(cell)
         if kind == "unparseable":
             warn(row["measureId"],
-                 f"unparseable value {cell.value!r} in {year} column — treated as null")
+                 f"unparseable value {cell.value!r} in {year} {role} column — treated as null")
             val, kind = None, None
         if kind:
             kinds.append(kind)
         if val is not None:
             values.append(val)
-        role = row["year_roles"][year]
+        parsed[(year, role)] = val
+    for year in sorted({y for (y, _) in parsed}):
+        baseline = parsed.get((year, "baseline"))
+        target = parsed.get((year, "target"))
+        actual = kept_actuals.pop(str(year), None)
+        if actual is not None:
+            values.append(actual)   # the y-axis max must cover it too
+            if baseline is not None:
+                warn(row["measureId"],
+                     f"{year}: sheet now reports {baseline} alongside the "
+                     f"hand-set actual {actual} — actual kept; reconcile by "
+                     f"hand (clear one so the chart draws a single bar)")
         series.append({
             "year": str(year),
-            "baseline": val if role == "baseline" else None,
-            "target": val if role == "target" else None,
-            "actual": None,
+            "baseline": baseline,
+            "target": target,
+            "actual": actual,
         })
+    for year, actual in kept_actuals.items():
+        warn(row["measureId"],
+             f"hand-set actual {actual} for {year} has no year column in the "
+             f"sheet any more — DROPPED; restore by hand if the column moved")
     if len(set(kinds)) > 1:
         warn(row["measureId"],
              f"mixed cell formats across year columns ({sorted(set(kinds))}) — "
@@ -509,7 +549,7 @@ def derive_status(measure_id, series, value_format):
       - regressed vs. prior actual → null + warning (hand-author; the script
         will not print "Approaching target" over a decline)
     """
-    actuals = [(int(e["year"]), e["baseline"]) for e in series if e["baseline"] is not None]
+    actuals = [(int(e["year"]), observed(e)) for e in series if observed(e) is not None]
     targets = [(int(e["year"]), e["target"]) for e in series if e["target"] is not None]
     if not actuals:
         return None, None
@@ -566,7 +606,7 @@ def build_measure(row, dim_entry, pillar_names, existing_map):
         except (ValueError, TypeError):
             warn(mid, f"sheet Pillar column not numeric: {pillar_raw!r}")
 
-    series, value_format, values = build_data_series(row)
+    series, value_format, values = build_data_series(row, existing)
     status_type, status_label = derive_status(mid, series, value_format)
     source_label, source_url = split_source(mid, row["source_raw"])
 
@@ -580,8 +620,9 @@ def build_measure(row, dim_entry, pillar_names, existing_map):
                   f"{dim_entry['name']!r} — sheet wins; update DIM to match")
     name = sheet_name or dim_entry["name"] or mid
     latest_actual = next(
-        (e["baseline"] for e in reversed(series) if e["baseline"] is not None), None
+        (observed(e) for e in reversed(series) if observed(e) is not None), None
     )
+    has_hand_actual = any(e["actual"] is not None for e in series)
 
     # Preserve-on-blank: sheet cell wins when non-empty, else keep existing.
     def sheet_or_existing(sheet_val, key):
@@ -617,7 +658,13 @@ def build_measure(row, dim_entry, pillar_names, existing_map):
         "currentValue": format_value(latest_actual, value_format),
         "currentDescription": existing.get("currentDescription"),  # PRESERVE
         "whyItCounts": sheet_or_existing(row["why"], "whyItCounts"),
-        "nextUpdate": sheet_or_existing(row["available"], "nextUpdate"),
+        # A measure carrying a hand-set actual is AHEAD of the sheet: its
+        # "When Available?" cell still names the release we already ported
+        # (9/2: sheet "October 2026" vs. hand-set "September 2027"), so the
+        # existing text wins there. Sheet-wins everywhere else.
+        "nextUpdate": (existing.get("nextUpdate") or row["available"])
+                      if has_hand_actual
+                      else sheet_or_existing(row["available"], "nextUpdate"),
         "notes": sheet_or_existing(row["context"], "notes"),
         "dataSeries": series,
     }
@@ -689,7 +736,7 @@ def measure_gaps(row, measure):
     if not (measure["sourceHtml"] or measure["sourceLabel"]):
         out.append("no usable Source — card renders **no Source line** "
                    "(hand-author sourceHtml, or get a clean source cell from Geoff)")
-    actuals = [e for e in measure["dataSeries"] if e["baseline"] is not None]
+    actuals = [e for e in measure["dataSeries"] if observed(e) is not None]
     targets = [e for e in measure["dataSeries"] if e["target"] is not None]
     if len(actuals) < 2:
         out.append("only one year of actuals so far")
