@@ -662,9 +662,9 @@ def build_measure(row, dim_entry, pillar_names, existing_map):
         # "When Available?" cell still names the release we already ported
         # (9/2: sheet "October 2026" vs. hand-set "September 2027"), so the
         # existing text wins there. Sheet-wins everywhere else.
-        "nextUpdate": (existing.get("nextUpdate") or row["available"])
-                      if has_hand_actual
-                      else sheet_or_existing(row["available"], "nextUpdate"),
+        "nextUpdate": (
+            (existing.get("nextUpdate") or row["available"]) if has_hand_actual
+            else sheet_or_existing(row["available"], "nextUpdate")),
         "notes": sheet_or_existing(row["context"], "notes"),
         "dataSeries": series,
     }
