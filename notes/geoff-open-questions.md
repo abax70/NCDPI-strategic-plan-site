@@ -26,6 +26,10 @@ Marked **[NEW 8/3]** where the question came out of the 8/3 working session.
    and `P8.F2.A1` moved In Progress → Not Started. P7.F3.A3 is notable because
    it flipped *forward* in the 7/15 refresh. **Deliberate reassessment, or a
    mis-click by a project lead?**
+   **ANSWERED 2026-09-29:** deliberate. Smartsheet cell history shows both
+   launch dates moved on 2026-07-24 (P7.F3.A3 → Oct 2027, P8.F2.A1 → Jan 2027)
+   as part of a 23-action reschedule Geoff confirmed to Andy was purposeful.
+   The site now uses Smartsheet's dates.
 
 3. **P4.M7 wording** — description keeps the concrete "five or fewer acts"
    rather than the goal's "none to a limited number." Keep, or soften?

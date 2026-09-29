@@ -59,9 +59,11 @@ Traps born 9/29:
   force), shifting coaching/academies one ID low. The build pairs Smartsheet
   statuses by ID — a text-vs-Smartsheet sweep (all 110 rows) found no other
   shift, only wording drift (P2.F1.A4, P5.F2.A2, P5.F3.A1/A2, P6.F4.A1, P7.F2.A2).
-- `build-pillar-data.py` takes launch dates from DIM ONLY; Smartsheet's Launch
-  Date column is written to the snapshot and otherwise ignored. 24 differ;
-  Geoff rescheduled 23 on 2026-07-24. Andy's call pending (9/29).
+- RESOLVED 9/29 (`80843a8`): launch dates now come from Smartsheet (via the
+  snapshot's LaunchDate column); DIM_Actions' ActionLaunchDate is only a
+  fallback. Geoff rescheduled 23 actions on 2026-07-24, on purpose (Andy).
+  That also answers the P7.F3.A3 / P8.F2.A1 "regression" question — both were
+  moved to 2027.
 - Open, not urgent: P6.M1a 2025 baseline — site 685 (ATR Table 41) vs the
   Regional file's prior-year 682. Predates the correction; ask Andy which
   source is authoritative.
