@@ -16,6 +16,11 @@ Produces:
 
 Usage:
   python data/build-pillar-data.py
+  python data/build-pillar-data.py --as-of 2026-10-01
+      Build the launch labels as of a future date (added 2026-09-29 so a
+      board-meeting build can be staged days early and still read right on
+      the morning it deploys). The snapshot's PulledDate column keeps the
+      real pull date either way.
 
 Why this exists:
   The pillar dashboard (pillar.html) needs a single JSON file to enable
@@ -30,6 +35,7 @@ import csv
 import json
 import os
 import re
+import sys
 from datetime import datetime, date
 
 # --- Configuration ---
@@ -56,8 +62,12 @@ STATUS_SNAPSHOT_CSV = os.path.join(SCRIPT_DIR, "action-statuses.csv")
 # is "Complete" — normalize so the display text stays stable.
 STATUS_DISPLAY = {"Complete": "Completed"}
 
-# Today's date for determining hasStarted
-TODAY = date.today()
+# Today's date for determining hasStarted and launch labels. --as-of
+# overrides it (see Usage); PULL_DATE always stays the real calendar date.
+PULL_DATE = date.today()
+TODAY = PULL_DATE
+if "--as-of" in sys.argv:
+    TODAY = date.fromisoformat(sys.argv[sys.argv.index("--as-of") + 1])
 
 
 def clean_text(text):
@@ -338,7 +348,7 @@ def write_status_snapshot(records):
     with open(STATUS_SNAPSHOT_CSV, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["ActionID", "Status", "LaunchDate", "PulledDate"])
-        today = TODAY.isoformat()
+        today = PULL_DATE.isoformat()
         for aid, status, launch in records:
             writer.writerow([aid, status, launch, today])
 
@@ -564,17 +574,32 @@ def build_pillar_data():
     # The landing-page "What's in Motion" ticker was already immune: it requires
     # hasStarted AND launchDate <= today (best-in-nation.html, renderMotionTicker).
     # This brings the pillar cards up to the same standard.
+    #
+    # Current-month grace (Andy, 2026-09-29, for the 10/1 SBE): launch dates are
+    # month-granular (the 1st), so on a board-meeting morning early in the
+    # month every action planned for THAT month read "Planned for October,
+    # 2026" -- i.e. already overdue on day one (six September actions did this
+    # on 9/1). An action is overdue only once its launch MONTH has ended; until
+    # then a Not Started action keeps "Launches in <Month>, <Year>".
     reconciled = 0
+    this_month = 0
     for action in actions:
         if action["hasStarted"] or not action["launchDate"]:
             continue
         launch_date = date.fromisoformat(action["launchDate"])
-        if launch_date <= TODAY:
-            action["launchText"] = f"Planned for {launch_date.strftime('%B, %Y')}"
+        month_year = launch_date.strftime('%B, %Y')
+        if (launch_date.year, launch_date.month) == (TODAY.year, TODAY.month):
+            action["launchText"] = f"Launches in {month_year}"
+            this_month += 1
+        elif launch_date <= TODAY:
+            action["launchText"] = f"Planned for {month_year}"
             reconciled += 1
     if reconciled:
-        print(f"  Reconciled {reconciled} launch labels: planned date passed, "
+        print(f"  Reconciled {reconciled} launch labels: planned month ended, "
               f"status still Not Started -> 'Planned for <Month>, <Year>'.")
+    if this_month:
+        print(f"  {this_month} Not Started actions launch this month -> "
+              f"'Launches in <Month>, <Year>' (current-month grace).")
 
     # 3. Nest actions into focus areas
     for action in actions:
