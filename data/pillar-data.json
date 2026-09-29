@@ -844,7 +844,7 @@
             {
               "actionId": "P2.F2.A1",
               "actionName": "Expand Advanced Teaching Roles",
-              "actionDesc": "Advocate for continued expansion of the Advanced Teaching Roles program. valid and reliable measures of teacher impact and effectiveness.",
+              "actionDesc": "Advocate for continued expansion of the Advanced Teaching Roles program.",
               "launchDate": "2025-08-01",
               "launchText": "Launched August, 2025",
               "hasStarted": true,
@@ -852,15 +852,24 @@
             },
             {
               "actionId": "P2.F2.A2",
-              "actionName": "Uniform Instructional Coaching Model",
-              "actionDesc": "Develop a uniform NCDPI model for instructional coaching that integrates literacy, numeracy and supports for low-performing schools.",
-              "launchDate": "2026-07-01",
-              "launchText": "Launched July, 2026",
+              "actionName": "Establish Educator Licensure Task Force",
+              "actionDesc": "Establish an SBE task force to develop: a licensure model that is more transparent and includes multiple pathways into the profession; an updated online licensure system that is user-friendly and guides applicants through the application process; apprenticeship models; pathways for professional advancement, such as exploring mentoring or coaching opportunities and additional local or state financial incentives for serving in advanced roles or high-need schools; and valid and reliable measures of teacher impact and effectiveness.",
+              "launchDate": "2026-02-01",
+              "launchText": "Launched February, 2026",
               "hasStarted": true,
               "status": "In Progress"
             },
             {
               "actionId": "P2.F2.A3",
+              "actionName": "Uniform Instructional Coaching Model",
+              "actionDesc": "Develop a uniform NCDPI model for instructional coaching that integrates literacy, numeracy and supports for low-performing schools.",
+              "launchDate": "2026-07-01",
+              "launchText": "Planned for July, 2026",
+              "hasStarted": false,
+              "status": "Not Started"
+            },
+            {
+              "actionId": "P2.F2.A4",
               "actionName": "Expand Leadership Academies",
               "actionDesc": "Continue to expand leadership academies in collaboration with state and regional partners for aspiring principals and superintendents, particularly in high-poverty and low-performing schools and provide specialized professional learning for financial officers and charter leaders to strengthen strategic management.",
               "launchDate": "2027-07-01",
