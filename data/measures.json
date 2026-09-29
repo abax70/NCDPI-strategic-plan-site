@@ -23,8 +23,8 @@
     "badgeAltText": "Highest 4-Year Graduation Rate in NC History, 2025-2026",
     "badgePressReleaseUrl": "https://www.dpi.nc.gov/news/press-releases/2026/09/02/2026-graduation-rate-reaches-historic-high-accountability-results-continue-positive-trend-north",
     "statusType": "record-high",
-    "statusLabel": "Record High — 88.8%",
-    "currentValue": "88.8%",
+    "statusLabel": "Record High — 89.0%",
+    "currentValue": "89.0%",
     "currentDescription": "Percentage of 9th-graders graduating from high school four years later (2025–26)",
     "whyItCounts": "Graduation rate is the most widely recognized measure of a public school system’s success. Every student who earns a diploma gains access to more career opportunities, higher lifetime earnings, and better health outcomes.",
     "nextUpdate": "Data for the next cohort, those in 9th-grade in 2023-24, will be available in September, 2027.",
@@ -46,7 +46,7 @@
         "year": "2026",
         "baseline": null,
         "target": 88.0,
-        "actual": 88.8
+        "actual": 89.0
       },
       {
         "year": "2027",
