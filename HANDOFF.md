@@ -1,12 +1,12 @@
 ---
 cc_status: warm
 cc_strand: strategic-plan
-cc_updated: 2026-09-10
+cc_updated: 2026-09-29
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-09-10. Session records: CHANGELOG.md._
+_Last updated: 2026-09-29. Session records: CHANGELOG.md._
 
 9/10: doc-only session — added `notes/working-with-claude.md` (colleague-facing
 process write-up). No dashboard, data, or deploy change; nothing to carry.
@@ -38,6 +38,25 @@ gate is a *caution*: accountability numbers can be revised until the
 corrected). The embargo on 2026 values becoming public lifts **Wed 2026-09-02**;
 before that, nothing 2026-flavored gets pushed anywhere public.
 Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
+
+## 10/1 SBE update — IN FLIGHT on local branch `sbe-2026-10-01` (never pushed)
+
+Plan, Session B prompt, and Thursday runbook: `notes/PLAN-SBE-2026-10-01.md`
+(its status board is the live state). Done 9/29: pillar builder preserves
+hand-set actuals + reads the sheet's new "2026 (Actual)" column; `--as-of`
+flag + current-month launch grace (Andy's option b); YRBS P4.M6a–d live with
+short titles (DIM `MeasureLbl` now overrides the sheet title); two stories +
+four approved matches; sparse-series chart fixes in both engine copies.
+Waiting: Session B's corrected values → three-field edit per the runbook.
+
+Traps born 9/29:
+- `build-measures.py` (BiN) still writes `actual: None` — never regen
+  `measures.json` without porting the 9/29 pillar fix first.
+- Geoff's sheet has "did not got to school" in P4.M6a's goal; the JSON is
+  fixed (`770ab75`) but a pillar regen restores the typo until the sheet cell
+  is fixed.
+- Smartsheet has 110 actions, DIM_Actions has 109 (P2.F2.A4 missing), so the
+  home page's "110 actions" is one more than the site shows — pre-existing.
 
 ## Next session queue
 
