@@ -33,7 +33,7 @@ Geoff's earlier 9/1 call to hold accountability-fed measures until October was
 **revised by Geoff himself, by email, 9/1 ~5:30 pm: "populate now" stands**
 (recorded in `notes/STRAT-PLAN-PORT-2026.md`, gate 3). What remains of the old
 gate is a *caution*: accountability numbers can be revised until the
-**2026-10-07 SBE meeting** — expect a re-verify pass after 10/7 (re-run
+**SBE meeting, Thu 2026-10-01** (Andy 9/28 — NOT 10/7 as first recorded) — the re-verify pass happens on branch `sbe-2026-10-01` for a 10/1 morning deploy (re-run
 `tools/verify-2026-actuals.py`, updating its EXPECTED table if numbers were
 corrected). The embargo on 2026 values becoming public lifts **Wed 2026-09-02**;
 before that, nothing 2026-flavored gets pushed anywhere public.
@@ -75,8 +75,8 @@ Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
    non-null `actual` values and fold actuals into status derivation (or read
    actuals from the sheet); `tools/verify-2026-actuals.py` will catch a wipe
    after the fact, but fix the cause, not the symptom.
-5. **October SBE (10/7): the re-verify pass** — the 2026 actuals are already
-   populated (branch `bin-2026-actuals`, 9/1); after 10/7, re-check the four
+5. **October SBE (Thu 10/1, corrected from 10/7): the re-verify pass** — IN PROGRESS 9/29 on branch `sbe-2026-10-01`; the 2026 actuals are already
+   populated (9/2); re-check the four
    values against the corrected accountability data and re-run
    `tools/verify-2026-actuals.py`. A correction is a one-line data edit; the
    commit provenance (`8da1273`) names each source.
@@ -162,7 +162,7 @@ alongside the long official `MeasureName` satisfies both.
   ones; new bug class → add a fifth, don't widen one. **The fifth arrived
   9/1: `verify-2026-actuals.py`** (bar-color valence + P6 decrease-axis flip
   — none of the four reads color); wave-specific EXPECTED table, re-run at
-  the post-10/7 re-verify.
+  the 10/1 re-verify.
 - `tools/check-source-lines.py` — NOT a fifth verify tool (written to confirm a
   change, hasn't earned pre-push status). Checks the 10 hand-authored
   `sourceHtml` lines; downgrades TLS/401/403 to WARN on purpose.
