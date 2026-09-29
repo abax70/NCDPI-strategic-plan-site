@@ -684,6 +684,310 @@
     ]
   },
   {
+    "id": "missed-school-due-to-feeling-unsafe",
+    "measureId": "P4.M6a",
+    "name": "Missed School Due to Feeling Unsafe",
+    "pillarNumber": 4,
+    "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
+    "menuLabel": "Missed School Due to Feeling Unsafe",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Based on Youth Risk Behavior Survey (YRBS) data, establish a baseline and decrease the percentage of high school students who did not got to school because they felt unsafe at school or on their way to school.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 12.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": "<a href=\"https://www.dpi.nc.gov/districts-schools/classroom-resources/office-teaching-and-learning/programs-and-initiatives/nc-healthy-schools/nc-healthy-schools-data\" target=\"_blank\" rel=\"noopener\">NC Youth Risk Behavior Survey (YRBS), High School, 2025</a>",
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 9.9%",
+    "statusOverride": null,
+    "currentValue": "9.9%",
+    "currentDescription": "Percentage of high school students who did not go to school because they felt unsafe at school or on their way to school (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": "Spring 2028",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 9.9,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 9.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 8.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "student-sense-of-belonging",
+    "measureId": "P4.M6b",
+    "name": "Student Sense of Belonging",
+    "pillarNumber": 4,
+    "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
+    "menuLabel": "Student Sense of Belonging",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Based on Youth Risk Behavior Survey (YRBS) data, establish a baseline and increase the percentage of high school students who strongly agree or agree that they feel like they belong at their school.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 90.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": "<a href=\"https://www.dpi.nc.gov/districts-schools/classroom-resources/office-teaching-and-learning/programs-and-initiatives/nc-healthy-schools/nc-healthy-schools-data\" target=\"_blank\" rel=\"noopener\">NC Youth Risk Behavior Survey (YRBS), High School, 2025</a>",
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 59.2%",
+    "statusOverride": null,
+    "currentValue": "59.2%",
+    "currentDescription": "Percentage of high school students who agree or strongly agree that they belong at their school (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": "Spring 2028",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 59.2,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 65.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 70.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "students-reporting-poor-mental-health",
+    "measureId": "P4.M6c",
+    "name": "Students Reporting Poor Mental Health",
+    "pillarNumber": 4,
+    "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
+    "menuLabel": "Students Reporting Poor Mental Health",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Based on Youth Risk Behavior Survey (YRBS) data, establish a baseline and decrease the percentage of high school students who reported that their mental health was most of the time or always not good.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 25.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": "<a href=\"https://www.dpi.nc.gov/districts-schools/classroom-resources/office-teaching-and-learning/programs-and-initiatives/nc-healthy-schools/nc-healthy-schools-data\" target=\"_blank\" rel=\"noopener\">NC Youth Risk Behavior Survey (YRBS), High School, 2025</a>",
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 19.6%",
+    "statusOverride": null,
+    "currentValue": "19.6%",
+    "currentDescription": "Percentage of high school students who reported their mental health was not good most of the time or always (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": "Spring 2028",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 19.6,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 18.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 16.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      }
+    ]
+  },
+  {
+    "id": "students-feeling-sad-or-hopeless",
+    "measureId": "P4.M6d",
+    "name": "Students Feeling Sad or Hopeless",
+    "pillarNumber": 4,
+    "pillarName": "Ensure Healthy, Safe and Secure Learning Environments",
+    "menuLabel": "Students Feeling Sad or Hopeless",
+    "menuSubLabel": null,
+    "menuTooltip": "",
+    "iconUrl": null,
+    "goal": "Based on Youth Risk Behavior Survey (YRBS) data, establish a baseline and decrease the percentage of high school students who felt sad or hopeless.",
+    "definition": null,
+    "metricText": null,
+    "valueFormat": "#.#%",
+    "yAxisMax": 40.0,
+    "sourceLabel": null,
+    "sourceUrl": null,
+    "sourceHtml": "<a href=\"https://www.dpi.nc.gov/districts-schools/classroom-resources/office-teaching-and-learning/programs-and-initiatives/nc-healthy-schools/nc-healthy-schools-data\" target=\"_blank\" rel=\"noopener\">NC Youth Risk Behavior Survey (YRBS), High School, 2025</a>",
+    "moreDataUrl": null,
+    "moreDataText": null,
+    "badgeImageUrl": null,
+    "badgeAltText": null,
+    "badgePressReleaseUrl": null,
+    "statusType": "baseline",
+    "statusLabel": "Baseline Year — 29.7%",
+    "statusOverride": null,
+    "currentValue": "29.7%",
+    "currentDescription": "Percentage of high school students who felt sad or hopeless (2024–25)",
+    "whyItCounts": null,
+    "nextUpdate": "Spring 2028",
+    "notes": null,
+    "dataSeries": [
+      {
+        "year": "2024",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2025",
+        "baseline": 29.7,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2026",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2027",
+        "baseline": null,
+        "target": 27.0,
+        "actual": null
+      },
+      {
+        "year": "2028",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      },
+      {
+        "year": "2029",
+        "baseline": null,
+        "target": 25.0,
+        "actual": null
+      },
+      {
+        "year": "2030",
+        "baseline": null,
+        "target": null,
+        "actual": null
+      }
+    ]
+  },
+  {
     "id": "schools-with-few-or-no-violent-incidents",
     "measureId": "P4.M7",
     "name": "Schools with Few or No Violent Incidents",
