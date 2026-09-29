@@ -55,8 +55,16 @@ Traps born 9/29:
 - Geoff's sheet has "did not got to school" in P4.M6a's goal; the JSON is
   fixed (`770ab75`) but a pillar regen restores the typo until the sheet cell
   is fixed.
-- Smartsheet has 110 actions, DIM_Actions has 109 (P2.F2.A4 missing), so the
-  home page's "110 actions" is one more than the site shows — pre-existing.
+- RESOLVED 9/29 (`9d0e74b`): DIM had dropped P2.F2.A2 (licensure task
+  force), shifting coaching/academies one ID low. The build pairs Smartsheet
+  statuses by ID — a text-vs-Smartsheet sweep (all 110 rows) found no other
+  shift, only wording drift (P2.F1.A4, P5.F2.A2, P5.F3.A1/A2, P6.F4.A1, P7.F2.A2).
+- `build-pillar-data.py` takes launch dates from DIM ONLY; Smartsheet's Launch
+  Date column is written to the snapshot and otherwise ignored. 24 differ;
+  Geoff rescheduled 23 on 2026-07-24. Andy's call pending (9/29).
+- Open, not urgent: P6.M1a 2025 baseline — site 685 (ATR Table 41) vs the
+  Regional file's prior-year 682. Predates the correction; ask Andy which
+  source is authoritative.
 
 ## Next session queue
 
