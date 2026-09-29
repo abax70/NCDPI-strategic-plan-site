@@ -66,8 +66,16 @@ STATUS_DISPLAY = {"Complete": "Completed"}
 # overrides it (see Usage); PULL_DATE always stays the real calendar date.
 PULL_DATE = date.today()
 TODAY = PULL_DATE
-if "--as-of" in sys.argv:
-    TODAY = date.fromisoformat(sys.argv[sys.argv.index("--as-of") + 1])
+for _i, _arg in enumerate(sys.argv[1:], start=1):
+    # Accept "--as-of 2026-10-01" and "--as-of=2026-10-01"; anything else
+    # that starts with --as-of is an error, never a silent build-as-of-today.
+    if _arg.startswith("--as-of"):
+        _val = _arg.split("=", 1)[1] if "=" in _arg else (
+            sys.argv[_i + 1] if _i + 1 < len(sys.argv) else "")
+        try:
+            TODAY = date.fromisoformat(_val)
+        except ValueError:
+            raise SystemExit(f"--as-of needs a YYYY-MM-DD date, got {_val!r}")
 
 
 def clean_text(text):
