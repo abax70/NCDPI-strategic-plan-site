@@ -614,11 +614,20 @@ def build_measure(row, dim_entry, pillar_names, existing_map):
     # exists, Geoff owns display titles — sheet wins when non-blank; DIM
     # MeasureName stays as the fallback (and DIM keeps owning IDs, sort,
     # and the BiN flag). Warn on drift so the two never silently diverge.
+    #
+    # Site-side title override (Andy, 2026-09-29): a non-blank DIM MeasureLbl
+    # beats the sheet. First used for YRBS P4.M6a-d, whose sheet MeasureNames
+    # are 59-86-char metric descriptions (longest other title: 51). Geoff's
+    # wording is not lost — it lives in the hand-authored currentDescription
+    # line under the headline value, the pattern every other card follows.
     sheet_name = row.get("sheet_name") or ""
-    if sheet_name and dim_entry["name"] and sheet_name != dim_entry["name"]:
-        warn(mid, f"sheet MeasureName {sheet_name!r} != DIM "
-                  f"{dim_entry['name']!r} — sheet wins; update DIM to match")
-    name = sheet_name or dim_entry["name"] or mid
+    if dim_entry["label"]:
+        name = dim_entry["label"]
+    else:
+        if sheet_name and dim_entry["name"] and sheet_name != dim_entry["name"]:
+            warn(mid, f"sheet MeasureName {sheet_name!r} != DIM "
+                      f"{dim_entry['name']!r} — sheet wins; update DIM to match")
+        name = sheet_name or dim_entry["name"] or mid
     latest_actual = next(
         (observed(e) for e in reversed(series) if observed(e) is not None), None
     )
