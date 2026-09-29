@@ -693,7 +693,7 @@
     "menuSubLabel": null,
     "menuTooltip": "",
     "iconUrl": null,
-    "goal": "Based on Youth Risk Behavior Survey (YRBS) data, establish a baseline and decrease the percentage of high school students who did not got to school because they felt unsafe at school or on their way to school.",
+    "goal": "Based on Youth Risk Behavior Survey (YRBS) data, establish a baseline and decrease the percentage of high school students who did not go to school because they felt unsafe at school or on their way to school.",
     "definition": null,
     "metricText": null,
     "valueFormat": "#.#%",
