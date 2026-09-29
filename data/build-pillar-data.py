@@ -382,6 +382,29 @@ def read_statuses_from_snapshot():
     return statuses
 
 
+def read_launch_dates_from_snapshot():
+    """
+    Snapshot CSV → {ActionID: date} from its LaunchDate column (Smartsheet's
+    Launch Date). A live pull rewrites the snapshot before this runs, so it is
+    always the freshest copy available. Empty dict if the file is missing.
+
+    Why (Andy, 2026-09-29): Smartsheet owns launch dates. Geoff rescheduled 23
+    actions on 2026-07-24 (cell history; "shifted some purposely"), but the
+    build read DIM_Actions' original plan dates only, so 29 cards showed
+    "Planned for <past month>" on SBE eve where the tracker had ~11.
+    """
+    dates = {}
+    if not os.path.exists(STATUS_SNAPSHOT_CSV):
+        return dates
+    with open(STATUS_SNAPSHOT_CSV, "r", encoding="utf-8-sig") as f:
+        for row in csv.DictReader(f):
+            aid = row.get("ActionID", "").strip()
+            launch = parse_date(row.get("LaunchDate", ""))
+            if aid and launch:
+                dates[aid] = launch
+    return dates
+
+
 def read_statuses_from_xlsx():
     """
     Legacy source: the manually downloaded tracker XLSX. Kept as a fallback
@@ -550,6 +573,21 @@ def build_pillar_data():
     print("  Reading blog_focus_area_matches_final.csv...")
     stories = read_blog_matches()
     print(f"  Found {len(stories)} blog-focus-area matches.")
+
+    # 1b. Smartsheet launch dates win over DIM_Actions' plan dates (see
+    #     read_launch_dates_from_snapshot). hasStarted is re-derived from the
+    #     new date here; step 2 then lets real status override it as before.
+    launch_dates = read_launch_dates_from_snapshot()
+    moved = 0
+    for action in actions:
+        ss_date = launch_dates.get(action["actionId"])
+        if ss_date and ss_date.isoformat() != action["launchDate"]:
+            action["launchDate"] = ss_date.isoformat()
+            action["launchText"] = format_launch_text(ss_date)
+            action["hasStarted"] = ss_date <= TODAY
+            moved += 1
+    print(f"  Launch dates: {len(launch_dates)} from Smartsheet; "
+          f"{moved} differ from DIM_Actions and were replaced.")
 
     # 2. Merge action statuses from the tracker (unknown IDs — e.g. actions in
     #    Smartsheet not yet in DIM_Actions.csv — are ignored by design)
