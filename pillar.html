@@ -2105,8 +2105,11 @@ function renderTrajectoryChart(measure, els) {
   }
   els.trajWrap.style.display = '';
   els.trajLabel.style.display = '';
-  const targetFinalVal = values[values.length - 1];
-  const targetYear = labels[labels.length - 1];
+  // Last year that HAS a value, not the last axis year: biennial YRBS
+  // ends on 2029, and reading 2030 printed "Path to  by 2030" (2026-09-29).
+  const lastValIdx = values.map(v => v != null).lastIndexOf(true);
+  const targetFinalVal = values[lastValIdx];
+  const targetYear = labels[lastValIdx];
   els.trajLabel.textContent = 'Path to ' + formatValueClean(targetFinalVal, measure.valueFormat) + ' by ' + targetYear;
 
   // Principled y-axis (see best-in-nation.html for the full rationale):
@@ -2329,6 +2332,8 @@ function renderMeasureCharts(measure, block) {
 
   const labels = measure.dataSeries.map(d => d.year);
   const values = measure.dataSeries.map(d => getBarValue(d));
+  // Phone-width axis on a series with empty years — see the x-tick callback.
+  const sparseNarrow = window.innerWidth <= 768 && values.some(v => v == null);
   const bgColors = measure.dataSeries.map(d => getBarColor(d, decrease));
   const borderColors = measure.dataSeries.map(d => getBarBorder(d).color);
   const borderWidths = measure.dataSeries.map(d => getBarBorder(d).width);
@@ -2449,10 +2454,18 @@ function renderMeasureCharts(measure, block) {
               size: window.innerWidth <= 768 ? 12 : 13,
               weight: '600'
             },
-            maxTicksLimit: window.innerWidth <= 768 ? 6 : undefined,
+            // Sparse series (biennial YRBS, 2026-09-29): with empty years
+            // on the axis, autoSkip at phone widths kept exactly the barless
+            // years (2024/2026/2028/2030) and dropped the ones WITH bars, so
+            // a 2025 bar read as "2024". When any year is empty, label every
+            // year that has a bar and blank the empty ones instead.
+            maxTicksLimit: (window.innerWidth <= 768 && !sparseNarrow) ? 6 : undefined,
             maxRotation: window.innerWidth <= 480 ? 45 : 0,
             minRotation: 0,
-            autoSkip: true
+            autoSkip: !sparseNarrow,
+            callback: function(val, i) {
+              return (sparseNarrow && values[i] == null) ? '' : labels[i];
+            }
           }
         }
       },
