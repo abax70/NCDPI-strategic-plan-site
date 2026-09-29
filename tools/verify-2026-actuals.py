@@ -2,8 +2,8 @@
 
 WHY THIS EXISTS (2026-09-01)
   First actuals ever entered the dataSeries `actual` field: four measures
-  (P1.M1 CGR 88.8, P1.M10 proficiency 59.2, P6.M1a low-performing schools
-  523, P6.M1b low-performing districts 10). All four MEET their 2026 target,
+  (P1.M1 CGR 89.0, P1.M10 proficiency 59.2, P6.M1a low-performing schools
+  521, P6.M1b low-performing districts 10). All four MEET their 2026 target,
   so every 2026 bar must render teal "Meets Target" (#077890) — the four
   verify-*.py tools prove painted pixels, axis invariants, chips and label
   collisions, but none of them reads bar COLOR, and valence is the entire
@@ -14,8 +14,9 @@ WHY THIS EXISTS (2026-09-01)
 
   Values here are the 2026-09-01 port from the Accountability-Team pipeline
   and remain subject to the accountability correction window until the
-  2026-10-07 SBE meeting — re-run this tool (updating EXPECTED if numbers
-  were corrected) at the post-10/7 re-verify pass.
+  10/1 SBE meeting (not 10/7 as first recorded). EXPECTED updated 2026-09-29
+  to the corrected values (P1.M1 88.8 -> 89.0, P6.M1a 523 -> 521; brief:
+  notes/STRAT-PLAN-PORT-2026-10-01.md).
 
 Run: python tools/verify-2026-actuals.py   (needs playwright, like verify-charts)
 """
@@ -32,9 +33,9 @@ TEAL = "#077890"
 
 # measureId -> (page, expected 2026 actual, decreasing-goal?)
 EXPECTED = {
-    "P1.M1":  ("best-in-nation.html", 88.8, False),
+    "P1.M1":  ("best-in-nation.html", 89.0, False),
     "P1.M10": ("pillar.html?p=1",     59.2, False),
-    "P6.M1a": ("pillar.html?p=6",     523,  True),
+    "P6.M1a": ("pillar.html?p=6",     521,  True),
     "P6.M1b": ("pillar.html?p=6",     10,   True),
 }
 
