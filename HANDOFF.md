@@ -1,157 +1,67 @@
 ---
 cc_status: warm
 cc_strand: strategic-plan
-cc_updated: 2026-09-29
+cc_updated: 2026-10-01
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-09-29. Session records: CHANGELOG.md._
+_Last updated: 2026-10-01. Session records: CHANGELOG.md._
 
-9/10: doc-only session — added `notes/working-with-claude.md` (colleague-facing
-process write-up). No dashboard, data, or deploy change; nothing to carry.
+## State
 
-## Where things stand
+- **10/1 SBE release DEPLOYED** — master = origin/master = `bc0b3f4`, Pages
+  built 10:18 am ET 10/1. Live: P1.M1 89.0, P1.M10 59.2, P6.M1a 521, P6.M1b
+  10 (all match the live accountability dashboards, checked 10/1); YRBS
+  P4.M6a–d; 172 story matches; 110 actions; stamp 2026-10-01.
+- `sbe-2026-10-01` is fully merged (local + origin both at `bc0b3f4`);
+  safe to delete on Andy's say-so — not urgent, nothing rides on it.
+- `notes/PLAN-SBE-2026-10-01.md` is CLOSED (its frontmatter says delete or
+  archive after 10/1 — Andy's call; leave in place until he says).
+- Accountability gate is over: the October correction window closed at the
+  10/1 SBE. Next accountability values = 2026–27 cycle (Sept 2027).
 
-9/1 session done and **deployed**: Smartsheet pull (zero status churn since 8/3),
-two summer blog posts matched and live (164 → 168 matches), stamp 2026-09-01,
-all four verify tools pass. The 8/14 CGR baseline fix (87.7 → 87.8, `cd736fe`)
-is merged. Remote = local = deployed.
+## Traps (live)
 
-**9/2: the 2025-26 actuals port is MERGED AND DEPLOYED** (branch
-`bin-2026-actuals` → master, embargo lifted, Andy's explicit go). The port:
-four 2026 actuals (P1.M1 88.8, P1.M10 59.2, P6.M1a 523, P6.M1b 10 — all meet
-target, all verified teal), one engine fix (decrease trajectory tick anchor,
-`7a240ee`), the 2025–26 CGR record-high badge + 9/2 DPI press-release link,
-new `tools/verify-2026-actuals.py` valence checker, stamp 2026-09-02. Brief:
-`notes/STRAT-PLAN-PORT-2026.md` (its values table is source of truth). All
-five verify tools passed pre-merge.
-
-## GATE LIFTED 9/1 evening — populate now; re-verify after the October SBE
-
-Geoff's earlier 9/1 call to hold accountability-fed measures until October was
-**revised by Geoff himself, by email, 9/1 ~5:30 pm: "populate now" stands**
-(recorded in `notes/STRAT-PLAN-PORT-2026.md`, gate 3). What remains of the old
-gate is a *caution*: accountability numbers can be revised until the
-**SBE meeting, Thu 2026-10-01** (Andy 9/28 — NOT 10/7 as first recorded) — the re-verify pass happens on branch `sbe-2026-10-01` for a 10/1 morning deploy (re-run
-`tools/verify-2026-actuals.py`, updating its EXPECTED table if numbers were
-corrected). The embargo on 2026 values becoming public lifts **Wed 2026-09-02**;
-before that, nothing 2026-flavored gets pushed anywhere public.
-Memory `project-strat-plan-measures-wait-october-sbe` is superseded.
-
-## 10/1 SBE update — IN FLIGHT on local branch `sbe-2026-10-01` (never pushed)
-
-Plan, Session B prompt, and Thursday runbook: `notes/PLAN-SBE-2026-10-01.md`
-(its status board is the live state). Done 9/29: pillar builder preserves
-hand-set actuals + reads the sheet's new "2026 (Actual)" column; `--as-of`
-flag + current-month launch grace (Andy's option b); YRBS P4.M6a–d live with
-short titles (DIM `MeasureLbl` now overrides the sheet title); two stories +
-four approved matches; sparse-series chart fixes in both engine copies.
-Waiting: Session B's corrected values → three-field edit per the runbook.
-
-Traps born 9/29:
-- `build-measures.py` (BiN) still writes `actual: None` — never regen
-  `measures.json` without porting the 9/29 pillar fix first.
-- Geoff's sheet has "did not got to school" in P4.M6a's goal; the JSON is
-  fixed (`770ab75`) but a pillar regen restores the typo until the sheet cell
-  is fixed.
-- RESOLVED 9/29 (`9d0e74b`): DIM had dropped P2.F2.A2 (licensure task
-  force), shifting coaching/academies one ID low. The build pairs Smartsheet
-  statuses by ID — a text-vs-Smartsheet sweep (all 110 rows) found no other
-  shift, only wording drift (P2.F1.A4, P5.F2.A2, P5.F3.A1/A2, P6.F4.A1, P7.F2.A2).
-- RESOLVED 9/29 (`80843a8`): launch dates now come from Smartsheet (via the
-  snapshot's LaunchDate column); DIM_Actions' ActionLaunchDate is only a
-  fallback. Geoff rescheduled 23 actions on 2026-07-24, on purpose (Andy).
-  That also answers the P7.F3.A3 / P8.F2.A1 "regression" question — both were
-  moved to 2027.
-- Open, not urgent: P6.M1a 2025 baseline — site 685 (ATR Table 41) vs the
-  Regional file's prior-year 682. Predates the correction; ask Andy which
-  source is authoritative.
+- `build-measures.py` (BiN) still writes `actual: None` and derives status
+  from baselines only — never regen `measures.json` without porting the 9/29
+  pillar-builder fix (`61790d6`) first. `verify-2026-actuals.py` catches a wipe.
+- Geoff's sheet still has "did not got to school" in P4.M6a's goal; JSON
+  fixed (`770ab75`); a `build-pillar-measures.py` regen restores the typo
+  until the sheet cell is fixed.
+- Launch dates come from Smartsheet (`80843a8`); DIM_Actions'
+  ActionLaunchDate is fallback only. Status is paired by action ID — DIM
+  drift once shifted P2.F2 (fixed `9d0e74b`).
+- Live-site spot-check gotchas (Playwright `inner_text`): pillar.html opens
+  on the Actions tab with focus area F1 selected — click the Results /
+  Stories tab and the target focus area (visible locator only) before
+  asserting; chart headings are CSS-uppercased ("PATH TO …"); P1.M1 lives on
+  best-in-nation.html, not pillar 1.
 
 ## Next session queue
 
-0. ~~Merge `bin-2026-actuals` → master~~ **done 9/2, deployed.** One decision
-   still rides for Andy — see "Needs Andy" below (the 2024–25 headline
-   callouts).
-1. **Friday 9/4: Andy meets Geoff.** Standing agenda:
-   - The 28 past-due launch labels — 22 "Planned for August, 2026" + 6 new
-     September ones (P5.F3.A4, P6.F2.A1, P6.F2.A2, P6.F3.A3, P8.F1.A2,
-     P8.F1.A3). Is that the wording he wants?
-   - P7.F3.A3 / P8.F2.A1: still Not Started as of the 9/1 pull — deliberate
-     regression or mis-click? (P7.F3.A3 has moved twice.)
-   - `notes/geoff-open-questions.md` — 15 items.
-   - FYI: Mo's 8/28 blog letter says CGR 87.7%; site corrected to 87.8 on 8/14.
-     Blog-side fix, not ours.
-   - Parked from 8/4: the TSV's `"from approved description (Andy 7/23)"`
-     provenance on five rows actually approved 8/3 — date them separately?
-2. **Sort out the P4.M6a–d names** before Shaun's wave lands — see TRAP below.
-3. **Two BiN source links need a human** (both in `data/measures.json`, never
-   reviewed): P8.M2's Statistical Profile link 403s to scripted clients
-   (`apps.schools.nc.gov/public/f?p=145:11::::::`) — **Andy must click it**;
+1. **Geoff's open questions** — no answers since 9/4; all in
+   `notes/geoff-open-questions.md` (past-due wording, etc.). Surface only if
+   Andy brings Geoff news.
+2. **Two BiN source links need a human** (`data/measures.json`): P8.M2's
+   Statistical Profile link 403s to scripted clients
+   (`apps.schools.nc.gov/public/f?p=145:11::::::`) — Andy must click it;
    P1.M8's Perkins link redirects `cte.ed.gov` → `octae.ed.gov` — update when
    convenient.
-4. **Watch for Shaun** (YRBS P4.M6a–d) and **Curtis** (low-performing schools)
-   → asterisks flip to Y → that wave goes live. Expect parser warnings (P4.M6a
-   2030 target is literal `-%`; YRBS is biennial). **Do not let it land before
-   the name trap is resolved.**
-   **NEW TRAP (9/1): `build-pillar-measures.py` writes `actual: None`
-   unconditionally (`build_data_series`, ~line 447) — a regeneration run WIPES
-   the four hand-set 2026 actuals.** And `derive_status` reads `baseline`
-   entries ONLY, so a regen would also revert the 9/2 callout/chip updates
-   (P6 back to "Baseline Year", P1.M10 back to "Approaching Target");
-   `currentValue`/`currentDescription`/`nextUpdate` are regenerated from the
-   sheet too. Before the next wave runs, teach the script to preserve
-   non-null `actual` values and fold actuals into status derivation (or read
-   actuals from the sheet); `tools/verify-2026-actuals.py` will catch a wipe
-   after the fact, but fix the cause, not the symptom.
-5. **October SBE (Thu 10/1, corrected from 10/7): the re-verify pass** — IN PROGRESS 9/29 on branch `sbe-2026-10-01`; the 2026 actuals are already
-   populated (9/2); re-check the four
-   values against the corrected accountability data and re-run
-   `tools/verify-2026-actuals.py`. A correction is a one-line data edit; the
-   commit provenance (`8da1273`) names each source.
-6. **Engine edge, low priority, both copies:** the *increasing* trajectory
-   branch (best-in-nation.html AND pillar.html) still anchors its lattice at
-   `maxV`, assuming the final target is the series max — the exact mirror of
-   the decrease bug fixed in `7a240ee`. It breaks the day an actual OVERSHOOTS
-   its 2030 target (plausible: CGR 2029/2030). `verify-chart-scales.py` will
-   catch it; fix both copies per the parity rule when it fires or when
-   convenient.
-7. Chart-engine extraction (post-8/5 item, still pending; parity rule below
-   applies until then).
-
-## Needs Andy — nothing open from the port
-
-_Resolved 9/2 (Andy: "update those dates, asap"): the four measures'
-headline callouts now carry the 2025–26 actuals — P1.M1 "Record High —
-88.8%" (BiN pill derives "Record High · 2026"; JS fixed to see `actual`,
-not just `baseline`), P1.M10/P6.M1a/P6.M1b flip to "On Target — 59.2% /
-523 / 10" per derive_status's own vocabulary, descriptions read (2025–26),
-nextUpdate lines advanced to September 2027._
-
-_Resolved 9/2: `badgePressReleaseUrl` now points at the 9/2/2026 DPI
-release ("2026 Graduation Rate Reaches Historic High…"), from Andy,
-verified 200._ The old `Badges-GradRate.svg` file stays in the repo
-(nothing references it; deletion is Andy's call).
-
-_Resolved 9/2: stamp question — the badge swap moved content on 9/2, so
-"Last updated" now reads 2026-09-02 (launch day) via the normal tool run._
-
-## TRAP: the P4.M6a–d names will be overwritten by descriptions
-
-The sheet carries authored `MeasureName` values for P4.M6a–d that are metric
-descriptions, not names (86/75/84/58 chars vs. short DIM names like "Missed
-School Due to Feeling Unsafe" / "Student Sense of Belonging" / "Students
-Reporting Poor Mental Health" / "Students Feeling Sad or Hopeless").
-
-**Nothing in the pipeline will warn you**: the MeasureName drift check fires
-only on `Y`-flagged rows (these are `*`), and reconciliation compares IDs, not
-names. Under *sheet wins, DIM follows*, the moment they flip to `Y` the long
-text becomes the card titles.
-
-**The lever, currently unused:** `menuLabel` falls back to `name` only when
-DIM's `MeasureLbl` is empty (`data/build-pillar-measures.py:596`), and
-`MeasureLbl` is blank on every pillar measure today. A short `MeasureLbl`
-alongside the long official `MeasureName` satisfies both.
+3. **Port the 9/29 preserve-actuals fix into `build-measures.py`** (BiN) —
+   before any BiN regen.
+4. **Curtis / future waves**: when sheet asterisks flip to Y, expect parser
+   warnings (P4.M6a 2030 target literal `-%`; YRBS biennial). MeasureName
+   drift check fires only on Y rows — keep DIM `MeasureLbl` short titles.
+5. **Engine edge, low priority, both copies:** the *increasing* trajectory
+   branch (best-in-nation.html AND pillar.html) anchors its lattice at `maxV`
+   — breaks the day an actual overshoots its 2030 target (not yet: CGR
+   2026 89.0 vs 2030 target 92.0). Mirror of `7a240ee`. `verify-chart-scales.py` catches it.
+6. Chart-engine extraction (pending; parity rule below applies until then).
+7. Open, not urgent: P6.M1a 2025 baseline — site 685 (ATR Table 41) vs
+   Regional prior-year 682. Predates the correction; which is authoritative?
+8. FYI: Mo's 8/28 blog letter says CGR 87.7% (site 87.8 since 8/14) —
+   blog-side, not ours.
 
 ## Longer-running carry-overs (not blocking)
 
@@ -183,15 +93,14 @@ alongside the long official `MeasureName` satisfies both.
   working tree and can Sync mid-session** — it did on 9/1, pushing the
   checkpoint trail before wrapup. Check `git ls-remote` before assuming
   unpushed.
-- **Verification is FOUR tools**, all passing 2026-09-01: `verify-charts.py`
+- **Verification is FIVE tools**, all passing 2026-10-01: `verify-charts.py`
   (8 pillars × 3 widths), `verify-bin-chips.py` (14 chips),
   `verify-chart-scales.py` (axis invariants; `--self-test`),
   `verify-value-labels.py` (label overlap, 108 charts × 4 widths;
   `--self-test`). Each exists because a real bug slipped past the previous
-  ones; new bug class → add a fifth, don't widen one. **The fifth arrived
-  9/1: `verify-2026-actuals.py`** (bar-color valence + P6 decrease-axis flip
-  — none of the four reads color); wave-specific EXPECTED table, re-run at
-  the 10/1 re-verify.
+  ones; new bug class → add a sixth, don't widen one. The fifth,
+  `verify-2026-actuals.py` (9/1), checks bar-color valence + P6 decrease-axis
+  flip; its EXPECTED table is wave-specific (now the corrected 10/1 values).
 - `tools/check-source-lines.py` — NOT a fifth verify tool (written to confirm a
   change, hasn't earned pre-push status). Checks the 10 hand-authored
   `sourceHtml` lines; downgrades TLS/401/403 to WARN on purpose.

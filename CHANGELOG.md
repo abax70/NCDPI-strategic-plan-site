@@ -2,6 +2,46 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-10-01 — SBE release: corrected 2025–26 values, YRBS, stories — DEPLOYED
+
+Branch `sbe-2026-10-01` (prepared 9/29, plan + status board in
+`notes/PLAN-SBE-2026-10-01.md`) fast-forwarded into master and pushed at
+~10:17 am ET on Andy's go; Pages built `bc0b3f4` at 10:18 am ET.
+
+**What shipped (9/29 prep work, first public today):**
+- Corrected accountability values (brief: `notes/STRAT-PLAN-PORT-2026-10-01.md`):
+  P1.M1 CGR 88.8 → **89.0**, P6.M1a low-performing schools 523 → **521**;
+  P1.M10 59.2 and P6.M1b 10 unchanged. Record High chip, CGR badge, and
+  On Target chips all still hold.
+- YRBS P4.M6a–d live for the first time (short titles via DIM `MeasureLbl`).
+- Two September blog posts + four approved matches (168 → 172).
+- P2.F2.A2 licensure task force restored (110 actions).
+- Launch dates from Smartsheet, not DIM_Actions; current-month grace →
+  11 past-due labels, 4 "Launches in October, 2026".
+- Pipeline: pillar builder preserves hand-set actuals and reads the sheet's
+  "2026 (Actual)" column; `--as-of` flag.
+
+**Release morning (10/1):**
+- Final Smartsheet pull as of 10/1: 110 live statuses, zero status or
+  launch-date change; PulledDate-only churn not committed.
+- Stamp 2026-09-02 → 2026-10-01 (`bc0b3f4`); all five verify tools PASS.
+- **Gate held correctly:** at 10:08 am ET the accountability dashboards were
+  still pre-correction (CGR 88.8%, Regional statewide 523). Site waited until
+  Andy reported them deployed, then re-check matched every figure: CGR,
+  Landing, and LTG 89.0%; Proficiency 59%; Regional `landing.json`
+  NC-SEA 682 → 521 schools, 23 → 10 districts.
+- Live spot-check passed: values and chips, YRBS cards (titles,
+  "Path to 8% by 2029", phone-width year labels 2025/2027/2029), P8.F3.A2
+  "Launches in October, 2026", both new stories under their focus areas,
+  "Last updated Oct 1, 2026", zero console errors.
+- Missed the 9:00 am target by ~1 h 20 min, waiting on the dashboard
+  deploy (deliberate: site must match the dashboards).
+- Found at kickoff: `sbe-2026-10-01` had been published to GitHub on
+  9/29 3:44 pm ET (plan said never push). Pages builds only from master, so
+  the live site was unaffected; the branch was publicly readable for ~2 days.
+- CALIBRATION: kickoff raised 1 flag (branch published early), confirmed
+  real, no consequence (the hold window had passed).
+
 ## 2026-09-10 — colleague-facing "how we built this with Claude" write-up
 
 A colleague asked how the dashboard was built with Claude — the flow, major
