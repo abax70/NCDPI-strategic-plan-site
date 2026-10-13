@@ -2,6 +2,31 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-10-12/13 — story refresh + `/refresh-site` skill — DEPLOYED
+
+**10/12 (committed, not pushed that day):**
+- One new blog post: Northwest Elementary (Pitt) attendance bright spot,
+  BlogNum 67. Two approved matches, P4.F2 and P6.F1 (172 → 174).
+  Pre-update copy archived to
+  `data/_Archive/blog_posts_2026-10-12_pre-update.csv`.
+- Rebuilt `pillar-data.json` as of 10/12; stamp 2026-10-01 → 2026-10-12.
+  The JSON diff is only the stamp + the two story entries, so no action
+  status or launch-date churn reached the site.
+- New project skill `.claude/skills/refresh-site/SKILL.md` (routine
+  stories → Smartsheet → rebuild → stamp → verify → deploy); `.gitignore`
+  now tracks `.claude/skills/`.
+- No CHANGELOG/HANDOFF written on 10/12; the verify results from that day
+  weren't recorded.
+
+**10/13 deploy:**
+- All five verify tools re-run on `2511aa7`: PASS (charts 8×3, bin-chips 14,
+  chart-scales 36 charts, value-labels 124 charts × 4 widths, 2026-actuals).
+  `update-stamp.py --check` OK.
+- Pushed `541677d..2511aa7` at 14:23 UTC (10:23 am ET); the live
+  `pillar-data.json` showed 2026-10-12 within ~40 s.
+- Live spot-check passed: the story appears under P4.F2 (`?p=4`) and P6.F1
+  (`?p=6`) on the Stories tab, footer "Oct 12, 2026", zero console errors.
+
 ## 2026-10-01 — SBE release: corrected 2025–26 values, YRBS, stories — DEPLOYED
 
 Branch `sbe-2026-10-01` (prepared 9/29, plan + status board in
