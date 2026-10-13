@@ -26,6 +26,9 @@ Newest session first. Started 2026-07-15; earlier history lives in `git log`.
   `pillar-data.json` showed 2026-10-12 within ~40 s.
 - Live spot-check passed: the story appears under P4.F2 (`?p=4`) and P6.F1
   (`?p=6`) on the Stories tab, footer "Oct 12, 2026", zero console errors.
+- CALIBRATION: kickoff raised 2 unverified items: 10/12 verify results
+  unrecorded (re-run, all PASS, so no consequence) and the 10/12 docs not
+  written (real, fixed in `938c879`). Both were cheap to resolve.
 
 ## 2026-10-01 — SBE release: corrected 2025–26 values, YRBS, stories — DEPLOYED
 
