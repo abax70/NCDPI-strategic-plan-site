@@ -8,8 +8,8 @@
 //  PREREQUISITE (one-time, already set in your VSCode settings.json):
 //      "dev.containers.dockerPath": "podman"
 //
-//  Mounts exactly two things: this project folder, and your ~/.claude (login +
-//  skills + memory). Nothing else on the host is visible. NEVER add a mount for
+//  Mounts this project folder, your ~/.claude (login + skills + memory), and
+//  NCDPI-Warehouse + NCDPI-Data-Visualization (read-only). Nothing else on the host is visible. NEVER add a mount for
 //  OneDrive/SharePoint, C:\Users\AndyBaxter\Data, or G:\My Drive\EPP Codebase.
 // =============================================================================
 {
@@ -33,7 +33,22 @@
     // in every repo's container for no benefit. Authenticate once, persists
     // everywhere, survives rebuilds.
     "source=claude-sandbox-gh,target=/home/vscode/.config/gh,type=volume",
-    "source=claude-sandbox-wrangler,target=/home/vscode/.config/.wrangler,type=volume"
+    "source=claude-sandbox-wrangler,target=/home/vscode/.config/.wrangler,type=volume",
+    // NCDPI-Warehouse, READ-ONLY, so this repo's sessions can read the warehouse's
+    // documentation, table definitions and built tables (repos almost always need
+    // warehouse data). Same ${localEnv:USERPROFILE} form as the ~/.claude mount, so it
+    // resolves identically on the laptop and the desktop. Read-only on purpose:
+    // deliverables are built in their own repo, never across repos. Whatever gitignored
+    // DATA sits in that folder on the host is visible here too (Andy accepted that
+    // 2026-10-22). Reaches the container only after a rebuild; verify with:
+    //   ls /home/vscode/NCDPI-Warehouse
+    "source=${localEnv:USERPROFILE}/Projects/NCDPI-Warehouse,target=/home/vscode/NCDPI-Warehouse,type=bind,readonly",
+    // NCDPI-Data-Visualization, READ-ONLY, so chart work in this repo uses the live
+    // brand palette, chart conventions and chart_helpers.py instead of the older copies
+    // bundled in the chart-creator skill (which probes this path first). Read-only on
+    // purpose: changes to the viz repo happen in its own session (added 2026-10-22).
+    // Verify after a rebuild with: ls /home/vscode/NCDPI-Data-Visualization
+    "source=${localEnv:USERPROFILE}/Projects/NCDPI-Data-Visualization,target=/home/vscode/NCDPI-Data-Visualization,type=bind,readonly"
   ],
   // Cloudflare's OAuth flow redirects to a callback server on localhost:8976.
   // Without this forward the browser can't reach it and `wrangler login` just
