@@ -1,21 +1,26 @@
 ---
 cc_status: warm
 cc_strand: strategic-plan
-cc_updated: 2026-10-13
+cc_updated: 2026-10-28
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-10-13. Session records: CHANGELOG.md._
+_Last updated: 2026-10-28. Session records: CHANGELOG.md._
 
 ## State
 
-- **10/12 story refresh DEPLOYED 10/13** — pushed `2511aa7` 10:23 am ET;
-  live stamp "Oct 12, 2026"; 174 story matches (BlogNum 67, Northwest
-  Elementary, under P4.F2 + P6.F1); 110 actions, no status churn since 10/1.
-  Latest row in `blog_posts.csv` is BlogNum 67 (dated 10/1); the 10/12
-  walk's exact end date wasn't recorded, so the next refresh should walk
-  from 10/1.
+- **10/28 refresh DEPLOYED 10/28** — pushed `9cec851` 3:18 pm ET; live
+  stamp "Oct 28, 2026"; 176 story matches (BlogNum 68, New Hope ELD award,
+  P2.F4 + P1.F3); 110 actions, **no Smartsheet status churn since 10/1**
+  (Geoff hasn't updated the tracker; Andy nudged him 10/28). Blog walked
+  through 10/21; next walk starts from 10/21 (newest row BlogNum 68 is
+  10/14, but the 10/21 tax-amendment statement was deliberately excluded).
+- **DUE Mon 11/2 or Tue 11/3: re-run `/refresh-site` before the Wed 11/4
+  board meeting.** Labels are computed at build time; the 4 "Launches in
+  October, 2026" labels go stale on 11/1 (Not Started ones flip to
+  past-due "Planned for October"). Run it whether or not Geoff updates the
+  sheet; if he has, the same run picks up his changes. Push on Andy's go.
 - Routine refreshes now run via `/refresh-site`
   (`.claude/skills/refresh-site/SKILL.md`).
 - 10/1 SBE values still live: P1.M1 89.0, P1.M10 59.2, P6.M1a 521, P6.M1b

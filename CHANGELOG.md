@@ -2,6 +2,33 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-10-28 — story refresh, Smartsheet unchanged — DEPLOYED
+
+- Walked dpi.nc.gov/blog pages 0–2 back past the 10/1 boundary: two new
+  posts. **Added** the 10/14 New Hope Elementary (Orange) ELD Recognition
+  Award post as BlogNum 68, matched to P2.F4 + P1.F3 (174 → 176). Andy
+  struck the drafted borderline P1.F4 (hurricane project). **Excluded** the
+  10/21 joint statement on the proposed tax constitutional amendments
+  (same call as the 10/1 CMS finance statement). Pre-update copy archived
+  to `data/_Archive/blog_posts_2026-10-28_pre-update.csv`; draft kept as
+  `data/blog_focus_area_matches_draft_2026-10-28.csv` (approved rows only).
+- Smartsheet live pull: 110 statuses, **zero status or launch-date churn
+  since 10/1** — confirms Andy's read that the tracker hasn't been updated;
+  snapshot not committed. Labels unchanged: 11 past-due, 4 "Launches in
+  October, 2026".
+- Stamp 2026-10-12 → 2026-10-28. All five verify tools PASS (charts 8×3,
+  bin-chips 14, chart-scales 36, value-labels 124 × 4 widths,
+  2026-actuals).
+- Pushed `e4595cf..9cec851` at 19:18 UTC (3:18 pm ET); live
+  `pillar-data.json` showed 2026-10-28 within ~40 s. Live spot-check: story
+  on `?p=2` and `?p=1` Stories tabs, footer "Oct 28, 2026", zero console
+  errors.
+- Built as of today, not `--as-of 11/1` (Andy chose this at kickoff): the 4 "Launches
+  in October" labels go stale on 11/1, so a re-run is queued for Mon 11/2
+  or Tue 11/3, ahead of the Wed 11/4 board meeting.
+- CALIBRATION: kickoff raised 0 flags; 1 decision (month rollover) put to
+  Andy.
+
 ## 2026-10-12/13 — story refresh + `/refresh-site` skill — DEPLOYED
 
 **10/12 (committed, not pushed that day):**
