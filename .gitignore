@@ -1,5 +1,8 @@
-# Local dev config
-.claude/
+# Local dev config — ignored, EXCEPT project skills, which are tracked so
+# they can't be lost in a folder move again (the OneDrive-era skills were;
+# 2026-10-12). Skills must never contain tokens or raw sheet prose.
+.claude/*
+!.claude/skills/
 *.pyc
 __pycache__/
 

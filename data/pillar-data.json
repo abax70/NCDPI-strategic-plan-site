@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-01",
+  "lastUpdated": "2026-10-28",
   "pillars": [
     {
       "pillarId": "P1",
@@ -221,6 +221,14 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 68,
+              "title": "New Hope Elementary School educator named recipient of the 2026 English Language Development Recognition Award",
+              "url": "https://www.dpi.nc.gov/blog/2026/10/14/new-hope-elementary-school-educator-named-recipient-2026-english-language-development-recognition",
+              "publishDate": "October 14, 2026",
+              "county": "Orange",
+              "rationale": "Holds multilingual learners to high standards and treats their languages and cultures as assets"
+            },
             {
               "blogNum": 57,
               "title": "Meet LaTresha Wilson, Southwest Region Principal of the Year",
@@ -1015,6 +1023,14 @@
           ],
           "stories": [
             {
+              "blogNum": 68,
+              "title": "New Hope Elementary School educator named recipient of the 2026 English Language Development Recognition Award",
+              "url": "https://www.dpi.nc.gov/blog/2026/10/14/new-hope-elementary-school-educator-named-recipient-2026-english-language-development-recognition",
+              "publishDate": "October 14, 2026",
+              "county": "Orange",
+              "rationale": "State recognition of an ESL educator elevates the profession"
+            },
+            {
               "blogNum": 65,
               "title": "STEM Schools of Distinction among many recipients recognized during the North Carolina State Board of Education September Meeting",
               "url": "https://www.dpi.nc.gov/blog/2026/09/09/stem-schools-distinction-among-many-recipients-recognized-during-north-carolina-state-board",
@@ -1663,6 +1679,14 @@
           ],
           "stories": [
             {
+              "blogNum": 67,
+              "title": "Following significant improvement toward chronic absenteeism, Northwest Elementary School was identified as an attendance bright spot by N.C. Department of Public Instruction",
+              "url": "https://www.dpi.nc.gov/blog/2026/10/01/following-significant-improvement-toward-chronic-absenteeism-northwest-elementary-school-was",
+              "publishDate": "October 01, 2026",
+              "county": "Pitt",
+              "rationale": "A school that cut chronic absenteeism nearly in half -- reducing chronic absenteeism is a named P4.F2 action"
+            },
+            {
               "blogNum": 63,
               "title": "Statement from North Carolina Superintendent of Public Instruction Maurice \"Mo\" Green on Meta Social Media Settlement",
               "url": "https://www.dpi.nc.gov/blog/2026/08/26/statement-north-carolina-superintendent-public-instruction-maurice-mo-green-meta-social-media",
@@ -2042,6 +2066,14 @@
             }
           ],
           "stories": [
+            {
+              "blogNum": 67,
+              "title": "Following significant improvement toward chronic absenteeism, Northwest Elementary School was identified as an attendance bright spot by N.C. Department of Public Instruction",
+              "url": "https://www.dpi.nc.gov/blog/2026/10/01/following-significant-improvement-toward-chronic-absenteeism-northwest-elementary-school-was",
+              "publishDate": "October 01, 2026",
+              "county": "Pitt",
+              "rationale": "Named an AttendNC Bright Spot by NCDPI's Office of Research and Promising Practices"
+            },
             {
               "blogNum": 55,
               "title": "AttendNC Bright Spots",

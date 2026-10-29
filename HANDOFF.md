@@ -1,19 +1,25 @@
 ---
 cc_status: warm
 cc_strand: strategic-plan
-cc_updated: 2026-10-01
+cc_updated: 2026-10-13
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-10-01. Session records: CHANGELOG.md._
+_Last updated: 2026-10-13. Session records: CHANGELOG.md._
 
 ## State
 
-- **10/1 SBE release DEPLOYED** — master = origin/master = `bc0b3f4`, Pages
-  built 10:18 am ET 10/1. Live: P1.M1 89.0, P1.M10 59.2, P6.M1a 521, P6.M1b
-  10 (all match the live accountability dashboards, checked 10/1); YRBS
-  P4.M6a–d; 172 story matches; 110 actions; stamp 2026-10-01.
+- **10/12 story refresh DEPLOYED 10/13** — pushed `2511aa7` 10:23 am ET;
+  live stamp "Oct 12, 2026"; 174 story matches (BlogNum 67, Northwest
+  Elementary, under P4.F2 + P6.F1); 110 actions, no status churn since 10/1.
+  Latest row in `blog_posts.csv` is BlogNum 67 (dated 10/1); the 10/12
+  walk's exact end date wasn't recorded, so the next refresh should walk
+  from 10/1.
+- Routine refreshes now run via `/refresh-site`
+  (`.claude/skills/refresh-site/SKILL.md`).
+- 10/1 SBE values still live: P1.M1 89.0, P1.M10 59.2, P6.M1a 521, P6.M1b
+  10; YRBS P4.M6a–d.
 - `sbe-2026-10-01` is fully merged (local + origin both at `bc0b3f4`);
   safe to delete on Andy's say-so — not urgent, nothing rides on it.
 - `notes/PLAN-SBE-2026-10-01.md` is CLOSED (its frontmatter says delete or
