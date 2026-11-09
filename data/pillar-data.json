@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-28",
+  "lastUpdated": "2026-11-09",
   "pillars": [
     {
       "pillarId": "P1",
@@ -98,12 +98,20 @@
               "actionName": "PreK-12 Teaching & Learning Framework",
               "actionDesc": "Design a Pre-K–12 Teaching and Learning Framework with PSUs to set shared expectations for standards-aligned instruction, integrated supports and access to high-quality learning for all students.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             }
           ],
           "stories": [
+            {
+              "blogNum": 69,
+              "title": "Growing opportunity: How Golden LEAF schools are preparing students for North Carolina's future",
+              "url": "https://www.dpi.nc.gov/blog/2026/11/04/growing-opportunity-how-golden-leaf-schools-are-preparing-students-north-carolinas-future",
+              "publishDate": "November 04, 2026",
+              "county": "Swain",
+              "rationale": "The Golden LEAF Schools Initiative is a named P1.F2 action -- coaching and a high-quality math curriculum in rural middle schools"
+            },
             {
               "blogNum": 64,
               "title": "Back to School Message 2026-27",
@@ -771,9 +779,9 @@
               "actionName": "Professional Learning Standards",
               "actionDesc": "Develop, adopt and promote statewide standards for high-quality professional learning to serve as guidance for the design and evaluation of professional learning opportunities, including microcredentials.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P2.F1.A4",
@@ -872,9 +880,9 @@
               "actionName": "Uniform Instructional Coaching Model",
               "actionDesc": "Develop a uniform NCDPI model for instructional coaching that integrates literacy, numeracy and supports for low-performing schools.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P2.F2.A4",
@@ -1264,7 +1272,7 @@
               "actionName": "Share School-Family Communication Best Practices",
               "actionDesc": "Promote collaboration and partner with PSUs to share best practices on effective communication between schools and families.",
               "launchDate": "2026-10-01",
-              "launchText": "Launches in October, 2026",
+              "launchText": "Planned for October, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -1953,7 +1961,7 @@
               "actionName": "Audit Agency Contracts",
               "actionDesc": "Audit agency contracts to identify opportunities for cost savings, increased efficiency and improved return on investment, with special focus on technology-related agreements.",
               "launchDate": "2026-10-01",
-              "launchText": "Launches in October, 2026",
+              "launchText": "Planned for October, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -2126,18 +2134,18 @@
               "actionName": "Establish Education Networks",
               "actionDesc": "Establish statewide, regional and partner education networks to facilitate implementation of key strategic plan priorities, share scalable resources and support continuous improvement across PSUs.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P6.F2.A2",
               "actionName": "Create Shared Network Resources",
               "actionDesc": "Create and maintain shared resources, assets and digital tools for use by education networks, enabling districts and schools to accelerate strategic initiatives and replicate effective practices.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P6.F2.A3",
@@ -2228,9 +2236,9 @@
               "actionName": "School Improvement Protocols",
               "actionDesc": "Adopt statewide protocols, including diagnostics, planning tools and fidelity monitoring to guide local improvement efforts for low-performing schools.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P6.F3.A4",
@@ -2568,18 +2576,18 @@
               "actionName": "Connect Advocacy Efforts",
               "actionDesc": "Connect and align NCDPI, education partners and allies to support local, regional and statewide efforts.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P8.F1.A3",
               "actionName": "Support Aligned Initiatives",
               "actionDesc": "Encourage and support aligned initiatives and outreach via social media, media and events.",
               "launchDate": "2026-09-01",
-              "launchText": "Planned for September, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched September, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             }
           ],
           "stories": [
@@ -2612,7 +2620,7 @@
               "actionName": "PSU Family Engagement Toolkits",
               "actionDesc": "Develop toolkits for PSUs to engage families and partners in their schools.",
               "launchDate": "2026-10-01",
-              "launchText": "Launches in October, 2026",
+              "launchText": "Planned for October, 2026",
               "hasStarted": false,
               "status": "Not Started"
             },
@@ -2647,18 +2655,18 @@
               "actionName": "Engage Policymakers in Schools",
               "actionDesc": "Engage local and state policymakers to attend events, visit schools and participate in public education initiatives.",
               "launchDate": "2026-08-01",
-              "launchText": "Planned for August, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched August, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P8.F3.A2",
               "actionName": "Engage Business & Philanthropic Investment",
               "actionDesc": "Engage businesses, individuals and philanthropic organizations to invest in PSUs at the local, regional and state levels.",
               "launchDate": "2026-10-01",
-              "launchText": "Launches in October, 2026",
-              "hasStarted": false,
-              "status": "Not Started"
+              "launchText": "Launched October, 2026",
+              "hasStarted": true,
+              "status": "In Progress"
             },
             {
               "actionId": "P8.F3.A3",
