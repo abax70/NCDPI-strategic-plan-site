@@ -1,26 +1,25 @@
 ---
 cc_status: warm
 cc_strand: strategic-plan
-cc_updated: 2026-10-28
+cc_updated: 2026-11-09
 ---
 
 # HANDOFF — NCDPI Strategic Plan Site
 
-_Last updated: 2026-10-28. Session records: CHANGELOG.md._
+_Last updated: 2026-11-09. Session records: CHANGELOG.md._
 
 ## State
 
-- **10/28 refresh DEPLOYED 10/28** — pushed `9cec851` 3:18 pm ET; live
-  stamp "Oct 28, 2026"; 176 story matches (BlogNum 68, New Hope ELD award,
-  P2.F4 + P1.F3); 110 actions, **no Smartsheet status churn since 10/1**
-  (Geoff hasn't updated the tracker; Andy nudged him 10/28). Blog walked
-  through 10/21; next walk starts from 10/21 (newest row BlogNum 68 is
-  10/14, but the 10/21 tax-amendment statement was deliberately excluded).
-- **DUE Mon 11/2 or Tue 11/3: re-run `/refresh-site` before the Wed 11/4
-  board meeting.** Labels are computed at build time; the 4 "Launches in
-  October, 2026" labels go stale on 11/1 (Not Started ones flip to
-  past-due "Planned for October"). Run it whether or not Geoff updates the
-  sheet; if he has, the same run picks up his changes. Push on Andy's go.
+- **11/9 refresh DEPLOYED 11/9** — pushed `2df1fb0` 4:20 pm ET; live stamp
+  "Nov 9, 2026"; 177 story matches (BlogNum 69, Golden LEAF, P1.F2); 110
+  actions, 10 moved Not Started → In Progress since 10/28. 5 past-due
+  labels, 4 "Launches in November, 2026". Blog walked through 11/4; next
+  walk starts from 11/4.
+- **Next refresh: early December (12/1 or soon after).** The 4 November
+  labels go stale on 12/1 — Not Started ones flip to past-due "Planned for
+  November". Andy's standing call: build as of the run date and let late
+  items show late; don't backdate or wait on the sheet owner. (The 11/2–3
+  pre-board run was missed; don't let a month rollover sit.)
 - Routine refreshes now run via `/refresh-site`
   (`.claude/skills/refresh-site/SKILL.md`).
 - 10/1 SBE values still live: P1.M1 89.0, P1.M10 59.2, P6.M1a 521, P6.M1b

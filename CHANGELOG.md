@@ -2,6 +2,36 @@
 
 Newest session first. Started 2026-07-15; earlier history lives in `git log`.
 
+## 2026-11-09 — story refresh + Smartsheet churn — DEPLOYED
+
+- **The pre-board re-run queued for 11/2–11/3 never ran.** No data commit
+  between 10/28 and today, so the site carried the "Oct 28" stamp and four
+  stale "Launches in October" labels through the 11/4 board meeting.
+- Walked dpi.nc.gov/blog pages 0–2 back past 10/21: one new post. **Added**
+  the 11/4 Golden LEAF Schools Initiative post as BlogNum 69 (county Swain,
+  the only school named), matched to P1.F2 (Golden LEAF is action
+  P1.F2.A1). Andy struck the borderline P6.F1 draft. 176 → 177 matches.
+  Archive: `data/_Archive/blog_posts_2026-11-09_pre-update.csv`; draft:
+  `data/blog_focus_area_matches_draft_2026-11-09.csv` (approved row only).
+- Smartsheet live pull: **10 actions Not Started → In Progress** since 10/28
+  (P1.F2.A3, P2.F1.A3, P2.F2.A3, P6.F2.A1, P6.F2.A2, P6.F3.A3, P8.F1.A2,
+  P8.F1.A3, P8.F3.A1, P8.F3.A2); no launch-date changes. Snapshot committed.
+  Andy expected no update; the tracker had been touched (by whom/when not
+  checked). Past-due labels 11 → 5 (P1.F4.A5, P2.F4.A2 Aug; P3.F1.A4,
+  P5.F3.A4, P8.F2.A2 Oct). 4 "Launches in November" (P2.F3.A1, P2.F3.A2,
+  P6.F4.A3, P8.F3.A3). Built as of today; Andy's standing call is that late
+  items show late.
+- Stamp 2026-10-28 → 2026-11-09. All five verify tools PASS (charts 8×3,
+  bin-chips 14, chart-scales 36, value-labels 124 × 4 widths,
+  2026-actuals).
+- Pushed `d0e63a1..2df1fb0` at 21:20 UTC (4:20 pm ET); live JSON showed
+  2026-11-09 within ~40 s. Live spot-check: Golden LEAF story under P1.F2
+  on `?p=1` Stories tab, footer "Nov 9, 2026", zero console errors; live
+  JSON spot-checked P8.F1.A2 In Progress, P3.F1.A4 past-due.
+- CALIBRATION: kickoff raised 1 confirmed flag (missed pre-board run, real)
+  and 1 resolved (two side branches already merged); 1 decision (story
+  matches) put to Andy.
+
 ## 2026-10-28 — story refresh, Smartsheet unchanged — DEPLOYED
 
 - Walked dpi.nc.gov/blog pages 0–2 back past the 10/1 boundary: two new
